@@ -1,0 +1,192 @@
+@import 'aos/dist/aos.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: #FAF7F2;
+    color: #241C24;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Standard reduced-motion baseline */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Smooth rendering and modern spring easing for AOS - NEVER hide content with opacity: 0 */
+[data-aos] {
+  opacity: 1 !important;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Subtle reveal transforms without hiding content */
+[data-aos=fade-up]:not(.aos-animate) {
+  transform: translate3d(0, 16px, 0);
+}
+[data-aos=fade-down]:not(.aos-animate) {
+  transform: translate3d(0, -16px, 0);
+}
+[data-aos=fade-left]:not(.aos-animate) {
+  transform: translate3d(16px, 0, 0);
+}
+[data-aos=fade-right]:not(.aos-animate) {
+  transform: translate3d(-16px, 0, 0);
+}
+
+[data-aos].aos-animate {
+  transform: translate3d(0, 0, 0) !important;
+}
+
+/* Card grids, interactive products, and dynamic filters must always render immediately */
+.grid [data-aos],
+.grid > div {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media print {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Ensure mobile screens display instantly without blank gaps, invisible cards, or scroll stutter */
+@media (max-width: 768px) {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1C4C34;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #541424;
+}
+
+/* Ant Design overrides to harmonize with Sharon branding */
+.ant-btn-primary {
+  background-color: #541424 !important;
+}
+
+.ant-btn-primary:hover {
+  background-color: #7C2C0C !important;
+}
+
+.ant-tabs-ink-bar {
+  background-color: #1C4C34 !important;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #1C4C34 !important;
+  font-weight: 600 !important;
+}
+
+/* Ken Burns Background & Hero Transitions */
+@keyframes kenburns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+
+.animate-ken-burns {
+  animation: kenburns 6.5s ease-out forwards;
+}
+
+@keyframes heroFadeDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-badge {
+  animation: heroFadeDown 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-hero-headline {
+  animation: heroFadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-hero-paragraph {
+  animation: heroFadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-hero-cta {
+  animation: heroFadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes heroProgressBar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+

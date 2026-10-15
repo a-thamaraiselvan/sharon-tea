@@ -1,0 +1,20 @@
+{
+  "name": "sharon-website",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "dev:web": "turbo dev --filter=@sharon/web",
+    "dev:admin": "turbo dev --filter=@sharon/admin",
+    "dev:api": "turbo dev --filter=@sharon/api",
+    "build": "turbo build",
+    "build:web": "turbo build --filter=@sharon/web",
+    "build:admin": "turbo build --filter=@sharon/admin",
+    "build:api": "turbo build --filter=@sharon/api",
+    "lint": "turbo lint",
+    "clean": "turbo clean"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

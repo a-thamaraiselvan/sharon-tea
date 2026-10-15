@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --sharon-primary: #241C24;
+    --sharon-forest: #1C4C34;
+    --sharon-fresh-leaf: #34A43C;
+    --sharon-chai: #A44C14;
+    --sharon-rust: #7C2C0C;
+    --sharon-amber: #FC9C34;
+    --sharon-maroon: #541424;
+    --sharon-cream: #FAF7F2;
+    --sharon-light-grey: #D4D4D4;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #FAF7F2;
+    color: #241C24;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+}
+
+/* Reduced motion baseline */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+
+/* Ant Design Table & UI custom styling enhancements */
+.ant-table-wrapper .ant-table-thead > tr > th {
+  background-color: #F3ECE2 !important;
+  color: #241C24 !important;
+  font-weight: 600 !important;
+}
+
+.ant-layout-sider {
+  box-shadow: 2px 0 8px 0 rgba(36, 28, 36, 0.05);
+}
+
+.ant-card {
+  border-radius: 10px !important;
+  border-color: #EDE4D8 !important;
+}
+
+.ant-btn-primary {
+  background-color: #1C4C34 !important;
+}
+
+.ant-btn-primary:hover {
+  background-color: #256645 !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4D4D4;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A44C14;
+}
