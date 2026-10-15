@@ -1,0 +1,377 @@
+/**
+ * Sharon Tea Stall - CSS Animation System
+ * Native CSS transitions & keyframes with cubic-bezier(0.16, 1, 0.3, 1) spring easing.
+ * ZERO third-party runtime animation libraries.
+ */
+
+:root {
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-micro: 180ms;
+  --duration-ui: 280ms;
+  --duration-reveal: 600ms;
+  --duration-hero: 750ms;
+}
+
+/* ==========================================================================
+   Scroll Reveal Base & Variants
+   ========================================================================== */
+
+.reveal-up,
+.reveal-down,
+.reveal-left,
+.reveal-right,
+.reveal-fade,
+.reveal-scale,
+.text-reveal {
+  transition: opacity var(--duration-reveal) var(--ease-spring),
+              transform var(--duration-reveal) var(--ease-spring);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Initial States (Restrained translation ~20px) */
+.reveal-up {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+}
+
+.reveal-down {
+  opacity: 0;
+  transform: translate3d(0, -22px, 0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translate3d(-24px, 0, 0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translate3d(24px, 0, 0);
+}
+
+.reveal-fade {
+  opacity: 0;
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.96) translate3d(0, 10px, 0);
+}
+
+.text-reveal {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition-duration: 650ms;
+}
+
+/* Visible States (Triggered by .is-visible on target or parent container) */
+.reveal-up.is-visible,
+.reveal-down.is-visible,
+.reveal-left.is-visible,
+.reveal-right.is-visible,
+.reveal-fade.is-visible,
+.reveal-scale.is-visible,
+.text-reveal.is-visible,
+.is-visible > .reveal-up,
+.is-visible > .reveal-down,
+.is-visible > .reveal-left,
+.is-visible > .reveal-right,
+.is-visible > .reveal-fade,
+.is-visible > .reveal-scale,
+.is-visible > .text-reveal,
+.is-visible .reveal-up,
+.is-visible .reveal-down,
+.is-visible .reveal-left,
+.is-visible .reveal-right,
+.is-visible .reveal-fade,
+.is-visible .reveal-scale,
+.is-visible .text-reveal {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* ==========================================================================
+   Staggered Container Delays
+   ========================================================================== */
+
+.reveal-stagger > * {
+  transition: opacity var(--duration-reveal) var(--ease-spring),
+              transform var(--duration-reveal) var(--ease-spring);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.reveal-stagger > *:nth-child(1)  { --default-delay: 0ms; }
+.reveal-stagger > *:nth-child(2)  { --default-delay: 60ms; }
+.reveal-stagger > *:nth-child(3)  { --default-delay: 120ms; }
+.reveal-stagger > *:nth-child(4)  { --default-delay: 180ms; }
+.reveal-stagger > *:nth-child(5)  { --default-delay: 240ms; }
+.reveal-stagger > *:nth-child(6)  { --default-delay: 300ms; }
+.reveal-stagger > *:nth-child(7)  { --default-delay: 360ms; }
+.reveal-stagger > *:nth-child(8)  { --default-delay: 420ms; }
+.reveal-stagger > *:nth-child(9)  { --default-delay: 480ms; }
+.reveal-stagger > *:nth-child(10) { --default-delay: 540ms; }
+.reveal-stagger > *:nth-child(11) { --default-delay: 600ms; }
+.reveal-stagger > *:nth-child(12) { --default-delay: 660ms; }
+
+.reveal-stagger > * {
+  transition-delay: var(--reveal-delay, var(--default-delay, 0ms));
+}
+
+/* ==========================================================================
+   Micro-interactions & Hover Effects
+   ========================================================================== */
+
+.hover-lift {
+  transition: transform var(--duration-micro) var(--ease-spring),
+              box-shadow var(--duration-micro) var(--ease-spring);
+  will-change: transform, box-shadow;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px -6px rgba(36, 28, 36, 0.12),
+              0 8px 16px -6px rgba(36, 28, 36, 0.08);
+}
+
+.hover-scale {
+  transition: transform var(--duration-micro) var(--ease-spring);
+  will-change: transform;
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+.image-zoom-container {
+  overflow: hidden;
+}
+
+.image-zoom {
+  transition: transform 450ms var(--ease-spring);
+  will-change: transform;
+}
+
+.image-zoom:hover,
+.group:hover .image-zoom {
+  transform: scale(1.05);
+}
+
+.button-interaction {
+  transition: transform 150ms var(--ease-spring),
+              background-color var(--duration-micro) var(--ease-spring),
+              box-shadow var(--duration-micro) var(--ease-spring);
+}
+
+.button-interaction:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   Drawers, Modals & Accordions
+   ========================================================================== */
+
+@keyframes drawerFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes drawerSlideRight {
+  0% {
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.drawer-backdrop {
+  animation: drawerFadeIn 300ms var(--ease-spring) forwards;
+}
+
+.drawer-enter {
+  animation: drawerSlideRight 350ms var(--ease-spring) forwards;
+  will-change: transform;
+}
+
+@keyframes modalScaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translate3d(0, 8px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+.modal-enter {
+  animation: modalScaleIn 280ms var(--ease-spring) forwards;
+  will-change: transform, opacity;
+}
+
+.accordion-transition {
+  transition: max-height 350ms var(--ease-spring),
+              opacity 300ms var(--ease-spring);
+  overflow: hidden;
+}
+
+.counter-value {
+  transition: all 400ms var(--ease-spring);
+}
+
+.chart-enter {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 500ms var(--ease-spring),
+              transform 500ms var(--ease-spring);
+}
+
+.chart-enter.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Hero Section Animations
+   ========================================================================== */
+
+@keyframes kenburns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+
+.animate-ken-burns {
+  animation: kenburns 6.5s ease-out forwards;
+}
+
+@keyframes heroFadeDown {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-hero-badge {
+  animation: heroFadeDown 650ms var(--ease-spring) both;
+}
+
+.animate-hero-headline {
+  animation: heroFadeUp 750ms var(--ease-spring) 120ms both;
+}
+
+.animate-hero-paragraph {
+  animation: heroFadeUp 750ms var(--ease-spring) 220ms both;
+}
+
+.animate-hero-cta {
+  animation: heroFadeUp 750ms var(--ease-spring) 320ms both;
+}
+
+@keyframes heroProgressBar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Safety Fallbacks (JS Disabled & Print)
+   ========================================================================== */
+
+@media (scripting: none) {
+  .reveal-up,
+  .reveal-down,
+  .reveal-left,
+  .reveal-right,
+  .reveal-fade,
+  .reveal-scale,
+  .text-reveal,
+  .chart-enter {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media print {
+  .reveal-up,
+  .reveal-down,
+  .reveal-left,
+  .reveal-right,
+  .reveal-fade,
+  .reveal-scale,
+  .text-reveal,
+  .chart-enter {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   Accessibility: Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-up,
+  .reveal-down,
+  .reveal-left,
+  .reveal-right,
+  .reveal-fade,
+  .reveal-scale,
+  .text-reveal,
+  .chart-enter {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .animate-ken-burns,
+  .animate-hero-badge,
+  .animate-hero-headline,
+  .animate-hero-paragraph,
+  .animate-hero-cta {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

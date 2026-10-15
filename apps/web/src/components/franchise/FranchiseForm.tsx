@@ -66,7 +66,7 @@ export const FranchiseForm: React.FC = () => {
   return (
     <section id="franchise-form-section" className="py-20 md:py-28 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-brand-cream/60 rounded-3xl p-8 sm:p-12 border border-neutral-200/90 shadow-warm-lg" data-aos="fade-up">
+        <div className="bg-brand-cream/60 rounded-3xl p-8 sm:p-12 border border-neutral-200/90 shadow-warm-lg reveal-up">
           {/* Header */}
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs font-semibold uppercase tracking-widest text-brand-burgundy bg-brand-burgundy/10 px-3 py-1 rounded-full border border-brand-burgundy/20">

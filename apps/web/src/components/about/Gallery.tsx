@@ -31,12 +31,10 @@ const getCategoryLabel = (category: string) => CATEGORY_LABELS[category] || cate
  * - Desktop: 4-column Bento Grid (lg:grid-cols-4)
  */
 const getBentoSpanClass = (index: number, total: number) => {
-  // If only 1 item exists
   if (total === 1) {
     return 'col-span-2 md:col-span-3 lg:col-span-4 row-span-2';
   }
 
-  // If only 2 items exist (e.g. filtered tab), display as balanced side-by-side hero duo
   if (total === 2) {
     return 'col-span-2 sm:col-span-1 md:col-span-1 lg:col-span-2 row-span-2';
   }
@@ -44,29 +42,21 @@ const getBentoSpanClass = (index: number, total: number) => {
   const slot = index % 8;
   switch (slot) {
     case 0:
-      // Item 0 (Hero Showcase): 2 cols wide x 2 rows tall across all screens
       return 'col-span-2 row-span-2 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2';
     case 1:
-      // Item 1: 1 col x 1 row (compact square companion)
       return 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1';
     case 2:
-      // Item 2: 1 col x 1 row (compact square companion)
       return 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1';
     case 3:
-      // Item 3: 2 cols wide x 1 row tall (panoramic banner on mobile & desktop)
       return 'col-span-2 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1';
     case 4:
-      // Item 4: 1 col wide x 2 rows tall (tall vertical portrait card)
       return 'col-span-1 row-span-2 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2';
     case 5:
-      // Item 5: 1 col x 1 row (stacks next to tall card on right)
       return 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1';
     case 6:
-      // Item 6: 1 col x 1 row on mobile (stacks below item 5 next to tall card); 2 cols on desktop
       return 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-1';
     case 7:
     default:
-      // Item 7: 2 cols on mobile (wide closer); 1 col on tablet/desktop
       return 'col-span-2 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1';
   }
 };
@@ -119,7 +109,7 @@ export const Gallery: React.FC = () => {
 
   return (
     <SectionContainer background="cream" className="py-14 sm:py-20 md:py-28">
-      <div data-aos="fade-up">
+      <div className="reveal-up">
         <SectionHeading
           badge="Moments & Memories"
           title="Life at Sharon Tea Stall"
@@ -128,7 +118,7 @@ export const Gallery: React.FC = () => {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 md:gap-3 mb-8 sm:mb-10 md:mb-14" data-aos="fade-down">
+      <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 md:gap-3 mb-8 sm:mb-10 md:mb-14 reveal-fade">
         {TABS.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
@@ -140,7 +130,7 @@ export const Gallery: React.FC = () => {
                 setLightboxIndex(null);
               }}
               className={cn(
-                'px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 border flex items-center gap-2 cursor-pointer',
+                'px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 border flex items-center gap-2 cursor-pointer button-interaction',
                 isActive
                   ? 'bg-brand-green text-white border-brand-green shadow-md shadow-brand-green/20 scale-[1.02]'
                   : 'bg-white/80 backdrop-blur-sm text-neutral-700 border-neutral-200 hover:border-brand-green/60 hover:text-brand-green hover:bg-white shadow-xs'
@@ -153,7 +143,7 @@ export const Gallery: React.FC = () => {
       </div>
 
       {/* Bento Grid: 2-col on Mobile, 3-col on Tablet, 4-col on Desktop */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[160px] sm:auto-rows-[190px] md:auto-rows-[220px] lg:auto-rows-[250px] gap-2.5 sm:gap-3.5 md:gap-4 lg:gap-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[160px] sm:auto-rows-[190px] md:auto-rows-[220px] lg:auto-rows-[250px] gap-2.5 sm:gap-3.5 md:gap-4 lg:gap-5 reveal-stagger">
         {filtered.map((item, index) => {
           const isHero = (index % 8) === 0;
           return (
@@ -169,19 +159,18 @@ export const Gallery: React.FC = () => {
                   setLightboxIndex(index);
                 }
               }}
-              data-aos="zoom-in"
-              data-aos-delay={(index % 4) * 40}
+              style={{ '--reveal-delay': `${(index % 4) * 50}ms` } as React.CSSProperties}
               className={cn(
-                'relative rounded-2xl sm:rounded-3xl overflow-hidden border border-amber-950/10 shadow-xs bg-neutral-900 group cursor-pointer hover:shadow-warm-xl transition-all duration-300 select-none',
+                'relative rounded-2xl sm:rounded-3xl overflow-hidden border border-amber-950/10 shadow-xs bg-neutral-900 group cursor-pointer hover-lift select-none reveal-scale image-zoom-container',
                 getBentoSpanClass(index, filtered.length)
               )}
             >
-              {/* Image */}
+              {/* Image with hover zoom */}
               <img
                 src={item.imageUrl}
                 alt={item.title}
                 loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="w-full h-full object-cover image-zoom"
               />
 
               {/* Floating Top-Left Glass Badge */}
@@ -234,7 +223,7 @@ export const Gallery: React.FC = () => {
           role="dialog"
           aria-modal="true"
           aria-label={currentLightboxItem.title}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8 bg-black/90 backdrop-blur-xl animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8 bg-black/90 backdrop-blur-xl drawer-backdrop"
           onClick={closeLightbox}
         >
           {/* Top Bar: Counter & Close Button */}
@@ -287,7 +276,7 @@ export const Gallery: React.FC = () => {
 
           {/* Modal Content Card */}
           <div
-            className="relative max-w-5xl w-full max-h-[92vh] flex flex-col rounded-3xl overflow-hidden bg-neutral-950/90 border border-white/15 shadow-2xl backdrop-blur-2xl"
+            className="relative max-w-5xl w-full max-h-[92vh] flex flex-col rounded-3xl overflow-hidden bg-neutral-950/90 border border-white/15 shadow-2xl backdrop-blur-2xl modal-enter"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Image Showcase */}

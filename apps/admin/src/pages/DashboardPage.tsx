@@ -68,25 +68,25 @@ export const DashboardPage: React.FC = () => {
   const totalContact = contactEnquiries?.length || 0;
   const newContactCount = contactEnquiries?.filter((e) => e.status === 'new').length || 0;
 
-  // Chart data: product clicks
-  const chartData = (whatsappData?.products || [])
-    .slice(0, 7)
-    .map((item) => ({
-      name: item.productName.length > 15 ? `${item.productName.slice(0, 15)}...` : item.productName,
-      clicks: item.totalClicks,
-    }));
+  // Chart data: product clicks (memoized to prevent Recharts rerenders on unrelated state)
+  const displayChartData = React.useMemo(() => {
+    const raw = (whatsappData?.products || [])
+      .slice(0, 7)
+      .map((item) => ({
+        name: item.productName.length > 15 ? `${item.productName.slice(0, 15)}...` : item.productName,
+        clicks: item.totalClicks,
+      }));
 
-  // Fallback demo data if no clicks yet
-  const displayChartData =
-    chartData.length > 0
-      ? chartData
-      : [
-          { name: 'Sharon Special Tea', clicks: 124 },
-          { name: 'Cardamom Premix', clicks: 88 },
-          { name: 'Masala Chai Blend', clicks: 64 },
-          { name: 'Ginger Tea Powder', clicks: 42 },
-          { name: 'Kulhad Cups Set', clicks: 35 },
-        ];
+    if (raw.length > 0) return raw;
+
+    return [
+      { name: 'Sharon Special Tea', clicks: 124 },
+      { name: 'Cardamom Premix', clicks: 88 },
+      { name: 'Masala Chai Blend', clicks: 64 },
+      { name: 'Ginger Tea Powder', clicks: 42 },
+      { name: 'Kulhad Cups Set', clicks: 35 },
+    ];
+  }, [whatsappData?.products]);
 
   const recentFranchiseColumns = [
     {
@@ -134,7 +134,10 @@ export const DashboardPage: React.FC = () => {
     },
   ];
 
-  const recentEnquiries = (franchiseEnquiries || []).slice(0, 5);
+  const recentEnquiries = React.useMemo(
+    () => (franchiseEnquiries || []).slice(0, 5),
+    [franchiseEnquiries]
+  );
 
   return (
     <div>
@@ -160,10 +163,10 @@ export const DashboardPage: React.FC = () => {
       <div>
         <Row gutter={[16, 16]} className="mb-8">
           <Col xs={24} sm={12} lg={6}>
-            <div className="h-full">
+            <div className="h-full reveal-up is-visible delay-0">
               <Card
                 hoverable
-                className="border-amber-950/10 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full"
+                className="border-amber-950/10 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full hover-lift"
                 onClick={() => navigate('/menu-items')}
               >
                 <div className="flex items-start justify-between">
@@ -192,10 +195,10 @@ export const DashboardPage: React.FC = () => {
           </Col>
 
           <Col xs={24} sm={12} lg={6}>
-            <div className="h-full">
+            <div className="h-full reveal-up is-visible delay-50">
               <Card
                 hoverable
-                className="border-amber-950/10 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full"
+                className="border-amber-950/10 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full hover-lift"
                 onClick={() => navigate('/products')}
               >
                 <div className="flex items-start justify-between">
@@ -224,10 +227,10 @@ export const DashboardPage: React.FC = () => {
           </Col>
 
           <Col xs={24} sm={12} lg={6}>
-            <div className="h-full">
+            <div className="h-full reveal-up is-visible delay-100">
               <Card
                 hoverable
-                className="border-amber-950/10 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full"
+                className="border-amber-950/10 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full hover-lift"
                 onClick={() => navigate('/franchise-enquiries')}
               >
                 <div className="flex items-start justify-between">
@@ -263,10 +266,10 @@ export const DashboardPage: React.FC = () => {
           </Col>
 
           <Col xs={24} sm={12} lg={6}>
-            <div className="h-full">
+            <div className="h-full reveal-up is-visible delay-150">
               <Card
                 hoverable
-                className="border-amber-950/10 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full"
+                className="border-amber-950/10 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full hover-lift"
                 onClick={() => navigate('/contact-enquiries')}
               >
                 <div className="flex items-start justify-between">
@@ -306,7 +309,7 @@ export const DashboardPage: React.FC = () => {
       {/* Analytics Chart & Quick Links */}
       <Row gutter={[16, 16]} className="mb-8">
         <Col xs={24} lg={16}>
-          <div className="h-full">
+          <div className="h-full reveal-up is-visible delay-200">
             <Card
               title={
                 <div className="flex items-center justify-between">
@@ -326,7 +329,7 @@ export const DashboardPage: React.FC = () => {
                   </Button>
                 </div>
               }
-              className="border-amber-950/10 shadow-sm h-full"
+              className="border-amber-950/10 shadow-sm h-full chart-enter"
             >
               {analyticsLoading ? (
                 <div className="h-64 flex items-center justify-center">
@@ -372,7 +375,7 @@ export const DashboardPage: React.FC = () => {
         </Col>
 
         <Col xs={24} lg={8}>
-          <div className="h-full">
+          <div className="h-full reveal-up is-visible delay-200">
             <Card
               title={
                 <div className="flex items-center gap-2">
@@ -385,7 +388,7 @@ export const DashboardPage: React.FC = () => {
               <div className="space-y-3">
                 <Button
                   block
-                  className="text-left flex items-center justify-between h-12 px-4 rounded-lg border-gray-200 hover:border-sharon-forest hover:text-sharon-forest"
+                  className="text-left flex items-center justify-between h-12 px-4 rounded-lg border-gray-200 hover:border-sharon-forest hover:text-sharon-forest button-interaction hover-lift"
                   onClick={() => navigate('/menu-items')}
                 >
                   <div className="flex items-center gap-3">
@@ -397,7 +400,7 @@ export const DashboardPage: React.FC = () => {
 
                 <Button
                   block
-                  className="text-left flex items-center justify-between h-12 px-4 rounded-lg border-gray-200 hover:border-sharon-forest hover:text-sharon-forest"
+                  className="text-left flex items-center justify-between h-12 px-4 rounded-lg border-gray-200 hover:border-sharon-forest hover:text-sharon-forest button-interaction hover-lift"
                   onClick={() => navigate('/products')}
                 >
                   <div className="flex items-center gap-3">
@@ -409,7 +412,7 @@ export const DashboardPage: React.FC = () => {
 
                 <Button
                   block
-                  className="text-left flex items-center justify-between h-12 px-4 rounded-lg border-gray-200 hover:border-sharon-forest hover:text-sharon-forest"
+                  className="text-left flex items-center justify-between h-12 px-4 rounded-lg border-gray-200 hover:border-sharon-forest hover:text-sharon-forest button-interaction hover-lift"
                   onClick={() => navigate('/hero-slides')}
                 >
                   <div className="flex items-center gap-3">
@@ -421,7 +424,7 @@ export const DashboardPage: React.FC = () => {
 
                 <Button
                   block
-                  className="text-left flex items-center justify-between h-12 px-4 rounded-lg border-gray-200 hover:border-sharon-forest hover:text-sharon-forest"
+                  className="text-left flex items-center justify-between h-12 px-4 rounded-lg border-gray-200 hover:border-sharon-forest hover:text-sharon-forest button-interaction hover-lift"
                   onClick={() => navigate('/outlets')}
                 >
                   <div className="flex items-center gap-3">
@@ -445,7 +448,7 @@ export const DashboardPage: React.FC = () => {
       </Row>
 
       {/* Recent Franchise Enquiries */}
-      <div>
+      <div className="reveal-up is-visible delay-200">
         <Card
           title={
             <div className="flex items-center justify-between">

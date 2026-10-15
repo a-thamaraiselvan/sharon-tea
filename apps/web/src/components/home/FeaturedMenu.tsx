@@ -1,5 +1,4 @@
 import React from 'react';
-import { SectionContainer } from '@/components/ui/SectionContainer';
 import { MenuItemCard } from '@/components/ui/MenuItemCard';
 import { BrandButton } from '@/components/ui/BrandButton';
 import { useMenuItems } from '@/hooks/useMenuItems';
@@ -37,7 +36,7 @@ export const FeaturedMenu: React.FC = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12" data-aos="fade-up">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 reveal-up">
           {/* Popular Brews Pill */}
           <div className="inline-flex items-center justify-center mb-3">
             <span className="rounded-full border border-[#47663B]/30 text-[#47663B] bg-[#EDF3EA] px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] shadow-xs">
@@ -62,16 +61,20 @@ export const FeaturedMenu: React.FC = () => {
         </div>
 
         {/* Grid of 8 items: Mobile 2 columns strict, Desktop 4 columns */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6" data-aos="fade-up">
-          {displayItems.map((item) => (
-            <div key={item.id}>
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 reveal-stagger">
+          {displayItems.map((item, index) => (
+            <div
+              key={item.id}
+              className="reveal-up"
+              style={{ '--reveal-delay': `${(index % 4) * 60}ms` } as React.CSSProperties}
+            >
               <MenuItemCard item={item} />
             </div>
           ))}
         </div>
 
         {/* View All CTA */}
-        <div className="mt-12 sm:mt-14 text-center" data-aos="fade-up">
+        <div className="mt-12 sm:mt-14 text-center reveal-up" style={{ '--reveal-delay': '150ms' } as React.CSSProperties}>
           <BrandButton
             to="/menu"
             variant="secondary"

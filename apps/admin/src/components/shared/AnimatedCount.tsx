@@ -14,10 +14,11 @@ export interface AnimatedCountProps {
 /**
  * AnimatedCount
  * Smoothly animates numeric counters using requestAnimationFrame and ease-out cubic interpolation.
+ * Wrapped in React.memo to prevent re-triggering when parent re-renders with the same numeric value.
  */
-export const AnimatedCount: React.FC<AnimatedCountProps> = ({
+export const AnimatedCount: React.FC<AnimatedCountProps> = React.memo(({
   value,
-  duration = 1000,
+  duration = 800,
   prefix = '',
   suffix = '',
   decimals = 0,
@@ -121,7 +122,8 @@ export const AnimatedCount: React.FC<AnimatedCountProps> = ({
       {suffix}
     </span>
   );
-};
+});
+
+AnimatedCount.displayName = 'AnimatedCount';
 
 export default AnimatedCount;
-

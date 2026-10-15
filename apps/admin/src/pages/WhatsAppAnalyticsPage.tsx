@@ -163,6 +163,13 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
     },
   ];
 
+  const chartData = React.useMemo(() => {
+    return productsList.map((p) => ({
+      name: p.productName.length > 20 ? `${p.productName.slice(0, 20)}...` : p.productName,
+      clicks: p.totalClicks,
+    }));
+  }, [productsList]);
+
   return (
     <div>
       <div>
@@ -170,7 +177,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
           title="WhatsApp Order Analytics"
           subtitle="Track customer click-to-order engagement, popular blends, and conversion signals."
           extra={
-            <Space>
+            <Space className="reveal-down is-visible delay-50">
               <RangePicker
                 value={dateRange}
                 onChange={(dates) => {
@@ -185,6 +192,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
                 icon={<ReloadOutlined spin={isFetching} />}
                 onClick={() => refetch()}
                 title="Refresh Analytics"
+                className="button-interaction hover-lift"
               />
             </Space>
           }
@@ -195,8 +203,8 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
       <div>
         <Row gutter={[16, 16]} className="mb-8">
           <Col xs={24} sm={8}>
-            <div className="h-full">
-              <Card className="border-amber-950/10 shadow-sm bg-white h-full">
+            <div className="h-full reveal-up is-visible delay-0">
+              <Card className="border-amber-950/10 shadow-sm bg-white h-full hover-lift cursor-default">
                 <div className="flex items-center justify-between">
                   <div>
                     <Text className="text-xs uppercase font-bold text-gray-500 tracking-wider">
@@ -223,8 +231,8 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
           </Col>
 
           <Col xs={24} sm={8}>
-            <div className="h-full">
-              <Card className="border-amber-950/10 shadow-sm bg-white h-full">
+            <div className="h-full reveal-up is-visible delay-50">
+              <Card className="border-amber-950/10 shadow-sm bg-white h-full hover-lift cursor-default">
                 <div className="flex items-center justify-between">
                   <div>
                     <Text className="text-xs uppercase font-bold text-gray-500 tracking-wider">
@@ -248,8 +256,8 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
           </Col>
 
           <Col xs={24} sm={8}>
-            <div className="h-full">
-              <Card className="border-amber-950/10 shadow-sm bg-white h-full">
+            <div className="h-full reveal-up is-visible delay-100">
+              <Card className="border-amber-950/10 shadow-sm bg-white h-full hover-lift cursor-default">
                 <div className="flex items-center justify-between">
                   <div className="overflow-hidden pr-2">
                     <Text className="text-xs uppercase font-bold text-gray-500 tracking-wider">
@@ -279,7 +287,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
       </div>
 
       {/* Chart Section */}
-      <div>
+      <div className="reveal-up is-visible delay-150">
         <Card
           title={
             <div className="flex items-center gap-2">
@@ -289,15 +297,12 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
               </span>
             </div>
           }
-          className="border-amber-950/10 shadow-sm mb-8"
+          className="border-amber-950/10 shadow-sm mb-8 chart-enter"
         >
           <div className="h-80 w-full pt-4">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
-                data={productsList.map((p) => ({
-                  name: p.productName.length > 20 ? `${p.productName.slice(0, 20)}...` : p.productName,
-                  clicks: p.totalClicks,
-                }))}
+                data={chartData}
                 margin={{ top: 20, right: 30, left: 0, bottom: 40 }}
               >
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0e9df" />
@@ -337,7 +342,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
       </div>
 
       {/* Breakdown Table */}
-      <div>
+      <div className="reveal-up is-visible delay-200">
         <Card
           title={<span className="font-semibold text-gray-800">Product Click Breakdown</span>}
           className="border-amber-950/10 shadow-sm"

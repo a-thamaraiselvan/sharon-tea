@@ -73,7 +73,7 @@ export const ProductDetailCard: React.FC<ProductDetailCardProps> = ({
     <div
       onClick={handleCardClick}
       className={cn(
-        'group bg-white rounded-2xl p-3 sm:p-5 border border-neutral-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between cursor-pointer relative',
+        'group bg-white rounded-2xl p-3 sm:p-5 border border-neutral-200/90 shadow-sm hover-lift flex flex-col justify-between cursor-pointer relative',
         className
       )}
     >
@@ -102,7 +102,7 @@ export const ProductDetailCard: React.FC<ProductDetailCardProps> = ({
         </div>
 
         {/* Standing Product Pouch Upright with Soft Shadow */}
-        <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-white flex items-center justify-center p-2 mb-2 sm:mb-3">
+        <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-white flex items-center justify-center p-2 mb-2 sm:mb-3 image-zoom-container">
           <img
             src={product.imageUrl || '/images/products/img_3687.jpg'}
             alt={product.name || 'Sharon Tea Product'}
@@ -110,7 +110,7 @@ export const ProductDetailCard: React.FC<ProductDetailCardProps> = ({
             onError={(e) => {
               (e.target as HTMLImageElement).src = '/images/products/img_3687.jpg';
             }}
-            className="max-h-full max-w-full object-contain filter drop-shadow-md group-hover:scale-105 transition-transform duration-300"
+            className="max-h-full max-w-full object-contain filter drop-shadow-md image-zoom"
           />
         </div>
 

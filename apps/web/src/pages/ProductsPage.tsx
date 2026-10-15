@@ -144,7 +144,7 @@ export const ProductsPage: React.FC = () => {
       {/* Hero Section matching screenshot */}
       <section className="bg-[#133E29] text-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#1b4d35]">
         <div className="max-w-7xl mx-auto">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl reveal-down">
             <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#C49A45] mb-2 sm:mb-3">
               NATURAL • AROMATIC • REFRESHING
             </p>
@@ -160,7 +160,7 @@ export const ProductsPage: React.FC = () => {
               <button
                 type="button"
                 onClick={scrollToProducts}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#7A1D36] hover:bg-[#54121F] text-white text-sm font-semibold transition-all shadow-md active:scale-95"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#7A1D36] hover:bg-[#54121F] text-white text-sm font-semibold transition-all shadow-md button-interaction"
               >
                 <span>Shop Now</span>
                 <ArrowRight className="w-4 h-4" />
@@ -205,9 +205,7 @@ export const ProductsPage: React.FC = () => {
           </div>
 
           <div
-            className="flex items-center justify-start md:justify-center gap-5 sm:gap-8 lg:gap-12 overflow-x-auto pb-2 scrollbar-none"
-            data-aos="fade-up"
-            data-aos-delay="40"
+            className="flex items-center justify-start md:justify-center gap-5 sm:gap-8 lg:gap-12 overflow-x-auto pb-2 scrollbar-none reveal-fade"
           >
             {FLAVOR_BUBBLES.map((flavor) => {
               const isSelected = selectedFlavor === flavor.name;
@@ -268,7 +266,7 @@ export const ProductsPage: React.FC = () => {
             </p>
 
             {/* Live Tea Search Pill */}
-            <div className="max-w-xl mx-auto mt-6" data-aos="fade-up" data-aos-delay="30">
+            <div className="max-w-xl mx-auto mt-6 reveal-fade">
               <LiveTeaSearch
                 value={searchFilter}
                 onChange={(val) => setSearchFilter(val)}
@@ -279,9 +277,8 @@ export const ProductsPage: React.FC = () => {
 
             {/* Category Pills */}
             <div
-              className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-8"
-              data-aos="fade-up"
-              data-aos-delay="40"
+              className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 reveal-fade"
+              style={{ '--reveal-delay': '60ms' } as React.CSSProperties}
             >
               {CATEGORIES.map((cat) => {
                 const isActive = selectedCategory === cat && !selectedFlavor;
@@ -291,7 +288,7 @@ export const ProductsPage: React.FC = () => {
                     type="button"
                     onClick={() => handleCategoryClick(cat)}
                     className={cn(
-                      'px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-xs',
+                      'px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-xs button-interaction',
                       isActive
                         ? 'bg-[#7A1D36] text-white shadow-sm'
                         : 'bg-white text-neutral-700 border border-neutral-200 hover:border-[#7A1D36] hover:text-[#7A1D36]'
@@ -317,7 +314,7 @@ export const ProductsPage: React.FC = () => {
       </section>
 
       {/* Bottom 4 Feature Trust Badges matching screenshot */}
-      <section className="bg-white py-12 border-t border-neutral-200/80" data-aos="fade-up">
+      <section className="bg-white py-12 border-t border-neutral-200/80 reveal-up">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             {/* Feature 1 */}

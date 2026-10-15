@@ -202,7 +202,7 @@ export const GalleryPage: React.FC = () => {
       </div>
 
       <div>
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-amber-950/10 mb-6">
+        <div className="bg-white p-4 rounded-xl shadow-sm border border-amber-950/10 mb-6 reveal-down is-visible delay-50">
           <Tabs
             activeKey={selectedCategory}
             onChange={(key) => setSelectedCategory(key)}
@@ -222,7 +222,7 @@ export const GalleryPage: React.FC = () => {
             ))}
           </Row>
         ) : galleryItems.length === 0 ? (
-          <Card className="rounded-xl border-amber-950/10 p-8 text-center bg-white">
+          <Card className="rounded-xl border-amber-950/10 p-8 text-center bg-white reveal-up is-visible delay-100">
             <Empty
               description="No images found in this gallery category"
               image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -231,66 +231,69 @@ export const GalleryPage: React.FC = () => {
                 type="primary"
                 icon={<PlusOutlined />}
                 onClick={handleOpenCreate}
-                className="bg-sharon-forest hover:bg-emerald-800"
+                className="bg-sharon-forest hover:bg-emerald-800 button-interaction hover-lift"
               >
                 Upload First Image
               </Button>
             </Empty>
           </Card>
         ) : (
-          <Row gutter={[16, 16]}>
-            {galleryItems.map((item) => (
-              <Col xs={24} sm={12} md={8} lg={6} key={item.id}>
-                <Card
-                  hoverable
-                  cover={
-                    <div className="h-48 overflow-hidden bg-gray-100 relative group">
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.caption}
-                        className="object-cover w-full h-48"
-                      />
-                      <div className="absolute top-2 right-2">
-                        <Tag color="black" className="bg-black/60 border-none text-white text-[11px]">
-                          #{item.sortOrder}
-                        </Tag>
+          <div className="reveal-up is-visible delay-100">
+            <Row gutter={[16, 16]}>
+              {galleryItems.map((item) => (
+                <Col xs={24} sm={12} md={8} lg={6} key={item.id}>
+                  <Card
+                    hoverable
+                    cover={
+                      <div className="h-48 overflow-hidden bg-gray-100 relative group">
+                        <Image
+                          src={item.imageUrl}
+                          alt={item.caption}
+                          className="object-cover w-full h-48"
+                        />
+                        <div className="absolute top-2 right-2">
+                          <Tag color="black" className="bg-black/60 border-none text-white text-[11px]">
+                            #{item.sortOrder}
+                          </Tag>
+                        </div>
+                      </div>
+                    }
+                    actions={[
+                      <Button
+                        key="edit"
+                        type="text"
+                        icon={<EditOutlined />}
+                        onClick={() => handleOpenEdit(item)}
+                        className="text-blue-600 button-interaction hover-scale"
+                      >
+                        Edit
+                      </Button>,
+                      <Button
+                        key="delete"
+                        type="text"
+                        danger
+                        icon={<DeleteOutlined />}
+                        onClick={() => handleDelete(item)}
+                        className="button-interaction hover-scale"
+                      >
+                        Delete
+                      </Button>,
+                    ]}
+                    className="rounded-xl overflow-hidden border-amber-950/10 shadow-sm flex flex-col justify-between hover-lift"
+                  >
+                    <div className="mb-2">
+                      <Tag color="cyan" className="text-[11px] uppercase font-semibold mb-1">
+                        {item.category.replace('-', ' ')}
+                      </Tag>
+                      <div className="font-medium text-gray-900 text-sm line-clamp-2">
+                        {item.caption}
                       </div>
                     </div>
-                  }
-                  actions={[
-                    <Button
-                      key="edit"
-                      type="text"
-                      icon={<EditOutlined />}
-                      onClick={() => handleOpenEdit(item)}
-                      className="text-blue-600"
-                    >
-                      Edit
-                    </Button>,
-                    <Button
-                      key="delete"
-                      type="text"
-                      danger
-                      icon={<DeleteOutlined />}
-                      onClick={() => handleDelete(item)}
-                    >
-                      Delete
-                    </Button>,
-                  ]}
-                  className="rounded-xl overflow-hidden border-amber-950/10 shadow-sm flex flex-col justify-between"
-                >
-                  <div className="mb-2">
-                    <Tag color="cyan" className="text-[11px] uppercase font-semibold mb-1">
-                      {item.category.replace('-', ' ')}
-                    </Tag>
-                    <div className="font-medium text-gray-900 text-sm line-clamp-2">
-                      {item.caption}
-                    </div>
-                  </div>
-                </Card>
-              </Col>
-            ))}
-          </Row>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          </div>
         )}
       </div>
 
@@ -303,6 +306,7 @@ export const GalleryPage: React.FC = () => {
         destroyOnClose
         centered
         width={520}
+        rootClassName="modal-enter"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-3">
           <div>

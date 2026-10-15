@@ -14,13 +14,13 @@ export const OutletCard: React.FC<OutletCardProps> = ({ outlet, className }) => 
   return (
     <div
       className={cn(
-        'group bg-white rounded-2xl border border-neutral-200/80 shadow-sm hover:shadow-warm-lg transition-all duration-300 overflow-hidden flex flex-col justify-between',
+        'group bg-white rounded-2xl border border-neutral-200/80 shadow-sm hover-lift overflow-hidden flex flex-col justify-between',
         className
       )}
     >
       {/* Top Image (if present) */}
       {outlet.imageUrl && (
-        <div className="relative w-full h-48 overflow-hidden bg-brand-cream">
+        <div className="relative w-full h-48 overflow-hidden bg-brand-cream image-zoom-container">
           {outlet.isMainBranch && (
             <span className="absolute top-3 left-3 z-10 text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-burgundy text-white shadow-sm">
               Flagship Outlet
@@ -34,7 +34,7 @@ export const OutletCard: React.FC<OutletCardProps> = ({ outlet, className }) => 
               (e.target as HTMLImageElement).src =
                 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80';
             }}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover image-zoom"
           />
         </div>
       )}

@@ -52,7 +52,7 @@ const HIGHLIGHTS = [
 export const BrandHighlights: React.FC = () => {
   return (
     <SectionContainer background="cream" className="py-20 md:py-28">
-      <div data-aos="fade-up">
+      <div className="reveal-up">
         <SectionHeading
           badge="Why Sharon"
           title="Brewed with Passion, Served with Love"
@@ -60,13 +60,12 @@ export const BrandHighlights: React.FC = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 reveal-stagger">
         {HIGHLIGHTS.map((item, index) => (
           <div
             key={index}
-            data-aos="fade-up"
-            data-aos-delay={(index % 3) * 40}
-            className="group bg-white rounded-2xl p-7 border border-amber-900/10 shadow-sm hover:shadow-warm-lg transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
+            className="group bg-white rounded-2xl p-7 border border-amber-900/10 shadow-sm hover-lift transition-all duration-300 flex flex-col justify-between reveal-up"
+            style={{ '--reveal-delay': `${(index % 3) * 80}ms` } as React.CSSProperties}
           >
             <div>
               <div className="w-14 h-14 rounded-2xl bg-brand-cream flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-amber-900/5">

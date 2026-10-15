@@ -27,7 +27,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
 
   if (products.length === 0) {
     return (
-      <div className="text-center py-16 bg-white rounded-3xl border border-neutral-200 p-8 shadow-xs max-w-md mx-auto">
+      <div className="text-center py-16 bg-white rounded-3xl border border-neutral-200 p-8 shadow-xs max-w-md mx-auto reveal-fade is-visible">
         <p className="text-neutral-600 text-sm mb-4 font-medium">
           No packaged tea products found matching this filter.
         </p>
@@ -35,7 +35,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
           <button
             type="button"
             onClick={onReset}
-            className="px-5 py-2.5 rounded-full bg-[#7A1D36] hover:bg-[#54121F] text-white text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer"
+            className="px-5 py-2.5 rounded-full bg-[#7A1D36] hover:bg-[#54121F] text-white text-xs font-bold transition-all shadow-xs button-interaction cursor-pointer"
           >
             Show All Products
           </button>
@@ -55,9 +55,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   return (
     <>
       {/* 2-column on mobile, 3-col on tablet, 4-column on desktop */}
-      <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 ${className || ''}`}>
-        {products.map((product) => (
-          <div key={product.id} className="transition-all duration-200 hover:-translate-y-0.5">
+      <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 reveal-stagger ${className || ''}`}>
+        {products.map((product, index) => (
+          <div
+            key={product.id}
+            className="reveal-up"
+            style={{ '--reveal-delay': `${(index % 4) * 50}ms` } as React.CSSProperties}
+          >
             <ProductDetailCard
               product={product}
               onSelectProduct={handleCardClick}

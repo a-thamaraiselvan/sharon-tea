@@ -91,7 +91,7 @@ export const AdminNavbar: React.FC<AdminNavbarProps> = ({
         <button
           type="button"
           onClick={onToggleCollapse}
-          className="text-lg p-2 text-gray-600 hover:text-sharon-forest hover:bg-gray-100 rounded-lg transition-colors cursor-pointer border-none bg-transparent flex items-center"
+          className="text-lg p-2 text-gray-600 hover:text-sharon-forest hover:bg-gray-100 rounded-lg transition-colors cursor-pointer border-none bg-transparent flex items-center button-interaction"
           aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
           {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

@@ -127,7 +127,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onCollapse }) => {
       breakpoint="lg"
       width={260}
       theme="light"
-      className="border-r border-amber-950/10 h-screen select-none sticky top-0 z-20 flex flex-col shrink-0"
+      className="border-r border-amber-950/10 h-screen select-none sticky top-0 z-20 flex flex-col shrink-0 sidebar-transition"
       style={{
         backgroundColor: '#FFFFFF',
         height: '100vh',

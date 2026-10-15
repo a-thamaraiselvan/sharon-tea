@@ -16,6 +16,7 @@ interface PageHeaderProps {
   onAction?: () => void;
   actionButton?: React.ReactNode;
   extra?: React.ReactNode;
+  className?: string;
 }
 
 export const PageHeader: React.FC<PageHeaderProps> = ({
@@ -27,9 +28,12 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   onAction,
   actionButton,
   extra,
+  className = '',
 }) => {
   return (
-    <div className="mb-6 pb-4 border-b border-amber-950/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div
+      className={`mb-6 pb-4 border-b border-amber-950/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 reveal-down is-visible ${className}`}
+    >
       <div>
         {breadcrumbs && breadcrumbs.length > 0 && (
           <Breadcrumb
@@ -53,7 +57,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
             type="primary"
             icon={actionIcon}
             onClick={onAction}
-            className="bg-sharon-forest hover:bg-emerald-800 border-none shadow-sm h-9 px-4 font-medium"
+            className="bg-sharon-forest hover:bg-emerald-800 border-none shadow-sm h-9 px-4 font-medium button-interaction hover-lift"
           >
             {actionLabel}
           </Button>

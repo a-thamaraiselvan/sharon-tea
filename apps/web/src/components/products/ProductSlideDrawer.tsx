@@ -122,13 +122,13 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
     <div className="fixed inset-0 z-50 overflow-hidden" role="dialog" aria-modal="true">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-neutral-950/60 backdrop-blur-xs transition-opacity duration-300 animate-fade-in"
+        className="fixed inset-0 bg-neutral-950/60 backdrop-blur-xs drawer-backdrop"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Drawer Panel: Slide from left to right on mobile, slide-over from right on desktop */}
-      <div className="fixed inset-y-0 left-0 md:left-auto md:right-0 w-full max-w-md sm:max-w-lg md:max-w-xl h-full bg-white shadow-2xl flex flex-col z-50 overflow-hidden transform transition-transform duration-300 ease-out animate-slide-right md:animate-slide-left">
+      {/* Drawer Panel: Slide from right */}
+      <div className="fixed inset-y-0 right-0 w-full max-w-md sm:max-w-lg md:max-w-xl h-full bg-white shadow-2xl flex flex-col z-50 overflow-hidden drawer-enter">
         {/* Top Bar with Close Button */}
         <div className="px-5 sm:px-6 py-3.5 border-b border-neutral-100 flex items-center justify-between bg-white shrink-0 sticky top-0 z-10">
           <div className="flex items-center gap-2">

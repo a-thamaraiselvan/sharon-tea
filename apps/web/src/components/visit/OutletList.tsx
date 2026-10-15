@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { Outlet } from '@/types';
 import { MapEmbed } from './MapEmbed';
 import { MinimalLoader } from '@/components/ui/MinimalLoader';
-import { MapPin, Clock, Phone, Navigation, Map } from 'lucide-react';
+import { MapPin, Clock, Phone, Navigation } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
 interface OutletListProps {
@@ -26,8 +26,7 @@ export const OutletList: React.FC<OutletListProps> = ({ outlets = [], isLoading 
       {/* Featured Outlet with Interactive Map */}
       {currentSelection && (
         <div
-          className="bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200/80 shadow-warm-lg grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
-          data-aos="fade-up"
+          className="bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200/80 shadow-warm-lg grid grid-cols-1 lg:grid-cols-12 gap-8 items-center reveal-up"
         >
           <div className="lg:col-span-5 space-y-4">
             <span className="text-xs font-semibold uppercase tracking-wider text-brand-green bg-brand-green/10 px-3 py-1 rounded-full border border-brand-green/20">
@@ -67,7 +66,7 @@ export const OutletList: React.FC<OutletListProps> = ({ outlets = [], isLoading 
                 href={currentSelection.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-burgundy hover:bg-brand-rust text-white text-xs font-semibold shadow-sm transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-burgundy hover:bg-brand-rust text-white text-xs font-semibold shadow-sm transition-all button-interaction cursor-pointer"
               >
                 <Navigation className="w-3.5 h-3.5" />
                 <span>Open in Google Maps</span>
@@ -79,14 +78,15 @@ export const OutletList: React.FC<OutletListProps> = ({ outlets = [], isLoading 
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-brand-green/30 text-brand-green hover:bg-brand-green/5 text-xs font-semibold transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-brand-green/30 text-brand-green hover:bg-brand-green/5 text-xs font-semibold transition-all button-interaction cursor-pointer"
               >
                 <span>WhatsApp Location</span>
               </a>
             </div>
           </div>
 
-          <div className="lg:col-span-7" data-aos="zoom-in">
+          {/* Interactive Map Embed Container with smooth reveal */}
+          <div className="lg:col-span-7 reveal-fade relative z-10">
             <MapEmbed
               embedUrl={currentSelection.embedUrl}
               title={`${currentSelection.name} Map`}
@@ -97,21 +97,20 @@ export const OutletList: React.FC<OutletListProps> = ({ outlets = [], isLoading 
 
       {/* Grid of all outlets */}
       <div>
-        <h4 className="font-display text-2xl font-bold text-brand-black mb-6" data-aos="fade-up">
+        <h4 className="font-display text-2xl font-bold text-brand-black mb-6 reveal-up">
           All Sharon Stalls ({outlets.length})
         </h4>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-stagger">
           {outlets.map((outlet, index) => {
             const isSelected = currentSelection?.id === outlet.id;
             return (
               <div
                 key={outlet.id}
-                data-aos="fade-up"
-                data-aos-delay={(index % 3) * 40}
                 onClick={() => setSelectedOutlet(outlet)}
+                style={{ '--reveal-delay': `${(index % 3) * 60}ms` } as React.CSSProperties}
                 className={cn(
-                  'cursor-pointer bg-white rounded-2xl p-6 border transition-all duration-300 flex flex-col justify-between hover:shadow-warm-lg',
+                  'cursor-pointer bg-white rounded-2xl p-6 border transition-all duration-300 flex flex-col justify-between hover-lift reveal-up',
                   isSelected
                     ? 'border-brand-green ring-2 ring-brand-green/20 shadow-warm'
                     : 'border-neutral-200/80 hover:border-brand-green/40'
@@ -147,21 +146,11 @@ export const OutletList: React.FC<OutletListProps> = ({ outlets = [], isLoading 
                   </div>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-neutral-100 flex items-center justify-between text-xs">
-                  <span className="font-semibold text-brand-green flex items-center gap-1">
-                    <Map className="w-3.5 h-3.5" />
-                    {isSelected ? 'Viewing on map' : 'Click to view map'}
+                <div className="mt-5 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs">
+                  <span className="font-medium text-brand-green">
+                    {isSelected ? '✓ Viewing on Map' : 'Click to View on Map'}
                   </span>
-                  <a
-                    href={outlet.googleMapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-brand-burgundy font-medium hover:underline flex items-center gap-1"
-                  >
-                    <span>Directions</span>
-                    <Navigation className="w-3 h-3" />
-                  </a>
+                  <Navigation className="w-3.5 h-3.5 text-brand-green" />
                 </div>
               </div>
             );

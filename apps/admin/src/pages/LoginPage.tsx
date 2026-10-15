@@ -63,7 +63,7 @@ export const LoginPage: React.FC = () => {
     <div className="min-h-screen bg-sharon-cream flex flex-col justify-center items-center p-4">
       <div className="w-full max-w-md">
         {/* Brand Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 reveal-down is-visible">
           <img
             src="/Sharon_logo.jpg"
             alt="Sharon Logo"
@@ -80,7 +80,7 @@ export const LoginPage: React.FC = () => {
         {/* Login Card */}
         <Card
           bordered={false}
-          className="shadow-xl rounded-2xl bg-white border border-amber-950/10 p-2 sm:p-4"
+          className="shadow-xl rounded-2xl bg-white border border-amber-950/10 p-2 sm:p-4 reveal-scale is-visible delay-50"
         >
           <div className="mb-6 text-center">
             <Title level={4} className="m-0 font-sans font-bold text-gray-800">
@@ -160,7 +160,7 @@ export const LoginPage: React.FC = () => {
                 size="large"
                 loading={isSubmitting}
                 block
-                className="bg-sharon-forest hover:bg-emerald-800 h-11 text-base font-medium rounded-lg border-none shadow-md"
+                className="bg-sharon-forest hover:bg-emerald-800 h-11 text-base font-medium rounded-lg border-none shadow-md button-interaction hover-lift"
               >
                 Sign In
               </Button>

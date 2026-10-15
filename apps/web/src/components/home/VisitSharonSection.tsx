@@ -5,7 +5,7 @@ import { OutletCard } from '@/components/ui/OutletCard';
 import { BrandButton } from '@/components/ui/BrandButton';
 import { useOutlets } from '@/hooks/useOutlets';
 import { FALLBACK_OUTLETS } from '@/services/outletService';
-import { MapPin, Navigation } from 'lucide-react';
+import { Navigation } from 'lucide-react';
 
 export const VisitSharonSection: React.FC = () => {
   const { data: outlets } = useOutlets();
@@ -17,7 +17,7 @@ export const VisitSharonSection: React.FC = () => {
 
   return (
     <SectionContainer background="cream" className="py-20 md:py-28">
-      <div data-aos="fade-up">
+      <div className="reveal-up">
         <SectionHeading
           badge="Locations"
           title="Visit Your Neighborhood Sharon Stall"
@@ -25,15 +25,19 @@ export const VisitSharonSection: React.FC = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto reveal-stagger">
         {displayOutlets.map((outlet, index) => (
-          <div key={outlet.id} data-aos="fade-up" data-aos-delay={(index % 3) * 40}>
+          <div
+            key={outlet.id}
+            className="reveal-up"
+            style={{ '--reveal-delay': `${(index % 3) * 80}ms` } as React.CSSProperties}
+          >
             <OutletCard outlet={outlet} />
           </div>
         ))}
       </div>
 
-      <div className="mt-12 text-center" data-aos="fade-up">
+      <div className="mt-12 text-center reveal-up" style={{ '--reveal-delay': '120ms' } as React.CSSProperties}>
         <BrandButton
           to="/visit-us"
           variant="secondary"

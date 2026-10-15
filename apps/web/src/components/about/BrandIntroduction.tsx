@@ -47,7 +47,7 @@ export const BrandIntroduction: React.FC = () => {
     <>
       {/* Hero Banner */}
       <section className="relative py-24 md:py-32 bg-brand-green text-white overflow-hidden border-b border-brand-leaf-green/20">
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal-up">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 text-xs font-semibold tracking-widest uppercase rounded-full mb-4 bg-brand-amber/20 text-brand-amber border border-brand-amber/30">
             <Sparkles className="w-3.5 h-3.5" />
             Our Heritage & Story
@@ -64,9 +64,9 @@ export const BrandIntroduction: React.FC = () => {
       </section>
 
       {/* Brand Story In-Depth */}
-      <SectionContainer background="white" className="py-16 md:py-24">
+      <SectionContainer background="white" className="py-16 md:py-24 overflow-hidden">
         <div className="max-w-4xl mx-auto">
-          <div data-aos="fade-up">
+          <div className="reveal-up">
             <SectionHeading
               badge="The Sharon Journey"
               title="Honoring the Timeless Ritual of Chai"
@@ -75,19 +75,18 @@ export const BrandIntroduction: React.FC = () => {
           </div>
 
           <div className="prose prose-lg text-neutral-600 space-y-6 leading-relaxed font-normal">
-            <p data-aos="fade-right">
+            <p className="reveal-left text-reveal">
               Sharon Tea Stall was created out of deep admiration for India's roadside tea culture, elevated with uncompromising standards of hygiene, consistent taste, and premium whole spices.
             </p>
-            <p data-aos="fade-left">
+            <p className="reveal-right text-reveal">
               While ordinary tea stalls often resort to low-grade tea dust and artificial flavour essences, Sharon stood firm on a different path: only whole CTC tea leaves from Assam’s Brahmaputra valley, freshly pounded green cardamom pods from Kerala, ginger harvested at peak aroma, and thick, full-cream farm milk.
             </p>
             <blockquote
-              className="border-l-4 border-brand-burgundy pl-5 italic text-brand-black font-display text-xl my-6 bg-brand-cream/60 py-4 rounded-r-xl shadow-xs"
-              data-aos="zoom-in"
+              className="border-l-4 border-brand-burgundy pl-5 italic text-brand-black font-display text-xl my-6 bg-brand-cream/60 py-4 rounded-r-xl shadow-xs reveal-scale"
             >
               "We believe that a single cup of piping hot tea has the power to uplift the spirit, turn strangers into companions, and bring peace to a hectic day."
             </blockquote>
-            <p data-aos="fade-right">
+            <p className="reveal-left text-reveal">
               Today, Sharon has grown into a cherished landmark across neighborhoods. Whether it is an early-morning commuter reaching for their first strong brew or a group of tech workers unwinding in the evening over fragrant Elaichi tea, every guest is met with the same authentic aroma and warmth.
             </p>
           </div>
@@ -95,7 +94,7 @@ export const BrandIntroduction: React.FC = () => {
 
         {/* Heritage Timeline Section */}
         <div className="mt-16 sm:mt-20 max-w-4xl mx-auto pt-12 sm:pt-16 border-t border-neutral-100">
-          <div data-aos="fade-up" className="text-center mb-10 sm:mb-16">
+          <div className="text-center mb-10 sm:mb-16 reveal-up">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-brand-burgundy bg-brand-burgundy/10 px-3.5 py-1 rounded-full border border-brand-burgundy/20">
               <Sparkles className="w-3.5 h-3.5 text-brand-burgundy" />
               Milestones
@@ -128,7 +127,14 @@ export const BrandIntroduction: React.FC = () => {
                 const stepNumber = String(index + 1).padStart(2, '0');
 
                 return (
-                  <div key={step.year} className="relative" data-aos="fade-up" data-aos-delay={(index % 4) * 30}>
+                  <div
+                    key={step.year}
+                    className={cn(
+                      'relative',
+                      isEven ? 'reveal-left' : 'reveal-right'
+                    )}
+                    style={{ '--reveal-delay': `${(index % 4) * 60}ms` } as React.CSSProperties}
+                  >
                     {/* Mobile View: Vertical Left Spine with Clean Connected Card */}
                     <div className="flex md:hidden items-start gap-3 sm:gap-4">
                       {/* Left Node Badge */}
@@ -137,7 +143,7 @@ export const BrandIntroduction: React.FC = () => {
                       </div>
 
                       {/* Right Content Card */}
-                      <div className="flex-1 min-w-0 bg-white rounded-2xl p-4 sm:p-5 border border-amber-950/10 shadow-xs hover:shadow-warm transition-all duration-300">
+                      <div className="flex-1 min-w-0 bg-white rounded-2xl p-4 sm:p-5 border border-amber-950/10 shadow-xs hover-lift transition-all duration-300">
                         {/* Top Meta: Year Pill & Step Number */}
                         <div className="flex items-center justify-between gap-2 mb-2">
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black tracking-wider bg-brand-burgundy text-white shadow-2xs">
@@ -169,7 +175,7 @@ export const BrandIntroduction: React.FC = () => {
                     >
                       {/* Content Card */}
                       <div className={cn('w-1/2', isEven ? 'text-right' : 'text-left')}>
-                        <div className="bg-white rounded-2xl p-6 border border-amber-950/10 shadow-xs hover:shadow-warm transition-all duration-300 group">
+                        <div className="bg-white rounded-2xl p-6 border border-amber-950/10 shadow-xs hover-lift transition-all duration-300 group">
                           <div className={cn('flex items-center gap-2 mb-2', isEven ? 'justify-end' : 'justify-start')}>
                             <span className="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-black tracking-wider bg-brand-burgundy text-white shadow-2xs">
                               {step.year}

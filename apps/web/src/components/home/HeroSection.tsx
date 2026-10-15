@@ -345,23 +345,35 @@ export const HeroSection: React.FC = () => {
           className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center w-full"
         >
           {/* Top Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs sm:text-sm font-medium text-brand-amber mb-6 shadow-warm min-h-[34px]">
+          <div className={cn(
+            "inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs sm:text-sm font-medium text-brand-amber mb-6 shadow-warm min-h-[34px]",
+            !prefersReducedMotion && "animate-hero-badge"
+          )}>
             {currentSlide.badgeIcon}
             <span>{currentSlide.badgeText}</span>
           </div>
 
           {/* Hero Headline in Playfair Display with reserved height */}
-          <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-[1.15] mb-6 max-w-4xl drop-shadow-md min-h-[96px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center">
+          <h1 className={cn(
+            "font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-[1.15] mb-6 max-w-4xl drop-shadow-md min-h-[96px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center",
+            !prefersReducedMotion && "animate-hero-headline"
+          )}>
             {renderHeadline(currentSlide)}
           </h1>
 
           {/* Narrative Subtitle with reserved height */}
-          <p className="max-w-2xl text-base sm:text-xl text-brand-cream/90 leading-relaxed font-normal mb-10 drop-shadow min-h-[56px] sm:min-h-[64px] flex items-center justify-center">
+          <p className={cn(
+            "max-w-2xl text-base sm:text-xl text-brand-cream/90 leading-relaxed font-normal mb-10 drop-shadow min-h-[56px] sm:min-h-[64px] flex items-center justify-center",
+            !prefersReducedMotion && "animate-hero-paragraph"
+          )}>
             {currentSlide.subtitle}
           </p>
 
           {/* CTA Buttons with reserved height */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto min-h-[52px]">
+          <div className={cn(
+            "flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto min-h-[52px]",
+            !prefersReducedMotion && "animate-hero-cta"
+          )}>
             {currentSlide.ctaText && currentSlide.ctaLink && (
               <BrandButton
                 to={currentSlide.ctaLink}

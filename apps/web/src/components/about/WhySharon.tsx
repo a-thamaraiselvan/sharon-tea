@@ -33,7 +33,7 @@ const DIFFERENTIATORS = [
 export const WhySharon: React.FC = () => {
   return (
     <SectionContainer background="white" className="py-20 md:py-28">
-      <div data-aos="fade-up">
+      <div className="reveal-up">
         <SectionHeading
           badge="The Sharon Advantage"
           title="Why Patrons Choose Sharon"
@@ -41,13 +41,12 @@ export const WhySharon: React.FC = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 reveal-stagger">
         {DIFFERENTIATORS.map((diff, index) => (
           <div
             key={index}
-            data-aos="fade-up"
-            data-aos-delay={(index % 4) * 40}
-            className="group bg-brand-cream/50 rounded-2xl p-7 border border-neutral-200/80 hover:bg-white hover:shadow-warm-lg transition-all duration-300 hover:-translate-y-1"
+            className="group bg-brand-cream/50 rounded-2xl p-7 border border-neutral-200/80 hover:bg-white hover-lift transition-all duration-300 reveal-up"
+            style={{ '--reveal-delay': `${(index % 4) * 60}ms` } as React.CSSProperties}
           >
             <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform duration-300 border border-neutral-100">
               {diff.icon}

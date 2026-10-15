@@ -316,7 +316,7 @@ export const MenuItemsPage: React.FC = () => {
               type="text"
               icon={<EditOutlined />}
               onClick={() => handleOpenEdit(record)}
-              className="text-blue-600 hover:text-blue-700"
+              className="text-blue-600 hover:text-blue-700 button-interaction hover-scale"
             />
           </Tooltip>
           <Tooltip title="Delete Item">
@@ -325,6 +325,7 @@ export const MenuItemsPage: React.FC = () => {
               danger
               icon={<DeleteOutlined />}
               onClick={() => handleDelete(record)}
+              className="button-interaction hover-scale"
             />
           </Tooltip>
         </Space>
@@ -345,7 +346,7 @@ export const MenuItemsPage: React.FC = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-4 rounded-xl shadow-sm border border-amber-950/10 mb-6 flex flex-col sm:flex-row gap-4 items-center justify-between">
+      <div className="bg-white p-4 rounded-xl shadow-sm border border-amber-950/10 mb-6 flex flex-col sm:flex-row gap-4 items-center justify-between reveal-down is-visible delay-50">
         <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
           <Select
             allowClear
@@ -377,7 +378,7 @@ export const MenuItemsPage: React.FC = () => {
         </div>
       </div>
 
-      <div>
+      <div className="reveal-up is-visible delay-100">
         <Table
           dataSource={filteredItems}
           columns={columns}
@@ -397,6 +398,7 @@ export const MenuItemsPage: React.FC = () => {
         destroyOnClose
         centered
         width={620}
+        rootClassName="modal-enter"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

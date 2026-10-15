@@ -51,7 +51,7 @@ export const FranchiseFAQ: React.FC = () => {
 
   return (
     <SectionContainer background="cream" className="py-20 md:py-28">
-      <div data-aos="fade-up">
+      <div className="reveal-up">
         <SectionHeading
           badge="Clarifications"
           title="Frequently Asked Questions"
@@ -59,20 +59,19 @@ export const FranchiseFAQ: React.FC = () => {
         />
       </div>
 
-      <div className="max-w-3xl mx-auto space-y-4">
+      <div className="max-w-3xl mx-auto space-y-4 reveal-stagger">
         {FAQS.map((faq, index) => {
           const isOpen = openIndex === index;
           return (
             <div
               key={index}
-              data-aos="fade-up"
-              data-aos-delay={(index % 4) * 35}
-              className="bg-white rounded-2xl border border-neutral-200/80 shadow-sm overflow-hidden transition-all duration-200"
+              className="bg-white rounded-2xl border border-neutral-200/80 shadow-sm overflow-hidden transition-all duration-200 hover-lift reveal-up"
+              style={{ '--reveal-delay': `${(index % 4) * 50}ms` } as React.CSSProperties}
             >
               <button
                 type="button"
                 onClick={() => toggleIndex(index)}
-                className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 focus:outline-none"
+                className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 focus:outline-none cursor-pointer"
                 aria-expanded={isOpen}
               >
                 <span className="font-display text-base sm:text-lg font-bold text-brand-black">
@@ -86,11 +85,16 @@ export const FranchiseFAQ: React.FC = () => {
                 />
               </button>
 
-              {isOpen && (
-                <div className="px-5 sm:px-6 pb-6 pt-1 text-sm text-neutral-600 leading-relaxed border-t border-neutral-100 animate-fade-in">
+              <div
+                className={cn(
+                  'accordion-transition',
+                  isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
+                )}
+              >
+                <div className="px-5 sm:px-6 pb-6 pt-1 text-sm text-neutral-600 leading-relaxed border-t border-neutral-100">
                   {faq.answer}
                 </div>
-              )}
+              </div>
             </div>
           );
         })}

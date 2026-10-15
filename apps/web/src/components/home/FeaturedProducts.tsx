@@ -22,7 +22,7 @@ export const FeaturedProducts: React.FC = () => {
 
   return (
     <SectionContainer background="cream" className="py-16 md:py-24">
-      <div data-aos="fade-up">
+      <div className="reveal-up">
         <SectionHeading
           badge="Packaged Blends"
           title="Bring Sharon Home"
@@ -31,9 +31,13 @@ export const FeaturedProducts: React.FC = () => {
       </div>
 
       {/* Grid: 2-col on mobile, 4-col on desktop */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 max-w-7xl mx-auto" data-aos="fade-up">
-        {displayProducts.map((product) => (
-          <div key={product.id}>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 max-w-7xl mx-auto reveal-stagger">
+        {displayProducts.map((product, index) => (
+          <div
+            key={product.id}
+            className="reveal-up"
+            style={{ '--reveal-delay': `${(index % 4) * 60}ms` } as React.CSSProperties}
+          >
             <ProductDetailCard
               product={product}
               onSelectProduct={(p) => setSelectedProduct(p)}
@@ -51,8 +55,8 @@ export const FeaturedProducts: React.FC = () => {
 
       {/* Trust bar for packaged products matching exact visual style */}
       <div
-        className="mt-12 max-w-5xl mx-auto bg-white rounded-2xl p-5 sm:p-6 border border-neutral-200/80 shadow-sm grid grid-cols-2 sm:grid-cols-4 gap-4 text-center"
-        data-aos="zoom-in-up"
+        className="mt-12 max-w-5xl mx-auto bg-white rounded-2xl p-5 sm:p-6 border border-neutral-200/80 shadow-sm grid grid-cols-2 sm:grid-cols-4 gap-4 text-center reveal-fade"
+        style={{ '--reveal-delay': '120ms' } as React.CSSProperties}
       >
         <div className="flex flex-col items-center">
           <div className="w-9 h-9 rounded-full bg-[#194D33]/10 text-[#194D33] flex items-center justify-center mb-2">
@@ -84,7 +88,7 @@ export const FeaturedProducts: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-8 text-center" data-aos="fade-up">
+      <div className="mt-8 text-center reveal-up" style={{ '--reveal-delay': '160ms' } as React.CSSProperties}>
         <BrandButton
           to="/products"
           variant="outline"

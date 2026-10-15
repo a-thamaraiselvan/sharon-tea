@@ -27,7 +27,7 @@ const PILLARS = [
 export const MissionVisionValues: React.FC = () => {
   return (
     <SectionContainer background="cream" className="py-20 md:py-28">
-      <div data-aos="fade-up">
+      <div className="reveal-up">
         <SectionHeading
           badge="Foundations"
           title="Mission, Vision & Core Values"
@@ -35,16 +35,13 @@ export const MissionVisionValues: React.FC = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {PILLARS.map((pillar, idx) => {
-          const animation = idx === 0 ? 'fade-right' : idx === 1 ? 'zoom-in' : 'fade-left';
-          return (
-            <div
-              key={idx}
-              data-aos={animation}
-              data-aos-delay={idx * 40}
-              className="bg-white rounded-3xl p-8 border border-amber-950/5 shadow-sm hover:shadow-warm-lg transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
-            >
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto reveal-stagger">
+        {PILLARS.map((pillar, idx) => (
+          <div
+            key={idx}
+            className="bg-white rounded-3xl p-8 border border-amber-950/5 shadow-sm hover-lift transition-all duration-300 flex flex-col justify-between reveal-up"
+            style={{ '--reveal-delay': `${idx * 80}ms` } as React.CSSProperties}
+          >
             <div>
               <div className="w-16 h-16 rounded-2xl bg-brand-cream flex items-center justify-center mb-6 border border-amber-950/10">
                 {pillar.icon}
@@ -61,8 +58,7 @@ export const MissionVisionValues: React.FC = () => {
               <span>Sharon Standard</span>
             </div>
           </div>
-        );
-      })}
+        ))}
       </div>
     </SectionContainer>
   );

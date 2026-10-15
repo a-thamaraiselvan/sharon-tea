@@ -24,7 +24,7 @@ export const MenuGrid: React.FC<MenuGridProps> = ({
 
   if (items.length === 0) {
     return (
-      <div className="text-center py-16 bg-white rounded-3xl border border-[#EDE6DC] p-8 shadow-xs max-w-lg mx-auto">
+      <div className="text-center py-16 bg-white rounded-3xl border border-[#EDE6DC] p-8 shadow-xs max-w-lg mx-auto reveal-fade is-visible">
         <div className="w-16 h-16 rounded-full bg-[#FAF6F0] border border-[#ECDCC9] flex items-center justify-center mx-auto mb-4">
           <Coffee className="w-8 h-8 text-[#7A1D36]" />
         </div>
@@ -38,7 +38,7 @@ export const MenuGrid: React.FC<MenuGridProps> = ({
           <button
             type="button"
             onClick={onReset}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#7A1D36] hover:bg-[#521422] text-white text-xs sm:text-sm font-semibold transition-all shadow-xs active:scale-95 cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#7A1D36] hover:bg-[#521422] text-white text-xs sm:text-sm font-semibold transition-all shadow-xs button-interaction cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             Reset Filters
@@ -51,7 +51,7 @@ export const MenuGrid: React.FC<MenuGridProps> = ({
   return (
     <div
       className={cn(
-        'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5',
+        'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 reveal-stagger',
         className
       )}
     >
@@ -60,7 +60,8 @@ export const MenuGrid: React.FC<MenuGridProps> = ({
         return (
           <div
             key={uniqueKey}
-            className="w-full min-w-0 transition-all duration-200 hover:-translate-y-0.5"
+            className="w-full min-w-0 reveal-up"
+            style={{ '--reveal-delay': `${(index % 4) * 40}ms` } as React.CSSProperties}
           >
             <MenuItemCard item={item} />
           </div>

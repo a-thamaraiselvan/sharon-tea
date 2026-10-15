@@ -221,7 +221,7 @@ export const MenuPage: React.FC = () => {
           className="pointer-events-none select-none absolute -top-1 -right-1 w-28 sm:w-48 md:w-60 opacity-75 z-0"
         />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal-down">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-neutral-900 tracking-tight">
             Our <span className="italic text-[#93592B]">Beverage</span> Menu
           </h1>
@@ -236,7 +236,7 @@ export const MenuPage: React.FC = () => {
         {/* Search & Filters Bar */}
         <div className="space-y-6 mb-8 sm:mb-10">
           {/* LiveTeaSearch prominently in the center */}
-          <div className="max-w-xl mx-auto" data-aos="fade-down">
+          <div className="max-w-xl mx-auto reveal-fade">
             <LiveTeaSearch
               value={searchFilter}
               onChange={(val) => {
@@ -265,7 +265,7 @@ export const MenuPage: React.FC = () => {
           </div>
 
           {/* MenuCategoryNav below search */}
-          <div id="menu-category-tabs" data-aos="fade-down" data-aos-delay="50" className="scroll-mt-24 sm:scroll-mt-28">
+          <div id="menu-category-tabs" className="scroll-mt-24 sm:scroll-mt-28 reveal-fade" style={{ '--reveal-delay': '80ms' } as React.CSSProperties}>
             <MenuCategoryNav
               categories={categories}
               activeCategory={activeCategory}
@@ -311,8 +311,7 @@ export const MenuPage: React.FC = () => {
 
         {/* Visit Us Bottom CTA */}
         <div
-          className="mt-16 sm:mt-20 bg-brand-burgundy rounded-3xl p-8 sm:p-12 text-white text-center shadow-warm-lg border border-brand-burgundy/30"
-          data-aos="fade-up"
+          className="mt-16 sm:mt-20 bg-brand-burgundy rounded-3xl p-8 sm:p-12 text-white text-center shadow-warm-lg border border-brand-burgundy/30 reveal-up"
         >
           <h3 className="font-display text-2xl sm:text-3xl font-bold mb-3">
             Craving a Hot Cutting Chai Right Now?

@@ -1,119 +1,123 @@
 import React from 'react';
 import { SectionContainer } from '@/components/ui/SectionContainer';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { BrandButton } from '@/components/ui/BrandButton';
 import {
   TrendingUp,
-  Coins,
-  Truck,
-  GraduationCap,
-  MapPin,
-  Megaphone,
-  CheckCircle,
-  Sparkles,
+  Award,
+  Users,
+  ShieldCheck,
+  Headphones,
   Store,
-  Building2,
-  Crown,
+  CheckCircle,
+  Coffee,
+  Sparkles,
   ArrowRight,
 } from 'lucide-react';
-import { BrandButton } from '@/components/ui/BrandButton';
 import { cn } from '@/utils/cn';
 
 const BENEFITS = [
   {
-    icon: <Coins className="w-7 h-7 text-brand-amber" />,
-    title: 'Low Initial Capital',
-    description: 'Compact kiosk or cafe models designed for low setup expenses and minimum rent commitments.',
-  },
-  {
-    icon: <TrendingUp className="w-7 h-7 text-brand-leaf-green" />,
+    icon: <TrendingUp className="w-7 h-7 text-brand-burgundy" />,
     title: 'High Gross Margins',
-    description: 'Tea and hot beverages deliver industry-leading margins of 55% to 65% with everyday repeat customers.',
+    description:
+      'High repeat daily consumption ensures 55-65% gross profit margins with swift cash flow from day one.',
   },
   {
-    icon: <Truck className="w-7 h-7 text-brand-rust" />,
-    title: 'Direct Spice & Leaf Supply',
-    description: 'Receive pre-portioned tea blends, secret spice masalas, and packaging directly from Sharon HQ.',
+    icon: <Award className="w-7 h-7 text-brand-amber" />,
+    title: 'Established Brand Equity',
+    description:
+      'Leverage Sharon’s strong recall across South India. Patrons recognize our samovars and trust our quality.',
   },
   {
-    icon: <GraduationCap className="w-7 h-7 text-brand-burgundy" />,
-    title: 'Comprehensive Masterclass',
-    description: 'Extensive hand-on training covering meter tea pouring, decoction brewing, billing, and customer service.',
+    icon: <ShieldCheck className="w-7 h-7 text-brand-green" />,
+    title: 'Centralized Supply Chain',
+    description:
+      'Receive our proprietary tea leaf blends, authentic whole spices, and packaging directly at wholesale rates.',
   },
   {
-    icon: <MapPin className="w-7 h-7 text-brand-green" />,
-    title: 'Site Selection & Feasibility',
-    description: 'Our team evaluates footfall density, visibility, competition, and demographic metrics before site approval.',
+    icon: <Users className="w-7 h-7 text-brand-rust" />,
+    title: 'Complete Staff Training',
+    description:
+      'Comprehensive 7-day culinary SOP onboarding covering exact tea proportions, boiling timings, hygiene, and guest care.',
   },
   {
-    icon: <Megaphone className="w-7 h-7 text-brand-chai" />,
-    title: 'Brand Marketing Support',
-    description: 'Digital promotions, local influencer marketing, inaugural launch flyers, and social media buzz.',
+    icon: <Store className="w-7 h-7 text-brand-chai" />,
+    title: 'Compact Store Footprint',
+    description:
+      'Turnkey kiosk models designed for 80–120 sq. ft. minimizing rental overheads while maximizing per-sq-ft sales.',
+  },
+  {
+    icon: <Headphones className="w-7 h-7 text-brand-leaf-green" />,
+    title: 'Continuous Marketing Support',
+    description:
+      'Digital promotions, local influencer marketing, inaugural launch flyers, and social media buzz.',
   },
 ];
 
 const INVESTMENT_TIERS = [
   {
-    name: 'Kiosk / Quick Counter',
-    badge: 'Low Capex',
-    price: '₹3.5L – ₹5L',
-    area: '80 – 120 Sq. Ft',
-    payback: '8 – 10 Months',
-    icon: <Store className="w-7 h-7 text-brand-green" />,
-    highlights: [
-      'Modular stainless steel counter & samovar',
-      'Tea brewing equipment & POS terminal',
-      'Initial raw material & packaging kit',
-      'Comprehensive barista training',
-    ],
+    name: 'Sharon Kiosk Model',
+    price: '₹3.5 – ₹4.5 Lakhs',
+    payback: '8–10 Months',
+    area: '80 – 120 Sq. Ft.',
+    badge: 'Popular for Transit Hubs',
     recommended: false,
+    icon: <Coffee className="w-7 h-7 text-brand-green" />,
+    highlights: [
+      'Takeaway-focused high volume model',
+      'Turnkey setup with commercial samovar & equipment',
+      'Full staff training & starter raw materials pack',
+      'Ideal for metro stations, tech parks & markets',
+    ],
   },
   {
-    name: 'Express Cafe Model',
-    badge: 'Most Popular',
-    price: '₹5L – ₹8L',
-    area: '150 – 300 Sq. Ft',
-    payback: '10 – 14 Months',
-    icon: <Building2 className="w-7 h-7 text-brand-amber" />,
-    highlights: [
-      'Full branded interior styling & warm seating',
-      'Hot snack display & cold drink dispenser',
-      'Grand opening marketing campaign',
-      'Dedicated launch supervisor on site',
-    ],
+    name: 'Sharon Cafe Model',
+    price: '₹5.5 – ₹7.5 Lakhs',
+    payback: '10–12 Months',
+    area: '150 – 300 Sq. Ft.',
+    badge: 'Most Recommended',
     recommended: true,
+    icon: <Store className="w-7 h-7 text-brand-burgundy" />,
+    highlights: [
+      'Semi-dine-in seating with beverage + snack menu',
+      'Enhanced branding, digital menus & acoustic setup',
+      'Full point-of-sale billing & inventory software',
+      'Prime corner location advisory & grand launch campaign',
+    ],
   },
   {
-    name: 'Regional Master Partner',
-    badge: 'Exclusive',
-    price: '₹15L+',
-    area: 'Multi-Store Rights',
-    payback: '14 – 18 Months',
-    icon: <Crown className="w-7 h-7 text-brand-burgundy" />,
-    highlights: [
-      'Exclusive city or district territory rights',
-      'Sub-franchise revenue sharing model',
-      'Priority bulk spice & merchandise supply',
-      'Quarterly operational & marketing audits',
-    ],
+    name: 'Sharon Master Franchise',
+    price: '₹18 – ₹25 Lakhs',
+    payback: '14–18 Months',
+    area: 'Territory / City Rights',
+    badge: 'Exclusive Regional Rights',
     recommended: false,
+    icon: <Award className="w-7 h-7 text-brand-amber" />,
+    highlights: [
+      'Multi-unit expansion rights for entire district/city',
+      'Sub-franchise revenue sharing & territory protection',
+      'Direct central warehouse dispatch rates',
+      'Dedicated field expansion manager support',
+    ],
   },
 ];
 
 const STEPS = [
   {
     step: '01',
-    title: 'Submit Application',
-    description: 'Fill out the franchise enquiry form below with your location and investment budget.',
+    title: 'Application & Discovery',
+    description: 'Submit your franchise inquiry online. Our expansion team connects within 24 hours to assess location suitability.',
   },
   {
     step: '02',
-    title: 'Discussion & Site Feasibility',
-    description: 'Our franchise manager will contact you, review potential store sites, and share financial models.',
+    title: 'Site Selection & Agreement',
+    description: 'Our real-estate team validates your site catchment area and signs the official franchise partnership deed.',
   },
   {
     step: '03',
-    title: 'Agreement & Fit-Out',
-    description: 'Sign formal MOU, finalize modular kitchen setup, stainless counters, and branding signage.',
+    title: 'Store Fabrication & Equipment',
+    description: 'Complete interior fabrication, samovar plumbing, branding signages, and POS setup completed in 15–20 days.',
   },
   {
     step: '04',
@@ -133,7 +137,7 @@ export const FranchiseInfo: React.FC = () => {
   return (
     <SectionContainer background="white" className="py-20 md:py-28">
       {/* 1. Value Pillars */}
-      <div data-aos="fade-up">
+      <div className="reveal-up">
         <SectionHeading
           badge="Franchise Benefits"
           title="Why Partner With Sharon?"
@@ -141,13 +145,12 @@ export const FranchiseInfo: React.FC = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-24 reveal-stagger">
         {BENEFITS.map((benefit, i) => (
           <div
             key={i}
-            data-aos="fade-up"
-            data-aos-delay={(i % 3) * 40}
-            className="group bg-brand-cream/40 rounded-2xl p-7 border border-neutral-200/80 hover:bg-white hover:shadow-warm-lg transition-all duration-300 hover:-translate-y-1"
+            className="group bg-brand-cream/40 rounded-2xl p-7 border border-neutral-200/80 hover:bg-white hover-lift transition-all duration-300 reveal-up"
+            style={{ '--reveal-delay': `${(i % 3) * 60}ms` } as React.CSSProperties}
           >
             <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center mb-5 shadow-sm group-hover:scale-110 transition-transform duration-300 border border-neutral-100">
               {benefit.icon}
@@ -164,7 +167,7 @@ export const FranchiseInfo: React.FC = () => {
 
       {/* 2. Investment Tier Cards */}
       <div className="pt-8 border-t border-neutral-100 mb-24">
-        <div data-aos="fade-up">
+        <div className="reveal-up">
           <SectionHeading
             badge="Investment Tiers"
             title="Choose Your Franchise Model"
@@ -172,18 +175,17 @@ export const FranchiseInfo: React.FC = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto reveal-stagger">
           {INVESTMENT_TIERS.map((tier, idx) => (
             <div
               key={tier.name}
-              data-aos="zoom-in-up"
-              data-aos-delay={idx * 40}
               className={cn(
-                'relative bg-white rounded-3xl p-8 border transition-all duration-300 flex flex-col justify-between hover:shadow-warm-lg',
+                'relative bg-white rounded-3xl p-8 border transition-all duration-300 flex flex-col justify-between hover-lift reveal-scale',
                 tier.recommended
                   ? 'border-brand-burgundy ring-2 ring-brand-burgundy/20 shadow-warm'
                   : 'border-neutral-200/80 hover:border-brand-green/40 shadow-sm'
               )}
+              style={{ '--reveal-delay': `${idx * 80}ms` } as React.CSSProperties}
             >
               {tier.recommended && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-burgundy text-white text-[11px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-sm flex items-center gap-1">
@@ -234,7 +236,7 @@ export const FranchiseInfo: React.FC = () => {
                 variant={tier.recommended ? 'primary' : 'outline'}
                 size="md"
                 onClick={scrollToForm}
-                className="w-full text-center"
+                className="w-full text-center button-interaction"
                 icon={<ArrowRight className="w-4 h-4" />}
               >
                 Apply for {tier.name.split(' ')[0]}
@@ -245,20 +247,21 @@ export const FranchiseInfo: React.FC = () => {
       </div>
 
       {/* 3. Step-by-Step Launch Process */}
-      <div className="pt-8 border-t border-neutral-100" data-aos="fade-up">
-        <SectionHeading
-          badge="Roadmap"
-          title="Simple 4-Step Onboarding Process"
-          subtitle="From initial handshake to serving your first piping hot cup in under one month."
-        />
+      <div className="pt-8 border-t border-neutral-100">
+        <div className="reveal-up">
+          <SectionHeading
+            badge="Roadmap"
+            title="Simple 4-Step Onboarding Process"
+            subtitle="From initial handshake to serving your first piping hot cup in under one month."
+          />
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative reveal-stagger">
           {STEPS.map((s, idx) => (
             <div
               key={idx}
-              data-aos="fade-up"
-              data-aos-delay={idx * 35}
-              className="relative bg-white rounded-2xl p-6 border border-neutral-200/80 shadow-sm flex flex-col justify-between hover:shadow-warm transition-all duration-300"
+              className="relative bg-white rounded-2xl p-6 border border-neutral-200/80 shadow-sm flex flex-col justify-between hover-lift transition-all duration-300 reveal-up"
+              style={{ '--reveal-delay': `${idx * 60}ms` } as React.CSSProperties}
             >
               <div>
                 <span className="font-display text-4xl font-black text-brand-green/20 block mb-2">

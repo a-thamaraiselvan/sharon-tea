@@ -199,7 +199,7 @@ export const ContactEnquiriesPage: React.FC = () => {
               type="text"
               icon={<EyeOutlined />}
               onClick={() => handleOpenDrawer(record)}
-              className="text-sharon-forest"
+              className="text-sharon-forest button-interaction hover-scale"
             />
           </Tooltip>
           <Tooltip title="Delete">
@@ -208,6 +208,7 @@ export const ContactEnquiriesPage: React.FC = () => {
               danger
               icon={<DeleteOutlined />}
               onClick={() => handleDelete(record)}
+              className="button-interaction hover-scale"
             />
           </Tooltip>
         </Space>
@@ -231,7 +232,7 @@ export const ContactEnquiriesPage: React.FC = () => {
         />
       </div>
 
-      <div className="bg-white p-4 rounded-xl shadow-sm border border-amber-950/10 mb-6">
+      <div className="bg-white p-4 rounded-xl shadow-sm border border-amber-950/10 mb-6 reveal-down is-visible delay-50">
         <Tabs
           activeKey={activeTab}
           onChange={(key) => setActiveTab(key)}
@@ -254,7 +255,7 @@ export const ContactEnquiriesPage: React.FC = () => {
         </div>
       </div>
 
-      <div>
+      <div className="reveal-up is-visible delay-100">
         <Table
           dataSource={filteredEnquiries}
           columns={columns}
@@ -284,6 +285,7 @@ export const ContactEnquiriesPage: React.FC = () => {
         width={500}
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
+        rootClassName="drawer-enter"
       >
         {selectedEnquiry && (
           <div className="space-y-6">

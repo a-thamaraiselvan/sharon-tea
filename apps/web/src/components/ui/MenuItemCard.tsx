@@ -26,12 +26,12 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
     return (
       <div
         className={cn(
-          'bg-white rounded-2xl p-2.5 sm:p-3.5 border border-[#EDE6DC] shadow-sm hover:shadow-md transition-all flex flex-row items-center gap-2.5 sm:gap-3.5 relative overflow-hidden group text-left select-none',
+          'bg-white rounded-2xl p-2.5 sm:p-3.5 border border-[#EDE6DC] shadow-sm hover-lift flex flex-row items-center gap-2.5 sm:gap-3.5 relative overflow-hidden group text-left select-none',
           className
         )}
       >
         {/* Left side: Square/rounded thumbnail */}
-        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shrink-0 bg-[#FDF8F2] flex items-center justify-center p-0.5">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shrink-0 bg-[#FDF8F2] flex items-center justify-center p-0.5 image-zoom-container">
           <img
             src={item.imageUrl || '/images/beverages/sharon-classic.png'}
             alt={itemName}
@@ -40,7 +40,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
             onError={(e) => {
               (e.target as HTMLImageElement).src = '/images/beverages/sharon-classic.png';
             }}
-            className="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover rounded-lg image-zoom"
           />
         </div>
 
@@ -93,12 +93,12 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
   return (
     <div
       className={cn(
-        'bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 border border-[#EDE6DC] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between relative overflow-hidden group text-left select-none h-full',
+        'bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 border border-[#EDE6DC] shadow-sm hover-lift flex flex-col justify-between relative overflow-hidden group text-left select-none h-full',
         className
       )}
     >
       {/* Top: Square/rounded thumbnail with badge */}
-      <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#FAF6F0] shrink-0 mb-2.5 sm:mb-3">
+      <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#FAF6F0] shrink-0 mb-2.5 sm:mb-3 image-zoom-container">
         <img
           src={item.imageUrl || '/images/beverages/sharon-classic.png'}
           alt={itemName}
@@ -107,7 +107,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
           onError={(e) => {
             (e.target as HTMLImageElement).src = '/images/beverages/sharon-classic.png';
           }}
-          className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover rounded-xl image-zoom"
         />
 
         {/* Bestseller badge */}

@@ -253,7 +253,7 @@ export const MenuCategoriesPage: React.FC = () => {
               type="text"
               icon={<EditOutlined />}
               onClick={() => handleOpenEdit(record)}
-              className="text-blue-600 hover:text-blue-700"
+              className="text-blue-600 hover:text-blue-700 button-interaction hover-scale"
             />
           </Tooltip>
           <Tooltip title="Delete Category">
@@ -262,6 +262,7 @@ export const MenuCategoriesPage: React.FC = () => {
               danger
               icon={<DeleteOutlined />}
               onClick={() => handleDelete(record)}
+              className="button-interaction hover-scale"
             />
           </Tooltip>
         </Space>
@@ -281,7 +282,7 @@ export const MenuCategoriesPage: React.FC = () => {
         />
       </div>
 
-      <div>
+      <div className="reveal-up is-visible delay-100">
         <Table
           dataSource={categories}
           columns={columns}
@@ -301,6 +302,7 @@ export const MenuCategoriesPage: React.FC = () => {
         destroyOnClose
         centered
         width={540}
+        rootClassName="modal-enter"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-3">
           <div>

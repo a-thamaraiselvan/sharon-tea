@@ -4,7 +4,7 @@ import { SectionContainer } from '@/components/ui/SectionContainer';
 import { OutletList } from '@/components/visit/OutletList';
 import { useOutlets } from '@/hooks/useOutlets';
 import { FALLBACK_OUTLETS } from '@/services/outletService';
-import { MapPin, Navigation, Clock, Phone } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 export const VisitUsPage: React.FC = () => {
   const { data: outlets = FALLBACK_OUTLETS, isLoading } = useOutlets();
@@ -26,13 +26,12 @@ export const VisitUsPage: React.FC = () => {
             <MapPin className="w-3.5 h-3.5" />
             Find Your Local Stall
           </div>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4" data-aos="fade-up">
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4 reveal-up">
             Visit Sharon Tea Stall
           </h1>
           <p
-            className="text-base sm:text-lg text-brand-cream/85 max-w-2xl mx-auto font-normal"
-            data-aos="fade-up"
-            data-aos-delay="40"
+            className="text-base sm:text-lg text-brand-cream/85 max-w-2xl mx-auto font-normal text-reveal"
+            style={{ '--reveal-delay': '80ms' } as React.CSSProperties}
           >
             Whether you need a brisk morning wake-up cup or an evening tea catchup with colleagues, our doors are open 7 days a week.
           </p>

@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ConfigProvider } from 'antd';
-import { AOSProvider } from '@/components/common/AOSProvider';
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 import { AppRoutes } from './routes/AppRoutes';
+import { initGlobalScrollReveal } from '@/hooks/useScrollReveal';
 
 export const App: React.FC = () => {
+  useEffect(() => {
+    return initGlobalScrollReveal();
+  }, []);
+
   return (
     <ConfigProvider
       theme={{
@@ -21,9 +25,7 @@ export const App: React.FC = () => {
       }}
     >
       <ErrorBoundary>
-        <AOSProvider>
-          <AppRoutes />
-        </AOSProvider>
+        <AppRoutes />
       </ErrorBoundary>
     </ConfigProvider>
   );

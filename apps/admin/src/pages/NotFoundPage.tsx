@@ -7,7 +7,7 @@ export const NotFoundPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center">
+    <div className="min-h-[70vh] flex items-center justify-center reveal-scale is-visible">
       <Result
         status="404"
         title="404"
@@ -17,7 +17,7 @@ export const NotFoundPage: React.FC = () => {
             type="primary"
             icon={<HomeOutlined />}
             onClick={() => navigate('/')}
-            className="bg-sharon-forest hover:bg-emerald-800"
+            className="bg-sharon-forest hover:bg-emerald-800 button-interaction hover-lift"
           >
             Back to Dashboard
           </Button>

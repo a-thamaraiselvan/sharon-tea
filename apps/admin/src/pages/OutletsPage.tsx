@@ -306,7 +306,7 @@ export const OutletsPage: React.FC = () => {
               type="text"
               icon={<EditOutlined />}
               onClick={() => handleOpenEdit(record)}
-              className="text-blue-600 hover:text-blue-700"
+              className="text-blue-600 hover:text-blue-700 button-interaction hover-scale"
             />
           </Tooltip>
           <Tooltip title="Delete Outlet">
@@ -315,6 +315,7 @@ export const OutletsPage: React.FC = () => {
               danger
               icon={<DeleteOutlined />}
               onClick={() => handleDelete(record)}
+              className="button-interaction hover-scale"
             />
           </Tooltip>
         </Space>
@@ -334,7 +335,7 @@ export const OutletsPage: React.FC = () => {
         />
       </div>
 
-      <div>
+      <div className="reveal-up is-visible delay-100">
         <Table
           dataSource={outlets}
           columns={columns}
@@ -354,6 +355,7 @@ export const OutletsPage: React.FC = () => {
         destroyOnClose
         centered
         width={640}
+        rootClassName="modal-enter"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

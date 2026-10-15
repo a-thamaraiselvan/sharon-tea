@@ -166,7 +166,7 @@ export const SettingsPage: React.FC = () => {
             <Skeleton active paragraph={{ rows: 12 }} />
           </Card>
         ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 reveal-up is-visible delay-50">
           {/* Brand Information */}
           <Card
             title={
@@ -496,7 +496,7 @@ export const SettingsPage: React.FC = () => {
               size="large"
               icon={<SaveOutlined />}
               loading={updateMutation.isPending}
-              className="bg-sharon-forest hover:bg-emerald-800 h-11 px-8 font-medium shadow-md"
+              className="bg-sharon-forest hover:bg-emerald-800 h-11 px-8 font-medium shadow-md button-interaction hover-lift"
             >
               Save All Settings
             </Button>
