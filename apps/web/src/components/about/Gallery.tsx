@@ -26,43 +26,48 @@ const getCategoryLabel = (category: string) => CATEGORY_LABELS[category] || cate
 
 /**
  * Asymmetric Bento Grid Spans for responsive layout across screen sizes:
- * - Desktop: lg:grid-cols-4 lg:auto-rows-[240px] gap-5
- * - Tablet: md:grid-cols-3 md:auto-rows-[220px] gap-4
- * - Mobile: grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-[210px]
+ * - Mobile: Strict 2-column Bento Grid (col-span-1 or col-span-2)
+ * - Tablet: 3-column Bento Grid (md:grid-cols-3)
+ * - Desktop: 4-column Bento Grid (lg:grid-cols-4)
  */
 const getBentoSpanClass = (index: number, total: number) => {
-  // If only 2 items exist (e.g. category filter), display as a balanced hero duo
+  // If only 1 item exists
+  if (total === 1) {
+    return 'col-span-2 md:col-span-3 lg:col-span-4 row-span-2';
+  }
+
+  // If only 2 items exist (e.g. filtered tab), display as balanced side-by-side hero duo
   if (total === 2) {
-    return 'col-span-1 sm:col-span-2 md:col-span-1 lg:col-span-2 row-span-1 sm:row-span-2 md:row-span-2 lg:row-span-2 min-h-[260px] sm:min-h-[380px]';
+    return 'col-span-2 sm:col-span-1 md:col-span-1 lg:col-span-2 row-span-2';
   }
 
   const slot = index % 8;
   switch (slot) {
     case 0:
-      // Item 0 (Hero): lg:col-span-2 lg:row-span-2, md:col-span-2 md:row-span-2, col-span-1 sm:col-span-2 row-span-1 sm:row-span-2
-      return 'col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 row-span-1 sm:row-span-2 md:row-span-2 lg:row-span-2 min-h-[280px] sm:min-h-0';
+      // Item 0 (Hero Showcase): 2 cols wide x 2 rows tall across all screens
+      return 'col-span-2 row-span-2 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2';
     case 1:
-      // Item 1: lg:col-span-1 lg:row-span-1, md:col-span-1 md:row-span-1
-      return 'col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 row-span-1 sm:row-span-1 md:row-span-1 lg:row-span-1';
+      // Item 1: 1 col x 1 row (compact square companion)
+      return 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1';
     case 2:
-      // Item 2: lg:col-span-1 lg:row-span-1, md:col-span-1 md:row-span-1
-      return 'col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 row-span-1 sm:row-span-1 md:row-span-1 lg:row-span-1';
+      // Item 2: 1 col x 1 row (compact square companion)
+      return 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1';
     case 3:
-      // Item 3: lg:col-span-2 lg:row-span-1 (wide horizontal), md:col-span-2 md:row-span-1
-      return 'col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 row-span-1 sm:row-span-1 md:row-span-1 lg:row-span-1';
+      // Item 3: 2 cols wide x 1 row tall (panoramic banner on mobile & desktop)
+      return 'col-span-2 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1';
     case 4:
-      // Item 4: lg:col-span-1 lg:row-span-2 (tall vertical), md:col-span-1 md:row-span-2
-      return 'col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 row-span-1 sm:row-span-2 md:row-span-2 lg:row-span-2';
+      // Item 4: 1 col wide x 2 rows tall (tall vertical portrait card)
+      return 'col-span-1 row-span-2 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2';
     case 5:
-      // Item 5: lg:col-span-1 lg:row-span-1, md:col-span-1 md:row-span-1
-      return 'col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 row-span-1 sm:row-span-1 md:row-span-1 lg:row-span-1';
+      // Item 5: 1 col x 1 row (stacks next to tall card on right)
+      return 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1';
     case 6:
-      // Item 6: lg:col-span-2 lg:row-span-1 (wide banner), md:col-span-1 md:row-span-1
-      return 'col-span-1 sm:col-span-2 md:col-span-1 lg:col-span-2 row-span-1 sm:row-span-1 md:row-span-1 lg:row-span-1';
+      // Item 6: 1 col x 1 row on mobile (stacks below item 5 next to tall card); 2 cols on desktop
+      return 'col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-1';
     case 7:
     default:
-      // Item 7: lg:col-span-1 lg:row-span-1, md:col-span-1 md:row-span-1
-      return 'col-span-1 sm:col-span-1 md:col-span-1 lg:col-span-1 row-span-1 sm:row-span-1 md:row-span-1 lg:row-span-1';
+      // Item 7: 2 cols on mobile (wide closer); 1 col on tablet/desktop
+      return 'col-span-2 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1';
   }
 };
 
@@ -113,7 +118,7 @@ export const Gallery: React.FC = () => {
   const currentLightboxItem = lightboxIndex !== null ? filtered[lightboxIndex] : null;
 
   return (
-    <SectionContainer background="cream" className="py-20 md:py-28">
+    <SectionContainer background="cream" className="py-14 sm:py-20 md:py-28">
       <div data-aos="fade-up">
         <SectionHeading
           badge="Moments & Memories"
@@ -123,18 +128,19 @@ export const Gallery: React.FC = () => {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10 md:mb-14" data-aos="fade-down">
+      <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 md:gap-3 mb-8 sm:mb-10 md:mb-14" data-aos="fade-down">
         {TABS.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
             <button
               key={tab.id}
+              type="button"
               onClick={() => {
                 setActiveTab(tab.id);
                 setLightboxIndex(null);
               }}
               className={cn(
-                'px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 border flex items-center gap-2 cursor-pointer',
+                'px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 border flex items-center gap-2 cursor-pointer',
                 isActive
                   ? 'bg-brand-green text-white border-brand-green shadow-md shadow-brand-green/20 scale-[1.02]'
                   : 'bg-white/80 backdrop-blur-sm text-neutral-700 border-neutral-200 hover:border-brand-green/60 hover:text-brand-green hover:bg-white shadow-xs'
@@ -146,10 +152,10 @@ export const Gallery: React.FC = () => {
         })}
       </div>
 
-      {/* Bento Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[210px] md:auto-rows-[220px] lg:auto-rows-[240px] gap-4 md:gap-4 lg:gap-5">
+      {/* Bento Grid: 2-col on Mobile, 3-col on Tablet, 4-col on Desktop */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[160px] sm:auto-rows-[190px] md:auto-rows-[220px] lg:auto-rows-[250px] gap-2.5 sm:gap-3.5 md:gap-4 lg:gap-5">
         {filtered.map((item, index) => {
-          const isHero = index === 0;
+          const isHero = (index % 8) === 0;
           return (
             <div
               key={item.id}
@@ -164,9 +170,9 @@ export const Gallery: React.FC = () => {
                 }
               }}
               data-aos="zoom-in"
-              data-aos-delay={(index % 4) * 50}
+              data-aos-delay={(index % 4) * 40}
               className={cn(
-                'relative rounded-3xl overflow-hidden border border-amber-950/10 shadow-sm bg-neutral-900 group cursor-pointer hover:shadow-warm-xl transition-all duration-300 select-none',
+                'relative rounded-2xl sm:rounded-3xl overflow-hidden border border-amber-950/10 shadow-xs bg-neutral-900 group cursor-pointer hover:shadow-warm-xl transition-all duration-300 select-none',
                 getBentoSpanClass(index, filtered.length)
               )}
             >
@@ -179,8 +185,8 @@ export const Gallery: React.FC = () => {
               />
 
               {/* Floating Top-Left Glass Badge */}
-              <div className="absolute top-4 left-4 z-10">
-                <span className="inline-flex items-center gap-1.5 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider text-[#FCD34D] border border-white/15 uppercase shadow-sm">
+              <div className="absolute top-2.5 left-2.5 sm:top-4 sm:left-4 z-10">
+                <span className="inline-flex items-center gap-1 sm:gap-1.5 bg-black/55 backdrop-blur-md px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[11px] font-semibold tracking-wider text-[#FCD34D] border border-white/15 uppercase shadow-xs">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                   {getCategoryLabel(item.category)}
                 </span>
@@ -188,18 +194,18 @@ export const Gallery: React.FC = () => {
 
               {/* Expand / Zoom Indicator on Hover */}
               <div
-                className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 shadow-lg"
+                className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-10 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 shadow-lg"
                 title="View Fullscreen"
               >
-                <Maximize2 className="w-4 h-4 text-amber-200" />
+                <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-200" />
               </div>
 
               {/* Permanent Readable Bottom Gradient & Typography */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-5 sm:p-6 flex flex-col justify-end text-white pointer-events-none z-10 pt-16">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3 sm:p-5 md:p-6 flex flex-col justify-end text-white pointer-events-none z-10 pt-8 sm:pt-14">
                 <h4
                   className={cn(
-                    'font-display font-bold text-white group-hover:text-amber-200 transition-colors leading-tight',
-                    isHero ? 'text-lg sm:text-xl md:text-2xl' : 'text-base sm:text-lg'
+                    'font-display font-bold text-white group-hover:text-amber-200 transition-colors leading-tight line-clamp-1 sm:line-clamp-2',
+                    isHero ? 'text-xs sm:text-base md:text-xl' : 'text-[11px] sm:text-sm md:text-base'
                   )}
                 >
                   {item.title}
@@ -207,8 +213,10 @@ export const Gallery: React.FC = () => {
                 {item.caption && (
                   <p
                     className={cn(
-                      'text-neutral-200/90 mt-1.5 leading-relaxed',
-                      isHero ? 'text-xs sm:text-sm line-clamp-3 sm:line-clamp-2' : 'text-xs line-clamp-2'
+                      'text-neutral-200/90 mt-0.5 sm:mt-1.5 leading-relaxed',
+                      isHero
+                        ? 'text-[10px] sm:text-xs md:text-sm line-clamp-2'
+                        : 'hidden sm:block text-[10px] sm:text-xs line-clamp-1'
                     )}
                   >
                     {item.caption}
@@ -292,17 +300,17 @@ export const Gallery: React.FC = () => {
             </div>
 
             {/* Caption & Metadata Panel */}
-            <div className="p-5 sm:p-6 bg-gradient-to-b from-neutral-900/95 to-neutral-950 text-white border-t border-white/10 flex flex-col">
+            <div className="p-4 sm:p-6 bg-gradient-to-b from-neutral-900/95 to-neutral-950 text-white border-t border-white/10 flex flex-col">
               <div className="flex items-center gap-2 mb-2">
                 <span className="bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider text-[#FCD34D] border border-white/15 uppercase">
                   {getCategoryLabel(currentLightboxItem.category)}
                 </span>
               </div>
-              <h3 className="font-display text-xl sm:text-2xl font-bold text-white">
+              <h3 className="font-display text-lg sm:text-2xl font-bold text-white">
                 {currentLightboxItem.title}
               </h3>
               {currentLightboxItem.caption && (
-                <p className="text-sm sm:text-base text-neutral-300 mt-1.5 leading-relaxed max-w-2xl">
+                <p className="text-xs sm:text-base text-neutral-300 mt-1 sm:mt-1.5 leading-relaxed max-w-2xl">
                   {currentLightboxItem.caption}
                 </p>
               )}

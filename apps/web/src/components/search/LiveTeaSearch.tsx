@@ -448,23 +448,11 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                               </div>
                             </div>
 
-                            {/* Price & Actions */}
-                            <div className="flex items-center gap-2 shrink-0">
-                              <span className="text-xs sm:text-sm font-bold text-[#521422]">
+                            {/* Price only - View only */}
+                            <div className="flex items-center gap-1.5 shrink-0">
+                              <span className="text-xs sm:text-sm font-bold text-[#521422] bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200/50">
                                 {formatPrice(beverage.price)}
                               </span>
-
-                              <button
-                                type="button"
-                                onClick={(e) =>
-                                  handleInstantWhatsAppOrder(e, beverage.name, beverage.price)
-                                }
-                                className="p-1.5 rounded-lg bg-[#25D366]/10 hover:bg-[#25D366] text-[#128C7E] hover:text-white transition-all active:scale-95"
-                                title="Order on WhatsApp"
-                                aria-label={`Order ${beverage.name} on WhatsApp`}
-                              >
-                                <WhatsAppIcon className="w-3.5 h-3.5 fill-current" />
-                              </button>
                             </div>
                           </div>
                         );
