@@ -81,7 +81,7 @@ export const Footer: React.FC = () => {
                   href={`https://wa.me/${whatsappNumber}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#25D366] flex items-center justify-center text-white transition-all hover:scale-110"
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#128C7E] flex items-center justify-center text-white transition-all hover:scale-110"
                   aria-label="Sharon on WhatsApp"
                 >
                   <WhatsAppIcon className="w-4 h-4 fill-current" />
@@ -186,7 +186,7 @@ export const Footer: React.FC = () => {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 w-full sm:w-auto max-w-sm sm:max-w-none">
               {partners.map((partner) => {
                 const logo = partner.logoUrl || partner.logo_url;
                 const link = partner.partnerUrl || partner.partner_url || 'https://www.swiggy.com';
@@ -197,9 +197,9 @@ export const Footer: React.FC = () => {
                     href={link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-3.5 bg-white/10 hover:bg-white/20 border border-white/15 hover:border-brand-amber/50 rounded-2xl px-5 py-3 transition-all duration-300 hover:scale-105 shadow-sm"
+                    className="group flex items-center gap-2 sm:gap-3 bg-white/10 hover:bg-white/20 border border-white/15 hover:border-brand-amber/50 rounded-xl sm:rounded-2xl px-2.5 py-2 sm:px-4 sm:py-2.5 transition-all duration-300 hover:scale-105 shadow-sm"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-white p-1.5 flex items-center justify-center shrink-0 shadow-xs border border-white/10 overflow-hidden">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-white p-1 flex items-center justify-center shrink-0 shadow-xs border border-white/10 overflow-hidden">
                       {logo ? (
                         <img
                           src={resolveImageUrl(logo)}
@@ -208,22 +208,22 @@ export const Footer: React.FC = () => {
                           loading="lazy"
                         />
                       ) : (
-                        <span className="font-bold text-neutral-900 text-xs">{partner.name.slice(0, 2)}</span>
+                        <span className="font-bold text-neutral-900 text-[10px] sm:text-xs">{partner.name.slice(0, 2)}</span>
                       )}
                     </div>
-                    <div className="text-left">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-sm font-bold text-white group-hover:text-brand-amber transition-colors">
+                    <div className="text-left min-w-0 flex-1">
+                      <div className="flex items-center gap-1 sm:gap-1.5">
+                        <span className="text-xs sm:text-sm font-bold text-white group-hover:text-brand-amber transition-colors truncate">
                           {partner.name}
                         </span>
-                        <ExternalLink className="w-3.5 h-3.5 text-white/50 group-hover:text-brand-amber transition-opacity" />
+                        <ExternalLink className="w-3 h-3 text-white/50 group-hover:text-brand-amber transition-opacity shrink-0" />
                       </div>
                       {badge ? (
-                        <span className="text-[11px] text-brand-leaf-green font-medium block">
+                        <span className="text-[10px] sm:text-[11px] text-brand-leaf-green font-medium truncate block">
                           {badge}
                         </span>
                       ) : (
-                        <span className="text-[11px] text-white/60 font-medium block">
+                        <span className="text-[10px] sm:text-[11px] text-white/60 font-medium truncate block">
                           Order Online
                         </span>
                       )}

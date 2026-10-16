@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { generateProductOrderLink, type OrderProductInfo } from '@/utils/whatsappLink';
 import { trackOrderClick } from '@/services/whatsappService';
-import { MessageCircle, Check } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
+import { Check } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
 interface WhatsAppOrderButtonProps {
@@ -58,7 +59,7 @@ export const WhatsAppOrderButton: React.FC<WhatsAppOrderButtonProps> = ({
         </>
       ) : (
         <>
-          <MessageCircle className="w-4 h-4" />
+          <WhatsAppIcon className="w-4 h-4 fill-current" />
           <span>Order on WhatsApp</span>
         </>
       )}

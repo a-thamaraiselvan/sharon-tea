@@ -48,8 +48,8 @@ const config: Config = {
       fontFamily: {
         display: ['"Playfair Display"', 'Georgia', 'serif'],
         serif: ['"Playfair Display"', 'Georgia', 'serif'],
-        sans: ['"Inter"', 'system-ui', 'sans-serif'],
-        body: ['"Inter"', 'system-ui', 'sans-serif'],
+        sans: ['"SoDo Sans"', '"Inter"', 'system-ui', 'sans-serif'],
+        body: ['"SoDo Sans"', '"Inter"', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'xs': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',

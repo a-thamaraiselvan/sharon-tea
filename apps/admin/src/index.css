@@ -1,3 +1,4 @@
+@import './assets/font/stylesheet.css';
 @import './styles/animations.css';
 
 @tailwind base;
@@ -37,7 +38,7 @@
     padding: 0;
     background-color: #FAF7F2;
     color: #241C24;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'SoDo Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

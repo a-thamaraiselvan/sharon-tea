@@ -39,7 +39,7 @@ ReactDOM.createRoot(rootElement).render(
           colorBgLayout: '#FAF7F2',      // Warm Cream Layout
           colorBorder: '#D4D4D4',        // Neutral: Light Grey
           borderRadius: 8,
-          fontFamily: 'Inter, system-ui, sans-serif',
+          fontFamily: '"SoDo Sans", Inter, system-ui, sans-serif',
         },
         components: {
           Button: {

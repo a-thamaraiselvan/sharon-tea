@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { useUiStore } from '@/stores/useUiStore';
 import { SharonLogo } from '@/components/ui/SharonLogo';
 import { BrandButton } from '@/components/ui/BrandButton';
-import { X, Phone, MessageCircle, MapPin, ChevronRight } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
+import { X, Phone, MapPin, ChevronRight } from 'lucide-react';
 import { generateGeneralInquiryLink } from '@/utils/whatsappLink';
 import { cn } from '@/utils/cn';
 
@@ -95,7 +96,7 @@ export const MobileNav: React.FC = () => {
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full border border-brand-green/30 text-brand-green hover:bg-brand-green/5 text-sm font-medium transition-colors"
           >
-            <MessageCircle className="w-4 h-4 text-[#25D366]" />
+            <WhatsAppIcon className="w-4 h-4 text-[#128C7E] fill-current" />
             <span>Chat on WhatsApp</span>
           </a>
 
