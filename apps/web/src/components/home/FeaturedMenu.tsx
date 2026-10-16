@@ -8,12 +8,9 @@ import { ArrowRight, Leaf } from 'lucide-react';
 export const FeaturedMenu: React.FC = () => {
   const { data: items } = useMenuItems();
 
-  // Guarantee displayItems is always a valid non-empty array
-  const validFallback = Array.isArray(FALLBACK_MENU_ITEMS) && FALLBACK_MENU_ITEMS.length > 0
-    ? FALLBACK_MENU_ITEMS
-    : [];
-  const rawItems = Array.isArray(items) && items.length > 0 ? items : validFallback;
-  const displayItems = (rawItems.length > 0 ? rawItems : validFallback).slice(0, 8);
+  // Strict rule: If API returns items, show ONLY API items.
+  // When API call list comes empty, show the default from use.
+  const displayItems = (Array.isArray(items) && items.length > 0 ? items : FALLBACK_MENU_ITEMS).slice(0, 8);
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-neutral-50/50 to-white py-16 sm:py-20 md:py-24 border-y border-neutral-200/60">

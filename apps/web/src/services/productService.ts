@@ -155,26 +155,71 @@ export const FALLBACK_PRODUCTS: Product[] = [
   },
 ];
 
+export function normalizeProduct(p: any): Product {
+  const price = Number(p.price) || 0;
+  const originalPrice = p.originalPrice || p.original_price
+    ? Number(p.originalPrice || p.original_price)
+    : undefined;
+  const imageUrl = p.imageUrl || p.image_url || '/images/products/img_3701.jpg';
+  const images = Array.isArray(p.images) && p.images.length > 0
+    ? p.images
+    : [imageUrl];
+
+  const ingredients = Array.isArray(p.ingredients)
+    ? p.ingredients
+    : typeof p.ingredients === 'string'
+    ? p.ingredients.split(',').map((s: string) => s.trim()).filter(Boolean)
+    : [];
+
+  return {
+    id: String(p.id),
+    name: p.name || 'Sharon Blend',
+    slug: p.slug || String(p.id),
+    price,
+    originalPrice,
+    category: p.category || p.category_name || p.categoryName || 'Black Tea',
+    flavor: p.flavor || p.name,
+    badge: p.badge || (p.isBestseller || p.is_bestseller ? 'Bestseller' : undefined),
+    imageUrl,
+    images,
+    weight: p.weight || p.packSize || p.pack_size || '250g Pouch',
+    shortDescription: p.shortDescription || p.short_description || '',
+    description: p.description || '',
+    ingredients,
+    brewingInstructions:
+      p.brewingInstructions ||
+      p.brewing_instructions ||
+      p.preparationInstructions ||
+      p.preparation_instructions ||
+      '',
+    inStock: p.inStock ?? p.isAvailable ?? p.is_available ?? true,
+    isFeatured: p.isFeatured ?? p.is_featured ?? false,
+  };
+}
+
 export async function getPublicProducts(): Promise<Product[]> {
   try {
     const response = await apiClient.get<ApiResponse<Product[]>>('/Product/GetPublicProducts?type=retail');
-    if (response.data?.data && response.data.data.length > 0) {
-      return response.data.data;
+    if (response.data?.data && Array.isArray(response.data.data) && response.data.data.length > 0) {
+      // WHEN API LIST COMES: ONLY SHOW API LIST
+      return response.data.data.map(normalizeProduct);
     }
   } catch {
-    // Return fallback products
+    // API error: fall through to default
   }
+
+  // WHEN API CALL LIST COMES EMPTY: SHOW DEFAULT FROM USE
   return FALLBACK_PRODUCTS;
 }
 
 export async function getProductById(id: string): Promise<Product | undefined> {
   try {
-    const response = await apiClient.get<ApiResponse<Product>>(`/Product/GetProductById/${id}`);
+    const response = await apiClient.get<ApiResponse<Product>>(`/Product/GetProductById/${encodeURIComponent(id)}`);
     if (response.data?.data) {
-      return response.data.data;
+      return normalizeProduct(response.data.data);
     }
   } catch {
-    // Search fallback
+    // Fall through to fallback
   }
   return FALLBACK_PRODUCTS.find((p) => p.id === id || p.slug === id);
 }

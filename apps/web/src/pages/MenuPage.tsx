@@ -165,9 +165,25 @@ export const MenuPage: React.FC = () => {
     }
 
     return sortedAllItems.filter((i: MenuItem) => {
+      // Direct ID, slug, or name match (covers dynamic API categories seamlessly)
+      if (
+        i.categoryId === activeCategory ||
+        i.category === activeCategory ||
+        i.categoryName === activeCategory ||
+        (i.category && i.category.toLowerCase() === activeCategory.toLowerCase()) ||
+        (i.categoryName && i.categoryName.toLowerCase() === activeCategory.toLowerCase())
+      ) {
+        return true;
+      }
+
       const name = i.name.toLowerCase();
       if (activeCategory === 'hot-teas') {
-        return i.categoryId === 'hot-teas' || i.category === 'Tea';
+        return (
+          i.categoryId === 'hot-teas' ||
+          i.category === 'Tea' ||
+          name.includes('tea') ||
+          name.includes('chai')
+        );
       }
       if (activeCategory === 'coffees') {
         return (
@@ -182,7 +198,8 @@ export const MenuPage: React.FC = () => {
           i.category === 'Herbal Tea' ||
           i.id === 'item-tulsi-tea' ||
           name.includes('tulsi') ||
-          name.includes('green')
+          name.includes('green') ||
+          name.includes('herbal')
         );
       }
       if (activeCategory === 'cold-beverages') {
@@ -198,7 +215,7 @@ export const MenuPage: React.FC = () => {
           name.includes('ice tea')
         );
       }
-      return i.categoryId === activeCategory;
+      return false;
     });
   }, [sortedAllItems, activeCategory, searchFilter]);
 

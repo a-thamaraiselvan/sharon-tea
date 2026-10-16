@@ -13,12 +13,11 @@ export const FeaturedProducts: React.FC = () => {
   const { data: products } = useProducts();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  // Top 4 signature packaged blends from the exact reference design
-  const validFallback = Array.isArray(FALLBACK_PRODUCTS) && FALLBACK_PRODUCTS.length > 0
-    ? FALLBACK_PRODUCTS
-    : [];
-  const allProducts = Array.isArray(products) && products.length > 0 ? products : validFallback;
-  const displayProducts = (allProducts.length > 0 ? allProducts : validFallback).slice(0, 4);
+  // Strict rule: If API returns products, show ONLY API products.
+  // When API call list comes empty, show the default from use.
+  const allProducts = Array.isArray(products) && products.length > 0 ? products : FALLBACK_PRODUCTS;
+  const featured = allProducts.filter((p) => p.isFeatured);
+  const displayProducts = (featured.length >= 4 ? featured : allProducts).slice(0, 4);
 
   return (
     <SectionContainer background="cream" className="py-16 md:py-24">

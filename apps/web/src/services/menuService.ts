@@ -223,25 +223,70 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
   },
 ];
 
+export function normalizeMenuItem(item: any): MenuItem {
+  const isBestseller = item.isBestseller ?? item.is_bestseller ?? false;
+  return {
+    id: String(item.id),
+    name: item.name || 'Signature Tea',
+    price: Number(item.price) || 0,
+    isBestseller,
+    badge: item.badge || (isBestseller ? '★ BESTSELLER' : undefined),
+    imageUrl: item.imageUrl || item.image_url || '/images/beverages/sharon-classic.png',
+    cardImageUrl: item.cardImageUrl || item.card_image_url || item.imageUrl || item.image_url || '/images/beverages/cards/sharon-classic.png',
+    description: item.description || item.shortDescription || item.short_description || '',
+    category: item.category || item.categoryName || item.category_name || 'Tea',
+    categoryId: item.categoryId || item.category_id || 'hot-teas',
+    categoryName: item.categoryName || item.category_name || item.category || 'Hot Teas & Chai',
+    isVegetarian: item.isVegetarian ?? item.is_vegetarian ?? true,
+    isAvailable: item.isAvailable ?? item.is_available ?? true,
+  };
+}
+
+export function normalizeMenuCategory(cat: any): MenuCategory {
+  return {
+    id: String(cat.id || cat.slug),
+    name: cat.name || 'Category',
+    slug: cat.slug || String(cat.id),
+    description: cat.description || '',
+    displayOrder: Number(cat.displayOrder ?? cat.sort_order ?? cat.display_order ?? 0),
+    isActive: cat.isActive ?? cat.is_active ?? true,
+  };
+}
+
 export async function getPublicMenuCategories(): Promise<MenuCategory[]> {
+  try {
+    const response = await apiClient.get<ApiResponse<MenuCategory[]>>('/ProductCategory/GetPublicProductCategories');
+    if (response.data?.data && Array.isArray(response.data.data) && response.data.data.length > 0) {
+      // WHEN API LIST COMES: ONLY SHOW API LIST
+      return response.data.data.map(normalizeMenuCategory);
+    }
+  } catch {
+    // API error: fall through to default
+  }
+
+  // WHEN API CALL LIST COMES EMPTY: SHOW DEFAULT FROM USE
   return FALLBACK_MENU_CATEGORIES;
 }
 
 export async function getPublicMenuItems(categoryId?: string): Promise<MenuItem[]> {
   try {
     const url = categoryId && categoryId !== 'all'
-      ? `/Product/GetPublicProducts?category=${categoryId}`
+      ? `/Product/GetPublicProducts?category=${encodeURIComponent(categoryId)}`
       : '/Product/GetPublicProducts';
     const response = await apiClient.get<ApiResponse<MenuItem[]>>(url);
-    if (response.data?.data && response.data.data.length > 0) {
-      return response.data.data;
+    if (response.data?.data && Array.isArray(response.data.data) && response.data.data.length > 0) {
+      // WHEN API LIST COMES: ONLY SHOW API LIST
+      return response.data.data.map(normalizeMenuItem);
     }
   } catch {
-    // Return fallback items
+    // API error: fall through to default
   }
 
+  // WHEN API CALL LIST COMES EMPTY: SHOW DEFAULT FROM USE
   if (categoryId && categoryId !== 'all') {
-    return FALLBACK_MENU_ITEMS.filter((item) => item.categoryId === categoryId);
+    return FALLBACK_MENU_ITEMS.filter(
+      (item) => item.categoryId === categoryId || item.category === categoryId
+    );
   }
   return FALLBACK_MENU_ITEMS;
 }

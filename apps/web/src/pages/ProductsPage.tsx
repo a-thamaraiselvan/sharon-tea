@@ -25,8 +25,6 @@ const FLAVOR_BUBBLES = [
   { name: 'Chocolate Tea', image: '/images/flavors/chocolate.png', query: 'chocolate' },
 ];
 
-const CATEGORIES = ['All', 'Black Tea', 'Herbal Tea', 'Green Tea', 'Masala Tea'] as const;
-
 export const ProductsPage: React.FC = () => {
   const { data: rawProducts, isLoading } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
@@ -34,7 +32,17 @@ export const ProductsPage: React.FC = () => {
   const [searchFilter, setSearchFilter] = useState<string>('');
   const { activeDrawerProduct, setActiveDrawerProduct } = useUiStore();
 
-  const allProducts = rawProducts && rawProducts.length > 0 ? rawProducts : FALLBACK_PRODUCTS;
+  // Strict rule: If API returns products, show ONLY API products.
+  // When API call list comes empty, show the default from use.
+  const allProducts = Array.isArray(rawProducts) && rawProducts.length > 0 ? rawProducts : FALLBACK_PRODUCTS;
+
+  // Dynamically derive category pills from active products list
+  const categories = useMemo(() => {
+    const list = Array.from(
+      new Set(allProducts.map((p) => p.category).filter(Boolean))
+    ) as string[];
+    return ['All', ...list];
+  }, [allProducts]);
 
   // Filter products based on Search, Category and Flavor selection
   const filteredProducts = useMemo(() => {
@@ -280,7 +288,7 @@ export const ProductsPage: React.FC = () => {
               className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 reveal-fade"
               style={{ '--reveal-delay': '60ms' } as React.CSSProperties}
             >
-              {CATEGORIES.map((cat) => {
+              {categories.map((cat) => {
                 const isActive = selectedCategory === cat && !selectedFlavor;
                 return (
                   <button
