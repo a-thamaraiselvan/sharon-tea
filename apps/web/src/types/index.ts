@@ -8,6 +8,8 @@ export interface MenuItem {
   id: string;
   name: string;
   description?: string;
+  shortDescription?: string;
+  short_description?: string;
   categoryId: string;
   categoryName?: string;
   category?: string;
@@ -37,9 +39,13 @@ export interface Product {
   category?: string;
   description: string;
   shortDescription?: string;
+  short_description?: string;
   price: number;
   originalPrice?: number;
+  original_price?: number;
   weight?: string;
+  packSize?: string;
+  pack_size?: string;
   inStock: boolean;
   imageUrl: string;
   images?: string[];
@@ -48,6 +54,7 @@ export interface Product {
   isFeatured?: boolean;
   badge?: string;
   flavor?: string;
+  tags?: string[];
 }
 
 export interface Outlet {

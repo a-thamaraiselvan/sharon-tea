@@ -212,9 +212,9 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
               </h2>
             </div>
 
-            {product.shortDescription && (
+            {(product.shortDescription || product.short_description) && (
               <p className="text-sm text-neutral-500 mt-1">
-                {product.shortDescription}
+                {product.shortDescription || product.short_description}
               </p>
             )}
           </div>

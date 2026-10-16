@@ -40,8 +40,16 @@ const productSchema = z.object({
   name: z.string().min(2, 'Product name must be at least 2 characters'),
   slug: z.string().optional(),
   categoryId: z.string().optional().nullable(),
-  shortDescription: z.string().optional().nullable(),
-  description: z.string().optional().nullable(),
+  shortDescription: z
+    .string()
+    .max(100, 'Short description cannot exceed 100 characters')
+    .optional()
+    .nullable(),
+  description: z
+    .string()
+    .max(600, 'Detailed description cannot exceed 600 characters')
+    .optional()
+    .nullable(),
   price: z.number().min(0, 'Price must be 0 or greater'),
   originalPrice: z.number().min(0).optional().nullable(),
   packSize: z.string().min(1, 'Pack size is required (e.g. 250g, 500g)'),
@@ -699,9 +707,12 @@ export const ProductsPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 mb-1">
-              Short Description (Highlights)
-            </label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-xs font-semibold text-gray-700">
+                Short Description (Card preview highlights)
+              </label>
+              <span className="text-[11px] text-gray-400">Max 100 characters</span>
+            </div>
             <Controller
               name="shortDescription"
               control={control}
@@ -710,16 +721,27 @@ export const ProductsPage: React.FC = () => {
                   {...rest}
                   value={value || ''}
                   onChange={onChange}
-                  placeholder="e.g. Master-blended spices with single-origin Assam golden tips"
+                  maxLength={100}
+                  showCount
+                  placeholder="e.g. Rich chocolate flavour with a refreshing tea taste."
+                  status={errors.shortDescription ? 'error' : ''}
                 />
               )}
             />
+            {errors.shortDescription && (
+              <span className="text-xs text-red-500 mt-1 block">
+                {errors.shortDescription.message}
+              </span>
+            )}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 mb-1">
-              Detailed Description
-            </label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-xs font-semibold text-gray-700">
+                Detailed Description
+              </label>
+              <span className="text-[11px] text-gray-400">Max 600 characters</span>
+            </div>
             <Controller
               name="description"
               control={control}
@@ -728,11 +750,19 @@ export const ProductsPage: React.FC = () => {
                   {...rest}
                   value={value || ''}
                   onChange={onChange}
-                  rows={2}
-                  placeholder="Detailed background story, tasting notes, shelf life..."
+                  rows={3}
+                  maxLength={600}
+                  showCount
+                  placeholder="Detailed background story, tasting notes, shelf life, aroma characteristics..."
+                  status={errors.description ? 'error' : ''}
                 />
               )}
             />
+            {errors.description && (
+              <span className="text-xs text-red-500 mt-1 block">
+                {errors.description.message}
+              </span>
+            )}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -884,7 +914,8 @@ export const ProductsPage: React.FC = () => {
                 </div>
                 <div className="flex-1 min-w-[120px]">
                   <Input
-                    placeholder="Short highlight"
+                    placeholder="Short highlight (max 100)"
+                    maxLength={100}
                     value={row.shortDescription}
                     onChange={(e) => handleBulkRowChange(idx, 'shortDescription', e.target.value)}
                   />

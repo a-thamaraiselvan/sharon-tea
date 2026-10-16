@@ -40,8 +40,16 @@ const menuItemSchema = z.object({
   slug: z.string().optional(),
   categoryId: z.string().min(1, 'Please select a category'),
   price: z.number().min(0, 'Price must be 0 or greater'),
-  shortDescription: z.string().optional().nullable(),
-  description: z.string().optional().nullable(),
+  shortDescription: z
+    .string()
+    .max(100, 'Short description cannot exceed 100 characters')
+    .optional()
+    .nullable(),
+  description: z
+    .string()
+    .max(600, 'Full description cannot exceed 600 characters')
+    .optional()
+    .nullable(),
   imageUrl: z.string().optional().nullable(),
   isAvailable: z.boolean().default(true),
   isVegetarian: z.boolean().default(true),
@@ -580,9 +588,12 @@ export const MenuItemsPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 mb-1">
-              Short Description (Highlighted on card)
-            </label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-xs font-semibold text-gray-700">
+                Short Description (Card preview highlights)
+              </label>
+              <span className="text-[11px] text-gray-400">Max 100 characters</span>
+            </div>
             <Controller
               name="shortDescription"
               control={control}
@@ -591,16 +602,27 @@ export const MenuItemsPage: React.FC = () => {
                   {...rest}
                   value={value || ''}
                   onChange={onChange}
-                  placeholder="e.g. Slow-cooked spiced tea with rich condensed milk cream"
+                  maxLength={100}
+                  showCount
+                  placeholder="e.g. Traditional unrefined country jaggery sweetened tea"
+                  status={errors.shortDescription ? 'error' : ''}
                 />
               )}
             />
+            {errors.shortDescription && (
+              <span className="text-xs text-red-500 mt-1 block">
+                {errors.shortDescription.message}
+              </span>
+            )}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 mb-1">
-              Full Description & Ingredients
-            </label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-xs font-semibold text-gray-700">
+                Full Description & Ingredients
+              </label>
+              <span className="text-[11px] text-gray-400">Max 600 characters</span>
+            </div>
             <Controller
               name="description"
               control={control}
@@ -609,11 +631,19 @@ export const MenuItemsPage: React.FC = () => {
                   {...rest}
                   value={value || ''}
                   onChange={onChange}
-                  rows={2}
+                  rows={3}
+                  maxLength={600}
+                  showCount
                   placeholder="Detailed brewing notes, spice blend details, allergens..."
+                  status={errors.description ? 'error' : ''}
                 />
               )}
             />
+            {errors.description && (
+              <span className="text-xs text-red-500 mt-1 block">
+                {errors.description.message}
+              </span>
+            )}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">

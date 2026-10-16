@@ -12,8 +12,7 @@ const franchiseSchema = z.object({
     .min(2, { message: 'Please enter your full name (at least 2 characters)' }),
   phone: z
     .string()
-    .min(10, { message: 'Please enter a valid 10-digit phone number' })
-    .regex(/^[0-9+ -]{10,15}$/, { message: 'Invalid phone format' }),
+    .regex(/^[6-9]\d{9}$/, { message: 'Please enter a valid 10-digit mobile number (e.g. 9876543210)' }),
   email: z.string().email({ message: 'Please enter a valid email address' }),
   city: z.string().min(2, { message: 'Please specify your target city or area' }),
   investmentBudget: z.string().min(1, { message: 'Please select an investment range' }),
@@ -135,16 +134,27 @@ export const FranchiseForm: React.FC = () => {
               {/* Phone Number */}
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-brand-black mb-1.5">
-                  Phone / Mobile <span className="text-brand-burgundy">*</span>
+                  Mobile Number (10 digits) <span className="text-brand-burgundy">*</span>
                 </label>
-                <input
-                  type="tel"
-                  placeholder="e.g. +91 98765 43210"
-                  {...register('phone')}
-                  className={`w-full px-4 py-3 rounded-xl border text-sm bg-white focus:outline-none transition-colors ${
-                    errors.phone ? 'border-red-500 bg-red-50/20' : 'border-neutral-300 focus:border-brand-green'
-                  }`}
-                />
+                <div className="relative flex items-center">
+                  <span className="absolute left-3.5 text-sm font-semibold text-neutral-500 select-none">
+                    +91
+                  </span>
+                  <input
+                    type="tel"
+                    inputMode="numeric"
+                    maxLength={10}
+                    placeholder="9876543210"
+                    {...register('phone', {
+                      onChange: (e) => {
+                        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+                      },
+                    })}
+                    className={`w-full pl-12 pr-4 py-3 rounded-xl border text-sm bg-white focus:outline-none transition-colors font-medium tracking-wide ${
+                      errors.phone ? 'border-red-500 bg-red-50/20' : 'border-neutral-300 focus:border-brand-green'
+                    }`}
+                  />
+                </div>
                 {errors.phone && (
                   <p className="text-xs text-red-500 mt-1">{errors.phone.message}</p>
                 )}
