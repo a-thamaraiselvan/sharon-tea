@@ -96,7 +96,7 @@ export const MobileNav: React.FC = () => {
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full border border-brand-green/30 text-brand-green hover:bg-brand-green/5 text-sm font-medium transition-colors"
           >
-            <WhatsAppIcon className="w-4 h-4 text-[#128C7E] fill-current" />
+            <WhatsAppIcon className="w-4 h-4 text-[#25D366] fill-current" />
             <span>Chat on WhatsApp</span>
           </a>
 

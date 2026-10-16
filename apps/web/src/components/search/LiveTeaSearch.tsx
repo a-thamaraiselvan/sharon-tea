@@ -523,7 +523,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                                     product.weight
                                   )
                                 }
-                                className="p-1.5 rounded-lg bg-[#128C7E]/10 hover:bg-[#128C7E] text-[#128C7E] hover:text-white transition-all active:scale-95"
+                                className="p-1.5 rounded-lg bg-[#25D366]/10 hover:bg-[#25D366] text-[#25D366] hover:text-white transition-all active:scale-95"
                                 title="Order on WhatsApp"
                                 aria-label={`Order ${product.name} on WhatsApp`}
                               >

@@ -81,7 +81,7 @@ export const Footer: React.FC = () => {
                   href={`https://wa.me/${whatsappNumber}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#128C7E] flex items-center justify-center text-white transition-all hover:scale-110"
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#25D366] flex items-center justify-center text-white transition-all hover:scale-110"
                   aria-label="Sharon on WhatsApp"
                 >
                   <WhatsAppIcon className="w-4 h-4 fill-current" />

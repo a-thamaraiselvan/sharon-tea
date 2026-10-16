@@ -165,7 +165,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <button
           type="button"
           onClick={handleWhatsAppOrder}
-          className="flex-1 bg-[#128C7E] hover:bg-[#0e7266] text-white font-bold text-xs sm:text-sm px-3 py-2 rounded-lg shadow-sm transition-all duration-200 active:scale-95 flex items-center justify-center gap-1.5 min-w-0"
+          className="flex-1 bg-[#25D366] hover:bg-[#20ba5c] text-white font-bold text-xs sm:text-sm px-3 py-2 rounded-lg shadow-sm transition-all duration-200 active:scale-95 flex items-center justify-center gap-1.5 min-w-0"
           aria-label={`Order ${product.name} on WhatsApp`}
         >
           <WhatsAppIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 fill-current" />

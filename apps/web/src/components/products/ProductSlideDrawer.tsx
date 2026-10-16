@@ -335,7 +335,7 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
           <button
             type="button"
             onClick={handleWhatsAppOrder}
-            className="w-full bg-[#128C7E] hover:bg-[#0e7266] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 text-sm sm:text-base"
+            className="w-full bg-[#25D366] hover:bg-[#20ba5c] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 text-sm sm:text-base"
           >
             <WhatsAppIcon className="w-5 h-5 shrink-0 fill-current" />
             <span>{isOrdered ? 'Opening WhatsApp...' : 'Order on WhatsApp'}</span>
