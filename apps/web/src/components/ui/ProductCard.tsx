@@ -77,44 +77,46 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       )}
     >
       <div>
-        {/* Full Image Container with Overlay Badge & Wishlist Heart on Top */}
-        <div className="relative w-full h-36 sm:h-40 md:h-44 overflow-hidden bg-neutral-100 flex items-center justify-center">
-          <img
-            src={resolveImageUrl(product.imageUrl, '/images/products/img_3687.jpg')}
-            alt={product.name || 'Sharon Tea Product'}
-            loading="lazy"
-            decoding="async"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = '/images/products/img_3687.jpg';
-            }}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-
-          {/* Overlay Badge on Top Left of Image */}
-          <span className="absolute top-2 left-2 z-10 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-leaf-green text-white shadow-xs">
-            {product.badge || 'New'}
-          </span>
-
-          {/* Overlay Wishlist Heart on Top Right of Image */}
-          <button
-            type="button"
-            onClick={handleWishlistToggle}
-            className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/85 hover:bg-white text-neutral-600 hover:text-red-500 shadow-xs backdrop-blur-xs transition-all active:scale-110"
-            aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
-          >
-            <Heart
-              className={cn(
-                'w-3.5 h-3.5 transition-transform duration-200 active:scale-125',
-                isWishlisted
-                  ? 'fill-red-500 text-red-500'
-                  : 'text-neutral-500 hover:text-red-500'
-              )}
+        {/* Image Container with little padding on top, left, right */}
+        <div className="p-2 sm:p-2.5 pb-0">
+          <div className="relative w-full h-36 sm:h-40 md:h-44 rounded-xl overflow-hidden bg-neutral-100 flex items-center justify-center">
+            <img
+              src={resolveImageUrl(product.imageUrl, '/images/products/img_3687.jpg')}
+              alt={product.name || 'Sharon Tea Product'}
+              loading="lazy"
+              decoding="async"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = '/images/products/img_3687.jpg';
+              }}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
-          </button>
+
+            {/* Overlay Badge on Top Left of Image */}
+            <span className="absolute top-2 left-2 z-10 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-brand-leaf-green text-white shadow-xs">
+              {product.badge || 'New'}
+            </span>
+
+            {/* Overlay Wishlist Heart on Top Right of Image */}
+            <button
+              type="button"
+              onClick={handleWishlistToggle}
+              className="absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/85 hover:bg-white text-neutral-600 hover:text-red-500 shadow-xs backdrop-blur-xs transition-all active:scale-110"
+              aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+            >
+              <Heart
+                className={cn(
+                  'w-3.5 h-3.5 transition-transform duration-200 active:scale-125',
+                  isWishlisted
+                    ? 'fill-red-500 text-red-500'
+                    : 'text-neutral-500 hover:text-red-500'
+                )}
+              />
+            </button>
+          </div>
         </div>
 
         {/* Product Information */}
-        <div className="p-2.5 sm:p-3 pb-0">
+        <div className="px-2.5 sm:px-3 pt-2 pb-0">
           {/* Product Title (Centered) */}
           <h3 className="font-sans font-bold text-xs sm:text-sm text-brand-black group-hover:text-brand-green transition-colors text-center line-clamp-1">
             {product.name}
@@ -140,7 +142,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       </div>
 
       {/* Bottom Controls: Quantity Selector + WhatsApp Order Button */}
-      <div className="p-2.5 sm:p-3 pt-1.5 border-t border-neutral-100 flex items-center gap-1.5 sm:gap-2">
+      <div className="p-2 sm:p-2.5 pt-1.5 border-t border-neutral-100 flex items-center gap-1.5 sm:gap-2">
         {/* Quantity Controls */}
         <div
           onClick={(e) => e.stopPropagation()}
