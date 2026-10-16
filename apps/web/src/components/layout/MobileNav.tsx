@@ -37,7 +37,7 @@ export const MobileNav: React.FC = () => {
         {/* Top bar */}
         <div>
           <div className="flex items-center justify-between pb-4 border-b border-brand-green/10">
-            <SharonLogo size="sm" />
+            <SharonLogo size="md" />
             <button
               onClick={() => setMobileMenuOpen(false)}
               className="p-2 rounded-full text-brand-black hover:bg-neutral-200/50 transition-colors"

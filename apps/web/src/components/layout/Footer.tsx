@@ -8,8 +8,6 @@ import {
   Phone,
   Mail,
   Instagram,
-  Facebook,
-  Twitter,
   Clock,
   Heart,
   ExternalLink,
@@ -54,37 +52,19 @@ export const Footer: React.FC = () => {
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#E4405F] flex items-center justify-center text-white transition-all hover:scale-110"
+                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#E4405F] flex items-center justify-center text-white transition-all hover:scale-110 shadow-xs"
                   aria-label="Sharon on Instagram"
                 >
-                  <Instagram className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#1877F2] flex items-center justify-center text-white transition-all hover:scale-110"
-                  aria-label="Sharon on Facebook"
-                >
-                  <Facebook className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-neutral-800 flex items-center justify-center text-white transition-all hover:scale-110"
-                  aria-label="Sharon on Twitter"
-                >
-                  <Twitter className="w-4 h-4" />
+                  <Instagram className="w-5 h-5" />
                 </a>
                 <a
                   href={`https://wa.me/${whatsappNumber}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#25D366] flex items-center justify-center text-white transition-all hover:scale-110"
+                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#25D366] flex items-center justify-center text-white transition-all hover:scale-110 shadow-xs"
                   aria-label="Sharon on WhatsApp"
                 >
-                  <WhatsAppIcon className="w-4 h-4 fill-current" />
+                  <WhatsAppIcon className="w-5 h-5 fill-current" />
                 </a>
               </div>
             </div>

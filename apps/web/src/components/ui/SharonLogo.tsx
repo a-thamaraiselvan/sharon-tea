@@ -15,8 +15,8 @@ export const SharonLogo: React.FC<SharonLogoProps> = ({
   const sizeClasses = {
     sm: 'h-8 w-8',
     md: 'h-11 w-11',
-    lg: 'h-16 w-16',
-    xl: 'h-24 w-24',
+    lg: 'h-[52px] w-[52px] sm:h-16 sm:w-16',
+    xl: 'h-20 w-20 sm:h-24 sm:w-24',
   }[size];
 
   if (variant === 'badge') {
