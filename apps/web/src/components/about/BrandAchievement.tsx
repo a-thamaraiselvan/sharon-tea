@@ -49,7 +49,7 @@ export const BrandAchievement: React.FC = () => {
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2.5 sm:mb-3">
               <Store className="w-5 h-5 sm:w-6 sm:h-6 text-brand-amber" />
             </div>
-            <div className="font-display text-2xl sm:text-3xl font-bold text-white">
+            <div className="font-display text-2xl sm:text-3xl font-bold text-brand-amber">
               <AnimatedCounter target={12} suffix="+" />
             </div>
             <p className="text-xs sm:text-sm text-brand-cream/80 mt-1 font-medium">Active Outlets</p>
@@ -60,9 +60,9 @@ export const BrandAchievement: React.FC = () => {
             style={{ '--reveal-delay': '60ms' } as React.CSSProperties}
           >
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2.5 sm:mb-3">
-              <Coffee className="w-5 h-5 sm:w-6 sm:h-6 text-brand-amber" />
+              <Coffee className="w-5 h-5 sm:w-6 sm:h-6 text-brand-chai" />
             </div>
-            <div className="font-display text-2xl sm:text-3xl font-bold text-white">
+            <div className="font-display text-2xl sm:text-3xl font-bold text-brand-chai">
               <AnimatedCounter target={50} suffix="+" />
             </div>
             <p className="text-xs sm:text-sm text-brand-cream/80 mt-1 font-medium">Tea Options & Blends</p>
@@ -75,7 +75,7 @@ export const BrandAchievement: React.FC = () => {
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2.5 sm:mb-3">
               <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-brand-amber" />
             </div>
-            <div className="font-display text-2xl sm:text-3xl font-bold text-white">
+            <div className="font-display text-2xl sm:text-3xl font-bold text-brand-amber">
               <AnimatedCounter target={99} suffix="%" />
             </div>
             <p className="text-xs sm:text-sm text-brand-cream/80 mt-1 font-medium">Customer Delight</p>
@@ -86,9 +86,9 @@ export const BrandAchievement: React.FC = () => {
             style={{ '--reveal-delay': '180ms' } as React.CSSProperties}
           >
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2.5 sm:mb-3">
-              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-brand-amber" />
+              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-brand-chai" />
             </div>
-            <div className="font-display text-2xl sm:text-3xl font-bold text-white">
+            <div className="font-display text-2xl sm:text-3xl font-bold text-brand-chai">
               <AnimatedCounter target={100} suffix="%" />
             </div>
             <p className="text-xs sm:text-sm text-brand-cream/80 mt-1 font-medium">Natural Spices</p>

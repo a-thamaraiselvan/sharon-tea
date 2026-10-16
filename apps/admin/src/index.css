@@ -6,15 +6,30 @@
 
 @layer base {
   :root {
+    /* Tier 1: Primary */
     --sharon-primary: #241C24;
+    --sharon-black: #241C24;
+
+    /* Tier 2: Secondary */
     --sharon-forest: #1C4C34;
+    --sharon-green: #1C4C34;
     --sharon-fresh-leaf: #34A43C;
+    --sharon-leaf: #34A43C;
+
+    /* Tier 3: Tertiary */
     --sharon-chai: #A44C14;
     --sharon-rust: #7C2C0C;
     --sharon-amber: #FC9C34;
+
+    /* Tier 4: Accent */
     --sharon-maroon: #541424;
-    --sharon-cream: #FAF7F2;
+    --sharon-burgundy: #541424;
+
+    /* Tier 5: Neutral */
     --sharon-light-grey: #D4D4D4;
+    --sharon-grey: #D4D4D4;
+    --sharon-white: #FFFFFF;
+    --sharon-cream: #FAF7F2;
   }
 
   body {
@@ -47,22 +62,25 @@
   }
 }
 
-
-
 /* Ant Design Table & UI custom styling enhancements */
 .ant-table-wrapper .ant-table-thead > tr > th {
-  background-color: #F3ECE2 !important;
+  background-color: #FFFFFF !important;
   color: #241C24 !important;
   font-weight: 600 !important;
+  border-bottom: 1px solid #D4D4D4 !important;
+}
+
+.ant-table-wrapper .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #F0ECE4;
 }
 
 .ant-layout-sider {
-  box-shadow: 2px 0 8px 0 rgba(36, 28, 36, 0.05);
+  box-shadow: 2px 0 12px 0 rgba(36, 28, 36, 0.15);
 }
 
 .ant-card {
-  border-radius: 10px !important;
-  border-color: #EDE4D8 !important;
+  border-radius: 12px !important;
+  border-color: #D4D4D4 !important;
 }
 
 .ant-btn-primary {
@@ -71,6 +89,40 @@
 
 .ant-btn-primary:hover {
   background-color: #256645 !important;
+}
+
+/* Sharon Dark Sidebar Menu Styles */
+.sharon-sidebar-menu.ant-menu-dark {
+  background-color: #241C24 !important;
+}
+
+.sharon-sidebar-menu.ant-menu-dark .ant-menu-item,
+.sharon-sidebar-menu.ant-menu-dark .ant-menu-submenu-title {
+  color: #D4D4D4 !important;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-radius: 8px !important;
+}
+
+.sharon-sidebar-menu.ant-menu-dark .ant-menu-item:hover,
+.sharon-sidebar-menu.ant-menu-dark .ant-menu-submenu-title:hover {
+  color: #FFFFFF !important;
+  background-color: rgba(28, 76, 52, 0.4) !important;
+}
+
+.sharon-sidebar-menu.ant-menu-dark .ant-menu-item-selected {
+  background-color: #1C4C34 !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+}
+
+.sharon-sidebar-menu.ant-menu-dark .ant-menu-item-selected .anticon {
+  color: #FFFFFF !important;
+}
+
+.sharon-sidebar-menu.ant-menu-dark .ant-menu-sub {
+  background-color: #1B151B !important;
+  border-radius: 8px;
 }
 
 /* Custom scrollbar */
@@ -89,5 +141,5 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #A44C14;
+  background: #1C4C34;
 }

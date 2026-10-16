@@ -32,7 +32,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
 }) => {
   return (
     <div
-      className={`mb-6 pb-4 border-b border-amber-950/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 reveal-down is-visible ${className}`}
+      className={`mb-6 pb-4 border-b border-neutral-200/80 flex flex-col md:flex-row md:items-center md:justify-between gap-4 reveal-down is-visible ${className}`}
     >
       <div>
         {breadcrumbs && breadcrumbs.length > 0 && (

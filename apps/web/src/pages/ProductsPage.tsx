@@ -112,7 +112,7 @@ export const ProductsPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#FAF8F5] min-h-screen">
+    <div className="bg-white min-h-screen">
       <Helmet>
         <title>Packaged Tea Blends | Sharon Products</title>
         <meta
@@ -122,14 +122,14 @@ export const ProductsPage: React.FC = () => {
       </Helmet>
 
       {/* Top Banner Bar matching reference screenshot */}
-      <div className="bg-[#194D33] text-white text-[11px] sm:text-xs py-2 px-4 border-b border-[#235d40]">
+      <div className="bg-brand-green text-white text-[11px] sm:text-xs py-2 px-4 border-b border-brand-green/30">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-4 text-center sm:text-left">
           <div className="flex items-center gap-1.5 font-medium">
-            <Leaf className="w-3.5 h-3.5 text-[#F3E5D8]" />
+            <Leaf className="w-3.5 h-3.5 text-brand-amber" />
             <span>Premium Tea Blends for a Healthier, Happier You</span>
           </div>
           <div className="flex items-center gap-2 sm:gap-3 text-white/90">
-            <span className="font-semibold text-amber-300">Free Shipping on Orders Above Rs.500</span>
+            <span className="font-semibold text-brand-amber">Free Shipping on Orders Above Rs.500</span>
             <span className="text-white/40">|</span>
             <span>100% Natural</span>
             <span className="text-white/40">|</span>
@@ -142,15 +142,15 @@ export const ProductsPage: React.FC = () => {
       </div>
 
       {/* Hero Section matching screenshot */}
-      <section className="bg-[#133E29] text-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#1b4d35]">
+      <section className="bg-brand-green text-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-white/10">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl reveal-down">
-            <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#C49A45] mb-2 sm:mb-3">
+            <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-brand-amber mb-2 sm:mb-3">
               NATURAL • AROMATIC • REFRESHING
             </p>
             <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
               Discover the <br />
-              <span className="italic font-normal text-[#E8C574]">Taste of Sharon</span>
+              <span className="italic font-normal text-brand-amber">Taste of Sharon</span>
             </h1>
             <p className="text-sm sm:text-base text-neutral-200 mt-4 max-w-xl leading-relaxed">
               Premium tea blends crafted for your everyday wellness. Pure taste. Natural goodness. Freshly packed in aroma-locking seal pouches.
@@ -160,7 +160,7 @@ export const ProductsPage: React.FC = () => {
               <button
                 type="button"
                 onClick={scrollToProducts}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#7A1D36] hover:bg-[#54121F] text-white text-sm font-semibold transition-all shadow-md button-interaction"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-burgundy hover:bg-brand-rust text-white text-sm font-semibold transition-all shadow-md button-interaction"
               >
                 <span>Shop Now</span>
                 <ArrowRight className="w-4 h-4" />
@@ -170,7 +170,7 @@ export const ProductsPage: React.FC = () => {
             {/* Value badges below CTA */}
             <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-5 text-xs text-neutral-200">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-xs border border-white/15">
-                <Leaf className="w-3.5 h-3.5 text-emerald-400" />
+                <Leaf className="w-3.5 h-3.5 text-brand-leaf-green" />
                 100% Natural
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-xs border border-white/15">
@@ -178,7 +178,7 @@ export const ProductsPage: React.FC = () => {
                 Rich in Antioxidants
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-xs border border-white/15">
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                <Sparkles className="w-3.5 h-3.5 text-brand-amber" />
                 Better Living
               </span>
             </div>
@@ -187,7 +187,7 @@ export const ProductsPage: React.FC = () => {
       </section>
 
       {/* Circular Flavor Bubbles Row */}
-      <section className="bg-[#FAF8F5] py-8 sm:py-12 border-b border-neutral-200/60">
+      <section className="bg-white py-8 sm:py-12 border-b border-neutral-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4 mb-4">
             <h2 className="text-xs font-bold uppercase tracking-wider text-neutral-500">
@@ -197,7 +197,7 @@ export const ProductsPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSelectedFlavor(null)}
-                className="text-xs font-semibold text-[#7A1D36] hover:underline"
+                className="text-xs font-semibold text-brand-burgundy hover:text-brand-rust hover:underline"
               >
                 Clear filter ({selectedFlavor})
               </button>
@@ -218,10 +218,10 @@ export const ProductsPage: React.FC = () => {
                 >
                   <div
                     className={cn(
-                      'w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden p-1 transition-all duration-200 bg-[#F3EFEA]',
+                      'w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden p-1 transition-all duration-200 bg-neutral-100',
                       isSelected
-                        ? 'ring-3 ring-[#7A1D36] shadow-md scale-105'
-                        : 'border border-neutral-200 group-hover:border-[#7A1D36]/50 group-hover:shadow-sm'
+                        ? 'ring-3 ring-brand-green shadow-md scale-105'
+                        : 'border border-neutral-200 group-hover:border-brand-green/50 group-hover:shadow-sm'
                     )}
                   >
                     <img
@@ -234,8 +234,8 @@ export const ProductsPage: React.FC = () => {
                     className={cn(
                       'text-xs sm:text-sm font-semibold transition-colors',
                       isSelected
-                        ? 'text-[#7A1D36] font-bold'
-                        : 'text-neutral-700 group-hover:text-neutral-900'
+                        ? 'text-brand-green font-bold'
+                        : 'text-neutral-700 group-hover:text-brand-green'
                     )}
                   >
                     {flavor.name}
@@ -255,11 +255,11 @@ export const ProductsPage: React.FC = () => {
             <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-neutral-500 mb-2">
               OUR COLLECTION
             </p>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-brand-black">
               Our Products
             </h2>
             <div className="flex items-center justify-center my-3">
-              <Leaf className="w-5 h-5 text-[#194D33]" />
+              <Leaf className="w-5 h-5 text-brand-leaf-green" />
             </div>
             <p className="text-sm sm:text-base text-neutral-600 max-w-lg mx-auto">
               Explore our wide range of premium tea blends • Order directly on WhatsApp for instant doorstep delivery
@@ -290,8 +290,8 @@ export const ProductsPage: React.FC = () => {
                     className={cn(
                       'px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-xs button-interaction',
                       isActive
-                        ? 'bg-[#7A1D36] text-white shadow-sm'
-                        : 'bg-white text-neutral-700 border border-neutral-200 hover:border-[#7A1D36] hover:text-[#7A1D36]'
+                        ? 'bg-brand-green text-white shadow-sm'
+                        : 'bg-white text-brand-black border border-neutral-200 hover:border-brand-green'
                     )}
                   >
                     {cat}
@@ -319,44 +319,44 @@ export const ProductsPage: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             {/* Feature 1 */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-3.5">
-              <div className="w-12 h-12 rounded-full bg-[#194D33] text-white flex items-center justify-center shrink-0 shadow-sm">
+              <div className="w-12 h-12 rounded-full bg-brand-green text-white flex items-center justify-center shrink-0 shadow-sm">
                 <Leaf className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-sm text-neutral-900">Fresh Ingredients</h3>
+                <h3 className="font-bold text-sm text-brand-black">Fresh Ingredients</h3>
                 <p className="text-xs text-neutral-500 mt-1">Naturally sourced & carefully blended</p>
               </div>
             </div>
 
             {/* Feature 2 */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-3.5">
-              <div className="w-12 h-12 rounded-full bg-[#194D33] text-white flex items-center justify-center shrink-0 shadow-sm">
+              <div className="w-12 h-12 rounded-full bg-brand-green text-white flex items-center justify-center shrink-0 shadow-sm">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-sm text-neutral-900">Secure Payment</h3>
+                <h3 className="font-bold text-sm text-brand-black">Secure Payment</h3>
                 <p className="text-xs text-neutral-500 mt-1">100% safe & encrypted payments</p>
               </div>
             </div>
 
             {/* Feature 3 */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-3.5">
-              <div className="w-12 h-12 rounded-full bg-[#194D33] text-white flex items-center justify-center shrink-0 shadow-sm">
+              <div className="w-12 h-12 rounded-full bg-brand-green text-white flex items-center justify-center shrink-0 shadow-sm">
                 <Truck className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-sm text-neutral-900">Fast Delivery</h3>
+                <h3 className="font-bold text-sm text-brand-black">Fast Delivery</h3>
                 <p className="text-xs text-neutral-500 mt-1">Quick & reliable doorstep shipping</p>
               </div>
             </div>
 
             {/* Feature 4 */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-3.5">
-              <div className="w-12 h-12 rounded-full bg-[#194D33] text-white flex items-center justify-center shrink-0 shadow-sm">
+              <div className="w-12 h-12 rounded-full bg-brand-green text-white flex items-center justify-center shrink-0 shadow-sm">
                 <Heart className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-sm text-neutral-900">A Healthier You</h3>
+                <h3 className="font-bold text-sm text-brand-black">A Healthier You</h3>
                 <p className="text-xs text-neutral-500 mt-1">Wellness and purity in every cup</p>
               </div>
             </div>

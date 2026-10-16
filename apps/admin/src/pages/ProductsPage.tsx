@@ -245,7 +245,7 @@ export const ProductsPage: React.FC = () => {
       key: 'name',
       render: (name: string, record: Product) => (
         <div>
-          <div className="font-semibold text-gray-900">{name}</div>
+          <div className="font-semibold text-sharon-primary">{name}</div>
           <div className="text-xs text-gray-500">{record.shortDescription}</div>
         </div>
       ),
@@ -330,7 +330,7 @@ export const ProductsPage: React.FC = () => {
       </div>
 
       {/* Search Header */}
-      <div className="bg-white p-4 rounded-xl shadow-sm border border-amber-950/10 mb-6 flex items-center justify-between reveal-down is-visible delay-50">
+      <div className="bg-white p-4 rounded-xl shadow-sm border border-neutral-200/80 mb-6 flex items-center justify-between reveal-down is-visible delay-50">
         <Input
           placeholder="Search products by name or pack size..."
           prefix={<SearchOutlined className="text-gray-400" />}
@@ -351,7 +351,7 @@ export const ProductsPage: React.FC = () => {
           rowKey="id"
           loading={isLoading}
           pagination={{ pageSize: 10 }}
-          className="bg-white rounded-xl shadow-sm border border-amber-950/10 overflow-hidden"
+          className="bg-white rounded-xl shadow-sm border border-neutral-200/80 overflow-hidden"
         />
       </div>
 

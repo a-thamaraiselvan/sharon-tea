@@ -21,11 +21,17 @@ export const OutletCard: React.FC<OutletCardProps> = ({ outlet, className }) => 
       {/* Top Image (if present) */}
       {outlet.imageUrl && (
         <div className="relative w-full h-48 overflow-hidden bg-brand-cream image-zoom-container">
-          {outlet.isMainBranch && (
-            <span className="absolute top-3 left-3 z-10 text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-burgundy text-white shadow-sm">
-              Flagship Outlet
+          <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
+            {outlet.isMainBranch && (
+              <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-burgundy text-white shadow-sm">
+                Flagship Outlet
+              </span>
+            )}
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[11px] font-bold text-brand-green shadow-xs border border-white/40">
+              <span className="w-2 h-2 rounded-full bg-brand-leaf-green animate-pulse" />
+              Open Now
             </span>
-          )}
+          </div>
           <img
             src={outlet.imageUrl}
             alt={outlet.name || 'Sharon Tea and Coffee Outlet'}
@@ -42,6 +48,12 @@ export const OutletCard: React.FC<OutletCardProps> = ({ outlet, className }) => 
       {/* Outlet Details */}
       <div className="p-6 flex-1 flex flex-col justify-between">
         <div>
+          {!outlet.imageUrl && (
+            <div className="flex items-center gap-1.5 mb-2 text-xs font-semibold text-brand-leaf-green">
+              <span className="w-2 h-2 rounded-full bg-brand-leaf-green animate-pulse" />
+              <span>Open Now</span>
+            </div>
+          )}
           <h3 className="font-display text-xl font-bold text-brand-black group-hover:text-brand-green transition-colors">
             {outlet.name}
           </h3>

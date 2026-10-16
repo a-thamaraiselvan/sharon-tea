@@ -10,35 +10,35 @@ const TIMELINE_STEPS = [
     title: 'Brewing Since 2007 - The First Samovar',
     description:
       'Sharon opened its first doors with a single bubbling brass samovar, family-guarded spices, and an uncompromising commitment to whole tea leaves.',
-    icon: <Coffee className="w-5 h-5 text-brand-amber" />,
+    icon: <Coffee className="w-5 h-5 text-white" />,
   },
   {
     year: '2020',
     title: 'Proprietary Spice Formulations',
     description:
       'Standardized our signature cardamom, dry ginger, and royal masala decoction recipes, creating an everyday ritual for commuters and local residents.',
-    icon: <Sparkles className="w-5 h-5 text-brand-leaf-green" />,
+    icon: <Sparkles className="w-5 h-5 text-white" />,
   },
   {
     year: '2022',
     title: 'Transit & Metro Hub Expansion',
     description:
       'Expanded across Indiranagar, Thippasandra, and high-footfall business corridors, proving our scalable quick-service tea kiosk blueprint.',
-    icon: <Calendar className="w-5 h-5 text-brand-burgundy" />,
+    icon: <Calendar className="w-5 h-5 text-white" />,
   },
   {
     year: '2024',
     title: '8,000+ Cups Daily & Retail Blends',
     description:
       'Surpassed 8,000 daily cups served and introduced freshness-sealed foil retail pouches for tea connoisseurs to enjoy Sharon chai at home.',
-    icon: <Heart className="w-5 h-5 text-red-500 fill-red-500" />,
+    icon: <Heart className="w-5 h-5 text-white" />,
   },
   {
     year: 'Today',
     title: 'Scaling Turnkey Franchise Partnerships',
     description:
       'Empowering motivated entrepreneurs across South India with comprehensive barista training, direct estate supply, and proven commercial returns.',
-    icon: <CheckCircle2 className="w-5 h-5 text-brand-green" />,
+    icon: <CheckCircle2 className="w-5 h-5 text-white" />,
   },
 ];
 
@@ -138,12 +138,17 @@ export const BrandIntroduction: React.FC = () => {
                     {/* Mobile View: Vertical Left Spine with Clean Connected Card */}
                     <div className="flex md:hidden items-start gap-3 sm:gap-4">
                       {/* Left Node Badge */}
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white border-2 border-brand-green shadow-xs flex items-center justify-center shrink-0 z-10 mt-1 transition-transform active:scale-95">
+                      <div
+                        className={cn(
+                          'w-10 h-10 sm:w-11 sm:h-11 rounded-2xl shadow-xs flex items-center justify-center shrink-0 z-10 mt-1 transition-transform active:scale-95 text-white',
+                          isEven ? 'bg-brand-rust' : 'bg-brand-green'
+                        )}
+                      >
                         {step.icon}
                       </div>
 
                       {/* Right Content Card */}
-                      <div className="flex-1 min-w-0 bg-white rounded-2xl p-4 sm:p-5 border border-amber-950/10 shadow-xs hover-lift transition-all duration-300">
+                      <div className="flex-1 min-w-0 bg-white rounded-2xl p-4 sm:p-5 border border-neutral-200/80 shadow-xs hover-lift transition-all duration-300">
                         {/* Top Meta: Year Pill & Step Number */}
                         <div className="flex items-center justify-between gap-2 mb-2">
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black tracking-wider bg-brand-burgundy text-white shadow-2xs">
@@ -175,7 +180,7 @@ export const BrandIntroduction: React.FC = () => {
                     >
                       {/* Content Card */}
                       <div className={cn('w-1/2', isEven ? 'text-right' : 'text-left')}>
-                        <div className="bg-white rounded-2xl p-6 border border-amber-950/10 shadow-xs hover-lift transition-all duration-300 group">
+                        <div className="bg-white rounded-2xl p-6 border border-neutral-200/80 shadow-xs hover-lift transition-all duration-300 group">
                           <div className={cn('flex items-center gap-2 mb-2', isEven ? 'justify-end' : 'justify-start')}>
                             <span className="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-black tracking-wider bg-brand-burgundy text-white shadow-2xs">
                               {step.year}
@@ -196,7 +201,12 @@ export const BrandIntroduction: React.FC = () => {
                       </div>
 
                       {/* Center Node Badge */}
-                      <div className="w-12 h-12 rounded-2xl bg-white border-2 border-brand-green shadow-sm flex items-center justify-center shrink-0 z-10 transition-transform group-hover:scale-110">
+                      <div
+                        className={cn(
+                          'w-12 h-12 rounded-2xl shadow-sm flex items-center justify-center shrink-0 z-10 transition-transform group-hover:scale-110 text-white',
+                          isEven ? 'bg-brand-rust' : 'bg-brand-green'
+                        )}
+                      >
                         {step.icon}
                       </div>
 

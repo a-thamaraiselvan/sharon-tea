@@ -29,9 +29,15 @@ export const OutletList: React.FC<OutletListProps> = ({ outlets = [], isLoading 
           className="bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200/80 shadow-warm-lg grid grid-cols-1 lg:grid-cols-12 gap-8 items-center reveal-up"
         >
           <div className="lg:col-span-5 space-y-4">
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-green bg-brand-green/10 px-3 py-1 rounded-full border border-brand-green/20">
-              Selected Stall
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold uppercase tracking-wider text-brand-green bg-brand-green/10 px-3 py-1 rounded-full border border-brand-green/20">
+                Selected Stall
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-green/5 text-xs font-bold text-brand-green border border-brand-green/20">
+                <span className="w-2 h-2 rounded-full bg-brand-leaf-green animate-pulse" />
+                Open Now
+              </span>
+            </div>
             <h3 className="font-display text-2xl sm:text-3xl font-bold text-brand-black">
               {currentSelection.name}
             </h3>
@@ -118,9 +124,15 @@ export const OutletList: React.FC<OutletListProps> = ({ outlets = [], isLoading 
               >
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-3">
-                    <h4 className="font-display text-lg font-bold text-brand-black">
-                      {outlet.name}
-                    </h4>
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1 text-xs font-semibold text-brand-leaf-green">
+                        <span className="w-1.5 h-1.5 rounded-full bg-brand-leaf-green animate-pulse" />
+                        <span>Open Now</span>
+                      </div>
+                      <h4 className="font-display text-lg font-bold text-brand-black">
+                        {outlet.name}
+                      </h4>
+                    </div>
                     {outlet.isMainBranch && (
                       <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-brand-amber/20 text-brand-amber flex-shrink-0">
                         Main

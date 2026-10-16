@@ -230,7 +230,7 @@ export const OutletsPage: React.FC = () => {
       key: 'name',
       render: (name: string, record: Outlet) => (
         <div>
-          <div className="font-semibold text-gray-900">{name}</div>
+          <div className="font-semibold text-sharon-primary">{name}</div>
           <div className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
             <EnvironmentOutlined className="text-sharon-forest" />
             <span className="line-clamp-1">{record.address}</span>
@@ -342,7 +342,7 @@ export const OutletsPage: React.FC = () => {
           rowKey="id"
           loading={isLoading}
           pagination={{ pageSize: 10 }}
-          className="bg-white rounded-xl shadow-sm border border-amber-950/10 overflow-hidden"
+          className="bg-white rounded-xl shadow-sm border border-neutral-200/80 overflow-hidden"
         />
       </div>
 

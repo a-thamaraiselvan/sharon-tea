@@ -27,11 +27,11 @@ export const BrandStoryPreview: React.FC = () => {
 
           {/* Floating Highlight Card */}
           <div
-            className="absolute -bottom-6 -right-4 sm:-bottom-8 sm:right-6 bg-brand-cream border border-brand-green/20 rounded-2xl p-4 sm:p-5 shadow-warm-lg max-w-xs hidden sm:block reveal-scale hover-lift"
+            className="absolute -bottom-6 -right-4 sm:-bottom-8 sm:right-6 bg-white border border-brand-green/20 rounded-2xl p-4 sm:p-5 shadow-warm-lg max-w-xs hidden sm:block reveal-scale hover-lift"
             style={{ '--reveal-delay': '120ms' } as React.CSSProperties}
           >
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-brand-green text-white flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-brand-green text-brand-amber flex items-center justify-center flex-shrink-0">
                 <Sparkles className="w-6 h-6 text-brand-amber" />
               </div>
               <div>

@@ -132,7 +132,7 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
         {/* Top Bar with Close Button */}
         <div className="px-5 sm:px-6 py-3.5 border-b border-neutral-100 flex items-center justify-between bg-white shrink-0 sticky top-0 z-10">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#7A1D36] bg-[#7A1D36]/10 px-2.5 py-1 rounded-md">
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-burgundy bg-brand-burgundy/10 px-2.5 py-1 rounded-md">
               {product.category || 'Packaged Blend'}
             </span>
             {product.weight && (
@@ -157,7 +157,7 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
           {/* Standing Product Pouch Display */}
           <div className="relative rounded-2xl bg-neutral-50 p-6 border border-neutral-100 flex flex-col items-center justify-center">
             {product.badge && (
-              <span className="absolute top-4 left-4 z-10 text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#194D33] text-white shadow-sm">
+              <span className="absolute top-4 left-4 z-10 text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-green text-white shadow-sm">
                 {product.badge}
               </span>
             )}
@@ -181,7 +181,7 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
                     className={cn(
                       'w-12 h-14 rounded-lg overflow-hidden border p-1 bg-white transition-all',
                       selectedImg === img
-                        ? 'border-[#7A1D36] ring-2 ring-[#7A1D36]/20'
+                        ? 'border-brand-burgundy ring-2 ring-brand-burgundy/20'
                         : 'border-neutral-200 hover:border-neutral-400'
                     )}
                   >
@@ -199,7 +199,7 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
           {/* Product Title & Stock Status */}
           <div>
             <div className="flex items-center justify-between gap-4">
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-neutral-900">
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-brand-black">
                 {product.name}
               </h2>
             </div>
@@ -213,7 +213,7 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
 
           {/* Pricing Section */}
           <div className="flex items-baseline gap-3 p-4 rounded-xl bg-neutral-50 border border-neutral-100">
-            <span className="text-3xl font-extrabold text-[#7A1D36] font-sans">
+            <span className="text-3xl font-extrabold text-brand-chai font-sans">
               {formatPrice(product.price)}
             </span>
             {product.originalPrice && product.originalPrice > product.price && (
@@ -222,18 +222,18 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
               </span>
             )}
             {discountPercent > 0 && (
-              <span className="text-xs font-bold text-[#194D33] bg-[#194D33]/10 px-2 py-0.5 rounded-full">
+              <span className="text-xs font-bold text-brand-green bg-brand-green/10 px-2 py-0.5 rounded-full">
                 Save {discountPercent}% ({formatPrice(discountAmount)})
               </span>
             )}
-            <span className="ml-auto text-xs font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+            <span className="ml-auto text-xs font-medium text-brand-green bg-brand-green/10 px-2.5 py-1 rounded-md border border-brand-green/20">
               In Stock
             </span>
           </div>
 
           {/* Full Description */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-brand-black/60 mb-2">
               Product Description
             </h3>
             <p className="text-sm text-neutral-700 leading-relaxed font-normal">
@@ -244,15 +244,15 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
           {/* Real Ingredients */}
           {ingredientsList.length > 0 && (
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2.5 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#7A1D36]" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-brand-black mb-2.5 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-brand-burgundy" />
                 <span>Real Ingredients</span>
               </h3>
               <div className="flex flex-wrap gap-2">
                 {ingredientsList.map((ing, i) => (
                   <span
                     key={i}
-                    className="text-xs bg-neutral-100 text-neutral-800 px-3 py-1.5 rounded-lg border border-neutral-200 font-medium"
+                    className="text-xs bg-neutral-100 text-brand-black px-3 py-1.5 rounded-lg border border-neutral-200 font-medium"
                   >
                     {ing}
                   </span>
@@ -263,8 +263,8 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
 
           {/* Step-by-Step Brewing Instructions */}
           {product.brewingInstructions && (
-            <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-900/10">
-              <div className="flex items-center gap-2 mb-2 text-[#7A1D36] font-bold text-sm">
+            <div className="p-4 rounded-xl bg-brand-cream border border-brand-amber/30">
+              <div className="flex items-center gap-2 mb-2 text-brand-burgundy font-bold text-sm">
                 <Coffee className="w-4 h-4" />
                 <span>Brewing Guide</span>
               </div>
@@ -277,11 +277,11 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
           {/* Trust Assurances */}
           <div className="grid grid-cols-2 gap-3 pt-2">
             <div className="flex items-center gap-2 p-3 rounded-lg bg-neutral-50 border border-neutral-100 text-neutral-700">
-              <ShieldCheck className="w-4 h-4 text-[#194D33]" />
+              <ShieldCheck className="w-4 h-4 text-brand-green" />
               <span className="text-xs font-medium">100% Natural Leaves</span>
             </div>
             <div className="flex items-center gap-2 p-3 rounded-lg bg-neutral-50 border border-neutral-100 text-neutral-700">
-              <Truck className="w-4 h-4 text-[#7A1D36]" />
+              <Truck className="w-4 h-4 text-brand-burgundy" />
               <span className="text-xs font-medium">Free Delivery above ₹500</span>
             </div>
           </div>
@@ -293,7 +293,7 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <span className="text-xs text-neutral-400 block font-medium">Subtotal</span>
-              <span className="text-xl font-bold text-neutral-900 font-sans">
+              <span className="text-xl font-bold text-brand-black font-sans">
                 {formatPrice(product.price * quantity)}
               </span>
             </div>
@@ -309,7 +309,7 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
               >
                 <Minus className="w-3.5 h-3.5" />
               </button>
-              <span className="w-10 text-center text-sm font-bold text-neutral-900">
+              <span className="w-10 text-center text-sm font-bold text-brand-black">
                 {quantity}
               </span>
               <button

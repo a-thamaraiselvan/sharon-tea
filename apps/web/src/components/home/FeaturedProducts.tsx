@@ -55,35 +55,35 @@ export const FeaturedProducts: React.FC = () => {
 
       {/* Trust bar for packaged products matching exact visual style */}
       <div
-        className="mt-12 max-w-5xl mx-auto bg-white rounded-2xl p-5 sm:p-6 border border-neutral-200/80 shadow-sm grid grid-cols-2 sm:grid-cols-4 gap-4 text-center reveal-fade"
+        className="mt-12 max-w-5xl mx-auto bg-white rounded-2xl p-5 sm:p-6 border border-neutral-200/80 shadow-sm grid grid-cols-2 sm:grid-cols-4 gap-4 text-center text-brand-black reveal-fade"
         style={{ '--reveal-delay': '120ms' } as React.CSSProperties}
       >
         <div className="flex flex-col items-center">
-          <div className="w-9 h-9 rounded-full bg-[#194D33]/10 text-[#194D33] flex items-center justify-center mb-2">
+          <div className="w-9 h-9 rounded-full bg-brand-green/10 text-brand-green flex items-center justify-center mb-2">
             <Leaf className="w-4 h-4" />
           </div>
-          <p className="font-bold text-neutral-900 text-xs sm:text-sm">Aroma-Lock Pouch</p>
+          <p className="font-bold text-brand-black text-xs sm:text-sm">Aroma-Lock Pouch</p>
           <p className="text-[11px] text-neutral-500 mt-0.5">Seals freshness inside</p>
         </div>
         <div className="flex flex-col items-center">
-          <div className="w-9 h-9 rounded-full bg-[#194D33]/10 text-[#194D33] flex items-center justify-center mb-2">
+          <div className="w-9 h-9 rounded-full bg-brand-green/10 text-brand-green flex items-center justify-center mb-2">
             <ShieldCheck className="w-4 h-4" />
           </div>
-          <p className="font-bold text-neutral-900 text-xs sm:text-sm">100% Pure Spices</p>
+          <p className="font-bold text-brand-black text-xs sm:text-sm">100% Pure Spices</p>
           <p className="text-[11px] text-neutral-500 mt-0.5">No artificial chemicals</p>
         </div>
         <div className="flex flex-col items-center">
-          <div className="w-9 h-9 rounded-full bg-[#7A1D36]/10 text-[#7A1D36] flex items-center justify-center mb-2">
+          <div className="w-9 h-9 rounded-full bg-brand-burgundy/10 text-brand-burgundy flex items-center justify-center mb-2">
             <Truck className="w-4 h-4" />
           </div>
-          <p className="font-bold text-neutral-900 text-xs sm:text-sm">Fast Dispatch</p>
+          <p className="font-bold text-brand-black text-xs sm:text-sm">Fast Dispatch</p>
           <p className="text-[11px] text-neutral-500 mt-0.5">Prompt door delivery</p>
         </div>
         <div className="flex flex-col items-center">
-          <div className="w-9 h-9 rounded-full bg-[#194D33]/10 text-[#194D33] flex items-center justify-center mb-2">
+          <div className="w-9 h-9 rounded-full bg-brand-green/10 text-brand-green flex items-center justify-center mb-2">
             <Heart className="w-4 h-4 text-red-500 fill-red-500" />
           </div>
-          <p className="font-bold text-neutral-900 text-xs sm:text-sm">Instant WhatsApp Order</p>
+          <p className="font-bold text-brand-black text-xs sm:text-sm">Instant WhatsApp Order</p>
           <p className="text-[11px] text-neutral-500 mt-0.5">Simple 1-click checkout</p>
         </div>
       </div>

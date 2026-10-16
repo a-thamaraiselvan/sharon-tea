@@ -28,7 +28,7 @@ export const MenuCategoryNav: React.FC<MenuCategoryNavProps> = ({
               className={cn(
                 'px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 border whitespace-nowrap shadow-sm',
                 isActive
-                  ? 'bg-brand-burgundy text-white border-brand-burgundy shadow-warm'
+                  ? 'bg-brand-green text-white border-brand-green shadow-green-subtle'
                   : 'bg-white text-brand-black border-neutral-200 hover:border-brand-green hover:text-brand-green'
               )}
             >

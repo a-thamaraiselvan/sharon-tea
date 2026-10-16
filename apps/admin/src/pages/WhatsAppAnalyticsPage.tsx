@@ -28,7 +28,6 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  Cell,
 } from 'recharts';
 import { PageHeader } from '../components/shared/PageHeader';
 import { AnimatedCount } from '../components/shared/AnimatedCount';
@@ -37,8 +36,6 @@ import { ProductClickStat } from '../types';
 
 const { RangePicker } = DatePicker;
 const { Text } = Typography;
-
-const BAR_COLORS = ['#1C4C34', '#34A43C', '#A44C14', '#7C2C0C', '#FC9C34', '#541424'];
 
 export const WhatsAppAnalyticsPage: React.FC = () => {
   const [dateRange, setDateRange] = useState<[Dayjs, Dayjs]>([
@@ -204,7 +201,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
         <Row gutter={[16, 16]} className="mb-8">
           <Col xs={24} sm={8}>
             <div className="h-full reveal-up is-visible delay-0">
-              <Card className="border-amber-950/10 shadow-sm bg-white h-full hover-lift cursor-default">
+              <Card className="border border-neutral-200/80 shadow-sm bg-white h-full hover-lift cursor-default">
                 <div className="flex items-center justify-between">
                   <div>
                     <Text className="text-xs uppercase font-bold text-gray-500 tracking-wider">
@@ -217,12 +214,12 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
                         <AnimatedCount value={totalClicks} />
                       </div>
                     )}
-                    <div className="text-xs text-emerald-700 mt-1 flex items-center gap-1 font-medium">
+                    <div className="text-xs text-sharon-forest mt-1 flex items-center gap-1 font-medium">
                       <RiseOutlined />
                       <span>Direct WhatsApp conversion triggers</span>
                     </div>
                   </div>
-                  <div className="w-12 h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 rounded-xl bg-green-50 text-sharon-forest flex items-center justify-center text-2xl">
                     <WhatsAppOutlined />
                   </div>
                 </div>
@@ -232,7 +229,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
 
           <Col xs={24} sm={8}>
             <div className="h-full reveal-up is-visible delay-50">
-              <Card className="border-amber-950/10 shadow-sm bg-white h-full hover-lift cursor-default">
+              <Card className="border border-neutral-200/80 shadow-sm bg-white h-full hover-lift cursor-default">
                 <div className="flex items-center justify-between">
                   <div>
                     <Text className="text-xs uppercase font-bold text-gray-500 tracking-wider">
@@ -257,7 +254,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
 
           <Col xs={24} sm={8}>
             <div className="h-full reveal-up is-visible delay-100">
-              <Card className="border-amber-950/10 shadow-sm bg-white h-full hover-lift cursor-default">
+              <Card className="border border-neutral-200/80 shadow-sm bg-white h-full hover-lift cursor-default">
                 <div className="flex items-center justify-between">
                   <div className="overflow-hidden pr-2">
                     <Text className="text-xs uppercase font-bold text-gray-500 tracking-wider">
@@ -276,7 +273,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
                       </div>
                     )}
                   </div>
-                  <div className="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-2xl shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-amber-50 text-sharon-amber flex items-center justify-center text-2xl shrink-0">
                     <FireOutlined />
                   </div>
                 </div>
@@ -291,13 +288,13 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
         <Card
           title={
             <div className="flex items-center gap-2">
-              <WhatsAppOutlined className="text-green-600" />
-              <span className="font-semibold text-gray-800">
+              <WhatsAppOutlined className="text-sharon-forest" />
+              <span className="font-semibold text-sharon-primary">
                 Customer Click Frequency per Packaged Blend
               </span>
             </div>
           }
-          className="border-amber-950/10 shadow-sm mb-8 chart-enter"
+          className="border border-neutral-200/80 bg-white shadow-sm mb-8 chart-enter"
         >
           <div className="h-80 w-full pt-4">
             <ResponsiveContainer width="100%" height="100%">
@@ -305,7 +302,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
                 data={chartData}
                 margin={{ top: 20, right: 30, left: 0, bottom: 40 }}
               >
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0e9df" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#D4D4D4" strokeOpacity={0.6} />
                 <XAxis
                   dataKey="name"
                   angle={-15}
@@ -317,24 +314,22 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
                 <Tooltip
                   contentStyle={{
                     backgroundColor: '#241C24',
-                    color: '#FAF7F2',
+                    color: '#FFFFFF',
                     borderRadius: '8px',
                     border: 'none',
                   }}
+                  itemStyle={{ color: '#FFFFFF' }}
                   formatter={(val: number) => [`${val} Customer Clicks`, 'Order Intent']}
                 />
                 <Bar
                   dataKey="clicks"
+                  fill="#1C4C34"
                   radius={[6, 6, 0, 0]}
                   barSize={42}
                   isAnimationActive={true}
                   animationDuration={1000}
                   animationEasing="ease-out"
-                >
-                  {productsList.map((_, index) => (
-                    <Cell key={`cell-${index}`} fill={BAR_COLORS[index % BAR_COLORS.length]} />
-                  ))}
-                </Bar>
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -344,8 +339,8 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
       {/* Breakdown Table */}
       <div className="reveal-up is-visible delay-200">
         <Card
-          title={<span className="font-semibold text-gray-800">Product Click Breakdown</span>}
-          className="border-amber-950/10 shadow-sm"
+          title={<span className="font-semibold text-sharon-primary">Product Click Breakdown</span>}
+          className="border border-neutral-200/80 bg-white shadow-sm"
         >
           <Table
             dataSource={productsList}

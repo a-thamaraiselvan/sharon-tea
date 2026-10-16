@@ -30,9 +30,14 @@ ReactDOM.createRoot(rootElement).render(
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: '#1C4C34',
-          colorError: '#541424',
-          colorBgLayout: '#FAF7F2',
+          colorPrimary: '#1C4C34',       // Secondary: Forest Green
+          colorSuccess: '#34A43C',       // Secondary: Fresh Leaf Green
+          colorWarning: '#FC9C34',       // Tertiary: Amber Highlight
+          colorError: '#7C2C0C',         // Tertiary: Deep Rust Brown
+          colorTextBase: '#241C24',      // Primary: Soft Off-Black
+          colorBgBase: '#FFFFFF',        // Neutral: White
+          colorBgLayout: '#FAF7F2',      // Warm Cream Layout
+          colorBorder: '#D4D4D4',        // Neutral: Light Grey
           borderRadius: 8,
           fontFamily: 'Inter, system-ui, sans-serif',
         },
@@ -40,10 +45,10 @@ ReactDOM.createRoot(rootElement).render(
           Button: {
             controlHeight: 38,
             borderRadius: 8,
-            primaryColor: '#FAF7F2',
+            primaryColor: '#FFFFFF',
           },
           Table: {
-            headerBg: '#F3ECE2',
+            headerBg: '#FFFFFF',
             headerColor: '#241C24',
             borderRadius: 10,
           },
@@ -51,9 +56,9 @@ ReactDOM.createRoot(rootElement).render(
             borderRadiusLG: 12,
           },
           Menu: {
-            itemSelectedBg: '#E8F3ED',
-            itemSelectedColor: '#1C4C34',
-            itemHoverBg: '#F5FAF7',
+            itemSelectedBg: '#1C4C34',
+            itemSelectedColor: '#FFFFFF',
+            itemHoverBg: 'rgba(28, 76, 52, 0.1)',
             itemBorderRadius: 8,
           },
         },

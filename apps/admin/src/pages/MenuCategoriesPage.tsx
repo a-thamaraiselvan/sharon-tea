@@ -207,7 +207,7 @@ export const MenuCategoriesPage: React.FC = () => {
       key: 'name',
       render: (name: string, record: MenuCategory) => (
         <div>
-          <div className="font-semibold text-gray-900">{name}</div>
+          <div className="font-semibold text-sharon-primary">{name}</div>
           {record.description && (
             <div className="text-xs text-gray-500 line-clamp-1">{record.description}</div>
           )}
@@ -289,7 +289,7 @@ export const MenuCategoriesPage: React.FC = () => {
           rowKey="id"
           loading={isLoading}
           pagination={{ pageSize: 10 }}
-          className="bg-white rounded-xl shadow-sm border border-amber-950/10 overflow-hidden"
+          className="bg-white rounded-xl shadow-sm border border-neutral-200/80 overflow-hidden"
         />
       </div>
 

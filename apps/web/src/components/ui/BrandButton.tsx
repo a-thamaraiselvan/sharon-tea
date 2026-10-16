@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { cn } from '@/utils/cn';
 
 export interface BrandButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'amber';
+  variant?: 'primary' | 'secondary' | 'burgundy' | 'outline' | 'ghost' | 'amber';
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   to?: string;
@@ -35,18 +35,20 @@ export const BrandButton: React.FC<BrandButtonProps> = ({
   }[size];
 
   const variantClasses = {
-    // Primary: Burgundy (#541424)
+    // Primary: Forest Green (#1C4C34) -> hover Black (#241C24)
     primary:
-      'bg-brand-burgundy text-white hover:bg-brand-rust hover:shadow-warm-lg focus:ring-brand-burgundy',
-    // Secondary: Forest Green (#1C4C34)
-    secondary:
       'bg-brand-green text-white hover:bg-brand-black hover:shadow-green-subtle focus:ring-brand-green',
-    // Outline: Border Burgundy or Forest Green
-    outline:
-      'border-2 border-brand-burgundy text-brand-burgundy hover:bg-brand-burgundy hover:text-white focus:ring-brand-burgundy',
-    // Amber: Amber Highlight (#FC9C34)
+    // Secondary / Burgundy: Burgundy (#541424) -> hover Rust (#7C2C0C)
+    secondary:
+      'bg-brand-burgundy text-white hover:bg-brand-rust hover:shadow-warm-lg focus:ring-brand-burgundy',
+    burgundy:
+      'bg-brand-burgundy text-white hover:bg-brand-rust hover:shadow-warm-lg focus:ring-brand-burgundy',
+    // Amber: Amber Highlight (#FC9C34) -> hover Chai (#A44C14)
     amber:
-      'bg-brand-amber text-brand-black font-semibold hover:bg-[#e08928] focus:ring-brand-amber shadow-warm',
+      'bg-brand-amber text-brand-black font-semibold hover:bg-brand-chai hover:text-white focus:ring-brand-amber shadow-warm',
+    // Outline: Border 2 Forest Green -> hover Forest Green
+    outline:
+      'border-2 border-brand-green text-brand-green hover:bg-brand-green hover:text-white focus:ring-brand-green',
     // Ghost
     ghost:
       'text-brand-green hover:bg-brand-green/10 focus:ring-brand-green shadow-none',

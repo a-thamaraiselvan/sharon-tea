@@ -18,13 +18,13 @@ import { cn } from '@/utils/cn';
 
 const BENEFITS = [
   {
-    icon: <TrendingUp className="w-7 h-7 text-brand-burgundy" />,
+    icon: <TrendingUp className="w-7 h-7 text-brand-green" />,
     title: 'High Gross Margins',
     description:
       'High repeat daily consumption ensures 55-65% gross profit margins with swift cash flow from day one.',
   },
   {
-    icon: <Award className="w-7 h-7 text-brand-amber" />,
+    icon: <Award className="w-7 h-7 text-brand-green" />,
     title: 'Established Brand Equity',
     description:
       'Leverage Sharon’s strong recall across South India. Patrons recognize our samovars and trust our quality.',
@@ -36,19 +36,19 @@ const BENEFITS = [
       'Receive our proprietary tea leaf blends, authentic whole spices, and packaging directly at wholesale rates.',
   },
   {
-    icon: <Users className="w-7 h-7 text-brand-rust" />,
+    icon: <Users className="w-7 h-7 text-brand-green" />,
     title: 'Complete Staff Training',
     description:
       'Comprehensive 7-day culinary SOP onboarding covering exact tea proportions, boiling timings, hygiene, and guest care.',
   },
   {
-    icon: <Store className="w-7 h-7 text-brand-chai" />,
+    icon: <Store className="w-7 h-7 text-brand-green" />,
     title: 'Compact Store Footprint',
     description:
       'Turnkey kiosk models designed for 80–120 sq. ft. minimizing rental overheads while maximizing per-sq-ft sales.',
   },
   {
-    icon: <Headphones className="w-7 h-7 text-brand-leaf-green" />,
+    icon: <Headphones className="w-7 h-7 text-brand-green" />,
     title: 'Continuous Marketing Support',
     description:
       'Digital promotions, local influencer marketing, inaugural launch flyers, and social media buzz.',
@@ -196,7 +196,7 @@ export const FranchiseInfo: React.FC = () => {
 
               <div>
                 <div className="flex items-center justify-between gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-2xl bg-brand-cream flex items-center justify-center border border-amber-900/10">
+                  <div className="w-14 h-14 rounded-2xl bg-brand-cream flex items-center justify-center border border-brand-amber/20">
                     {tier.icon}
                   </div>
                   {!tier.recommended && (
@@ -215,7 +215,7 @@ export const FranchiseInfo: React.FC = () => {
                     {tier.price}
                   </span>
                   <span className="text-xs text-neutral-500 block mt-1">
-                    Setup Capex • ROI: <strong className="text-neutral-800">{tier.payback}</strong>
+                    Setup Capex • ROI: <strong className="text-brand-amber font-semibold">{tier.payback}</strong>
                   </span>
                   <span className="text-xs text-brand-green font-semibold block mt-0.5">
                     Space: {tier.area}

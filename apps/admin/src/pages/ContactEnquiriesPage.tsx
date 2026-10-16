@@ -137,7 +137,7 @@ export const ContactEnquiriesPage: React.FC = () => {
       key: 'name',
       render: (name: string, record: ContactEnquiry) => (
         <div>
-          <div className="font-semibold text-gray-900">{name}</div>
+          <div className="font-semibold text-sharon-primary">{name}</div>
           <div className="text-xs text-gray-500">{record.email}</div>
         </div>
       ),
@@ -232,7 +232,7 @@ export const ContactEnquiriesPage: React.FC = () => {
         />
       </div>
 
-      <div className="bg-white p-4 rounded-xl shadow-sm border border-amber-950/10 mb-6 reveal-down is-visible delay-50">
+      <div className="bg-white p-4 rounded-xl shadow-sm border border-neutral-200/80 mb-6 reveal-down is-visible delay-50">
         <Tabs
           activeKey={activeTab}
           onChange={(key) => setActiveTab(key)}
@@ -262,7 +262,7 @@ export const ContactEnquiriesPage: React.FC = () => {
           rowKey="id"
           loading={isLoading}
           pagination={{ pageSize: 10 }}
-          className="bg-white rounded-xl shadow-sm border border-amber-950/10 overflow-hidden"
+          className="bg-white rounded-xl shadow-sm border border-neutral-200/80 overflow-hidden"
         />
       </div>
 

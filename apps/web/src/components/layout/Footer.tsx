@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
   const whatsappNumber = getWhatsAppNumber();
 
   return (
-    <footer className="bg-brand-green text-white border-t border-brand-green/40">
+    <footer className="bg-brand-black text-white border-t border-brand-grey/20">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
@@ -34,12 +34,12 @@ export const Footer: React.FC = () => {
             </p>
 
             <div className="flex items-start gap-2.5 text-xs sm:text-sm text-white/80 pt-1">
-              <MapPin className="w-4 h-4 text-brand-amber flex-shrink-0 mt-0.5" />
+              <MapPin className="w-4 h-4 text-brand-leaf-green flex-shrink-0 mt-0.5" />
               <span>#34, 2nd Main Road, 1st Stage, Indiranagar, Bangalore - 560038</span>
             </div>
 
             <div className="pt-2">
-              <p className="text-xs font-semibold uppercase tracking-wider text-brand-cream/80 mb-2.5">
+              <p className="text-xs font-semibold uppercase tracking-wider text-brand-leaf-green mb-2.5">
                 Follow Sharon
               </p>
               <div className="flex items-center space-x-3">
@@ -128,7 +128,7 @@ export const Footer: React.FC = () => {
               Contact & Operating Hours
             </h4>
             <div className="space-y-3.5 text-sm text-white/80">
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1">
+              <div className="p-3.5 rounded-xl bg-white/5 border border-brand-grey/20 space-y-1">
                 <div className="flex items-center gap-2 text-brand-amber font-semibold text-xs tracking-wider uppercase">
                   <Clock className="w-3.5 h-3.5" />
                   <span>Operating Hours</span>
@@ -136,7 +136,7 @@ export const Footer: React.FC = () => {
                 <p className="text-white font-medium text-sm">
                   5:30 AM – 11:30 PM (Mon – Sat)
                 </p>
-                <p className="text-xs font-semibold text-brand-amber">
+                <p className="text-xs font-semibold text-brand-leaf-green">
                   6 Working Days • Sunday Holiday
                 </p>
                 <p className="text-xs text-white/60">
@@ -151,7 +151,7 @@ export const Footer: React.FC = () => {
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-brand-amber flex-shrink-0" />
+                <Mail className="w-4 h-4 text-brand-leaf-green flex-shrink-0" />
                 <a
                   href="mailto:contact@sharonteastall.com"
                   className="hover:text-brand-amber transition-colors"
@@ -165,7 +165,7 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* Copyright Bar */}
-      <div className="border-t border-white/10 py-5 bg-[#143927]">
+      <div className="border-t border-white/10 py-5 bg-brand-black/90">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between text-xs text-white/70 gap-3 text-center md:text-left">
           <p>© {new Date().getFullYear()} Sharon Tea and Coffee. All rights reserved.</p>
           <p className="flex items-center gap-1.5 justify-center">
@@ -181,7 +181,7 @@ export const Footer: React.FC = () => {
           </p>
           <p className="flex items-center gap-1.5 justify-center">
             <span>Made with</span>
-            <Heart className="w-3.5 h-3.5 text-brand-amber fill-brand-amber" />
+            <Heart className="w-3.5 h-3.5 text-brand-leaf-green fill-brand-leaf-green" />
             <span>for Tea Lovers</span>
           </p>
         </div>

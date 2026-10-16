@@ -215,7 +215,7 @@ export const MenuPage: React.FC = () => {
       </Helmet>
 
       {/* Hero Header */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#FCFAF7] via-[#FAF6F0] to-[#F5EFE6] pt-12 sm:pt-16 pb-10 sm:pb-14 border-b border-[#EDE6DC]/60">
+      <section className="relative overflow-hidden bg-gradient-to-b from-white via-neutral-50/50 to-white pt-12 sm:pt-16 pb-10 sm:pb-14 border-b border-neutral-200/60">
         {/* Floating corner tea leaves */}
         <img
           src="/images/beverages/leaves/leaf-top-left.png"
@@ -229,8 +229,8 @@ export const MenuPage: React.FC = () => {
         />
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal-down">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-neutral-900 tracking-tight">
-            Our <span className="italic text-[#93592B]">Beverage</span> Menu
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-brand-black tracking-tight">
+            Our <span className="italic text-brand-chai">Beverage</span> Menu
           </h1>
           <p className="mt-3.5 text-neutral-600 text-xs sm:text-sm md:text-base max-w-2xl mx-auto font-normal leading-relaxed">
             Freshly brewed slow-boiled spiced teas, South Indian filter coffee, herbal wellness infusions, and iced coolers made daily with pure cow milk.
@@ -276,14 +276,14 @@ export const MenuPage: React.FC = () => {
         {/* Section Header with Item Count Badge */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 pb-3 border-b border-neutral-200/80">
           <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900">
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-brand-black">
               {searchFilter.trim()
                 ? `Search: "${searchFilter}"`
                 : activeCategory === 'all'
                 ? 'All Beverages'
                 : activeCategoryName}
             </h2>
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#FAF4ED] text-[#7A1D36] border border-[#ECDCC9] shadow-xs">
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-neutral-100 text-brand-black border border-neutral-200 shadow-xs">
               Showing {filteredItems.length} {filteredItems.length === 1 ? 'beverage' : 'beverages'}
             </span>
           </div>
@@ -292,7 +292,7 @@ export const MenuPage: React.FC = () => {
             <button
               type="button"
               onClick={() => handleCategorySelect('all')}
-              className="text-xs font-semibold text-[#7A1D36] hover:text-[#521422] underline underline-offset-2 cursor-pointer transition-colors"
+              className="text-xs font-semibold text-brand-burgundy hover:text-brand-rust underline underline-offset-2 cursor-pointer transition-colors"
             >
               Reset to All Beverages
             </button>

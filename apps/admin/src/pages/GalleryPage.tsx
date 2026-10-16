@@ -202,7 +202,7 @@ export const GalleryPage: React.FC = () => {
       </div>
 
       <div>
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-amber-950/10 mb-6 reveal-down is-visible delay-50">
+        <div className="bg-white p-4 rounded-xl shadow-sm border border-neutral-200/80 mb-6 reveal-down is-visible delay-50">
           <Tabs
             activeKey={selectedCategory}
             onChange={(key) => setSelectedCategory(key)}
@@ -214,7 +214,7 @@ export const GalleryPage: React.FC = () => {
           <Row gutter={[16, 16]}>
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <Col xs={24} sm={12} md={8} lg={6} key={i}>
-                <Card className="rounded-xl overflow-hidden shadow-sm">
+                <Card className="rounded-xl overflow-hidden shadow-sm border border-neutral-200/80 bg-white">
                   <Skeleton.Image className="w-full h-48" active />
                   <Skeleton active paragraph={{ rows: 1 }} className="mt-4" />
                 </Card>
@@ -222,7 +222,7 @@ export const GalleryPage: React.FC = () => {
             ))}
           </Row>
         ) : galleryItems.length === 0 ? (
-          <Card className="rounded-xl border-amber-950/10 p-8 text-center bg-white reveal-up is-visible delay-100">
+          <Card className="rounded-xl border border-neutral-200/80 p-8 text-center bg-white reveal-up is-visible delay-100">
             <Empty
               description="No images found in this gallery category"
               image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -279,13 +279,13 @@ export const GalleryPage: React.FC = () => {
                         Delete
                       </Button>,
                     ]}
-                    className="rounded-xl overflow-hidden border-amber-950/10 shadow-sm flex flex-col justify-between hover-lift"
+                    className="rounded-xl overflow-hidden border border-neutral-200/80 shadow-sm flex flex-col justify-between hover-lift bg-white"
                   >
                     <div className="mb-2">
                       <Tag color="cyan" className="text-[11px] uppercase font-semibold mb-1">
                         {item.category.replace('-', ' ')}
                       </Tag>
-                      <div className="font-medium text-gray-900 text-sm line-clamp-2">
+                      <div className="font-medium text-sharon-primary text-sm line-clamp-2">
                         {item.caption}
                       </div>
                     </div>

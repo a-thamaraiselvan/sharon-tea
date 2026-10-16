@@ -77,7 +77,7 @@ export const Header: React.FC = () => {
           'w-full py-2.5 sm:py-3 transition-[background-color,border-color,box-shadow] duration-200',
           isScrolled
             ? 'bg-white shadow-md border-b border-neutral-200/80'
-            : 'bg-[#FAF7F2] border-b border-amber-950/10'
+            : 'bg-brand-cream border-b border-neutral-200/80'
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
@@ -144,7 +144,7 @@ export const Header: React.FC = () => {
 
         {/* Mobile Expandable Search Bar */}
         {mobileSearchOpen && (
-          <div className="md:hidden px-4 pt-2 pb-3 bg-[#FAF7F2] border-t border-neutral-200/60 animate-fade-in">
+          <div className="md:hidden px-4 pt-2 pb-3 bg-brand-cream border-t border-neutral-200/60 animate-fade-in">
             <LiveTeaSearch
               autoFocus
               placeholder="Search teas, blends, coffees..."

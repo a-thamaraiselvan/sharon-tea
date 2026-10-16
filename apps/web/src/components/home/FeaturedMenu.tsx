@@ -16,7 +16,7 @@ export const FeaturedMenu: React.FC = () => {
   const displayItems = (rawItems.length > 0 ? rawItems : validFallback).slice(0, 8);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#FCFAF7] via-[#FAF6F0] to-[#F5EFE6] py-16 sm:py-20 md:py-24 border-y border-[#EDE6DC]/60">
+    <section className="relative overflow-hidden bg-gradient-to-b from-white via-neutral-50/50 to-white py-16 sm:py-20 md:py-24 border-y border-neutral-200/60">
       {/* Decorative corner tea leaves matching mockup */}
       <img
         src="/images/beverages/leaves/leaf-top-left.png"
@@ -39,23 +39,23 @@ export const FeaturedMenu: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 reveal-up">
           {/* Popular Brews Pill */}
           <div className="inline-flex items-center justify-center mb-3">
-            <span className="rounded-full border border-[#47663B]/30 text-[#47663B] bg-[#EDF3EA] px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] shadow-xs">
+            <span className="rounded-full border border-brand-leaf-green/30 text-brand-green bg-brand-green/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] shadow-xs">
               POPULAR BREWS
             </span>
           </div>
 
           {/* Title: Signature Beverage Menu */}
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-extrabold text-center tracking-tight text-[#1A1A1A]">
-            <span className="text-[#1A1A1A]">Signature </span>
-            <span className="italic text-[#93592B] font-normal font-serif">Beverage </span>
-            <span className="text-[#1A1A1A]">Menu</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-extrabold text-center tracking-tight text-brand-black">
+            <span className="text-brand-black">Signature </span>
+            <span className="italic text-brand-chai font-normal font-serif">Beverage </span>
+            <span className="text-brand-black">Menu</span>
           </h2>
 
           {/* Leaf icon in center */}
-          <Leaf className="w-5 h-5 text-[#47663B] rotate-45 mx-auto my-3" />
+          <Leaf className="w-5 h-5 text-brand-leaf-green rotate-45 mx-auto my-3" />
 
           {/* Subtitle */}
-          <p className="text-[#6B6359] text-xs sm:text-sm md:text-base max-w-2xl mx-auto font-normal leading-relaxed px-4">
+          <p className="text-neutral-600 text-xs sm:text-sm md:text-base max-w-2xl mx-auto font-normal leading-relaxed px-4">
             Slow-boiled to golden perfection with rich creamy milk, freshly crushed spices, and distinct aromas.
           </p>
         </div>

@@ -389,9 +389,9 @@ export const HeroSection: React.FC = () => {
             {currentSlide.secondaryCtaText && currentSlide.secondaryCtaLink && (
               <BrandButton
                 to={currentSlide.secondaryCtaLink}
-                variant="outline"
+                variant="secondary"
                 size="lg"
-                className="w-full sm:w-auto px-8 py-3.5 border-brand-cream/80 text-brand-cream hover:bg-white hover:text-brand-green"
+                className="w-full sm:w-auto px-8 py-3.5 shadow-warm-lg"
                 icon={currentSlide.secondaryIcon}
               >
                 {currentSlide.secondaryCtaText}

@@ -26,12 +26,12 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
     return (
       <div
         className={cn(
-          'bg-white rounded-2xl p-2.5 sm:p-3.5 border border-[#EDE6DC] shadow-sm hover-lift flex flex-row items-center gap-2.5 sm:gap-3.5 relative overflow-hidden group text-left select-none',
+          'bg-white rounded-2xl p-2.5 sm:p-3.5 border border-brand-grey/60 shadow-sm hover-lift flex flex-row items-center gap-2.5 sm:gap-3.5 relative overflow-hidden group text-left select-none',
           className
         )}
       >
         {/* Left side: Square/rounded thumbnail */}
-        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shrink-0 bg-[#FDF8F2] flex items-center justify-center p-0.5 image-zoom-container">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shrink-0 bg-brand-cream flex items-center justify-center p-0.5 image-zoom-container">
           <img
             src={item.imageUrl || '/images/beverages/sharon-classic.png'}
             alt={itemName}
@@ -49,7 +49,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
           <div>
             <div className="flex items-center justify-between gap-1 mb-1">
               {isBestseller ? (
-                <span className="bg-[#FEF3C7] text-[#B45309] text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full inline-flex items-center gap-1 shrink-0">
+                <span className="bg-brand-amber/15 text-brand-rust border border-brand-amber/40 text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full inline-flex items-center gap-1 shrink-0">
                   ★ BESTSELLER
                 </span>
               ) : (
@@ -57,15 +57,15 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
               )}
               {item.isVegetarian !== false && (
                 <span
-                  className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-[3px] border border-emerald-600 flex items-center justify-center p-0.5 ml-auto shrink-0"
+                  className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-[3px] border border-brand-leaf-green flex items-center justify-center p-0.5 ml-auto shrink-0"
                   title="100% Vegetarian"
                 >
-                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-600" />
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-brand-leaf-green" />
                 </span>
               )}
             </div>
 
-            <h3 className="font-serif text-xs sm:text-sm md:text-base font-bold text-neutral-900 group-hover:text-[#7A1D36] transition-colors leading-tight line-clamp-1">
+            <h3 className="font-serif text-xs sm:text-sm md:text-base font-bold text-brand-black group-hover:text-brand-green transition-colors leading-tight line-clamp-1">
               {itemName}
             </h3>
 
@@ -77,7 +77,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
           </div>
 
           <div className="flex items-center justify-between mt-auto pt-1 border-t border-neutral-100/80">
-            <span className="font-bold text-xs sm:text-sm md:text-base text-neutral-900 font-sans">
+            <span className="font-bold text-xs sm:text-sm md:text-base text-brand-chai font-sans">
               ₹{item.price}
             </span>
             <span className="text-[9px] sm:text-[10px] text-neutral-400 font-medium px-1.5 py-0.5 rounded bg-neutral-50">
@@ -93,12 +93,12 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
   return (
     <div
       className={cn(
-        'bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 border border-[#EDE6DC] shadow-sm hover-lift flex flex-col justify-between relative overflow-hidden group text-left select-none h-full',
+        'bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 border border-brand-grey/60 shadow-sm hover-lift flex flex-col justify-between relative overflow-hidden group text-left select-none h-full',
         className
       )}
     >
       {/* Top: Square/rounded thumbnail with badge */}
-      <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#FAF6F0] shrink-0 mb-2.5 sm:mb-3 image-zoom-container">
+      <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-brand-cream shrink-0 mb-2.5 sm:mb-3 image-zoom-container">
         <img
           src={item.imageUrl || '/images/beverages/sharon-classic.png'}
           alt={itemName}
@@ -112,7 +112,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
 
         {/* Bestseller badge */}
         {isBestseller && (
-          <span className="absolute top-2 left-2 z-10 bg-[#FEF3C7] text-[#B45309] text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full inline-flex items-center gap-1 shadow-xs border border-amber-300/40">
+          <span className="absolute top-2 left-2 z-10 bg-brand-amber/15 text-brand-rust border border-brand-amber/40 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full inline-flex items-center gap-1 shadow-xs">
             ★ BESTSELLER
           </span>
         )}
@@ -120,10 +120,10 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
         {/* Vegetarian indicator badge on top right */}
         {item.isVegetarian !== false && (
           <span
-            className="absolute top-2 right-2 z-10 w-4 h-4 rounded-[3px] bg-white/95 border border-emerald-600 flex items-center justify-center p-0.5 shadow-xs"
+            className="absolute top-2 right-2 z-10 w-4 h-4 rounded-[3px] bg-white/95 border border-brand-leaf-green flex items-center justify-center p-0.5 shadow-xs"
             title="100% Vegetarian"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-leaf-green" />
           </span>
         )}
       </div>
@@ -132,7 +132,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
       <div className="flex-1 min-w-0 flex flex-col justify-between">
         <div>
           {/* Title in bold font-serif */}
-          <h3 className="font-serif text-sm sm:text-base font-bold text-neutral-900 group-hover:text-[#7A1D36] transition-colors leading-tight line-clamp-1 mb-1">
+          <h3 className="font-serif text-sm sm:text-base font-bold text-brand-black group-hover:text-brand-green transition-colors leading-tight line-clamp-1 mb-1">
             {itemName}
           </h3>
 
@@ -146,7 +146,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
 
         {/* Bottom row: Bold price & Per Cup indicator (VIEW ONLY, No buy button) */}
         <div className="flex items-center justify-between mt-auto pt-2.5 border-t border-neutral-100">
-          <span className="font-bold text-sm sm:text-base text-neutral-900 font-sans tracking-tight">
+          <span className="font-bold text-sm sm:text-base text-brand-chai font-sans tracking-tight">
             ₹{item.price}
           </span>
           <span className="text-[10px] sm:text-xs font-medium text-neutral-400 bg-neutral-100/80 px-2 py-0.5 rounded-full">

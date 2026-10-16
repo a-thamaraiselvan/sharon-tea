@@ -39,11 +39,11 @@ export const MissionVisionValues: React.FC = () => {
         {PILLARS.map((pillar, idx) => (
           <div
             key={idx}
-            className="bg-white rounded-3xl p-8 border border-amber-950/5 shadow-sm hover-lift transition-all duration-300 flex flex-col justify-between reveal-up"
+            className="bg-white rounded-3xl p-8 border border-neutral-200/80 shadow-sm hover-lift transition-all duration-300 flex flex-col justify-between reveal-up"
             style={{ '--reveal-delay': `${idx * 80}ms` } as React.CSSProperties}
           >
             <div>
-              <div className="w-16 h-16 rounded-2xl bg-brand-cream flex items-center justify-center mb-6 border border-amber-950/10">
+              <div className="w-16 h-16 rounded-2xl bg-brand-cream flex items-center justify-center mb-6 border border-brand-amber/20">
                 {pillar.icon}
               </div>
               <h3 className="font-display text-2xl font-bold text-brand-black mb-3">

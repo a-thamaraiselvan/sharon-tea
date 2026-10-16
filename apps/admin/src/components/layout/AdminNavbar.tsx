@@ -80,7 +80,7 @@ export const AdminNavbar: React.FC<AdminNavbarProps> = ({
 
   return (
     <Header
-      className="px-6 flex items-center justify-between border-b border-amber-950/10 sticky top-0 z-10"
+      className="px-6 flex items-center justify-between border-b border-neutral-200/80 sticky top-0 z-10"
       style={{
         backgroundColor: '#FFFFFF',
         height: '64px',
@@ -96,7 +96,7 @@ export const AdminNavbar: React.FC<AdminNavbarProps> = ({
         >
           {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </button>
-        <span className="hidden sm:inline-block text-xs font-semibold uppercase tracking-wider text-amber-900 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200">
+        <span className="hidden sm:inline-block text-xs font-semibold uppercase tracking-wider text-sharon-forest bg-green-50 px-2.5 py-1 rounded-md border border-green-200">
           Sharon Brand Management
         </span>
       </div>

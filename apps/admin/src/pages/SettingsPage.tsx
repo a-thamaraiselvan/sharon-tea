@@ -162,7 +162,7 @@ export const SettingsPage: React.FC = () => {
 
       <div>
         {isLoading ? (
-          <Card className="rounded-xl p-6 bg-white border-amber-950/10">
+          <Card className="rounded-xl p-6 bg-white border border-neutral-200/80">
             <Skeleton active paragraph={{ rows: 12 }} />
           </Card>
         ) : (
@@ -172,10 +172,10 @@ export const SettingsPage: React.FC = () => {
             title={
               <div className="flex items-center gap-2">
                 <ShopOutlined className="text-sharon-forest" />
-                <span className="font-semibold text-gray-800">Brand Identity</span>
+                <span className="font-semibold text-sharon-primary">Brand Identity</span>
               </div>
             }
-            className="rounded-xl border-amber-950/10 shadow-sm"
+            className="rounded-xl border border-neutral-200/80 bg-white shadow-sm"
           >
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
@@ -242,13 +242,13 @@ export const SettingsPage: React.FC = () => {
           <Card
             title={
               <div className="flex items-center gap-2">
-                <WhatsAppOutlined className="text-green-600" />
-                <span className="font-semibold text-gray-800">
+                <WhatsAppOutlined className="text-sharon-forest" />
+                <span className="font-semibold text-sharon-primary">
                   Contact & WhatsApp Order Channel
                 </span>
               </div>
             }
-            className="rounded-xl border-amber-950/10 shadow-sm"
+            className="rounded-xl border border-neutral-200/80 bg-white shadow-sm"
           >
             <div className="p-3 mb-4 rounded-lg bg-green-50 border border-green-200 text-xs text-green-900 leading-relaxed">
               <strong>Crucial WhatsApp Setting:</strong> All "Order on WhatsApp" buttons on the
@@ -337,10 +337,10 @@ export const SettingsPage: React.FC = () => {
             title={
               <div className="flex items-center gap-2">
                 <SafetyCertificateOutlined className="text-sharon-chai" />
-                <span className="font-semibold text-gray-800">Operations & Licensing</span>
+                <span className="font-semibold text-sharon-primary">Operations & Licensing</span>
               </div>
             }
-            className="rounded-xl border-amber-950/10 shadow-sm"
+            className="rounded-xl border border-neutral-200/80 bg-white shadow-sm"
           >
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
@@ -380,11 +380,11 @@ export const SettingsPage: React.FC = () => {
           <Card
             title={
               <div className="flex items-center gap-2">
-                <GlobalOutlined className="text-blue-600" />
-                <span className="font-semibold text-gray-800">Social Media Channels</span>
+                <GlobalOutlined className="text-sharon-forest" />
+                <span className="font-semibold text-sharon-primary">Social Media Channels</span>
               </div>
             }
-            className="rounded-xl border-amber-950/10 shadow-sm"
+            className="rounded-xl border border-neutral-200/80 bg-white shadow-sm"
           >
             <Row gutter={[16, 16]}>
               <Col xs={24} sm={12}>
@@ -437,13 +437,13 @@ export const SettingsPage: React.FC = () => {
           <Card
             title={
               <div className="flex items-center gap-2">
-                <NotificationOutlined className="text-rose-600" />
-                <span className="font-semibold text-gray-800">
+                <NotificationOutlined className="text-sharon-amber" />
+                <span className="font-semibold text-sharon-primary">
                   Top Bar Announcement Broadcast
                 </span>
               </div>
             }
-            className="rounded-xl border-amber-950/10 shadow-sm"
+            className="rounded-xl border border-neutral-200/80 bg-white shadow-sm"
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">

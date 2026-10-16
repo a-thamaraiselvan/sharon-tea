@@ -245,7 +245,7 @@ export const MenuItemsPage: React.FC = () => {
       render: (name: string, record: MenuItem) => (
         <div>
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-gray-900">{name}</span>
+            <span className="font-semibold text-sharon-primary">{name}</span>
             {record.isVegetarian ? (
               <span className="w-3.5 h-3.5 border border-green-600 rounded flex items-center justify-center" title="Pure Veg">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-600"></span>
@@ -346,7 +346,7 @@ export const MenuItemsPage: React.FC = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-4 rounded-xl shadow-sm border border-amber-950/10 mb-6 flex flex-col sm:flex-row gap-4 items-center justify-between reveal-down is-visible delay-50">
+      <div className="bg-white p-4 rounded-xl shadow-sm border border-neutral-200/80 mb-6 flex flex-col sm:flex-row gap-4 items-center justify-between reveal-down is-visible delay-50">
         <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
           <Select
             allowClear
@@ -385,7 +385,7 @@ export const MenuItemsPage: React.FC = () => {
           rowKey="id"
           loading={itemsLoading}
           pagination={{ pageSize: 10 }}
-          className="bg-white rounded-xl shadow-sm border border-amber-950/10 overflow-hidden"
+          className="bg-white rounded-xl shadow-sm border border-neutral-200/80 overflow-hidden"
         />
       </div>
 

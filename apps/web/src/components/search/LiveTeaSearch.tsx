@@ -258,7 +258,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
       <div
         className={cn(
           'group relative flex items-center w-full transition-all duration-200',
-          'rounded-full bg-neutral-100/90 hover:bg-neutral-100 border border-neutral-300/80 px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-neutral-800 placeholder-neutral-400 focus-within:ring-2 focus-within:ring-[#521422]/30 focus-within:border-[#521422]',
+          'rounded-full bg-neutral-100/90 hover:bg-neutral-100 border border-neutral-300/80 px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-brand-black placeholder-neutral-400 focus-within:ring-2 focus-within:ring-brand-green/30 focus-within:border-brand-green',
           inputClassName
         )}
       >
@@ -318,10 +318,10 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                 inputRef.current?.focus();
               }
             }}
-            className="p-1 rounded-full text-neutral-500 hover:text-[#521422] transition-colors"
+            className="p-1 rounded-full text-neutral-500 hover:text-brand-burgundy transition-colors"
             aria-label="Search"
           >
-            <Search className="w-4 h-4 text-neutral-600 group-focus-within:text-[#521422] transition-colors" />
+            <Search className="w-4 h-4 text-neutral-600 group-focus-within:text-brand-green transition-colors" />
           </button>
         </div>
       </div>
@@ -345,10 +345,10 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                 {beverageResults.length > 0 && (
                   <div className="p-3 sm:p-4">
                     <div className="flex items-center justify-between px-2 pb-2 mb-1">
-                      <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#521422]">
-                        <Coffee className="w-4 h-4 text-[#521422]" />
+                      <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-burgundy">
+                        <Coffee className="w-4 h-4 text-brand-burgundy" />
                         <span>Signature Beverages</span>
-                        <span className="ml-1 text-[10px] px-2 py-0.5 rounded-full bg-[#521422]/10 font-bold">
+                        <span className="ml-1 text-[10px] px-2 py-0.5 rounded-full text-brand-burgundy bg-brand-burgundy/10 font-bold">
                           {beverageResults.length}
                         </span>
                       </div>
@@ -359,7 +359,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                           setIsOpen(false);
                           if (onCloseMobile) onCloseMobile();
                         }}
-                        className="text-[11px] font-semibold text-[#521422] hover:underline flex items-center gap-1"
+                        className="text-[11px] font-semibold text-brand-burgundy hover:underline flex items-center gap-1"
                       >
                         View Menu <ArrowRight className="w-3 h-3" />
                       </button>
@@ -368,7 +368,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                     <div className="space-y-1">
                       {beverageResults.map((beverage) => {
                         const globalIdx = combinedResults.findIndex(
-                          (r) => r.type === 'beverage' && r.item.id === beverage.id
+                           (r) => r.type === 'beverage' && r.item.id === beverage.id
                         );
                         const isSelected = selectedIndex === globalIdx;
 
@@ -386,7 +386,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                           >
                             <div className="flex items-center gap-3 min-w-0">
                               {/* Cup Thumbnail */}
-                              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-50 border border-neutral-200/60 overflow-hidden flex items-center justify-center shrink-0">
+                              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-brand-cream border border-neutral-200/60 overflow-hidden flex items-center justify-center shrink-0">
                                 {beverage.imageUrl ? (
                                   <img
                                     src={beverage.imageUrl}
@@ -394,18 +394,18 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                                     className="w-full h-full object-cover group-hover/item:scale-105 transition-transform"
                                   />
                                 ) : (
-                                  <Coffee className="w-5 h-5 text-amber-800" />
+                                  <Coffee className="w-5 h-5 text-brand-chai" />
                                 )}
                               </div>
 
                               {/* Details */}
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5 flex-wrap">
-                                  <h4 className="text-xs sm:text-sm font-bold text-neutral-900 group-hover/item:text-[#521422] truncate">
+                                  <h4 className="text-xs sm:text-sm font-bold text-brand-black group-hover/item:text-brand-burgundy truncate">
                                     {beverage.name}
                                   </h4>
                                   {beverage.isBestseller && (
-                                    <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.2 rounded bg-amber-100 text-amber-800">
+                                    <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-brand-amber/15 text-brand-rust border border-brand-amber/30">
                                       Bestseller
                                     </span>
                                   )}
@@ -418,7 +418,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
 
                             {/* Price only - View only */}
                             <div className="flex items-center gap-1.5 shrink-0">
-                              <span className="text-xs sm:text-sm font-bold text-[#521422] bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200/50">
+                              <span className="text-xs sm:text-sm font-bold text-brand-burgundy bg-brand-cream px-2 py-0.5 rounded-md border border-brand-amber/30">
                                 {formatPrice(beverage.price)}
                               </span>
                             </div>
@@ -433,10 +433,10 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                 {productResults.length > 0 && (
                   <div className="p-3 sm:p-4 bg-neutral-50/50">
                     <div className="flex items-center justify-between px-2 pb-2 mb-1">
-                      <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#1C4C34]">
-                        <Package className="w-4 h-4 text-[#1C4C34]" />
+                      <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-green">
+                        <Package className="w-4 h-4 text-brand-green" />
                         <span>Packaged Tea Blends</span>
-                        <span className="ml-1 text-[10px] px-2 py-0.5 rounded-full bg-[#1C4C34]/10 font-bold text-[#1C4C34]">
+                        <span className="ml-1 text-[10px] px-2 py-0.5 rounded-full text-brand-green bg-brand-green/10 font-bold">
                           {productResults.length}
                         </span>
                       </div>
@@ -447,7 +447,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                           setIsOpen(false);
                           if (onCloseMobile) onCloseMobile();
                         }}
-                        className="text-[11px] font-semibold text-[#1C4C34] hover:underline flex items-center gap-1"
+                        className="text-[11px] font-semibold text-brand-green hover:underline flex items-center gap-1"
                       >
                         All Pouches <ArrowRight className="w-3 h-3" />
                       </button>
@@ -485,7 +485,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                               {/* Details */}
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5 flex-wrap">
-                                  <h4 className="text-xs sm:text-sm font-bold text-neutral-900 group-hover/item:text-[#1C4C34] truncate">
+                                  <h4 className="text-xs sm:text-sm font-bold text-brand-black group-hover/item:text-brand-green truncate">
                                     {product.name}
                                   </h4>
                                   {product.weight && (
@@ -502,7 +502,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
 
                             {/* Price & Actions */}
                             <div className="flex items-center gap-2 shrink-0">
-                              <span className="text-xs sm:text-sm font-bold text-[#1C4C34]">
+                              <span className="text-xs sm:text-sm font-bold text-brand-green">
                                 {formatPrice(product.price)}
                               </span>
 
@@ -538,7 +538,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                 <div className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-3 text-neutral-400">
                   <Search className="w-5 h-5" />
                 </div>
-                <h4 className="text-sm font-bold text-neutral-800 mb-1">No teas found</h4>
+                <h4 className="text-sm font-bold text-brand-black mb-1">No teas found</h4>
                 <p className="text-xs text-neutral-500 max-w-xs mx-auto mb-4 leading-relaxed">
                   No teas found matching &ldquo;{query}&rdquo;. Try searching for our popular brews or packaged pouches.
                 </p>
@@ -550,7 +550,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                       setIsOpen(false);
                       if (onCloseMobile) onCloseMobile();
                     }}
-                    className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#521422] text-white hover:bg-[#7A1D36] transition-colors"
+                    className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-burgundy text-white hover:bg-brand-rust transition-colors"
                   >
                     View All Beverages
                   </button>
@@ -561,7 +561,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                       setIsOpen(false);
                       if (onCloseMobile) onCloseMobile();
                     }}
-                    className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#1C4C34] text-white hover:bg-[#286b49] transition-colors"
+                    className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-green text-white hover:bg-brand-black transition-colors"
                   >
                     Explore Blends
                   </button>

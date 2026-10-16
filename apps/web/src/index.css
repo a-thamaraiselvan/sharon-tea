@@ -5,6 +5,18 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-brand-primary: #241C24;
+    --color-brand-forest: #1C4C34;
+    --color-brand-leaf: #34A43C;
+    --color-brand-chai: #A44C14;
+    --color-brand-rust: #7C2C0C;
+    --color-brand-amber: #FC9C34;
+    --color-brand-burgundy: #541424;
+    --color-brand-grey: #D4D4D4;
+    --color-brand-white: #FFFFFF;
+  }
+
   html {
     -webkit-tap-highlight-color: transparent;
   }

@@ -166,7 +166,7 @@ export const DashboardPage: React.FC = () => {
             <div className="h-full reveal-up is-visible delay-0">
               <Card
                 hoverable
-                className="border-amber-950/10 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full hover-lift"
+                className="bg-white border border-neutral-200/80 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full hover-lift"
                 onClick={() => navigate('/menu-items')}
               >
                 <div className="flex items-start justify-between">
@@ -186,7 +186,7 @@ export const DashboardPage: React.FC = () => {
                       <ArrowRightOutlined className="text-[10px]" />
                     </div>
                   </div>
-                  <div className="w-12 h-12 rounded-xl bg-emerald-50 text-sharon-forest flex items-center justify-center text-xl">
+                  <div className="w-12 h-12 rounded-xl bg-amber-50 text-sharon-chai flex items-center justify-center text-xl">
                     <CoffeeOutlined />
                   </div>
                 </div>
@@ -198,7 +198,7 @@ export const DashboardPage: React.FC = () => {
             <div className="h-full reveal-up is-visible delay-50">
               <Card
                 hoverable
-                className="border-amber-950/10 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full hover-lift"
+                className="bg-white border border-neutral-200/80 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full hover-lift"
                 onClick={() => navigate('/products')}
               >
                 <div className="flex items-start justify-between">
@@ -218,7 +218,7 @@ export const DashboardPage: React.FC = () => {
                       <ArrowRightOutlined className="text-[10px]" />
                     </div>
                   </div>
-                  <div className="w-12 h-12 rounded-xl bg-amber-50 text-sharon-chai flex items-center justify-center text-xl">
+                  <div className="w-12 h-12 rounded-xl bg-green-50 text-sharon-forest flex items-center justify-center text-xl">
                     <ShoppingOutlined />
                   </div>
                 </div>
@@ -230,7 +230,7 @@ export const DashboardPage: React.FC = () => {
             <div className="h-full reveal-up is-visible delay-100">
               <Card
                 hoverable
-                className="border-amber-950/10 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full hover-lift"
+                className="bg-white border border-neutral-200/80 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full hover-lift"
                 onClick={() => navigate('/franchise-enquiries')}
               >
                 <div className="flex items-start justify-between">
@@ -257,7 +257,7 @@ export const DashboardPage: React.FC = () => {
                       <ArrowRightOutlined className="text-[10px]" />
                     </div>
                   </div>
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-xl">
+                  <div className="w-12 h-12 rounded-xl bg-amber-50 text-sharon-amber flex items-center justify-center text-xl">
                     <TeamOutlined />
                   </div>
                 </div>
@@ -269,7 +269,7 @@ export const DashboardPage: React.FC = () => {
             <div className="h-full reveal-up is-visible delay-150">
               <Card
                 hoverable
-                className="border-amber-950/10 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full hover-lift"
+                className="bg-white border border-neutral-200/80 shadow-sm cursor-pointer hover:border-sharon-forest transition-all h-full hover-lift"
                 onClick={() => navigate('/contact-enquiries')}
               >
                 <div className="flex items-start justify-between">
@@ -296,7 +296,7 @@ export const DashboardPage: React.FC = () => {
                       <ArrowRightOutlined className="text-[10px]" />
                     </div>
                   </div>
-                  <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center text-xl">
+                  <div className="w-12 h-12 rounded-xl bg-red-50 text-sharon-burgundy flex items-center justify-center text-xl">
                     <MailOutlined />
                   </div>
                 </div>
@@ -314,8 +314,8 @@ export const DashboardPage: React.FC = () => {
               title={
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <WhatsAppOutlined className="text-green-600 text-lg" />
-                    <span className="font-semibold text-gray-800">
+                    <WhatsAppOutlined className="text-sharon-forest text-lg" />
+                    <span className="font-semibold text-sharon-primary">
                       WhatsApp Order Clicks by Product (Last 30 Days)
                     </span>
                   </div>
@@ -329,7 +329,7 @@ export const DashboardPage: React.FC = () => {
                   </Button>
                 </div>
               }
-              className="border-amber-950/10 shadow-sm h-full chart-enter"
+              className="bg-white border border-neutral-200/80 shadow-sm h-full chart-enter"
             >
               {analyticsLoading ? (
                 <div className="h-64 flex items-center justify-center">
@@ -339,7 +339,7 @@ export const DashboardPage: React.FC = () => {
                 <div className="h-72 w-full pt-4">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={displayChartData} margin={{ top: 10, right: 20, left: -10, bottom: 25 }}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0e9df" />
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#D4D4D4" strokeOpacity={0.6} />
                       <XAxis
                         dataKey="name"
                         angle={-20}
@@ -351,10 +351,11 @@ export const DashboardPage: React.FC = () => {
                       <Tooltip
                         contentStyle={{
                           backgroundColor: '#241C24',
-                          color: '#FAF7F2',
+                          color: '#FFFFFF',
                           borderRadius: '8px',
                           border: 'none',
                         }}
+                        itemStyle={{ color: '#FFFFFF' }}
                         formatter={(value: number) => [`${value} Clicks`, 'Interest']}
                       />
                       <Bar
@@ -380,10 +381,10 @@ export const DashboardPage: React.FC = () => {
               title={
                 <div className="flex items-center gap-2">
                   <RiseOutlined className="text-sharon-amber" />
-                  <span className="font-semibold text-gray-800">Quick Operations</span>
+                  <span className="font-semibold text-sharon-primary">Quick Operations</span>
                 </div>
               }
-              className="border-amber-950/10 shadow-sm h-full flex flex-col justify-between"
+              className="bg-white border border-neutral-200/80 shadow-sm h-full flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <Button
@@ -452,7 +453,7 @@ export const DashboardPage: React.FC = () => {
         <Card
           title={
             <div className="flex items-center justify-between">
-              <span className="font-semibold text-gray-800">Recent Franchise Applications</span>
+              <span className="font-semibold text-sharon-primary">Recent Franchise Applications</span>
               <Button
                 type="link"
                 onClick={() => navigate('/franchise-enquiries')}
@@ -462,7 +463,7 @@ export const DashboardPage: React.FC = () => {
               </Button>
             </div>
           }
-          className="border-amber-950/10 shadow-sm"
+          className="bg-white border border-neutral-200/80 shadow-sm"
         >
           <Table
             dataSource={recentEnquiries}

@@ -67,7 +67,7 @@ export const LoginPage: React.FC = () => {
           <img
             src="/Sharon_logo.jpg"
             alt="Sharon Logo"
-            className="w-16 h-16 rounded-full object-cover mx-auto mb-3 shadow-md border-2 border-amber-900/20"
+            className="w-16 h-16 rounded-full object-cover mx-auto mb-3 shadow-md border-2 border-sharon-amber/30"
           />
           <h1 className="text-3xl font-bold font-display text-sharon-primary m-0">
             Sharon Tea and Coffee
@@ -80,10 +80,10 @@ export const LoginPage: React.FC = () => {
         {/* Login Card */}
         <Card
           bordered={false}
-          className="shadow-xl rounded-2xl bg-white border border-amber-950/10 p-2 sm:p-4 reveal-scale is-visible delay-50"
+          className="shadow-xl rounded-2xl bg-white border border-neutral-200/80 p-2 sm:p-4 reveal-scale is-visible delay-50"
         >
           <div className="mb-6 text-center">
-            <Title level={4} className="m-0 font-sans font-bold text-gray-800">
+            <Title level={4} className="m-0 font-sans font-bold text-sharon-primary">
               Admin Login
             </Title>
             <Text className="text-xs text-gray-500">

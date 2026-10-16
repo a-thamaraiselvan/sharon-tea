@@ -24,11 +24,11 @@ export const MenuGrid: React.FC<MenuGridProps> = ({
 
   if (items.length === 0) {
     return (
-      <div className="text-center py-16 bg-white rounded-3xl border border-[#EDE6DC] p-8 shadow-xs max-w-lg mx-auto reveal-fade is-visible">
-        <div className="w-16 h-16 rounded-full bg-[#FAF6F0] border border-[#ECDCC9] flex items-center justify-center mx-auto mb-4">
-          <Coffee className="w-8 h-8 text-[#7A1D36]" />
+      <div className="text-center py-16 bg-white rounded-3xl border border-neutral-200/80 p-8 shadow-xs max-w-lg mx-auto reveal-fade is-visible">
+        <div className="w-16 h-16 rounded-full bg-brand-cream border border-brand-grey/50 flex items-center justify-center mx-auto mb-4">
+          <Coffee className="w-8 h-8 text-brand-burgundy" />
         </div>
-        <h3 className="font-serif text-xl font-bold text-neutral-900 mb-2">
+        <h3 className="font-serif text-xl font-bold text-brand-black mb-2">
           No beverages found
         </h3>
         <p className="text-neutral-500 text-sm max-w-md mx-auto mb-6 leading-relaxed">
@@ -38,7 +38,7 @@ export const MenuGrid: React.FC<MenuGridProps> = ({
           <button
             type="button"
             onClick={onReset}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#7A1D36] hover:bg-[#521422] text-white text-xs sm:text-sm font-semibold transition-all shadow-xs button-interaction cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-brand-burgundy hover:bg-brand-rust text-white text-xs sm:text-sm font-semibold transition-all shadow-xs button-interaction cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             Reset Filters

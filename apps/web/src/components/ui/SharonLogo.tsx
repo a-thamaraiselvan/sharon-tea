@@ -26,7 +26,7 @@ export const SharonLogo: React.FC<SharonLogoProps> = ({
           src="/Sharon_logo.jpg"
           alt="Sharon Tea and Coffee"
           className={cn(
-            'rounded-full object-cover aspect-square shadow-md border-2 border-amber-900/15',
+            'rounded-full object-cover aspect-square shadow-md border border-brand-black/15',
             sizeClasses
           )}
           onError={(e) => {
@@ -76,8 +76,8 @@ export const SharonLogo: React.FC<SharonLogoProps> = ({
           className={cn(
             'h-full w-full rounded-full object-cover aspect-square',
             variant === 'light'
-              ? 'border-2 border-amber-100/30 ring-1 ring-white/20 shadow-md'
-              : 'border border-amber-950/15 shadow-sm'
+              ? 'border-2 border-white/20 ring-1 ring-white/20 shadow-md'
+              : 'border border-brand-black/15 shadow-sm'
           )}
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = '/logo.png';

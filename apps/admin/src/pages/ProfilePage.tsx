@@ -89,7 +89,7 @@ export const ProfilePage: React.FC = () => {
         {/* Profile Card */}
         <Col xs={24} md={10}>
           <div className="reveal-up is-visible delay-0">
-            <Card className="rounded-xl border-amber-950/10 shadow-sm text-center p-6 bg-white hover-lift">
+            <Card className="rounded-xl border border-neutral-200/80 shadow-sm text-center p-6 bg-white hover-lift">
               <div className="flex justify-center mb-4">
                 <Avatar
                   size={88}
@@ -131,10 +131,10 @@ export const ProfilePage: React.FC = () => {
               title={
                 <div className="flex items-center gap-2">
                   <LockOutlined className="text-sharon-forest" />
-                  <span className="font-semibold text-gray-800">Change Password</span>
+                  <span className="font-semibold text-sharon-primary">Change Password</span>
                 </div>
               }
-              className="rounded-xl border-amber-950/10 shadow-sm bg-white"
+              className="rounded-xl border border-neutral-200/80 shadow-sm bg-white"
             >
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div>

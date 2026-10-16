@@ -161,7 +161,7 @@ export const Gallery: React.FC = () => {
               }}
               style={{ '--reveal-delay': `${(index % 4) * 50}ms` } as React.CSSProperties}
               className={cn(
-                'relative rounded-2xl sm:rounded-3xl overflow-hidden border border-amber-950/10 shadow-xs bg-neutral-900 group cursor-pointer hover-lift select-none reveal-scale image-zoom-container',
+                'relative rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 shadow-xs bg-brand-black group cursor-pointer hover-lift select-none reveal-scale image-zoom-container',
                 getBentoSpanClass(index, filtered.length)
               )}
             >
@@ -175,8 +175,8 @@ export const Gallery: React.FC = () => {
 
               {/* Floating Top-Left Glass Badge */}
               <div className="absolute top-2.5 left-2.5 sm:top-4 sm:left-4 z-10">
-                <span className="inline-flex items-center gap-1 sm:gap-1.5 bg-black/55 backdrop-blur-md px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[11px] font-semibold tracking-wider text-[#FCD34D] border border-white/15 uppercase shadow-xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                <span className="inline-flex items-center gap-1 sm:gap-1.5 bg-black/55 backdrop-blur-md px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[11px] font-semibold tracking-wider text-brand-amber border border-white/15 uppercase shadow-xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-amber" />
                   {getCategoryLabel(item.category)}
                 </span>
               </div>
@@ -186,14 +186,14 @@ export const Gallery: React.FC = () => {
                 className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-10 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 shadow-lg"
                 title="View Fullscreen"
               >
-                <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-200" />
+                <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-amber" />
               </div>
 
               {/* Permanent Readable Bottom Gradient & Typography */}
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3 sm:p-5 md:p-6 flex flex-col justify-end text-white pointer-events-none z-10 pt-8 sm:pt-14">
                 <h4
                   className={cn(
-                    'font-display font-bold text-white group-hover:text-amber-200 transition-colors leading-tight line-clamp-1 sm:line-clamp-2',
+                    'font-display font-bold text-white group-hover:text-brand-amber transition-colors leading-tight line-clamp-1 sm:line-clamp-2',
                     isHero ? 'text-xs sm:text-base md:text-xl' : 'text-[11px] sm:text-sm md:text-base'
                   )}
                 >
@@ -223,12 +223,12 @@ export const Gallery: React.FC = () => {
           role="dialog"
           aria-modal="true"
           aria-label={currentLightboxItem.title}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8 bg-black/90 backdrop-blur-xl drawer-backdrop"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8 bg-brand-black/95 backdrop-blur-xl drawer-backdrop"
           onClick={closeLightbox}
         >
           {/* Top Bar: Counter & Close Button */}
           <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-50 flex items-center gap-3">
-            <span className="px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-xs sm:text-sm font-medium text-amber-200 tracking-wide shadow-md">
+            <span className="px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-xs sm:text-sm font-medium text-brand-amber tracking-wide shadow-md">
               {lightboxIndex + 1} of {filtered.length}
             </span>
           </div>
@@ -240,7 +240,7 @@ export const Gallery: React.FC = () => {
               closeLightbox();
             }}
             aria-label="Close modal"
-            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2.5 rounded-full bg-black/60 hover:bg-black/90 text-white/90 hover:text-white backdrop-blur-md border border-white/15 transition-all hover:scale-105 cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2.5 rounded-full bg-black/60 hover:bg-black/90 text-white/90 hover:text-white backdrop-blur-md border border-white/15 transition-all hover:scale-105 cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-brand-amber"
           >
             <X className="w-5 h-5" />
           </button>
@@ -255,7 +255,7 @@ export const Gallery: React.FC = () => {
                   goToPrevious();
                 }}
                 aria-label="Previous photo"
-                className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-50 p-3 sm:p-3.5 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md border border-white/15 transition-all hover:scale-110 cursor-pointer shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
+                className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-50 p-3 sm:p-3.5 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md border border-white/15 transition-all hover:scale-110 cursor-pointer shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-amber"
               >
                 <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
@@ -267,7 +267,7 @@ export const Gallery: React.FC = () => {
                   goToNext();
                 }}
                 aria-label="Next photo"
-                className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-50 p-3 sm:p-3.5 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md border border-white/15 transition-all hover:scale-110 cursor-pointer shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
+                className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-50 p-3 sm:p-3.5 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md border border-white/15 transition-all hover:scale-110 cursor-pointer shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-amber"
               >
                 <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
@@ -276,11 +276,11 @@ export const Gallery: React.FC = () => {
 
           {/* Modal Content Card */}
           <div
-            className="relative max-w-5xl w-full max-h-[92vh] flex flex-col rounded-3xl overflow-hidden bg-neutral-950/90 border border-white/15 shadow-2xl backdrop-blur-2xl modal-enter"
+            className="relative max-w-5xl w-full max-h-[92vh] flex flex-col rounded-3xl overflow-hidden bg-brand-black/95 border border-white/15 shadow-2xl backdrop-blur-2xl modal-enter"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Image Showcase */}
-            <div className="relative flex-1 min-h-[280px] max-h-[68vh] overflow-hidden bg-black flex items-center justify-center p-2 sm:p-4">
+            <div className="relative flex-1 min-h-[280px] max-h-[68vh] overflow-hidden bg-brand-black flex items-center justify-center p-2 sm:p-4">
               <img
                 src={currentLightboxItem.imageUrl}
                 alt={currentLightboxItem.title}
@@ -289,9 +289,9 @@ export const Gallery: React.FC = () => {
             </div>
 
             {/* Caption & Metadata Panel */}
-            <div className="p-4 sm:p-6 bg-gradient-to-b from-neutral-900/95 to-neutral-950 text-white border-t border-white/10 flex flex-col">
+            <div className="p-4 sm:p-6 bg-brand-black text-white border-t border-white/10 flex flex-col">
               <div className="flex items-center gap-2 mb-2">
-                <span className="bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider text-[#FCD34D] border border-white/15 uppercase">
+                <span className="bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider text-brand-amber border border-white/15 uppercase">
                   {getCategoryLabel(currentLightboxItem.category)}
                 </span>
               </div>

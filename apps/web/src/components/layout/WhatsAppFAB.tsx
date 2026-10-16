@@ -30,7 +30,7 @@ export const WhatsAppFAB: React.FC = () => {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-[#25D366]/30"
+        className="group relative flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20ba5c] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-[#25D366]/30"
         aria-label="Chat on WhatsApp with Sharon Tea and Coffee"
       >
         {/* Radar ping ring */}

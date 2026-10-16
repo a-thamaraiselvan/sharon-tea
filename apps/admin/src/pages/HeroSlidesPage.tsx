@@ -209,7 +209,7 @@ export const HeroSlidesPage: React.FC = () => {
       key: 'title',
       render: (title: string, record: HeroSlide) => (
         <div>
-          <div className="font-semibold text-gray-900 text-base">{title}</div>
+          <div className="font-semibold text-sharon-primary text-base">{title}</div>
           {record.subtitle && (
             <div className="text-xs text-gray-500 mt-0.5">{record.subtitle}</div>
           )}
@@ -304,7 +304,7 @@ export const HeroSlidesPage: React.FC = () => {
           rowKey="id"
           loading={isLoading}
           pagination={{ pageSize: 10 }}
-          className="bg-white rounded-xl shadow-sm border border-amber-950/10 overflow-hidden"
+          className="bg-white rounded-xl shadow-sm border border-neutral-200/80 overflow-hidden"
         />
       </div>
 

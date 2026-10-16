@@ -7,36 +7,41 @@ import { Link } from 'react-router-dom';
 
 const HIGHLIGHTS = [
   {
-    icon: <Award className="w-7 h-7 text-brand-amber" />,
+    icon: <Award className="w-7 h-7 text-brand-green" />,
     title: '8,000+ Cups Served Daily',
     customTitle: (
       <span>
-        <AnimatedCounter target={8000} suffix="+" /> Cups Served Daily
+        <span className="text-brand-amber"><AnimatedCounter target={8000} suffix="+" /></span> Cups Served Daily
       </span>
     ),
     description: 'Every sunrise, thousands of tea lovers flock to Sharon outlets for our unforgettable freshly strained chai.',
     link: '/about-us',
   },
   {
-    icon: <Coffee className="w-7 h-7 text-brand-burgundy" />,
+    icon: <Coffee className="w-7 h-7 text-brand-green" />,
     title: '50+ Tea Options',
+    customTitle: (
+      <span>
+        <span className="text-brand-chai">50+</span> Tea Options
+      </span>
+    ),
     description: 'From cardamom-infused Elaichi tea to robust Masala chai, herbal wellness infusions, and refreshing filter coffees crafted to culinary precision.',
     link: '/menu',
   },
   {
-    icon: <CupSoda className="w-7 h-7 text-brand-rust" />,
+    icon: <CupSoda className="w-7 h-7 text-brand-green" />,
     title: 'Hot & Cold Beverages',
     description: 'Traditional frothy filter coffee, thick Sharon cold coffee, and chilled rose milk tailored for all seasons.',
     link: '/menu',
   },
   {
-    icon: <Leaf className="w-7 h-7 text-brand-leaf-green" />,
+    icon: <Leaf className="w-7 h-7 text-brand-green" />,
     title: 'Herbal Tea Selections',
     description: 'Rich in antioxidants, zero artificial additives, handpicked botanicals to detoxify and boost overall immunity.',
     link: '/menu',
   },
   {
-    icon: <Package className="w-7 h-7 text-brand-chai" />,
+    icon: <Package className="w-7 h-7 text-brand-green" />,
     title: 'Packaged Tea Products',
     description: 'Take the signature Sharon taste home. Fresh 250g foil-sealed pouches available for instant WhatsApp ordering.',
     link: '/products',
@@ -64,11 +69,11 @@ export const BrandHighlights: React.FC = () => {
         {HIGHLIGHTS.map((item, index) => (
           <div
             key={index}
-            className="group bg-white rounded-2xl p-7 border border-amber-900/10 shadow-sm hover-lift transition-all duration-300 flex flex-col justify-between reveal-up"
+            className="group bg-white rounded-2xl p-7 border border-neutral-200/80 shadow-sm hover-lift transition-all duration-300 flex flex-col justify-between reveal-up"
             style={{ '--reveal-delay': `${(index % 3) * 80}ms` } as React.CSSProperties}
           >
             <div>
-              <div className="w-14 h-14 rounded-2xl bg-brand-cream flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-amber-900/5">
+              <div className="w-14 h-14 rounded-2xl bg-brand-green/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-brand-green/20">
                 {item.icon}
               </div>
 

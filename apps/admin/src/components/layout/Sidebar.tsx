@@ -126,29 +126,34 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onCollapse }) => {
       trigger={null}
       breakpoint="lg"
       width={260}
-      theme="light"
-      className="border-r border-amber-950/10 h-screen select-none sticky top-0 z-20 flex flex-col shrink-0 sidebar-transition"
+      theme="dark"
+      className="border-r border-white/10 h-screen select-none sticky top-0 z-20 flex flex-col shrink-0 sidebar-transition bg-sharon-primary"
       style={{
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#241C24',
         height: '100vh',
         position: 'sticky',
         top: 0,
         left: 0,
       }}
     >
-      <div className="h-16 flex items-center px-4 border-b border-amber-950/10 gap-3 overflow-hidden shrink-0">
+      <div className="h-16 flex items-center px-4 border-b border-white/10 gap-3 overflow-hidden shrink-0">
         <img
           src="/Sharon_logo.jpg"
           alt="Sharon Logo"
-          className="w-10 h-10 rounded-full object-cover shrink-0 shadow-sm border border-amber-950/15"
+          className="w-10 h-10 rounded-full object-cover shrink-0 shadow-sm border border-sharon-amber/30"
         />
         {!collapsed && (
-          <div className="flex flex-col overflow-hidden">
-            <span className="font-display font-bold text-base text-sharon-primary truncate tracking-wide">
-              Sharon Tea & Coffee
-            </span>
-            <span className="text-[11px] uppercase tracking-wider text-sharon-forest font-semibold">
-              Admin Portal
+          <div className="flex flex-col overflow-hidden leading-tight">
+            <div className="flex items-center gap-1.5">
+              <span className="font-display font-extrabold text-base text-white tracking-wider">
+                SHARON
+              </span>
+              <span className="text-[9px] px-1.5 py-0.5 rounded bg-sharon-forest text-white uppercase tracking-wider font-semibold">
+                ADMIN
+              </span>
+            </div>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-sharon-amber">
+              TEA &amp; COFFEE
             </span>
           </div>
         )}
@@ -156,6 +161,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onCollapse }) => {
 
       <div className="py-2 flex-1 overflow-y-auto overflow-x-hidden">
         <Menu
+          theme="dark"
           mode="inline"
           selectedKeys={getSelectedKeys()}
           defaultOpenKeys={getOpenKeys()}
@@ -165,9 +171,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onCollapse }) => {
               navigate(key);
             }
           }}
-          className="border-r-0 font-medium text-sm"
+          className="border-r-0 font-medium text-sm sharon-sidebar-menu"
           style={{
-            backgroundColor: 'transparent',
+            backgroundColor: '#241C24',
           }}
         />
       </div>

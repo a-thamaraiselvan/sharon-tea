@@ -4,7 +4,7 @@ import { TrendingUp, Users, Award, ShieldCheck, ArrowRight } from 'lucide-react'
 
 export const FranchisePromo: React.FC = () => {
   return (
-    <section className="relative overflow-hidden bg-brand-burgundy text-white py-20 lg:py-28 border-y border-brand-burgundy/40">
+    <section className="relative overflow-hidden bg-brand-black text-white py-20 lg:py-28 border-y border-white/10">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-up">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Main CTA Text */}
@@ -45,9 +45,9 @@ export const FranchisePromo: React.FC = () => {
             <div className="mt-10">
               <BrandButton
                 to="/franchise"
-                variant="amber"
+                variant="secondary"
                 size="lg"
-                icon={<ArrowRight className="w-5 h-5 text-brand-black" />}
+                icon={<ArrowRight className="w-5 h-5 text-white" />}
               >
                 Become a Franchise Partner
               </BrandButton>

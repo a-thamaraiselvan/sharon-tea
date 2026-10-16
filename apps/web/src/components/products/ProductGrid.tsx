@@ -35,7 +35,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
           <button
             type="button"
             onClick={onReset}
-            className="px-5 py-2.5 rounded-full bg-[#7A1D36] hover:bg-[#54121F] text-white text-xs font-bold transition-all shadow-xs button-interaction cursor-pointer"
+            className="px-5 py-2.5 rounded-full bg-brand-burgundy hover:bg-brand-rust text-white text-xs font-bold transition-all shadow-xs button-interaction cursor-pointer"
           >
             Show All Products
           </button>
