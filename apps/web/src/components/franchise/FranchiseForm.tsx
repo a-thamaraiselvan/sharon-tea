@@ -57,7 +57,8 @@ export const FranchiseForm: React.FC = () => {
         setErrorMessage(response.message || 'Something went wrong. Please try again.');
       }
     } catch (err: any) {
-      setErrorMessage('Network error. Please try reaching us directly on WhatsApp or phone.');
+      const msg = err.response?.data?.message || err.message || 'Submission failed. Please check your network or contact us via WhatsApp.';
+      setErrorMessage(msg);
     } finally {
       setIsSubmitting(false);
     }

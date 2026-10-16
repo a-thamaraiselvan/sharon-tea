@@ -10,7 +10,17 @@ export const franchiseService = {
     const response = await apiClient.get<ApiResponse<FranchiseEnquiry[]>>('/FranchiseEnquiry/GetFranchiseEnquiries', {
       params,
     });
-    return response.data.data;
+    const items = response.data.data;
+    if (Array.isArray(items)) {
+      return items.map((item: any) => ({
+        ...item,
+        businessId: item.businessId || item.business_id || '',
+        fullName: item.fullName || item.full_name || '',
+        investmentBudget: item.investmentBudget || item.investment_budget || '',
+        adminNotes: item.adminNotes || item.admin_notes || '',
+      }));
+    }
+    return [];
   },
 
   async getById(id: string): Promise<FranchiseEnquiry> {

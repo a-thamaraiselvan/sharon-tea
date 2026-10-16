@@ -146,6 +146,8 @@ export interface HeroSlideRecord {
   image_url: string;
   cta_text: string | null;
   cta_link: string | null;
+  secondary_cta_text: string | null;
+  secondary_cta_link: string | null;
   sort_order: number;
   is_active: boolean;
   created_at: Date;

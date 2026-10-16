@@ -152,10 +152,14 @@ export const HeroSection: React.FC = () => {
         title: item.title && item.title.trim().length > 0 ? item.title : template.title,
         subtitle: item.subtitle && item.subtitle.trim().length > 0 ? item.subtitle : template.subtitle,
         imageUrl: validImageUrl,
-        ctaText: item.ctaText !== undefined ? item.ctaText : template.ctaText,
-        ctaLink: item.ctaLink !== undefined ? item.ctaLink : template.ctaLink,
-        secondaryCtaText: item.secondaryCtaText !== undefined ? item.secondaryCtaText : template.secondaryCtaText,
-        secondaryCtaLink: item.secondaryCtaLink !== undefined ? item.secondaryCtaLink : template.secondaryCtaLink,
+        ctaText: item.ctaText ?? (item as any).cta_text ?? template.ctaText,
+        ctaLink: item.ctaLink ?? (item as any).cta_link ?? template.ctaLink,
+        secondaryCtaText: (item.secondaryCtaText !== undefined && item.secondaryCtaText !== null)
+          ? item.secondaryCtaText
+          : ((item as any).secondary_cta_text !== undefined ? (item as any).secondary_cta_text : template.secondaryCtaText),
+        secondaryCtaLink: (item.secondaryCtaLink !== undefined && item.secondaryCtaLink !== null)
+          ? item.secondaryCtaLink
+          : ((item as any).secondary_cta_link !== undefined ? (item as any).secondary_cta_link : template.secondaryCtaLink),
         badgeText: template.badgeText,
         badgeIcon: template.badgeIcon,
         primaryIcon: template.primaryIcon,

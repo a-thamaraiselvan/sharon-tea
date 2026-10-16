@@ -306,6 +306,30 @@
 }
 
 /* ==========================================================================
+   Header Announcement Marquee Broadcast
+   ========================================================================== */
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marquee 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ==========================================================================
    Safety Fallbacks (JS Disabled & Print)
    ========================================================================== */
 

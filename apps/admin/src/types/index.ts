@@ -299,6 +299,10 @@ export interface HeroSlide {
   cta_text?: string | null;
   ctaLink?: string | null;
   cta_link?: string | null;
+  secondaryCtaText?: string | null;
+  secondary_cta_text?: string | null;
+  secondaryCtaLink?: string | null;
+  secondary_cta_link?: string | null;
   sortOrder: number;
   sort_order?: number;
   isActive: boolean;
@@ -313,6 +317,8 @@ export interface CreateHeroSlideInput {
   imageUrl: string;
   ctaText?: string;
   ctaLink?: string;
+  secondaryCtaText?: string;
+  secondaryCtaLink?: string;
   sortOrder: number;
   isActive: boolean;
 }

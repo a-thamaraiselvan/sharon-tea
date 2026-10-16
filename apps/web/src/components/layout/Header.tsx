@@ -3,7 +3,8 @@ import { NavLink, Link } from 'react-router-dom';
 import { SharonLogo } from '@/components/ui/SharonLogo';
 import { BrandButton } from '@/components/ui/BrandButton';
 import { useUiStore } from '@/stores/useUiStore';
-import { Search, Menu, Phone, Sparkles, X } from 'lucide-react';
+import { useBusinessSettings } from '@/hooks/useBusinessSettings';
+import { Search, Menu, Phone, Sparkles, X, Megaphone } from 'lucide-react';
 import { LiveTeaSearch } from '@/components/search/LiveTeaSearch';
 import { cn } from '@/utils/cn';
 
@@ -20,6 +21,15 @@ export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const { toggleMobileMenu } = useUiStore();
+  const { data: settings } = useBusinessSettings();
+
+  const announcementText =
+    (settings as any)?.announcementText ||
+    (settings as any)?.announcement_text ||
+    'Welcome to Sharon Tea and Coffee • Authenticity Steeped in Tradition • Over 8,000+ Cups Served Daily • Handcrafted with Royal Spices and Fresh Milk';
+
+  const phone = settings?.phone || '+91 98765 43210';
+  const cleanPhone = phone.replace(/[^0-9+]/g, '');
 
   useEffect(() => {
     let ticking = false;
@@ -39,31 +49,52 @@ export const Header: React.FC = () => {
 
   return (
     <header className="w-full sticky top-0 z-50 shadow-sm">
-      {/* 1. Top Announcement Bar - Always visible, fully sticky */}
-      <div className="bg-brand-green text-white text-xs px-4 py-2 border-b border-brand-leaf-green/20">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
-            <span className="flex items-center gap-1 font-semibold text-brand-amber">
-              <Sparkles className="w-3.5 h-3.5" />
-              Over 8,000+ Cups Served Daily
-            </span>
-            <span className="hidden sm:inline text-white/40">|</span>
-            <span className="hidden sm:inline text-brand-cream/90">
-              Assam Garden Fresh Leaf & Royal Spices
-            </span>
+      {/* 1. Top Announcement Bar with Live Marquee Broadcast */}
+      <div className="bg-brand-green text-white text-xs px-3 sm:px-4 py-2 border-b border-brand-leaf-green/20 overflow-hidden">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+          {/* Left: Broadcast Live Pill */}
+          <div className="flex items-center gap-1.5 shrink-0 bg-brand-amber/20 text-brand-amber border border-brand-amber/30 px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
+            <Megaphone className="w-3 h-3 text-brand-amber animate-pulse" />
+            <span className="hidden xs:inline">Broadcast</span>
           </div>
 
-          <div className="flex items-center gap-4 flex-shrink-0">
+          {/* Center: Infinite Marquee Ticker */}
+          <div className="flex-1 overflow-hidden whitespace-nowrap mask-marquee">
+            <div className="animate-marquee flex items-center gap-6 text-xs text-brand-cream/95 font-medium">
+              <span className="inline-flex items-center gap-1.5">
+                <Sparkles className="w-3 h-3 text-brand-amber shrink-0" />
+                {announcementText}
+              </span>
+              <span className="text-white/30">•</span>
+              <span className="inline-flex items-center gap-1.5">
+                <Sparkles className="w-3 h-3 text-brand-amber shrink-0" />
+                Assam Garden Fresh Leaf & Pure Spices
+              </span>
+              <span className="text-white/30">•</span>
+              <span className="inline-flex items-center gap-1.5">
+                <Sparkles className="w-3 h-3 text-brand-amber shrink-0" />
+                {announcementText}
+              </span>
+              <span className="text-white/30">•</span>
+              <span className="inline-flex items-center gap-1.5">
+                <Sparkles className="w-3 h-3 text-brand-amber shrink-0" />
+                Assam Garden Fresh Leaf & Pure Spices
+              </span>
+            </div>
+          </div>
+
+          {/* Right: Phone & Franchise CTA */}
+          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
             <a
-              href="tel:+919876543210"
-              className="flex items-center gap-1.5 hover:text-brand-amber transition-colors text-white/90"
+              href={`tel:${cleanPhone}`}
+              className="flex items-center gap-1.5 hover:text-brand-amber transition-colors text-white/90 text-xs"
             >
               <Phone className="w-3 h-3 text-brand-amber" />
-              <span className="hidden md:inline">+91 98765 43210</span>
+              <span className="hidden md:inline font-medium">{phone}</span>
             </a>
             <Link
               to="/franchise"
-              className="text-[11px] uppercase tracking-wider bg-brand-burgundy hover:bg-brand-rust px-2.5 py-0.5 rounded font-medium text-white transition-colors"
+              className="text-[10px] sm:text-[11px] uppercase tracking-wider bg-brand-burgundy hover:bg-brand-rust px-2.5 py-1 rounded font-semibold text-white transition-colors shadow-xs"
             >
               Partner With Us
             </Link>

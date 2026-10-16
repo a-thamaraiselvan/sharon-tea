@@ -30,13 +30,15 @@ export class HeroSlideRepository {
     const imageUrl = data.image_url ?? data.imageUrl;
     const ctaText = data.cta_text ?? data.ctaText ?? null;
     const ctaLink = data.cta_link ?? data.ctaLink ?? null;
+    const secondaryCtaText = data.secondary_cta_text ?? data.secondaryCtaText ?? null;
+    const secondaryCtaLink = data.secondary_cta_link ?? data.secondaryCtaLink ?? null;
     const sortOrder = Number(data.sort_order ?? data.sortOrder ?? 0);
     const isActive = data.is_active !== undefined ? Boolean(data.is_active) : (data.isActive !== undefined ? Boolean(data.isActive) : true);
 
     const sql = `
       INSERT INTO hero_slides (
-        title, subtitle, image_url, cta_text, cta_link, sort_order, is_active
-      ) VALUES ($1, $2, $3, $4, $5, COALESCE($6, 0), COALESCE($7, true))
+        title, subtitle, image_url, cta_text, cta_link, secondary_cta_text, secondary_cta_link, sort_order, is_active
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, COALESCE($8, 0), COALESCE($9, true))
       RETURNING *
     `;
     const res = await query<HeroSlideRecord>(sql, [
@@ -45,6 +47,8 @@ export class HeroSlideRepository {
       imageUrl,
       ctaText,
       ctaLink,
+      secondaryCtaText,
+      secondaryCtaLink,
       sortOrder,
       isActive,
     ]);
@@ -78,6 +82,16 @@ export class HeroSlideRepository {
     if (ctaLink !== undefined) {
       fields.push(`cta_link = $${idx++}`);
       values.push(ctaLink);
+    }
+    const secondaryCtaText = data.secondary_cta_text !== undefined ? data.secondary_cta_text : data.secondaryCtaText;
+    if (secondaryCtaText !== undefined) {
+      fields.push(`secondary_cta_text = $${idx++}`);
+      values.push(secondaryCtaText);
+    }
+    const secondaryCtaLink = data.secondary_cta_link !== undefined ? data.secondary_cta_link : data.secondaryCtaLink;
+    if (secondaryCtaLink !== undefined) {
+      fields.push(`secondary_cta_link = $${idx++}`);
+      values.push(secondaryCtaLink);
     }
     const sortOrder = data.sort_order !== undefined ? data.sort_order : data.sortOrder;
     if (sortOrder !== undefined) {

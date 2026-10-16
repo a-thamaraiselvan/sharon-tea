@@ -5,20 +5,34 @@ import { AppError } from '../../middleware/errorHandler.js';
 
 export class FranchiseService {
   async submitEnquiry(data: {
-    full_name: string;
+    full_name?: string;
+    fullName?: string;
     phone: string;
     email: string;
     city: string;
-    investment_budget: string;
+    investment_budget?: string;
+    investmentBudget?: string;
     message?: string | null;
   }): Promise<FranchiseEnquiryRecord> {
-    if (!data.full_name || !data.phone || !data.email || !data.city || !data.investment_budget) {
+    const full_name = (data.full_name || data.fullName || '').trim();
+    const phone = (data.phone || '').trim();
+    const email = (data.email || '').trim();
+    const city = (data.city || '').trim();
+    const investment_budget = (data.investment_budget || data.investmentBudget || '').trim();
+    const message = data.message ? String(data.message).trim() : null;
+
+    if (!full_name || !phone || !email || !city || !investment_budget) {
       throw new AppError('All required fields (name, phone, email, city, budget) must be filled', 400);
     }
 
     const businessId = generateEnquiryId('FRANCHISE');
     return franchiseRepository.createEnquiry({
-      ...data,
+      full_name,
+      phone,
+      email,
+      city,
+      investment_budget,
+      message,
       business_id: businessId,
     });
   }

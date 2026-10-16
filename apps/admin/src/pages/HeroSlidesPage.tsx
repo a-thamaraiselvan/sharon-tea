@@ -11,13 +11,14 @@ import {
   message,
   Tag,
   Tooltip,
+  Select,
 } from 'antd';
 import {
   PlusOutlined,
   EditOutlined,
   DeleteOutlined,
   DesktopOutlined,
-  LinkOutlined,
+  CompassOutlined,
 } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm, Controller } from 'react-hook-form';
@@ -32,12 +33,64 @@ import { resolveImageUrl } from '../utils/imageUrl';
 
 const { TextArea } = Input;
 
+export const APP_ROUTES = [
+  { label: 'Beverage Menu (/menu)', value: '/menu' },
+  { label: 'Packaged Tea Blends & Products (/products)', value: '/products' },
+  { label: 'Franchise Opportunities (/franchise)', value: '/franchise' },
+  { label: 'Visit Outlets (/visit-us)', value: '/visit-us' },
+  { label: 'About Us & Heritage (/about-us)', value: '/about-us' },
+  { label: 'Home Page (/)', value: '/' },
+  { label: 'Contact Us (/contact)', value: '/contact' },
+];
+
+const RouteSelector: React.FC<{
+  value?: string | null;
+  onChange: (val: string) => void;
+  placeholder?: string;
+}> = ({ value, onChange, placeholder = 'Select Screen Route' }) => {
+  const isPreset = APP_ROUTES.some((r) => r.value === value);
+  const [isCustom, setIsCustom] = useState(() => Boolean(value && !isPreset));
+
+  return (
+    <div className="space-y-1.5">
+      <Select
+        value={isCustom ? '__custom__' : (value || undefined)}
+        placeholder={placeholder}
+        allowClear
+        className="w-full"
+        onChange={(val) => {
+          if (val === '__custom__') {
+            setIsCustom(true);
+          } else {
+            setIsCustom(false);
+            onChange(val || '');
+          }
+        }}
+        options={[
+          ...APP_ROUTES,
+          { label: '✏️ Custom Link / External URL...', value: '__custom__' },
+        ]}
+      />
+      {isCustom && (
+        <Input
+          value={value === '__custom__' ? '' : (value || '')}
+          placeholder="e.g. https://... or custom path"
+          onChange={(e) => onChange(e.target.value)}
+          className="text-xs"
+        />
+      )}
+    </div>
+  );
+};
+
 const slideSchema = z.object({
   title: z.string().min(2, 'Slide title must be at least 2 characters'),
   subtitle: z.string().optional().nullable(),
   imageUrl: z.string().min(1, 'Please upload a hero banner image'),
   ctaText: z.string().optional().nullable(),
   ctaLink: z.string().optional().nullable(),
+  secondaryCtaText: z.string().optional().nullable(),
+  secondaryCtaLink: z.string().optional().nullable(),
   sortOrder: z.number().int().min(0).default(0),
   isActive: z.boolean().default(true),
 });
@@ -68,6 +121,8 @@ export const HeroSlidesPage: React.FC = () => {
       imageUrl: '',
       ctaText: 'Explore Menu',
       ctaLink: '/menu',
+      secondaryCtaText: 'Find Outlets',
+      secondaryCtaLink: '/visit-us',
       sortOrder: 0,
       isActive: true,
     },
@@ -134,6 +189,8 @@ export const HeroSlidesPage: React.FC = () => {
       imageUrl: '',
       ctaText: 'Explore Menu',
       ctaLink: '/menu',
+      secondaryCtaText: 'Find Outlets',
+      secondaryCtaLink: '/visit-us',
       sortOrder: slides.length + 1,
       isActive: true,
     });
@@ -148,6 +205,8 @@ export const HeroSlidesPage: React.FC = () => {
       imageUrl: slide.imageUrl || (slide as any).image_url || '',
       ctaText: slide.ctaText || (slide as any).cta_text || '',
       ctaLink: slide.ctaLink || (slide as any).cta_link || '',
+      secondaryCtaText: slide.secondaryCtaText || (slide as any).secondary_cta_text || '',
+      secondaryCtaLink: slide.secondaryCtaLink || (slide as any).secondary_cta_link || '',
       sortOrder: Number(slide.sortOrder ?? (slide as any).sort_order ?? 0),
       isActive: Boolean(slide.isActive ?? (slide as any).is_active ?? true),
     });
@@ -167,6 +226,8 @@ export const HeroSlidesPage: React.FC = () => {
       imageUrl: formData.imageUrl,
       ctaText: formData.ctaText || undefined,
       ctaLink: formData.ctaLink || undefined,
+      secondaryCtaText: formData.secondaryCtaText || undefined,
+      secondaryCtaLink: formData.secondaryCtaLink || undefined,
       sortOrder: Number(formData.sortOrder) || 0,
       isActive: formData.isActive,
     };
@@ -220,22 +281,41 @@ export const HeroSlidesPage: React.FC = () => {
       ),
     },
     {
-      title: 'Call to Action',
+      title: 'Call to Actions (Primary & Secondary)',
       key: 'cta',
       render: (_: unknown, record: HeroSlide) => {
         const ctaText = record.ctaText || (record as any).cta_text;
         const ctaLink = record.ctaLink || (record as any).cta_link;
-        return ctaText ? (
-          <div>
-            <Tag color="green">{ctaText}</Tag>
-            {ctaLink && (
-              <span className="text-xs text-gray-400 block mt-1 flex items-center gap-1">
-                <LinkOutlined /> {ctaLink}
-              </span>
+        const secText = record.secondaryCtaText || (record as any).secondary_cta_text;
+        const secLink = record.secondaryCtaLink || (record as any).secondary_cta_link;
+        return (
+          <div className="space-y-1.5">
+            {ctaText ? (
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <Tag color="green" className="font-semibold">Primary: {ctaText}</Tag>
+                {ctaLink && (
+                  <span className="text-xs text-gray-500 font-mono">
+                    <CompassOutlined className="text-gray-400 mr-0.5" />
+                    {ctaLink}
+                  </span>
+                )}
+              </div>
+            ) : null}
+            {secText ? (
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <Tag color="gold" className="font-semibold">Secondary: {secText}</Tag>
+                {secLink && (
+                  <span className="text-xs text-gray-500 font-mono">
+                    <CompassOutlined className="text-gray-400 mr-0.5" />
+                    {secLink}
+                  </span>
+                )}
+              </div>
+            ) : null}
+            {!ctaText && !secText && (
+              <span className="text-gray-400 text-xs">No CTAs configured</span>
             )}
           </div>
-        ) : (
-          <span className="text-gray-400 text-xs">No CTA</span>
         );
       },
     },
@@ -367,39 +447,95 @@ export const HeroSlidesPage: React.FC = () => {
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-1">
-                CTA Button Text
-              </label>
-              <Controller
-                name="ctaText"
-                control={control}
-                render={({ field: { value, onChange, ...rest } }) => (
-                  <Input
-                    {...rest}
-                    value={value || ''}
-                    onChange={onChange}
-                    placeholder="e.g. Order via WhatsApp"
-                  />
-                )}
-              />
+          {/* Primary Call-to-Action (Button 1) */}
+          <div className="p-3.5 bg-emerald-50/50 rounded-xl border border-emerald-100 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-emerald-900 flex items-center gap-1.5">
+                <Tag color="green" className="mr-0 font-semibold">1</Tag> Primary CTA Button
+              </span>
+              <span className="text-[11px] text-emerald-700">Main action highlight</span>
             </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  Primary Button Text
+                </label>
+                <Controller
+                  name="ctaText"
+                  control={control}
+                  render={({ field: { value, onChange, ...rest } }) => (
+                    <Input
+                      {...rest}
+                      value={value || ''}
+                      onChange={onChange}
+                      placeholder="e.g. Explore Menu"
+                    />
+                  )}
+                />
+              </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-1">CTA Link</label>
-              <Controller
-                name="ctaLink"
-                control={control}
-                render={({ field: { value, onChange, ...rest } }) => (
-                  <Input
-                    {...rest}
-                    value={value || ''}
-                    onChange={onChange}
-                    placeholder="e.g. /products or /franchise"
-                  />
-                )}
-              />
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  Primary Target Screen / Route
+                </label>
+                <Controller
+                  name="ctaLink"
+                  control={control}
+                  render={({ field: { value, onChange } }) => (
+                    <RouteSelector
+                      value={value}
+                      onChange={onChange}
+                      placeholder="Select Screen Route (e.g. /menu)"
+                    />
+                  )}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Secondary Call-to-Action (Button 2) */}
+          <div className="p-3.5 bg-amber-50/50 rounded-xl border border-amber-100 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
+                <Tag color="gold" className="mr-0 font-semibold">2</Tag> Secondary CTA Button (Optional)
+              </span>
+              <span className="text-[11px] text-amber-700">Supporting action button</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  Secondary Button Text
+                </label>
+                <Controller
+                  name="secondaryCtaText"
+                  control={control}
+                  render={({ field: { value, onChange, ...rest } }) => (
+                    <Input
+                      {...rest}
+                      value={value || ''}
+                      onChange={onChange}
+                      placeholder="e.g. Find Outlets / Partner With Us"
+                    />
+                  )}
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                  Secondary Target Screen / Route
+                </label>
+                <Controller
+                  name="secondaryCtaLink"
+                  control={control}
+                  render={({ field: { value, onChange } }) => (
+                    <RouteSelector
+                      value={value}
+                      onChange={onChange}
+                      placeholder="Select Screen Route (e.g. /visit-us)"
+                    />
+                  )}
+                />
+              </div>
             </div>
           </div>
 

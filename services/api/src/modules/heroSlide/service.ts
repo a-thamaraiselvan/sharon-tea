@@ -28,6 +28,10 @@ export class HeroSlideService {
     ctaText?: string | null;
     cta_link?: string | null;
     ctaLink?: string | null;
+    secondary_cta_text?: string | null;
+    secondaryCtaText?: string | null;
+    secondary_cta_link?: string | null;
+    secondaryCtaLink?: string | null;
     sort_order?: number;
     sortOrder?: number;
     is_active?: boolean;
@@ -42,6 +46,8 @@ export class HeroSlideService {
       image_url: imageUrl,
       cta_text: data.cta_text ?? data.ctaText,
       cta_link: data.cta_link ?? data.ctaLink,
+      secondary_cta_text: data.secondary_cta_text ?? data.secondaryCtaText,
+      secondary_cta_link: data.secondary_cta_link ?? data.secondaryCtaLink,
       sort_order: data.sort_order ?? data.sortOrder,
       is_active: data.is_active ?? data.isActive,
     });
@@ -58,6 +64,10 @@ export class HeroSlideService {
       ctaText?: string | null;
       cta_link?: string | null;
       ctaLink?: string | null;
+      secondary_cta_text?: string | null;
+      secondaryCtaText?: string | null;
+      secondary_cta_link?: string | null;
+      secondaryCtaLink?: string | null;
       sort_order?: number;
       sortOrder?: number;
       is_active?: boolean;

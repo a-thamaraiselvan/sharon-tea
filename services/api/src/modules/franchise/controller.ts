@@ -6,7 +6,13 @@ export class FranchiseController {
   async submit(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const enquiry = await franchiseService.submitEnquiry(req.body);
-      successResponse(res, enquiry, 'Franchise enquiry submitted successfully. Our team will contact you soon.', 201);
+      successResponse(res, {
+        ...enquiry,
+        enquiryId: enquiry.business_id,
+        businessId: enquiry.business_id,
+        fullName: enquiry.full_name,
+        investmentBudget: enquiry.investment_budget,
+      }, 'Franchise enquiry submitted successfully. Our team will contact you soon.', 201);
     } catch (error) {
       next(error);
     }
@@ -21,7 +27,14 @@ export class FranchiseController {
         page: page ? parseInt(page as string, 10) : 1,
         limit: limit ? parseInt(limit as string, 10) : 20,
       });
-      paginatedResponse(res, result.items, result.total, result.page, result.limit);
+      const formatted = result.items.map((e: any) => ({
+        ...e,
+        businessId: e.business_id,
+        fullName: e.full_name,
+        investmentBudget: e.investment_budget,
+        adminNotes: e.admin_notes,
+      }));
+      paginatedResponse(res, formatted, result.total, result.page, result.limit);
     } catch (error) {
       next(error);
     }
