@@ -5,6 +5,7 @@ export function useBusinessSettings() {
   return useQuery({
     queryKey: ['business-settings'],
     queryFn: getPublicBusinessSettings,
-    staleTime: 1000 * 60 * 60, // 1 hour
+    staleTime: 1000 * 5,
+    refetchOnMount: true,
   });
 }

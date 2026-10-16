@@ -18,7 +18,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string().default('postgresql://postgres:password@localhost:5432/sharon_db'),
   JWT_ACCESS_SECRET: z.string().default('sharon_access_secret_super_secure_key_change_in_production_2026'),
   JWT_REFRESH_SECRET: z.string().default('sharon_refresh_secret_super_secure_key_change_in_production_2026'),
-  JWT_ACCESS_EXPIRES_IN: z.string().default('15m'),
+  JWT_ACCESS_EXPIRES_IN: z.string().default('24h'),
   JWT_REFRESH_EXPIRES_IN: z.string().default('7d'),
   CORS_ORIGINS: z.string().default('http://localhost:5173,http://localhost:5174,https://sharon.novacodex.in,https://sharonadmin.novacodex.in,https://novacodex.in'),
   UPLOAD_MODE: z.enum(['local', 's3']).default('local'),

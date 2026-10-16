@@ -12,6 +12,7 @@ import {
   PictureOutlined,
   DesktopOutlined,
   SettingOutlined,
+  RocketOutlined,
 } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import type { MenuProps } from 'antd';
@@ -34,6 +35,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onCollapse }) => {
     if (path === '/') return ['/'];
     if (path.startsWith('/menu-categories')) return ['/menu-categories'];
     if (path.startsWith('/menu-items')) return ['/menu-items'];
+    if (path.startsWith('/product-categories')) return ['/product-categories'];
     if (path.startsWith('/products')) return ['/products'];
     if (path.startsWith('/whatsapp-analytics')) return ['/whatsapp-analytics'];
     if (path.startsWith('/franchise-enquiries')) return ['/franchise-enquiries'];
@@ -41,16 +43,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onCollapse }) => {
     if (path.startsWith('/outlets')) return ['/outlets'];
     if (path.startsWith('/gallery')) return ['/gallery'];
     if (path.startsWith('/hero-slides')) return ['/hero-slides'];
+    if (path.startsWith('/delivery-partners')) return ['/delivery-partners'];
     if (path.startsWith('/settings')) return ['/settings'];
     return [path];
   };
 
   const getOpenKeys = () => {
     const path = location.pathname;
+    const keys: string[] = [];
     if (path.startsWith('/menu-categories') || path.startsWith('/menu-items')) {
-      return ['menu-sub'];
+      keys.push('menu-sub');
     }
-    return [];
+    if (path.startsWith('/product-categories') || path.startsWith('/products')) {
+      keys.push('products-sub');
+    }
+    return keys;
   };
 
   const menuItems: MenuItem[] = [
@@ -62,24 +69,41 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onCollapse }) => {
     {
       key: 'menu-sub',
       icon: <CoffeeOutlined />,
-      label: 'Menu Management',
+      label: 'Beverage Menu',
       children: [
         {
           key: '/menu-categories',
           icon: <AppstoreOutlined />,
-          label: 'Categories',
+          label: 'Menu Categories',
         },
         {
           key: '/menu-items',
           icon: <CoffeeOutlined />,
-          label: 'Items',
+          label: 'Menu Items',
         },
       ],
     },
     {
-      key: '/products',
+      key: 'products-sub',
       icon: <ShoppingOutlined />,
       label: 'Packaged Products',
+      children: [
+        {
+          key: '/product-categories',
+          icon: <AppstoreOutlined />,
+          label: 'Product Categories',
+        },
+        {
+          key: '/products',
+          icon: <ShoppingOutlined />,
+          label: 'Retail Products',
+        },
+      ],
+    },
+    {
+      key: '/delivery-partners',
+      icon: <RocketOutlined />,
+      label: 'Delivery Partners',
     },
     {
       key: '/whatsapp-analytics',
@@ -167,7 +191,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onCollapse }) => {
           defaultOpenKeys={getOpenKeys()}
           items={menuItems}
           onClick={({ key }) => {
-            if (key !== 'menu-sub') {
+            if (key !== 'menu-sub' && key !== 'products-sub') {
               navigate(key);
             }
           }}

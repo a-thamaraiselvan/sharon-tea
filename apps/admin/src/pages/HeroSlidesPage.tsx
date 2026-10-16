@@ -28,6 +28,7 @@ import { ImageUpload } from '../components/shared/ImageUpload';
 import { showDeleteConfirm } from '../components/shared/ConfirmDialog';
 import { heroSlideService } from '../services/heroSlideService';
 import { HeroSlide, CreateHeroSlideInput } from '../types';
+import { resolveImageUrl } from '../utils/imageUrl';
 
 const { TextArea } = Input;
 
@@ -144,11 +145,11 @@ export const HeroSlidesPage: React.FC = () => {
     reset({
       title: slide.title,
       subtitle: slide.subtitle || '',
-      imageUrl: slide.imageUrl,
-      ctaText: slide.ctaText || '',
-      ctaLink: slide.ctaLink || '',
-      sortOrder: slide.sortOrder,
-      isActive: slide.isActive,
+      imageUrl: slide.imageUrl || (slide as any).image_url || '',
+      ctaText: slide.ctaText || (slide as any).cta_text || '',
+      ctaLink: slide.ctaLink || (slide as any).cta_link || '',
+      sortOrder: Number(slide.sortOrder ?? (slide as any).sort_order ?? 0),
+      isActive: Boolean(slide.isActive ?? (slide as any).is_active ?? true),
     });
     setIsModalOpen(true);
   };
@@ -190,18 +191,20 @@ export const HeroSlidesPage: React.FC = () => {
   const columns = [
     {
       title: 'Banner Preview',
-      dataIndex: 'imageUrl',
       key: 'imageUrl',
       width: 140,
-      render: (url: string) => (
-        <div className="w-28 h-16 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
-          {url ? (
-            <Image src={url} alt="Slide" width={112} height={64} className="object-cover" />
-          ) : (
-            <DesktopOutlined className="text-gray-400 text-lg" />
-          )}
-        </div>
-      ),
+      render: (_: unknown, record: HeroSlide) => {
+        const url = record.imageUrl || (record as any).image_url;
+        return (
+          <div className="w-28 h-16 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
+            {url ? (
+              <Image src={resolveImageUrl(url)} alt="Slide" width={112} height={64} className="object-cover" />
+            ) : (
+              <DesktopOutlined className="text-gray-400 text-lg" />
+            )}
+          </div>
+        );
+      },
     },
     {
       title: 'Title & Subtitle',
@@ -219,43 +222,49 @@ export const HeroSlidesPage: React.FC = () => {
     {
       title: 'Call to Action',
       key: 'cta',
-      render: (_: unknown, record: HeroSlide) =>
-        record.ctaText ? (
+      render: (_: unknown, record: HeroSlide) => {
+        const ctaText = record.ctaText || (record as any).cta_text;
+        const ctaLink = record.ctaLink || (record as any).cta_link;
+        return ctaText ? (
           <div>
-            <Tag color="green">{record.ctaText}</Tag>
-            {record.ctaLink && (
+            <Tag color="green">{ctaText}</Tag>
+            {ctaLink && (
               <span className="text-xs text-gray-400 block mt-1 flex items-center gap-1">
-                <LinkOutlined /> {record.ctaLink}
+                <LinkOutlined /> {ctaLink}
               </span>
             )}
           </div>
         ) : (
           <span className="text-gray-400 text-xs">No CTA</span>
-        ),
+        );
+      },
     },
     {
       title: 'Sort Order',
-      dataIndex: 'sortOrder',
       key: 'sortOrder',
       width: 100,
-      sorter: (a: HeroSlide, b: HeroSlide) => a.sortOrder - b.sortOrder,
+      render: (_: unknown, record: HeroSlide) => record.sortOrder ?? (record as any).sort_order ?? 0,
+      sorter: (a: HeroSlide, b: HeroSlide) =>
+        (a.sortOrder ?? (a as any).sort_order ?? 0) - (b.sortOrder ?? (b as any).sort_order ?? 0),
     },
     {
       title: 'Visible',
-      dataIndex: 'isActive',
       key: 'isActive',
       width: 120,
-      render: (isActive: boolean, record: HeroSlide) => (
-        <Switch
-          checked={isActive}
-          loading={toggleStatusMutation.isPending}
-          onChange={(checked) =>
-            toggleStatusMutation.mutate({ id: record.id, isActive: checked })
-          }
-          checkedChildren="Live"
-          unCheckedChildren="Hidden"
-        />
-      ),
+      render: (_: unknown, record: HeroSlide) => {
+        const active = record.isActive ?? (record as any).is_active ?? true;
+        return (
+          <Switch
+            checked={active}
+            loading={toggleStatusMutation.isPending}
+            onChange={(checked) =>
+              toggleStatusMutation.mutate({ id: record.id, isActive: checked })
+            }
+            checkedChildren="Live"
+            unCheckedChildren="Hidden"
+          />
+        );
+      },
     },
     {
       title: 'Actions',
@@ -317,7 +326,6 @@ export const HeroSlidesPage: React.FC = () => {
         destroyOnClose
         centered
         width={620}
-        rootClassName="modal-enter"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-3">
           <div>

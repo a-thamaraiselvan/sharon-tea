@@ -21,6 +21,7 @@ import galleryRoutes from './modules/gallery/routes.js';
 import heroSlideRoutes from './modules/heroSlide/routes.js';
 import businessSettingRoutes from './modules/businessSetting/routes.js';
 import uploadRoutes from './modules/upload/routes.js';
+import deliveryPartnerRoutes from './modules/deliveryPartner/routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -136,6 +137,10 @@ export const createApp = (): Express => {
 
     // Business Settings
     router.use('/BusinessSetting', businessSettingRoutes);
+
+    // Delivery Partners
+    router.use('/DeliveryPartner', deliveryPartnerRoutes);
+    router.use('/delivery-partners', deliveryPartnerRoutes);
 
     // Upload
     router.use('/Upload', uploadRoutes);

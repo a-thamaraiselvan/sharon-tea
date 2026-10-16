@@ -38,7 +38,8 @@ export class HeroSlideController {
   async getAll(_req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const slides = await heroSlideService.getAllSlides();
-      successResponse(res, slides, 'All hero slides retrieved');
+      const sanitized = slides.map(formatPublicHeroSlide);
+      successResponse(res, sanitized, 'All hero slides retrieved');
     } catch (error) {
       next(error);
     }
@@ -47,7 +48,7 @@ export class HeroSlideController {
   async getById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const slide = await heroSlideService.getSlideById(req.params.id as string);
-      successResponse(res, slide, 'Hero slide details retrieved');
+      successResponse(res, formatPublicHeroSlide(slide), 'Hero slide details retrieved');
     } catch (error) {
       next(error);
     }
@@ -56,7 +57,7 @@ export class HeroSlideController {
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const slide = await heroSlideService.createSlide(req.body);
-      successResponse(res, slide, 'Hero slide created successfully', 201);
+      successResponse(res, formatPublicHeroSlide(slide), 'Hero slide created successfully', 201);
     } catch (error) {
       next(error);
     }
@@ -65,7 +66,7 @@ export class HeroSlideController {
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const slide = await heroSlideService.updateSlide(req.params.id as string, req.body);
-      successResponse(res, slide, 'Hero slide updated successfully');
+      successResponse(res, formatPublicHeroSlide(slide), 'Hero slide updated successfully');
     } catch (error) {
       next(error);
     }

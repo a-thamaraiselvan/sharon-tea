@@ -2,6 +2,7 @@ import React from 'react';
 import type { Outlet } from '@/types';
 import { MapPin, Clock, Phone, Navigation } from 'lucide-react';
 import { cn } from '@/utils/cn';
+import { resolveImageUrl } from '@/utils/imageUrl';
 
 interface OutletCardProps {
   outlet: Outlet;
@@ -33,7 +34,7 @@ export const OutletCard: React.FC<OutletCardProps> = ({ outlet, className }) => 
             </span>
           </div>
           <img
-            src={outlet.imageUrl}
+            src={resolveImageUrl(outlet.imageUrl, 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80')}
             alt={outlet.name || 'Sharon Tea and Coffee Outlet'}
             loading="lazy"
             onError={(e) => {

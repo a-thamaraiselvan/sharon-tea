@@ -22,6 +22,9 @@ const MenuItemsPage = lazy(() =>
 const ProductsPage = lazy(() =>
   import('../../pages/ProductsPage').then((m) => ({ default: m.ProductsPage }))
 );
+const ProductCategoriesPage = lazy(() =>
+  import('../../pages/ProductCategoriesPage').then((m) => ({ default: m.ProductCategoriesPage }))
+);
 const WhatsAppAnalyticsPage = lazy(() =>
   import('../../pages/WhatsAppAnalyticsPage').then((m) => ({ default: m.WhatsAppAnalyticsPage }))
 );
@@ -39,6 +42,9 @@ const GalleryPage = lazy(() =>
 );
 const HeroSlidesPage = lazy(() =>
   import('../../pages/HeroSlidesPage').then((m) => ({ default: m.HeroSlidesPage }))
+);
+const DeliveryPartnersPage = lazy(() =>
+  import('../../pages/DeliveryPartnersPage').then((m) => ({ default: m.DeliveryPartnersPage }))
 );
 const SettingsPage = lazy(() =>
   import('../../pages/SettingsPage').then((m) => ({ default: m.SettingsPage }))
@@ -72,7 +78,9 @@ export const AdminRoutes: React.FC = () => {
             <Route path="/" element={<DashboardPage />} />
             <Route path="/menu-categories" element={<MenuCategoriesPage />} />
             <Route path="/menu-items" element={<MenuItemsPage />} />
+            <Route path="/product-categories" element={<ProductCategoriesPage />} />
             <Route path="/products" element={<ProductsPage />} />
+            <Route path="/delivery-partners" element={<DeliveryPartnersPage />} />
             <Route path="/whatsapp-analytics" element={<WhatsAppAnalyticsPage />} />
             <Route path="/franchise-enquiries" element={<FranchiseEnquiriesPage />} />
             <Route path="/contact-enquiries" element={<ContactEnquiriesPage />} />

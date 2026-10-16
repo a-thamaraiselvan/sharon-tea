@@ -1,6 +1,7 @@
 import React from 'react';
 import type { MenuItem } from '@/types';
 import { cn } from '@/utils/cn';
+import { resolveImageUrl } from '@/utils/imageUrl';
 
 interface MenuItemCardProps {
   item: MenuItem;
@@ -33,7 +34,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
         {/* Left side: Square/rounded thumbnail */}
         <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shrink-0 bg-brand-cream flex items-center justify-center p-0.5 image-zoom-container">
           <img
-            src={item.imageUrl || '/images/beverages/sharon-classic.png'}
+            src={resolveImageUrl(item.imageUrl, '/images/beverages/sharon-classic.png')}
             alt={itemName}
             loading="lazy"
             decoding="async"
@@ -100,7 +101,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
       {/* Top: Square/rounded thumbnail with badge */}
       <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-brand-cream shrink-0 mb-2.5 sm:mb-3 image-zoom-container">
         <img
-          src={item.imageUrl || '/images/beverages/sharon-classic.png'}
+          src={resolveImageUrl(item.imageUrl, '/images/beverages/sharon-classic.png')}
           alt={itemName}
           loading="eager"
           decoding="async"

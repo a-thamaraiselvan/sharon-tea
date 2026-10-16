@@ -54,25 +54,69 @@ export class BusinessSettingService {
     };
   }
 
-  async getAllSettings(): Promise<BusinessSettingRecord | null> {
-    return businessSettingRepository.getSettings();
+  async getAllSettings(): Promise<any> {
+    const s = await businessSettingRepository.getSettings();
+    if (!s) return null;
+    return {
+      ...s,
+      brandName: s.brand_name,
+      tagline: s.tagline,
+      description: s.description,
+      phone: s.phone,
+      email: s.email,
+      whatsappNumber: s.whatsapp_number,
+      address: s.address,
+      operatingHours: s.operating_hours,
+      fssaiLicense: s.fssai_license,
+      socialLinks: s.social_links,
+      announcement: {
+        text: s.announcement_text,
+        isActive: s.announcement_active,
+      },
+      announcementText: s.announcement_text,
+      announcementActive: s.announcement_active,
+      logoUrl: s.logo_url || '/Sharon_logo.jpg',
+      faviconUrl: s.favicon_url || '/favicon.ico',
+    };
   }
 
-  async updateSettings(data: {
-    brand_name?: string;
-    tagline?: string | null;
-    description?: string | null;
-    phone?: string | null;
-    email?: string | null;
-    whatsapp_number?: string | null;
-    address?: string | null;
-    operating_hours?: string | null;
-    fssai_license?: string | null;
-    social_links?: Record<string, string>;
-    announcement_text?: string | null;
-    announcement_active?: boolean;
-  }): Promise<BusinessSettingRecord> {
-    return businessSettingRepository.updateSettings(data);
+  async updateSettings(data: any): Promise<any> {
+    const mapped = {
+      brand_name: data.brand_name ?? data.brandName,
+      tagline: data.tagline,
+      description: data.description,
+      phone: data.phone,
+      email: data.email,
+      whatsapp_number: data.whatsapp_number ?? data.whatsappNumber,
+      address: data.address,
+      operating_hours: data.operating_hours ?? data.operatingHours,
+      fssai_license: data.fssai_license ?? data.fssaiLicense,
+      social_links: data.social_links ?? data.socialLinks,
+      announcement_text: data.announcement_text ?? data.announcement?.text ?? data.announcementText,
+      announcement_active: data.announcement_active ?? data.announcement?.isActive ?? data.announcementActive,
+    };
+    const s = await businessSettingRepository.updateSettings(mapped);
+    return {
+      ...s,
+      brandName: s.brand_name,
+      tagline: s.tagline,
+      description: s.description,
+      phone: s.phone,
+      email: s.email,
+      whatsappNumber: s.whatsapp_number,
+      address: s.address,
+      operatingHours: s.operating_hours,
+      fssaiLicense: s.fssai_license,
+      socialLinks: s.social_links,
+      announcement: {
+        text: s.announcement_text,
+        isActive: s.announcement_active,
+      },
+      announcementText: s.announcement_text,
+      announcementActive: s.announcement_active,
+      logoUrl: s.logo_url || '/Sharon_logo.jpg',
+      faviconUrl: s.favicon_url || '/favicon.ico',
+    };
   }
 }
 

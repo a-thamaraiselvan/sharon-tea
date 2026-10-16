@@ -5,7 +5,8 @@ export function useProducts() {
   return useQuery({
     queryKey: ['products'],
     queryFn: getPublicProducts,
-    staleTime: 1000 * 60 * 10,
+    staleTime: 1000 * 5,
+    refetchOnMount: true,
   });
 }
 
@@ -14,6 +15,7 @@ export function useProduct(id: string) {
     queryKey: ['product', id],
     queryFn: () => getProductById(id),
     enabled: Boolean(id),
-    staleTime: 1000 * 60 * 10,
+    staleTime: 1000 * 5,
+    refetchOnMount: true,
   });
 }

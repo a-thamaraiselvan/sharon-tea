@@ -29,6 +29,7 @@ import { ImageUpload } from '../components/shared/ImageUpload';
 import { showDeleteConfirm } from '../components/shared/ConfirmDialog';
 import { outletService } from '../services/outletService';
 import { Outlet, CreateOutletInput } from '../types';
+import { resolveImageUrl } from '../utils/imageUrl';
 
 const { TextArea } = Input;
 
@@ -159,13 +160,13 @@ export const OutletsPage: React.FC = () => {
       slug: outlet.slug,
       address: outlet.address,
       phone: outlet.phone,
-      operatingHours: outlet.operatingHours,
+      operatingHours: outlet.operatingHours || (outlet as any).operating_hours || (outlet as any).hours || '6:00 AM - 11:00 PM Daily',
       latitude: outlet.latitude ?? null,
       longitude: outlet.longitude ?? null,
-      googleMapsUrl: outlet.googleMapsUrl || '',
-      imageUrl: outlet.imageUrl || null,
-      isActive: outlet.isActive,
-      sortOrder: outlet.sortOrder,
+      googleMapsUrl: outlet.googleMapsUrl || (outlet as any).google_maps_url || (outlet as any).maps_url || '',
+      imageUrl: outlet.imageUrl || (outlet as any).image_url || null,
+      isActive: Boolean(outlet.isActive ?? (outlet as any).is_active ?? true),
+      sortOrder: Number(outlet.sortOrder ?? (outlet as any).sort_order ?? 0),
     });
     setIsModalOpen(true);
   };
@@ -211,18 +212,20 @@ export const OutletsPage: React.FC = () => {
   const columns = [
     {
       title: 'Store Photo',
-      dataIndex: 'imageUrl',
       key: 'imageUrl',
       width: 80,
-      render: (url: string | null) => (
-        <div className="w-14 h-12 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
-          {url ? (
-            <Image src={url} alt="Store" width={56} height={48} className="object-cover" />
-          ) : (
-            <EnvironmentOutlined className="text-gray-400 text-lg" />
-          )}
-        </div>
-      ),
+      render: (_: unknown, record: Outlet) => {
+        const url = record.imageUrl || (record as any).image_url;
+        return (
+          <div className="w-14 h-12 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
+            {url ? (
+              <Image src={resolveImageUrl(url)} alt="Store" width={56} height={48} className="object-cover" />
+            ) : (
+              <EnvironmentOutlined className="text-gray-400 text-lg" />
+            )}
+          </div>
+        );
+      },
     },
     {
       title: 'Outlet Name',
@@ -250,40 +253,45 @@ export const OutletsPage: React.FC = () => {
     },
     {
       title: 'Operating Hours',
-      dataIndex: 'operatingHours',
       key: 'operatingHours',
-      render: (hours: string) => (
-        <span className="text-xs text-gray-600 flex items-center gap-1">
-          <ClockCircleOutlined /> {hours}
-        </span>
-      ),
+      render: (_: unknown, record: Outlet) => {
+        const hours = record.operatingHours || (record as any).operating_hours || (record as any).hours || 'Open Daily';
+        return (
+          <span className="text-xs text-gray-600 flex items-center gap-1">
+            <ClockCircleOutlined /> {hours}
+          </span>
+        );
+      },
     },
     {
       title: 'Status',
-      dataIndex: 'isActive',
       key: 'isActive',
       width: 120,
-      render: (isActive: boolean, record: Outlet) => (
-        <Switch
-          checked={isActive}
-          loading={toggleStatusMutation.isPending}
-          onChange={(checked) =>
-            toggleStatusMutation.mutate({ id: record.id, isActive: checked })
-          }
-          checkedChildren="Open"
-          unCheckedChildren="Closed"
-        />
-      ),
+      render: (_: unknown, record: Outlet) => {
+        const active = record.isActive ?? (record as any).is_active ?? true;
+        return (
+          <Switch
+            checked={active}
+            loading={toggleStatusMutation.isPending}
+            onChange={(checked) =>
+              toggleStatusMutation.mutate({ id: record.id, isActive: checked })
+            }
+            checkedChildren="Open"
+            unCheckedChildren="Closed"
+          />
+        );
+      },
     },
     {
       title: 'Map',
       key: 'map',
       width: 70,
-      render: (_: unknown, record: Outlet) =>
-        record.googleMapsUrl ? (
+      render: (_: unknown, record: Outlet) => {
+        const mapUrl = record.googleMapsUrl || (record as any).google_maps_url || (record as any).maps_url;
+        return mapUrl ? (
           <Tooltip title="View on Google Maps">
             <a
-              href={record.googleMapsUrl}
+              href={mapUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-emerald-700 hover:text-emerald-900 text-base"
@@ -293,7 +301,8 @@ export const OutletsPage: React.FC = () => {
           </Tooltip>
         ) : (
           <span className="text-gray-300">-</span>
-        ),
+        );
+      },
     },
     {
       title: 'Actions',
@@ -355,7 +364,6 @@ export const OutletsPage: React.FC = () => {
         destroyOnClose
         centered
         width={640}
-        rootClassName="modal-enter"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

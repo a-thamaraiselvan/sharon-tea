@@ -15,6 +15,7 @@ import {
   Play,
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
+import { resolveImageUrl } from '@/utils/imageUrl';
 
 interface SlideConfig extends HeroSlide {
   badgeText: string;
@@ -134,43 +135,40 @@ export const HeroSection: React.FC = () => {
     };
   }, []);
 
-  // Merge remote slides with our rich fallback configurations to guarantee 3 complete slides
+  // Merge remote slides with rich configurations
   const slides: SlideConfig[] = useMemo(() => {
     if (!Array.isArray(remoteSlides) || remoteSlides.length === 0) {
       return DEFAULT_SLIDES;
     }
 
-    const merged = DEFAULT_SLIDES.map((defaultSlide, idx) => {
-      const match = remoteSlides[idx];
-      if (!match) return defaultSlide;
-
-      const validImageUrl =
-        typeof match.imageUrl === 'string' &&
-        match.imageUrl.trim().length > 0 &&
-        !match.imageUrl.startsWith('/uploads/')
-          ? match.imageUrl
-          : defaultSlide.imageUrl;
+    const dynamicSlides: SlideConfig[] = remoteSlides.map((item, idx) => {
+      const template = DEFAULT_SLIDES[idx % DEFAULT_SLIDES.length];
+      const validImageUrl = resolveImageUrl(item.imageUrl, template.imageUrl);
 
       return {
-        ...defaultSlide,
-        ...match,
-        id: match.id || defaultSlide.id,
-        imageUrl: validImageUrl || defaultSlide.imageUrl,
-        title: typeof match.title === 'string' && match.title.trim().length > 0 ? match.title : defaultSlide.title,
-        subtitle: typeof match.subtitle === 'string' && match.subtitle.trim().length > 0 ? match.subtitle : defaultSlide.subtitle,
-        ctaText: match.ctaText || defaultSlide.ctaText,
-        ctaLink: match.ctaLink || defaultSlide.ctaLink,
-        secondaryCtaText: match.secondaryCtaText || defaultSlide.secondaryCtaText,
-        secondaryCtaLink: match.secondaryCtaLink || defaultSlide.secondaryCtaLink,
-        badgeText: defaultSlide.badgeText,
-        badgeIcon: defaultSlide.badgeIcon,
-        primaryIcon: defaultSlide.primaryIcon,
-        secondaryIcon: defaultSlide.secondaryIcon,
-        highlightWord: defaultSlide.highlightWord,
+        ...template,
+        ...item,
+        id: item.id || `remote-${idx}`,
+        title: item.title && item.title.trim().length > 0 ? item.title : template.title,
+        subtitle: item.subtitle && item.subtitle.trim().length > 0 ? item.subtitle : template.subtitle,
+        imageUrl: validImageUrl,
+        ctaText: item.ctaText !== undefined ? item.ctaText : template.ctaText,
+        ctaLink: item.ctaLink !== undefined ? item.ctaLink : template.ctaLink,
+        secondaryCtaText: item.secondaryCtaText !== undefined ? item.secondaryCtaText : template.secondaryCtaText,
+        secondaryCtaLink: item.secondaryCtaLink !== undefined ? item.secondaryCtaLink : template.secondaryCtaLink,
+        badgeText: template.badgeText,
+        badgeIcon: template.badgeIcon,
+        primaryIcon: template.primaryIcon,
+        secondaryIcon: template.secondaryIcon,
+        highlightWord: template.highlightWord,
       };
     });
 
-    return merged.length > 0 ? merged : DEFAULT_SLIDES;
+    if (dynamicSlides.length === 1) {
+      return [dynamicSlides[0], DEFAULT_SLIDES[1], DEFAULT_SLIDES[2]];
+    }
+
+    return dynamicSlides;
   }, [remoteSlides]);
 
   const safeSlides = Array.isArray(slides) && slides.length > 0 ? slides : DEFAULT_SLIDES;

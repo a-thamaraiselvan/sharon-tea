@@ -5,6 +5,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { useGallery } from '@/hooks/useGallery';
 import { FALLBACK_GALLERY } from '@/services/galleryService';
 import { cn } from '@/utils/cn';
+import { resolveImageUrl } from '@/utils/imageUrl';
 
 const TABS = [
   { id: 'all', label: 'All Photos' },
@@ -167,7 +168,7 @@ export const Gallery: React.FC = () => {
             >
               {/* Image with hover zoom */}
               <img
-                src={item.imageUrl}
+                src={resolveImageUrl(item.imageUrl)}
                 alt={item.title}
                 loading="lazy"
                 className="w-full h-full object-cover image-zoom"
@@ -282,7 +283,7 @@ export const Gallery: React.FC = () => {
             {/* Image Showcase */}
             <div className="relative flex-1 min-h-[280px] max-h-[68vh] overflow-hidden bg-brand-black flex items-center justify-center p-2 sm:p-4">
               <img
-                src={currentLightboxItem.imageUrl}
+                src={resolveImageUrl(currentLightboxItem.imageUrl)}
                 alt={currentLightboxItem.title}
                 className="max-w-full max-h-[64vh] object-contain rounded-xl select-none"
               />

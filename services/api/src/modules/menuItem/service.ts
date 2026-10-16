@@ -36,16 +36,27 @@ export class MenuItemService {
   }
 
   async createItem(data: {
-    category_id: string;
+    category_id?: string;
+    categoryId?: string;
     name: string;
     slug?: string;
     short_description?: string | null;
-    price: number;
+    shortDescription?: string | null;
+    price: number | string;
     image_url?: string | null;
+    imageUrl?: string | null;
     is_available?: boolean;
+    isAvailable?: boolean;
+    is_vegetarian?: boolean;
+    isVegetarian?: boolean;
     sort_order?: number;
+    sortOrder?: number;
   }): Promise<MenuItemRecord> {
-    const category = await menuCategoryRepository.findCategoryById(data.category_id);
+    const categoryId = data.category_id || data.categoryId;
+    if (!categoryId) {
+      throw new AppError('Category ID is required', 400);
+    }
+    const category = await menuCategoryRepository.findCategoryById(categoryId);
     if (!category) {
       throw new AppError('Invalid category ID. Category does not exist.', 400);
     }
@@ -55,14 +66,15 @@ export class MenuItemService {
       : `${category.slug}-${slugify(data.name)}`;
 
     return menuItemRepository.createItem({
-      category_id: data.category_id,
+      category_id: categoryId,
       name: data.name,
       slug,
-      short_description: data.short_description,
-      price: data.price,
-      image_url: data.image_url,
-      is_available: data.is_available ?? true,
-      sort_order: data.sort_order ?? 0,
+      short_description: data.short_description !== undefined ? data.short_description : data.shortDescription,
+      price: Number(data.price) || 0,
+      image_url: data.image_url !== undefined ? data.image_url : data.imageUrl,
+      is_available: data.is_available ?? data.isAvailable ?? true,
+      is_vegetarian: data.is_vegetarian ?? data.isVegetarian ?? true,
+      sort_order: Number(data.sort_order ?? data.sortOrder ?? 0),
     });
   }
 
@@ -70,13 +82,20 @@ export class MenuItemService {
     id: string,
     data: {
       category_id?: string;
+      categoryId?: string;
       name?: string;
       slug?: string;
       short_description?: string | null;
-      price?: number;
+      shortDescription?: string | null;
+      price?: number | string;
       image_url?: string | null;
+      imageUrl?: string | null;
       is_available?: boolean;
+      isAvailable?: boolean;
+      is_vegetarian?: boolean;
+      isVegetarian?: boolean;
       sort_order?: number;
+      sortOrder?: number;
     }
   ): Promise<MenuItemRecord> {
     const existing = await menuItemRepository.findItemById(id);
@@ -84,8 +103,9 @@ export class MenuItemService {
       throw new AppError('Menu item not found', 404);
     }
 
-    if (data.category_id && data.category_id !== existing.category_id) {
-      const category = await menuCategoryRepository.findCategoryById(data.category_id);
+    const categoryId = data.category_id || data.categoryId;
+    if (categoryId && categoryId !== existing.category_id) {
+      const category = await menuCategoryRepository.findCategoryById(categoryId);
       if (!category) {
         throw new AppError('Invalid category ID', 400);
       }

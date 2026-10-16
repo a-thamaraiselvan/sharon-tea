@@ -3,6 +3,7 @@ import { Upload, message, Button, Image } from 'antd';
 import { UploadOutlined, DeleteOutlined, LoadingOutlined } from '@ant-design/icons';
 import type { RcFile, UploadProps } from 'antd/es/upload/interface';
 import { uploadService } from '../../services/uploadService';
+import { resolveImageUrl } from '../../utils/imageUrl';
 
 interface ImageUploadProps {
   value?: string | null;
@@ -66,7 +67,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
       {value ? (
         <div className="relative inline-block w-40 h-40 border border-gray-200 rounded-lg overflow-hidden bg-gray-50 group">
           <Image
-            src={value}
+            src={resolveImageUrl(value)}
             alt="Uploaded preview"
             width={160}
             height={160}

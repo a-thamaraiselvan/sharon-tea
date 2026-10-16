@@ -19,43 +19,34 @@ export class OutletService {
     return outlet;
   }
 
-  async createOutlet(data: {
-    name: string;
-    address: string;
-    phone?: string | null;
-    operating_hours?: string | null;
-    latitude?: number | null;
-    longitude?: number | null;
-    image_url?: string | null;
-    maps_url?: string | null;
-    is_active?: boolean;
-  }): Promise<OutletRecord> {
+  async createOutlet(data: any): Promise<OutletRecord> {
     if (!data.name || !data.address) {
       throw new AppError('Outlet name and address are required', 400);
     }
-    return outletRepository.createOutlet(data);
+    return outletRepository.createOutlet({
+      ...data,
+      operating_hours: data.operating_hours ?? data.operatingHours,
+      image_url: data.image_url ?? data.imageUrl,
+      maps_url: data.maps_url ?? data.mapsUrl ?? data.googleMapsUrl ?? data.google_maps_url,
+      is_active: data.is_active ?? data.isActive,
+      sort_order: data.sort_order ?? data.sortOrder,
+    });
   }
 
-  async updateOutlet(
-    id: string,
-    data: {
-      name?: string;
-      address?: string;
-      phone?: string | null;
-      operating_hours?: string | null;
-      latitude?: number | null;
-      longitude?: number | null;
-      image_url?: string | null;
-      maps_url?: string | null;
-      is_active?: boolean;
-    }
-  ): Promise<OutletRecord> {
+  async updateOutlet(id: string, data: any): Promise<OutletRecord> {
     const existing = await outletRepository.findOutletById(id);
     if (!existing) {
       throw new AppError('Outlet not found', 404);
     }
 
-    const updated = await outletRepository.updateOutlet(id, data);
+    const updated = await outletRepository.updateOutlet(id, {
+      ...data,
+      operating_hours: data.operating_hours !== undefined ? data.operating_hours : data.operatingHours,
+      image_url: data.image_url !== undefined ? data.image_url : data.imageUrl,
+      maps_url: data.maps_url !== undefined ? data.maps_url : (data.mapsUrl ?? data.googleMapsUrl ?? data.google_maps_url),
+      is_active: data.is_active !== undefined ? data.is_active : data.isActive,
+      sort_order: data.sort_order !== undefined ? data.sort_order : data.sortOrder,
+    });
     if (!updated) {
       throw new AppError('Failed to update outlet', 500);
     }

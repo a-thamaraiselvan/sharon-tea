@@ -91,25 +91,26 @@ export const SettingsPage: React.FC = () => {
 
   useEffect(() => {
     if (settings) {
+      const s = settings as any;
       reset({
-        brandName: settings.brandName || 'Sharon Tea and Coffee',
-        tagline: settings.tagline || '',
-        description: settings.description || '',
-        phone: settings.phone || '',
-        email: settings.email || '',
-        whatsappNumber: settings.whatsappNumber || '',
-        address: settings.address || '',
-        operatingHours: settings.operatingHours || '',
-        fssaiLicense: settings.fssaiLicense || '',
+        brandName: s.brandName || s.brand_name || 'Sharon Tea and Coffee',
+        tagline: s.tagline || '',
+        description: s.description || '',
+        phone: s.phone || '',
+        email: s.email || '',
+        whatsappNumber: s.whatsappNumber || s.whatsapp_number || '',
+        address: s.address || '',
+        operatingHours: s.operatingHours || s.operating_hours || '',
+        fssaiLicense: s.fssaiLicense || s.fssai_license || '',
         socialLinks: {
-          facebook: settings.socialLinks?.facebook || '',
-          instagram: settings.socialLinks?.instagram || '',
-          youtube: settings.socialLinks?.youtube || '',
-          twitter: settings.socialLinks?.twitter || '',
+          facebook: s.socialLinks?.facebook || s.social_links?.facebook || '',
+          instagram: s.socialLinks?.instagram || s.social_links?.instagram || '',
+          youtube: s.socialLinks?.youtube || s.social_links?.youtube || '',
+          twitter: s.socialLinks?.twitter || s.social_links?.twitter || '',
         },
         announcement: {
-          text: settings.announcement?.text || '',
-          isActive: settings.announcement?.isActive ?? false,
+          text: s.announcement?.text || s.announcement_text || '',
+          isActive: s.announcement?.isActive ?? s.announcement_active ?? false,
         },
       });
     }
@@ -128,17 +129,27 @@ export const SettingsPage: React.FC = () => {
   });
 
   const onSubmit = (formData: SettingsFormData) => {
-    updateMutation.mutate({
+    const payload = {
       brandName: formData.brandName,
+      brand_name: formData.brandName,
       tagline: formData.tagline,
       description: formData.description,
       phone: formData.phone,
       email: formData.email,
       whatsappNumber: formData.whatsappNumber,
+      whatsapp_number: formData.whatsappNumber,
       address: formData.address,
       operatingHours: formData.operatingHours,
+      operating_hours: formData.operatingHours,
       fssaiLicense: formData.fssaiLicense,
+      fssai_license: formData.fssaiLicense,
       socialLinks: {
+        facebook: formData.socialLinks.facebook || undefined,
+        instagram: formData.socialLinks.instagram || undefined,
+        youtube: formData.socialLinks.youtube || undefined,
+        twitter: formData.socialLinks.twitter || undefined,
+      },
+      social_links: {
         facebook: formData.socialLinks.facebook || undefined,
         instagram: formData.socialLinks.instagram || undefined,
         youtube: formData.socialLinks.youtube || undefined,
@@ -148,7 +159,10 @@ export const SettingsPage: React.FC = () => {
         text: formData.announcement.text || '',
         isActive: formData.announcement.isActive,
       },
-    });
+      announcement_text: formData.announcement.text || '',
+      announcement_active: formData.announcement.isActive,
+    };
+    updateMutation.mutate(payload as any);
   };
 
   return (

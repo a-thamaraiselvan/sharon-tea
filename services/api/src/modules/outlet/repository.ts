@@ -24,51 +24,40 @@ export class OutletRepository {
     return res.rows[0] || null;
   }
 
-  async createOutlet(data: {
-    name: string;
-    address: string;
-    phone?: string | null;
-    operating_hours?: string | null;
-    latitude?: number | null;
-    longitude?: number | null;
-    image_url?: string | null;
-    maps_url?: string | null;
-    is_active?: boolean;
-  }): Promise<OutletRecord> {
+  async createOutlet(data: any): Promise<OutletRecord> {
+    const name = data.name;
+    const address = data.address;
+    const phone = data.phone || null;
+    const operatingHours = data.operating_hours ?? data.operatingHours ?? null;
+    const latitude = data.latitude || null;
+    const longitude = data.longitude || null;
+    const imageUrl = data.image_url ?? data.imageUrl ?? null;
+    const mapsUrl = data.maps_url ?? data.mapsUrl ?? data.googleMapsUrl ?? data.google_maps_url ?? null;
+    const isActive = data.is_active !== undefined ? Boolean(data.is_active) : (data.isActive !== undefined ? Boolean(data.isActive) : true);
+    const sortOrder = Number(data.sort_order ?? data.sortOrder ?? 0);
+
     const sql = `
       INSERT INTO outlets (
-        name, address, phone, operating_hours, latitude, longitude, image_url, maps_url, is_active
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, COALESCE($9, true))
+        name, address, phone, operating_hours, latitude, longitude, image_url, maps_url, is_active, sort_order
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, COALESCE($9, true), COALESCE($10, 0))
       RETURNING *
     `;
     const res = await query<OutletRecord>(sql, [
-      data.name,
-      data.address,
-      data.phone || null,
-      data.operating_hours || null,
-      data.latitude || null,
-      data.longitude || null,
-      data.image_url || null,
-      data.maps_url || null,
-      data.is_active,
+      name,
+      address,
+      phone,
+      operatingHours,
+      latitude,
+      longitude,
+      imageUrl,
+      mapsUrl,
+      isActive,
+      sortOrder,
     ]);
     return res.rows[0];
   }
 
-  async updateOutlet(
-    id: string,
-    data: {
-      name?: string;
-      address?: string;
-      phone?: string | null;
-      operating_hours?: string | null;
-      latitude?: number | null;
-      longitude?: number | null;
-      image_url?: string | null;
-      maps_url?: string | null;
-      is_active?: boolean;
-    }
-  ): Promise<OutletRecord | null> {
+  async updateOutlet(id: string, data: any): Promise<OutletRecord | null> {
     const fields: string[] = [];
     const values: any[] = [];
     let idx = 1;
@@ -85,9 +74,10 @@ export class OutletRepository {
       fields.push(`phone = $${idx++}`);
       values.push(data.phone);
     }
-    if (data.operating_hours !== undefined) {
+    const operatingHours = data.operating_hours !== undefined ? data.operating_hours : data.operatingHours;
+    if (operatingHours !== undefined) {
       fields.push(`operating_hours = $${idx++}`);
-      values.push(data.operating_hours);
+      values.push(operatingHours);
     }
     if (data.latitude !== undefined) {
       fields.push(`latitude = $${idx++}`);
@@ -97,17 +87,25 @@ export class OutletRepository {
       fields.push(`longitude = $${idx++}`);
       values.push(data.longitude);
     }
-    if (data.image_url !== undefined) {
+    const imageUrl = data.image_url !== undefined ? data.image_url : data.imageUrl;
+    if (imageUrl !== undefined) {
       fields.push(`image_url = $${idx++}`);
-      values.push(data.image_url);
+      values.push(imageUrl);
     }
-    if (data.maps_url !== undefined) {
+    const mapsUrl = data.maps_url !== undefined ? data.maps_url : (data.mapsUrl ?? data.googleMapsUrl ?? data.google_maps_url);
+    if (mapsUrl !== undefined) {
       fields.push(`maps_url = $${idx++}`);
-      values.push(data.maps_url);
+      values.push(mapsUrl);
     }
-    if (data.is_active !== undefined) {
+    const isActive = data.is_active !== undefined ? data.is_active : data.isActive;
+    if (isActive !== undefined) {
       fields.push(`is_active = $${idx++}`);
-      values.push(data.is_active);
+      values.push(Boolean(isActive));
+    }
+    const sortOrder = data.sort_order !== undefined ? data.sort_order : data.sortOrder;
+    if (sortOrder !== undefined) {
+      fields.push(`sort_order = $${idx++}`);
+      values.push(Number(sortOrder));
     }
 
     if (fields.length === 0) {

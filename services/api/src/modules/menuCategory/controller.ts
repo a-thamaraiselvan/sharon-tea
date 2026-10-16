@@ -6,21 +6,25 @@ export const formatPublicMenuCategory = (c: any) => ({
   id: c.id,
   name: c.name,
   slug: c.slug,
+  type: c.type || 'menu',
   description: c.description || null,
   image_url: c.image_url || c.imageUrl || null,
   imageUrl: c.image_url || c.imageUrl || null,
-  sort_order: c.sort_order ?? c.sortOrder ?? 0,
-  sortOrder: c.sort_order ?? c.sortOrder ?? 0,
-  display_order: c.sort_order ?? c.sortOrder ?? 0,
-  displayOrder: c.sort_order ?? c.sortOrder ?? 0,
+  sort_order: Number(c.sort_order ?? c.sortOrder ?? 0),
+  sortOrder: Number(c.sort_order ?? c.sortOrder ?? 0),
+  display_order: Number(c.sort_order ?? c.sortOrder ?? 0),
+  displayOrder: Number(c.sort_order ?? c.sortOrder ?? 0),
   is_active: c.is_active ?? c.isActive ?? true,
   isActive: c.is_active ?? c.isActive ?? true,
+  createdAt: c.created_at || c.createdAt,
+  updatedAt: c.updated_at || c.updatedAt,
 });
 
 export class MenuCategoryController {
-  async getPublic(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  async getPublic(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const categories = await menuCategoryService.getPublicCategories();
+      const type = req.query.type as string | undefined;
+      const categories = await menuCategoryService.getPublicCategories(type);
       const sanitized = categories.map(formatPublicMenuCategory);
       successResponse(res, sanitized, 'Categories retrieved');
     } catch (error) {
@@ -28,10 +32,12 @@ export class MenuCategoryController {
     }
   }
 
-  async getAll(_req: Request, res: Response, next: NextFunction): Promise<void> {
+  async getAll(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const categories = await menuCategoryService.getAllCategories();
-      successResponse(res, categories, 'All categories retrieved');
+      const type = req.query.type as string | undefined;
+      const categories = await menuCategoryService.getAllCategories(type);
+      const sanitized = categories.map(formatPublicMenuCategory);
+      successResponse(res, sanitized, 'All categories retrieved');
     } catch (error) {
       next(error);
     }
@@ -40,7 +46,7 @@ export class MenuCategoryController {
   async getById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const category = await menuCategoryService.getCategoryById(req.params.id as string);
-      successResponse(res, category, 'Category details retrieved');
+      successResponse(res, formatPublicMenuCategory(category), 'Category details retrieved');
     } catch (error) {
       next(error);
     }
@@ -48,8 +54,11 @@ export class MenuCategoryController {
 
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const created = await menuCategoryService.createCategory(req.body);
-      successResponse(res, created, 'Category created successfully', 201);
+      const created = await menuCategoryService.createCategory({
+        ...req.body,
+        type: req.body.type || 'menu',
+      });
+      successResponse(res, formatPublicMenuCategory(created), 'Category created successfully', 201);
     } catch (error) {
       next(error);
     }
@@ -58,7 +67,7 @@ export class MenuCategoryController {
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const updated = await menuCategoryService.updateCategory(req.params.id as string, req.body);
-      successResponse(res, updated, 'Category updated successfully');
+      successResponse(res, formatPublicMenuCategory(updated), 'Category updated successfully');
     } catch (error) {
       next(error);
     }

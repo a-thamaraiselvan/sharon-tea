@@ -7,8 +7,13 @@ import {
 
 export const businessSettingsService = {
   async get(): Promise<BusinessSettings> {
-    const response = await apiClient.get<ApiResponse<BusinessSettings>>('/BusinessSetting/GetBusinessSettings');
-    return response.data.data;
+    try {
+      const response = await apiClient.get<ApiResponse<BusinessSettings>>('/BusinessSetting/GetBusinessSettings');
+      return response.data.data;
+    } catch {
+      const pub = await apiClient.get<ApiResponse<BusinessSettings>>('/BusinessSetting/GetPublicBusinessSettings');
+      return pub.data.data;
+    }
   },
 
   async update(data: UpdateBusinessSettingsInput): Promise<BusinessSettings> {

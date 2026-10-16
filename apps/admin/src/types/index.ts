@@ -47,18 +47,24 @@ export interface MenuCategory {
   id: string;
   name: string;
   slug: string;
+  type?: 'menu' | 'product';
   description?: string | null;
   imageUrl?: string | null;
+  image_url?: string | null;
   sortOrder: number;
+  sort_order?: number;
   isActive: boolean;
+  is_active?: boolean;
   itemCount?: number;
-  createdAt: string;
-  updatedAt: string;
+  item_count?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface CreateMenuCategoryInput {
   name: string;
   slug?: string;
+  type?: 'menu' | 'product';
   description?: string;
   imageUrl?: string;
   sortOrder: number;
@@ -71,18 +77,27 @@ export type UpdateMenuCategoryInput = Partial<CreateMenuCategoryInput>;
 export interface MenuItem {
   id: string;
   categoryId: string;
+  category_id?: string;
   categoryName?: string;
+  category_name?: string;
   name: string;
   slug: string;
   shortDescription?: string | null;
+  short_description?: string | null;
   description?: string | null;
   price: number;
   imageUrl?: string | null;
+  image_url?: string | null;
   isAvailable: boolean;
+  is_available?: boolean;
   isVegetarian?: boolean;
+  is_vegetarian?: boolean;
+  isBestseller?: boolean;
+  is_bestseller?: boolean;
   sortOrder: number;
-  createdAt: string;
-  updatedAt: string;
+  sort_order?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface CreateMenuItemInput {
@@ -106,26 +121,37 @@ export interface Product {
   name: string;
   slug: string;
   category?: string | null;
+  categoryId?: string | null;
+  category_id?: string | null;
+  categoryName?: string | null;
   badge?: string | null;
   shortDescription?: string | null;
+  short_description?: string | null;
   description?: string | null;
   price: number;
   originalPrice?: number | null;
+  original_price?: number | null;
   packSize: string;
+  pack_size?: string;
   ingredients?: string | null;
   preparationInstructions?: string | null;
+  preparation_instructions?: string | null;
   imageUrl?: string | null;
+  image_url?: string | null;
   images?: string[];
   isAvailable: boolean;
+  is_available?: boolean;
   sortOrder: number;
-  createdAt: string;
-  updatedAt: string;
+  sort_order?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface CreateProductInput {
   name: string;
   slug?: string;
   category?: string;
+  categoryId?: string | null;
   badge?: string;
   shortDescription?: string;
   description?: string;
@@ -197,12 +223,17 @@ export interface Outlet {
   address: string;
   phone: string;
   operatingHours: string;
+  operating_hours?: string;
   latitude?: number | null;
   longitude?: number | null;
   googleMapsUrl?: string | null;
+  maps_url?: string | null;
   imageUrl?: string | null;
+  image_url?: string | null;
   isActive: boolean;
+  is_active?: boolean;
   sortOrder: number;
+  sort_order?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -237,8 +268,12 @@ export interface GalleryItem {
   caption: string;
   category: GalleryCategory;
   imageUrl: string;
+  image_url?: string;
   thumbnailUrl?: string;
   sortOrder: number;
+  sort_order?: number;
+  isActive?: boolean;
+  is_active?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -259,10 +294,15 @@ export interface HeroSlide {
   title: string;
   subtitle?: string | null;
   imageUrl: string;
+  image_url?: string;
   ctaText?: string | null;
+  cta_text?: string | null;
   ctaLink?: string | null;
+  cta_link?: string | null;
   sortOrder: number;
+  sort_order?: number;
   isActive: boolean;
+  is_active?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -348,3 +388,35 @@ export interface DashboardStats {
   newFranchiseEnquiries: number;
   newContactEnquiries: number;
 }
+
+// Delivery Partners Master
+export interface DeliveryPartner {
+  id: string;
+  name: string;
+  slug: string;
+  logoUrl?: string | null;
+  logo_url?: string | null;
+  partnerUrl?: string | null;
+  partner_url?: string | null;
+  badgeText?: string | null;
+  badge_text?: string | null;
+  description?: string | null;
+  isActive: boolean;
+  sortOrder: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface CreateDeliveryPartnerInput {
+  name: string;
+  slug?: string;
+  logoUrl?: string | null;
+  partnerUrl?: string | null;
+  badgeText?: string | null;
+  description?: string | null;
+  sortOrder?: number;
+  isActive?: boolean;
+}
+
+export type UpdateDeliveryPartnerInput = Partial<CreateDeliveryPartnerInput>;
+

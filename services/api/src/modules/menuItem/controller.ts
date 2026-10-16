@@ -12,20 +12,22 @@ export const formatPublicMenuItem = (m: any) => ({
   category_slug: m.category_slug || m.categorySlug || undefined,
   name: m.name,
   slug: m.slug,
-  description: m.short_description || m.description || null,
-  short_description: m.short_description || m.description || null,
-  shortDescription: m.short_description || m.description || null,
-  price: typeof m.price === 'string' ? parseFloat(m.price) : m.price,
+  description: m.short_description || m.shortDescription || m.description || null,
+  short_description: m.short_description || m.shortDescription || m.description || null,
+  shortDescription: m.short_description || m.shortDescription || m.description || null,
+  price: typeof m.price === 'string' ? parseFloat(m.price) : Number(m.price) || 0,
   imageUrl: m.image_url || m.imageUrl || null,
   image_url: m.image_url || m.imageUrl || null,
   isAvailable: m.is_available ?? m.isAvailable ?? true,
   is_available: m.is_available ?? m.isAvailable ?? true,
-  isVegetarian: true,
-  is_vegetarian: true,
-  isBestseller: m.sort_order === 1 || Boolean(m.is_bestseller),
-  is_bestseller: m.sort_order === 1 || Boolean(m.is_bestseller),
-  sortOrder: m.sort_order ?? m.sortOrder ?? 0,
-  sort_order: m.sort_order ?? m.sortOrder ?? 0,
+  isVegetarian: m.is_vegetarian !== false && m.isVegetarian !== false,
+  is_vegetarian: m.is_vegetarian !== false && m.isVegetarian !== false,
+  isBestseller: m.sort_order === 1 || Boolean(m.is_bestseller || m.isBestseller),
+  is_bestseller: m.sort_order === 1 || Boolean(m.is_bestseller || m.isBestseller),
+  sortOrder: Number(m.sort_order ?? m.sortOrder ?? 0),
+  sort_order: Number(m.sort_order ?? m.sortOrder ?? 0),
+  createdAt: m.created_at || m.createdAt,
+  updatedAt: m.updated_at || m.updatedAt,
 });
 
 export class MenuItemController {
@@ -52,7 +54,8 @@ export class MenuItemController {
         limit: limit ? parseInt(limit as string, 10) : 50,
       });
 
-      paginatedResponse(res, result.items, result.total, result.page, result.limit);
+      const sanitized = result.items.map(formatPublicMenuItem);
+      paginatedResponse(res, sanitized, result.total, result.page, result.limit);
     } catch (error) {
       next(error);
     }
@@ -61,7 +64,7 @@ export class MenuItemController {
   async getById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const item = await menuItemService.getItemById(req.params.id as string);
-      successResponse(res, item, 'Menu item retrieved');
+      successResponse(res, formatPublicMenuItem(item), 'Menu item retrieved');
     } catch (error) {
       next(error);
     }
@@ -70,7 +73,7 @@ export class MenuItemController {
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const item = await menuItemService.createItem(req.body);
-      successResponse(res, item, 'Menu item created successfully', 201);
+      successResponse(res, formatPublicMenuItem(item), 'Menu item created successfully', 201);
     } catch (error) {
       next(error);
     }
@@ -79,7 +82,7 @@ export class MenuItemController {
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const item = await menuItemService.updateItem(req.params.id as string, req.body);
-      successResponse(res, item, 'Menu item updated successfully');
+      successResponse(res, formatPublicMenuItem(item), 'Menu item updated successfully');
     } catch (error) {
       next(error);
     }
@@ -90,7 +93,7 @@ export class MenuItemController {
       const isAvailable =
         req.body.isAvailable !== undefined ? Boolean(req.body.isAvailable) : undefined;
       const item = await menuItemService.toggleAvailability(req.params.id as string, isAvailable);
-      successResponse(res, item, 'Item availability updated');
+      successResponse(res, formatPublicMenuItem(item), 'Item availability updated');
     } catch (error) {
       next(error);
     }

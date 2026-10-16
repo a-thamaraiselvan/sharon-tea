@@ -190,3 +190,17 @@ export interface PaginatedResult<T> {
   limit: number;
   totalPages: number;
 }
+
+export interface DeliveryPartnerRecord {
+  id: string;
+  name: string;
+  slug: string;
+  logo_url: string | null;
+  partner_url: string | null;
+  badge_text: string | null;
+  description: string | null;
+  is_active: boolean;
+  sort_order: number;
+  created_at: Date;
+  updated_at: Date;
+}

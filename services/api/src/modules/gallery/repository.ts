@@ -40,42 +40,37 @@ export class GalleryRepository {
     return res.rows[0] || null;
   }
 
-  async createImage(data: {
-    image_url: string;
-    caption?: string | null;
-    category?: string | null;
-    sort_order?: number;
-  }): Promise<GalleryImageRecord> {
+  async createImage(data: any): Promise<GalleryImageRecord> {
+    const imageUrl = data.image_url ?? data.imageUrl;
+    const caption = data.caption ?? null;
+    const category = data.category ?? null;
+    const sortOrder = Number(data.sort_order ?? data.sortOrder ?? 0);
+    const isActive = data.is_active !== undefined ? Boolean(data.is_active) : (data.isActive !== undefined ? Boolean(data.isActive) : true);
+
     const sql = `
-      INSERT INTO gallery_images (image_url, caption, category, sort_order)
-      VALUES ($1, $2, $3, COALESCE($4, 0))
+      INSERT INTO gallery_images (image_url, caption, category, sort_order, is_active)
+      VALUES ($1, $2, $3, COALESCE($4, 0), COALESCE($5, true))
       RETURNING *
     `;
     const res = await query<GalleryImageRecord>(sql, [
-      data.image_url,
-      data.caption || null,
-      data.category || null,
-      data.sort_order,
+      imageUrl,
+      caption,
+      category,
+      sortOrder,
+      isActive,
     ]);
     return res.rows[0];
   }
 
-  async updateImage(
-    id: string,
-    data: {
-      image_url?: string;
-      caption?: string | null;
-      category?: string | null;
-      sort_order?: number;
-    }
-  ): Promise<GalleryImageRecord | null> {
+  async updateImage(id: string, data: any): Promise<GalleryImageRecord | null> {
     const fields: string[] = [];
     const values: any[] = [];
     let idx = 1;
 
-    if (data.image_url !== undefined) {
+    const imageUrl = data.image_url !== undefined ? data.image_url : data.imageUrl;
+    if (imageUrl !== undefined) {
       fields.push(`image_url = $${idx++}`);
-      values.push(data.image_url);
+      values.push(imageUrl);
     }
     if (data.caption !== undefined) {
       fields.push(`caption = $${idx++}`);
@@ -85,9 +80,15 @@ export class GalleryRepository {
       fields.push(`category = $${idx++}`);
       values.push(data.category);
     }
-    if (data.sort_order !== undefined) {
+    const sortOrder = data.sort_order !== undefined ? data.sort_order : data.sortOrder;
+    if (sortOrder !== undefined) {
       fields.push(`sort_order = $${idx++}`);
-      values.push(data.sort_order);
+      values.push(Number(sortOrder));
+    }
+    const isActive = data.is_active !== undefined ? data.is_active : data.isActive;
+    if (isActive !== undefined) {
+      fields.push(`is_active = $${idx++}`);
+      values.push(Boolean(isActive));
     }
 
     if (fields.length === 0) {

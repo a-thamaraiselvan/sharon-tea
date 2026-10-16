@@ -116,36 +116,11 @@
   }
 }
 
-/* Edit Drawer Enter */
-.drawer-enter {
-  animation: adminDrawerEnter var(--admin-duration-fast) var(--admin-ease-snappy) forwards;
-}
-
-@keyframes adminDrawerEnter {
-  from {
-    opacity: 0;
-    transform: translateX(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Modal Enter */
+/* Edit Drawer & Modal transitions (Handled safely without breaking Ant Design fixed viewport positioning) */
+.drawer-enter,
 .modal-enter {
-  animation: adminModalEnter var(--admin-duration-fast) var(--admin-ease-snappy) forwards;
-}
-
-@keyframes adminModalEnter {
-  from {
-    opacity: 0;
-    transform: scale(0.97) translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
+  /* Let Ant Design v5 handle root portal positioning and internal zoom/slide transitions cleanly */
+  opacity: 1;
 }
 
 /* Sidebar transition */

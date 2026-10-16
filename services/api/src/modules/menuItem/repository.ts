@@ -7,11 +7,10 @@ export class MenuItemRepository {
     let sql = `
       SELECT m.*, c.name as category_name, c.slug as category_slug
       FROM menu_items m
-      JOIN menu_categories c ON m.category_id = c.id
+      LEFT JOIN menu_categories c ON m.category_id = c.id
       WHERE m.is_deleted = false
         AND m.is_available = true
-        AND c.is_active = true
-        AND c.is_deleted = false
+        AND (c.id IS NULL OR (c.is_active = true AND c.is_deleted = false))
     `;
 
     if (categoryId) {
@@ -99,30 +98,45 @@ export class MenuItemRepository {
   }
 
   async createItem(data: {
-    category_id: string;
+    category_id?: string;
+    categoryId?: string;
     name: string;
     slug: string;
     short_description?: string | null;
-    price: number;
+    shortDescription?: string | null;
+    price: number | string;
     image_url?: string | null;
+    imageUrl?: string | null;
     is_available?: boolean;
+    isAvailable?: boolean;
+    is_vegetarian?: boolean;
+    isVegetarian?: boolean;
     sort_order?: number;
+    sortOrder?: number;
   }): Promise<MenuItemRecord> {
+    const categoryId = data.category_id || data.categoryId;
+    const shortDesc = data.short_description !== undefined ? data.short_description : data.shortDescription;
+    const imgUrl = data.image_url !== undefined ? data.image_url : data.imageUrl;
+    const isAvail = data.is_available !== undefined ? data.is_available : data.isAvailable;
+    const isVeg = data.is_vegetarian !== undefined ? data.is_vegetarian : data.isVegetarian;
+    const sortOrd = data.sort_order !== undefined ? data.sort_order : data.sortOrder;
+
     const sql = `
       INSERT INTO menu_items (
-        category_id, name, slug, short_description, price, image_url, is_available, sort_order
-      ) VALUES ($1, $2, $3, $4, $5, $6, COALESCE($7, true), COALESCE($8, 0))
+        category_id, name, slug, short_description, price, image_url, is_available, sort_order, is_vegetarian
+      ) VALUES ($1, $2, $3, $4, $5, $6, COALESCE($7, true), COALESCE($8, 0), COALESCE($9, true))
       RETURNING *
     `;
     const res = await query<MenuItemRecord>(sql, [
-      data.category_id,
+      categoryId,
       data.name,
       data.slug,
-      data.short_description || null,
-      data.price,
-      data.image_url || null,
-      data.is_available,
-      data.sort_order,
+      shortDesc || null,
+      Number(data.price) || 0,
+      imgUrl || null,
+      isAvail,
+      Number(sortOrd) || 0,
+      isVeg !== undefined ? isVeg : true,
     ]);
     return res.rows[0];
   }
@@ -131,22 +145,30 @@ export class MenuItemRepository {
     id: string,
     data: {
       category_id?: string;
+      categoryId?: string;
       name?: string;
       slug?: string;
       short_description?: string | null;
-      price?: number;
+      shortDescription?: string | null;
+      price?: number | string;
       image_url?: string | null;
+      imageUrl?: string | null;
       is_available?: boolean;
+      isAvailable?: boolean;
+      is_vegetarian?: boolean;
+      isVegetarian?: boolean;
       sort_order?: number;
+      sortOrder?: number;
     }
   ): Promise<MenuItemRecord | null> {
     const fields: string[] = [];
     const values: any[] = [];
     let idx = 1;
 
-    if (data.category_id !== undefined) {
+    const categoryId = data.category_id !== undefined ? data.category_id : data.categoryId;
+    if (categoryId !== undefined) {
       fields.push(`category_id = $${idx++}`);
-      values.push(data.category_id);
+      values.push(categoryId);
     }
     if (data.name !== undefined) {
       fields.push(`name = $${idx++}`);
@@ -156,25 +178,34 @@ export class MenuItemRepository {
       fields.push(`slug = $${idx++}`);
       values.push(data.slug);
     }
-    if (data.short_description !== undefined) {
+    const shortDesc = data.short_description !== undefined ? data.short_description : data.shortDescription;
+    if (shortDesc !== undefined) {
       fields.push(`short_description = $${idx++}`);
-      values.push(data.short_description);
+      values.push(shortDesc);
     }
     if (data.price !== undefined) {
       fields.push(`price = $${idx++}`);
-      values.push(data.price);
+      values.push(Number(data.price) || 0);
     }
-    if (data.image_url !== undefined) {
+    const imgUrl = data.image_url !== undefined ? data.image_url : data.imageUrl;
+    if (imgUrl !== undefined) {
       fields.push(`image_url = $${idx++}`);
-      values.push(data.image_url);
+      values.push(imgUrl);
     }
-    if (data.is_available !== undefined) {
+    const isAvail = data.is_available !== undefined ? data.is_available : data.isAvailable;
+    if (isAvail !== undefined) {
       fields.push(`is_available = $${idx++}`);
-      values.push(data.is_available);
+      values.push(isAvail);
     }
-    if (data.sort_order !== undefined) {
+    const isVeg = data.is_vegetarian !== undefined ? data.is_vegetarian : data.isVegetarian;
+    if (isVeg !== undefined) {
+      fields.push(`is_vegetarian = $${idx++}`);
+      values.push(isVeg);
+    }
+    const sortOrd = data.sort_order !== undefined ? data.sort_order : data.sortOrder;
+    if (sortOrd !== undefined) {
       fields.push(`sort_order = $${idx++}`);
-      values.push(data.sort_order);
+      values.push(Number(sortOrd) || 0);
     }
 
     if (fields.length === 0) {

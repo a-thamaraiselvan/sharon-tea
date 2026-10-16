@@ -105,6 +105,7 @@ export class ProductRepository {
     name: string;
     slug: string;
     category?: string | null;
+    category_id?: string | null;
     badge?: string | null;
     is_featured?: boolean;
     short_description?: string | null;
@@ -116,18 +117,20 @@ export class ProductRepository {
     preparation_instructions?: string | null;
     image_url?: string | null;
     is_available?: boolean;
+    sort_order?: number;
   }): Promise<ProductRecord> {
     const sql = `
       INSERT INTO products (
-        name, slug, category, badge, is_featured, short_description, description, price, original_price,
-        pack_size, ingredients, preparation_instructions, image_url, is_available
-      ) VALUES ($1, $2, $3, $4, COALESCE($5, false), $6, $7, $8, $9, $10, $11, $12, $13, COALESCE($14, true))
+        name, slug, category, category_id, badge, is_featured, short_description, description, price, original_price,
+        pack_size, ingredients, preparation_instructions, image_url, is_available, sort_order
+      ) VALUES ($1, $2, $3, $4, $5, COALESCE($6, false), $7, $8, $9, $10, $11, $12, $13, $14, COALESCE($15, true), COALESCE($16, 0))
       RETURNING *
     `;
     const res = await query<ProductRecord>(sql, [
       data.name,
       data.slug,
       data.category || null,
+      data.category_id || null,
       data.badge || null,
       data.is_featured,
       data.short_description || null,
@@ -139,6 +142,7 @@ export class ProductRepository {
       data.preparation_instructions || null,
       data.image_url || null,
       data.is_available,
+      data.sort_order ?? 0,
     ]);
     return res.rows[0];
   }
@@ -149,6 +153,7 @@ export class ProductRepository {
       name?: string;
       slug?: string;
       category?: string | null;
+      category_id?: string | null;
       badge?: string | null;
       is_featured?: boolean;
       short_description?: string | null;
@@ -160,6 +165,7 @@ export class ProductRepository {
       preparation_instructions?: string | null;
       image_url?: string | null;
       is_available?: boolean;
+      sort_order?: number;
     }
   ): Promise<ProductRecord | null> {
     const fields: string[] = [];
@@ -177,6 +183,10 @@ export class ProductRepository {
     if (data.category !== undefined) {
       fields.push(`category = $${idx++}`);
       values.push(data.category);
+    }
+    if (data.category_id !== undefined) {
+      fields.push(`category_id = $${idx++}`);
+      values.push(data.category_id);
     }
     if (data.badge !== undefined) {
       fields.push(`badge = $${idx++}`);
@@ -221,6 +231,10 @@ export class ProductRepository {
     if (data.is_available !== undefined) {
       fields.push(`is_available = $${idx++}`);
       values.push(data.is_available);
+    }
+    if (data.sort_order !== undefined) {
+      fields.push(`sort_order = $${idx++}`);
+      values.push(data.sort_order);
     }
 
     if (fields.length === 0) {

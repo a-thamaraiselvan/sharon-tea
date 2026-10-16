@@ -12,10 +12,17 @@ import {
   Twitter,
   Clock,
   Heart,
+  ExternalLink,
+  Bike,
 } from 'lucide-react';
+import { useDeliveryPartners } from '@/hooks/useDeliveryPartners';
+import { FALLBACK_DELIVERY_PARTNERS } from '@/services/deliveryPartnerService';
+import { resolveImageUrl } from '@/utils/imageUrl';
 
 export const Footer: React.FC = () => {
   const whatsappNumber = getWhatsAppNumber();
+  const { data: partnersData } = useDeliveryPartners();
+  const partners = partnersData && partnersData.length > 0 ? partnersData : FALLBACK_DELIVERY_PARTNERS;
 
   return (
     <footer className="bg-brand-black text-white border-t border-brand-grey/20">
@@ -159,6 +166,71 @@ export const Footer: React.FC = () => {
                   contact@sharonteastall.com
                 </a>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Delivery Partners Strip */}
+        <div className="mt-12 pt-8 border-t border-white/10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 text-brand-amber font-semibold text-xs tracking-wider uppercase mb-1.5">
+                <Bike className="w-4 h-4 text-brand-leaf-green" />
+                <span>Online Delivery Partners</span>
+              </div>
+              <h4 className="font-display text-lg sm:text-xl font-bold text-white">
+                Order Sharon Online to Your Doorstep
+              </h4>
+              <p className="text-xs text-white/70 mt-1 max-w-md">
+                Craving our freshly brewed cutting chai or filter coffee? Order directly from our verified delivery partners.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {partners.map((partner) => {
+                const logo = partner.logoUrl || partner.logo_url;
+                const link = partner.partnerUrl || partner.partner_url || 'https://www.swiggy.com';
+                const badge = partner.badgeText || partner.badge_text;
+                return (
+                  <a
+                    key={partner.id}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-3.5 bg-white/10 hover:bg-white/20 border border-white/15 hover:border-brand-amber/50 rounded-2xl px-5 py-3 transition-all duration-300 hover:scale-105 shadow-sm"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-white p-1.5 flex items-center justify-center shrink-0 shadow-xs border border-white/10 overflow-hidden">
+                      {logo ? (
+                        <img
+                          src={resolveImageUrl(logo)}
+                          alt={partner.name}
+                          className="w-full h-full object-contain"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <span className="font-bold text-neutral-900 text-xs">{partner.name.slice(0, 2)}</span>
+                      )}
+                    </div>
+                    <div className="text-left">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-sm font-bold text-white group-hover:text-brand-amber transition-colors">
+                          {partner.name}
+                        </span>
+                        <ExternalLink className="w-3.5 h-3.5 text-white/50 group-hover:text-brand-amber transition-opacity" />
+                      </div>
+                      {badge ? (
+                        <span className="text-[11px] text-brand-leaf-green font-medium block">
+                          {badge}
+                        </span>
+                      ) : (
+                        <span className="text-[11px] text-white/60 font-medium block">
+                          Order Online
+                        </span>
+                      )}
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>

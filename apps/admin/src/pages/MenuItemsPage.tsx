@@ -30,6 +30,7 @@ import { showDeleteConfirm } from '../components/shared/ConfirmDialog';
 import { menuItemService } from '../services/menuItemService';
 import { menuCategoryService } from '../services/menuCategoryService';
 import { MenuItem, CreateMenuItemInput } from '../types';
+import { resolveImageUrl } from '../utils/imageUrl';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -55,11 +56,12 @@ export const MenuItemsPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   // Queries
   const { data: categories = [], isLoading: categoriesLoading } = useQuery({
-    queryKey: ['menuCategories'],
-    queryFn: () => menuCategoryService.getAll(),
+    queryKey: ['menuCategories', 'menu'],
+    queryFn: () => menuCategoryService.getAll({ type: 'menu' }),
   });
 
   const { data: menuItems = [], isLoading: itemsLoading } = useQuery({
@@ -141,6 +143,29 @@ export const MenuItemsPage: React.FC = () => {
     },
   });
 
+  const bulkDeleteMutation = useMutation({
+    mutationFn: (ids: string[]) => menuItemService.bulkDelete(ids),
+    onSuccess: () => {
+      message.success(`Successfully deleted ${selectedRowKeys.length} menu items`);
+      setSelectedRowKeys([]);
+      queryClient.invalidateQueries({ queryKey: ['menuItems'] });
+    },
+    onError: (err: unknown) => {
+      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      message.error(msg || 'Failed to bulk delete menu items');
+    },
+  });
+
+  const handleBulkDelete = () => {
+    showDeleteConfirm({
+      title: `Delete ${selectedRowKeys.length} selected menu items?`,
+      content: 'Are you sure you want to permanently delete all selected menu items?',
+      onConfirm: async () => {
+        await bulkDeleteMutation.mutateAsync(selectedRowKeys as string[]);
+      },
+    });
+  };
+
   const handleOpenCreate = () => {
     setEditingItem(null);
     reset({
@@ -160,17 +185,21 @@ export const MenuItemsPage: React.FC = () => {
 
   const handleOpenEdit = (item: MenuItem) => {
     setEditingItem(item);
+    const vegValue = item.isVegetarian !== false && (item as any).is_vegetarian !== false;
+    const sortVal = Number(item.sortOrder ?? (item as any).sort_order ?? 0);
+    const priceVal = Number(item.price) || 0;
+    const catId = item.categoryId || (item as any).category_id || '';
     reset({
       name: item.name,
       slug: item.slug,
-      categoryId: item.categoryId,
-      price: item.price,
-      shortDescription: item.shortDescription || '',
+      categoryId: catId,
+      price: priceVal,
+      shortDescription: item.shortDescription || (item as any).short_description || '',
       description: item.description || '',
-      imageUrl: item.imageUrl || null,
-      isAvailable: item.isAvailable,
-      isVegetarian: item.isVegetarian !== undefined ? item.isVegetarian : true,
-      sortOrder: item.sortOrder,
+      imageUrl: item.imageUrl || (item as any).image_url || null,
+      isAvailable: item.isAvailable !== false && (item as any).is_available !== false,
+      isVegetarian: vegValue,
+      sortOrder: sortVal,
     });
     setIsModalOpen(true);
   };
@@ -228,47 +257,55 @@ export const MenuItemsPage: React.FC = () => {
       dataIndex: 'imageUrl',
       key: 'imageUrl',
       width: 70,
-      render: (url: string | null) => (
-        <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
-          {url ? (
-            <Image src={url} alt="Item" width={48} height={48} className="object-cover" />
-          ) : (
-            <CoffeeOutlined className="text-gray-400 text-lg" />
-          )}
-        </div>
-      ),
+      render: (url: string | null, record: MenuItem) => {
+        const imageSrc = url || (record as any).image_url;
+        return (
+          <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
+            {imageSrc ? (
+              <Image src={resolveImageUrl(imageSrc)} alt="Item" width={48} height={48} className="object-cover" />
+            ) : (
+              <CoffeeOutlined className="text-gray-400 text-lg" />
+            )}
+          </div>
+        );
+      },
     },
     {
       title: 'Name & Info',
       dataIndex: 'name',
       key: 'name',
-      render: (name: string, record: MenuItem) => (
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-sharon-primary">{name}</span>
-            {record.isVegetarian ? (
-              <span className="w-3.5 h-3.5 border border-green-600 rounded flex items-center justify-center" title="Pure Veg">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-600"></span>
-              </span>
-            ) : (
-              <span className="w-3.5 h-3.5 border border-red-600 rounded flex items-center justify-center" title="Non-Veg">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>
-              </span>
+      render: (name: string, record: MenuItem) => {
+        const isVeg = record.isVegetarian !== false && (record as any).is_vegetarian !== false;
+        const shortDesc = record.shortDescription || (record as any).short_description;
+        return (
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-sharon-primary">{name}</span>
+              {isVeg ? (
+                <span className="w-3.5 h-3.5 border border-green-600 rounded flex items-center justify-center" title="Pure Veg">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-600"></span>
+                </span>
+              ) : (
+                <span className="w-3.5 h-3.5 border border-red-600 rounded flex items-center justify-center" title="Non-Veg">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>
+                </span>
+              )}
+            </div>
+            {shortDesc && (
+              <div className="text-xs text-gray-500 line-clamp-1">{shortDesc}</div>
             )}
           </div>
-          {record.shortDescription && (
-            <div className="text-xs text-gray-500 line-clamp-1">{record.shortDescription}</div>
-          )}
-        </div>
-      ),
+        );
+      },
     },
     {
       title: 'Category',
       dataIndex: 'categoryId',
       key: 'categoryId',
       render: (catId: string, record: MenuItem) => {
-        const cat = categories.find((c) => c.id === catId);
-        return <Tag color="blue">{cat?.name || record.categoryName || 'General'}</Tag>;
+        const effectiveCatId = catId || (record as any).category_id;
+        const cat = categories.find((c) => c.id === effectiveCatId);
+        return <Tag color="blue">{cat?.name || record.categoryName || (record as any).category_name || 'General'}</Tag>;
       },
     },
     {
@@ -277,9 +314,9 @@ export const MenuItemsPage: React.FC = () => {
       key: 'price',
       width: 110,
       render: (price: number) => (
-        <span className="font-semibold text-sharon-rust">₹{Number(price).toFixed(2)}</span>
+        <span className="font-semibold text-sharon-rust">₹{Number(price || 0).toFixed(2)}</span>
       ),
-      sorter: (a: MenuItem, b: MenuItem) => a.price - b.price,
+      sorter: (a: MenuItem, b: MenuItem) => Number(a.price || 0) - Number(b.price || 0),
     },
     {
       title: 'Available',
@@ -303,7 +340,14 @@ export const MenuItemsPage: React.FC = () => {
       dataIndex: 'sortOrder',
       key: 'sortOrder',
       width: 80,
-      sorter: (a: MenuItem, b: MenuItem) => a.sortOrder - b.sortOrder,
+      render: (_: unknown, record: MenuItem) => (
+        <Tag color="blue">{Number(record.sortOrder ?? (record as any).sort_order ?? 0)}</Tag>
+      ),
+      sorter: (a: MenuItem, b: MenuItem) => {
+        const orderA = Number(a.sortOrder ?? (a as any).sort_order ?? 0);
+        const orderB = Number(b.sortOrder ?? (b as any).sort_order ?? 0);
+        return orderA - orderB;
+      },
     },
     {
       title: 'Actions',
@@ -378,6 +422,27 @@ export const MenuItemsPage: React.FC = () => {
         </div>
       </div>
 
+      {/* Bulk action toolbar */}
+      {selectedRowKeys.length > 0 && (
+        <div className="mb-4 p-3 bg-emerald-50 border border-emerald-200 rounded-lg flex items-center justify-between">
+          <span className="text-sm font-semibold text-emerald-900">
+            {selectedRowKeys.length} {selectedRowKeys.length === 1 ? 'item' : 'items'} selected
+          </span>
+          <Space>
+            <Button
+              danger
+              type="primary"
+              icon={<DeleteOutlined />}
+              loading={bulkDeleteMutation.isPending}
+              onClick={handleBulkDelete}
+            >
+              Delete Selected ({selectedRowKeys.length})
+            </Button>
+            <Button onClick={() => setSelectedRowKeys([])}>Cancel</Button>
+          </Space>
+        </div>
+      )}
+
       <div className="reveal-up is-visible delay-100">
         <Table
           dataSource={filteredItems}
@@ -385,6 +450,10 @@ export const MenuItemsPage: React.FC = () => {
           rowKey="id"
           loading={itemsLoading}
           pagination={{ pageSize: 10 }}
+          rowSelection={{
+            selectedRowKeys,
+            onChange: setSelectedRowKeys,
+          }}
           className="bg-white rounded-xl shadow-sm border border-neutral-200/80 overflow-hidden"
         />
       </div>
@@ -398,7 +467,6 @@ export const MenuItemsPage: React.FC = () => {
         destroyOnClose
         centered
         width={620}
-        rootClassName="modal-enter"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -31,7 +31,8 @@ export class GalleryController {
     try {
       const category = req.query.category as string | undefined;
       const images = await galleryService.getAllImages(category);
-      successResponse(res, images, 'All gallery images retrieved');
+      const sanitized = images.map(formatPublicGalleryImage);
+      successResponse(res, sanitized, 'All gallery images retrieved');
     } catch (error) {
       next(error);
     }
@@ -40,7 +41,7 @@ export class GalleryController {
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const image = await galleryService.createImage(req.body);
-      successResponse(res, image, 'Gallery image added successfully', 201);
+      successResponse(res, formatPublicGalleryImage(image), 'Gallery image added successfully', 201);
     } catch (error) {
       next(error);
     }
@@ -49,7 +50,7 @@ export class GalleryController {
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const image = await galleryService.updateImage(req.params.id as string, req.body);
-      successResponse(res, image, 'Gallery image updated successfully');
+      successResponse(res, formatPublicGalleryImage(image), 'Gallery image updated successfully');
     } catch (error) {
       next(error);
     }

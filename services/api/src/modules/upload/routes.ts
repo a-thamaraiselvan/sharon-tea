@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { uploadController } from './controller.js';
-import { authenticate } from '../../middleware/authenticate.js';
+import { authenticate, optionalAuthenticate } from '../../middleware/authenticate.js';
 import { authorize } from '../../middleware/authorize.js';
 import { uploadLimiter } from '../../middleware/rateLimiter.js';
 import { env } from '../../config/env.js';
@@ -38,33 +38,29 @@ const upload = multer({
   },
 });
 
+// Middleware for authentication: optional in local dev for seamless testing, strict in production
+const uploadAuth = (req: any, res: any, next: any) => {
+  if (env.NODE_ENV === 'development') {
+    return optionalAuthenticate(req, res, next);
+  }
+  return authenticate(req, res, () => {
+    authorize('ADMIN', 'STAFF')(req, res, next);
+  });
+};
+
+const uploadHandler = [
+  uploadLimiter,
+  uploadAuth,
+  upload.any(),
+  (req: any, res: any, next: any) => uploadController.uploadImage(req, res, next),
+];
+
 // Grandma's Ladle PascalCase endpoints
-router.post(
-  '/Image',
-  uploadLimiter,
-  authenticate,
-  authorize('ADMIN', 'STAFF'),
-  upload.single('image'),
-  (req, res, next) => uploadController.uploadImage(req, res, next)
-);
+router.post('/Image', ...uploadHandler);
+router.post('/UploadImage', ...uploadHandler);
 
-router.post(
-  '/UploadImage',
-  uploadLimiter,
-  authenticate,
-  authorize('ADMIN', 'STAFF'),
-  upload.single('image'),
-  (req, res, next) => uploadController.uploadImage(req, res, next)
-);
-
-// Fallbacks
-router.post(
-  '/image',
-  uploadLimiter,
-  authenticate,
-  authorize('ADMIN', 'STAFF'),
-  upload.single('image'),
-  (req, res, next) => uploadController.uploadImage(req, res, next)
-);
+// RESTful routes
+router.post('/image', ...uploadHandler);
+router.post('/', ...uploadHandler);
 
 export default router;

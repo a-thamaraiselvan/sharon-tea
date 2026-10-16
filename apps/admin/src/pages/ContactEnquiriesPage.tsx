@@ -285,7 +285,6 @@ export const ContactEnquiriesPage: React.FC = () => {
         width={500}
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        rootClassName="drawer-enter"
       >
         {selectedEnquiry && (
           <div className="space-y-6">

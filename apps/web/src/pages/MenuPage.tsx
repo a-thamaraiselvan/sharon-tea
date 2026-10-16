@@ -10,7 +10,10 @@ import { useMenuCategories } from '@/hooks/useMenuCategories';
 import { FALLBACK_MENU_CATEGORIES, FALLBACK_MENU_ITEMS } from '@/services/menuService';
 import { LiveTeaSearch } from '@/components/search/LiveTeaSearch';
 import type { MenuItem } from '@/types';
-import { MapPin } from 'lucide-react';
+import { MapPin, ExternalLink, Bike } from 'lucide-react';
+import { useDeliveryPartners } from '@/hooks/useDeliveryPartners';
+import { FALLBACK_DELIVERY_PARTNERS } from '@/services/deliveryPartnerService';
+import { resolveImageUrl } from '@/utils/imageUrl';
 
 const SIGNATURE_TEA_NAMES = [
   'sharon classic',
@@ -84,6 +87,8 @@ export const MenuPage: React.FC = () => {
 
   const { data: categories = FALLBACK_MENU_CATEGORIES } = useMenuCategories();
   const { data: items, isLoading } = useMenuItems();
+  const { data: partnersData } = useDeliveryPartners();
+  const deliveryPartners = partnersData && partnersData.length > 0 ? partnersData : FALLBACK_DELIVERY_PARTNERS;
 
   const menuCategories = useMemo(() => {
     const list = categories && categories.length > 0 ? categories : FALLBACK_MENU_CATEGORIES;
@@ -325,25 +330,55 @@ export const MenuPage: React.FC = () => {
           />
         </div>
 
-        {/* Visit Us Bottom CTA */}
+        {/* Visit Us & Order Online Bottom CTA */}
         <div
           className="mt-16 sm:mt-20 bg-brand-burgundy rounded-3xl p-8 sm:p-12 text-white text-center shadow-warm-lg border border-brand-burgundy/30 reveal-up"
         >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-brand-amber text-xs font-semibold uppercase tracking-wider mb-3">
+            <Bike className="w-3.5 h-3.5 text-brand-leaf-green" />
+            <span>Dine In or Order Online</span>
+          </div>
           <h3 className="font-display text-2xl sm:text-3xl font-bold mb-3">
             Craving a Hot Cutting Chai Right Now?
           </h3>
           <p className="text-brand-cream/80 text-sm sm:text-base max-w-xl mx-auto mb-8 font-normal">
-            Walk into our nearest Sharon Tea and Coffee to experience the bubbling brass samovar and warm smile in person.
+            Walk into our nearest Sharon Tea and Coffee outlet to experience the brass samovar in person, or order piping hot brews to your doorstep through our online delivery partners!
           </p>
-          <BrandButton
-            to="/visit-us"
-            variant="amber"
-            size="lg"
-            icon={<MapPin className="w-4 h-4 text-brand-black" />}
-            className="text-brand-black font-bold"
-          >
-            Find Your Nearest Sharon Stall
-          </BrandButton>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <BrandButton
+              to="/visit-us"
+              variant="amber"
+              size="lg"
+              icon={<MapPin className="w-4 h-4 text-brand-black" />}
+              className="text-brand-black font-bold"
+            >
+              Find Your Nearest Sharon Stall
+            </BrandButton>
+
+            {deliveryPartners.map((partner) => {
+              const logo = partner.logoUrl || partner.logo_url;
+              const link = partner.partnerUrl || partner.partner_url || 'https://www.swiggy.com';
+              return (
+                <a
+                  key={partner.id}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 bg-white text-neutral-900 hover:bg-neutral-100 font-bold text-sm px-5 py-3 rounded-full shadow-md transition-all duration-200 hover:scale-105"
+                >
+                  <div className="w-6 h-6 rounded-md bg-white flex items-center justify-center shrink-0 overflow-hidden">
+                    {logo ? (
+                      <img src={resolveImageUrl(logo)} alt={partner.name} className="w-full h-full object-contain" />
+                    ) : (
+                      <span className="text-xs font-bold">{partner.name.slice(0, 2)}</span>
+                    )}
+                  </div>
+                  <span>Order on {partner.name}</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-neutral-400" />
+                </a>
+              );
+            })}
+          </div>
         </div>
       </SectionContainer>
     </>

@@ -24,15 +24,15 @@ export class HeroSlideRepository {
     return res.rows[0] || null;
   }
 
-  async createSlide(data: {
-    title: string;
-    subtitle?: string | null;
-    image_url: string;
-    cta_text?: string | null;
-    cta_link?: string | null;
-    sort_order?: number;
-    is_active?: boolean;
-  }): Promise<HeroSlideRecord> {
+  async createSlide(data: any): Promise<HeroSlideRecord> {
+    const title = data.title;
+    const subtitle = data.subtitle || null;
+    const imageUrl = data.image_url ?? data.imageUrl;
+    const ctaText = data.cta_text ?? data.ctaText ?? null;
+    const ctaLink = data.cta_link ?? data.ctaLink ?? null;
+    const sortOrder = Number(data.sort_order ?? data.sortOrder ?? 0);
+    const isActive = data.is_active !== undefined ? Boolean(data.is_active) : (data.isActive !== undefined ? Boolean(data.isActive) : true);
+
     const sql = `
       INSERT INTO hero_slides (
         title, subtitle, image_url, cta_text, cta_link, sort_order, is_active
@@ -40,29 +40,18 @@ export class HeroSlideRepository {
       RETURNING *
     `;
     const res = await query<HeroSlideRecord>(sql, [
-      data.title,
-      data.subtitle || null,
-      data.image_url,
-      data.cta_text || null,
-      data.cta_link || null,
-      data.sort_order,
-      data.is_active,
+      title,
+      subtitle,
+      imageUrl,
+      ctaText,
+      ctaLink,
+      sortOrder,
+      isActive,
     ]);
     return res.rows[0];
   }
 
-  async updateSlide(
-    id: string,
-    data: {
-      title?: string;
-      subtitle?: string | null;
-      image_url?: string;
-      cta_text?: string | null;
-      cta_link?: string | null;
-      sort_order?: number;
-      is_active?: boolean;
-    }
-  ): Promise<HeroSlideRecord | null> {
+  async updateSlide(id: string, data: any): Promise<HeroSlideRecord | null> {
     const fields: string[] = [];
     const values: any[] = [];
     let idx = 1;
@@ -75,25 +64,30 @@ export class HeroSlideRepository {
       fields.push(`subtitle = $${idx++}`);
       values.push(data.subtitle);
     }
-    if (data.image_url !== undefined) {
+    const imageUrl = data.image_url !== undefined ? data.image_url : data.imageUrl;
+    if (imageUrl !== undefined) {
       fields.push(`image_url = $${idx++}`);
-      values.push(data.image_url);
+      values.push(imageUrl);
     }
-    if (data.cta_text !== undefined) {
+    const ctaText = data.cta_text !== undefined ? data.cta_text : data.ctaText;
+    if (ctaText !== undefined) {
       fields.push(`cta_text = $${idx++}`);
-      values.push(data.cta_text);
+      values.push(ctaText);
     }
-    if (data.cta_link !== undefined) {
+    const ctaLink = data.cta_link !== undefined ? data.cta_link : data.ctaLink;
+    if (ctaLink !== undefined) {
       fields.push(`cta_link = $${idx++}`);
-      values.push(data.cta_link);
+      values.push(ctaLink);
     }
-    if (data.sort_order !== undefined) {
+    const sortOrder = data.sort_order !== undefined ? data.sort_order : data.sortOrder;
+    if (sortOrder !== undefined) {
       fields.push(`sort_order = $${idx++}`);
-      values.push(data.sort_order);
+      values.push(Number(sortOrder));
     }
-    if (data.is_active !== undefined) {
+    const isActive = data.is_active !== undefined ? data.is_active : data.isActive;
+    if (isActive !== undefined) {
       fields.push(`is_active = $${idx++}`);
-      values.push(data.is_active);
+      values.push(Boolean(isActive));
     }
 
     if (fields.length === 0) {

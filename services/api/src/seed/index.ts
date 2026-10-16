@@ -224,8 +224,8 @@ export const seedDatabase = async (): Promise<void> => {
       );
       if (catCheck.rowCount === 0) {
         const insertRes = await client.query<{ id: string }>(
-          `INSERT INTO menu_categories (name, slug, description, sort_order, is_active)
-           VALUES ($1, $2, $3, $4, true)
+          `INSERT INTO menu_categories (name, slug, description, sort_order, is_active, type)
+           VALUES ($1, $2, $3, $4, true, 'menu')
            RETURNING id`,
           [cat.name, cat.slug, cat.description, cat.sort_order]
         );

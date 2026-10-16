@@ -2,21 +2,29 @@ import { query } from '../../database/connection.js';
 import { MenuCategoryRecord } from '../../types/index.js';
 
 export class MenuCategoryRepository {
-  async findPublicCategories(): Promise<MenuCategoryRecord[]> {
-    const res = await query<MenuCategoryRecord>(
-      `SELECT * FROM menu_categories
-       WHERE is_active = true AND is_deleted = false
-       ORDER BY sort_order ASC, name ASC`
-    );
+  async findPublicCategories(type?: string): Promise<MenuCategoryRecord[]> {
+    let sql = `SELECT * FROM menu_categories
+       WHERE is_active = true AND is_deleted = false`;
+    const params: any[] = [];
+    if (type) {
+      params.push(type);
+      sql += ` AND type = $${params.length}`;
+    }
+    sql += ` ORDER BY sort_order ASC, name ASC`;
+    const res = await query<MenuCategoryRecord>(sql, params);
     return res.rows;
   }
 
-  async findAllCategories(): Promise<MenuCategoryRecord[]> {
-    const res = await query<MenuCategoryRecord>(
-      `SELECT * FROM menu_categories
-       WHERE is_deleted = false
-       ORDER BY sort_order ASC, created_at ASC`
-    );
+  async findAllCategories(type?: string): Promise<MenuCategoryRecord[]> {
+    let sql = `SELECT * FROM menu_categories
+       WHERE is_deleted = false`;
+    const params: any[] = [];
+    if (type) {
+      params.push(type);
+      sql += ` AND type = $${params.length}`;
+    }
+    sql += ` ORDER BY sort_order ASC, created_at ASC`;
+    const res = await query<MenuCategoryRecord>(sql, params);
     return res.rows;
   }
 
@@ -36,41 +44,30 @@ export class MenuCategoryRepository {
     return res.rows[0] || null;
   }
 
-  async createCategory(data: {
-    name: string;
-    slug: string;
-    description?: string | null;
-    image_url?: string | null;
-    sort_order?: number;
-    is_active?: boolean;
-  }): Promise<MenuCategoryRecord> {
+  async createCategory(data: any): Promise<MenuCategoryRecord> {
+    const imageUrl = data.image_url ?? data.imageUrl ?? null;
+    const sortOrder = Number(data.sort_order ?? data.sortOrder ?? 0);
+    const isActive = data.is_active !== undefined ? Boolean(data.is_active) : (data.isActive !== undefined ? Boolean(data.isActive) : true);
+    const type = data.type || 'menu';
+
     const res = await query<MenuCategoryRecord>(
-      `INSERT INTO menu_categories (name, slug, description, image_url, sort_order, is_active)
-       VALUES ($1, $2, $3, $4, COALESCE($5, 0), COALESCE($6, true))
+      `INSERT INTO menu_categories (name, slug, description, image_url, sort_order, is_active, type)
+       VALUES ($1, $2, $3, $4, COALESCE($5, 0), COALESCE($6, true), COALESCE($7, 'menu'))
        RETURNING *`,
       [
         data.name,
         data.slug,
         data.description || null,
-        data.image_url || null,
-        data.sort_order,
-        data.is_active,
+        imageUrl,
+        sortOrder,
+        isActive,
+        type,
       ]
     );
     return res.rows[0];
   }
 
-  async updateCategory(
-    id: string,
-    data: {
-      name?: string;
-      slug?: string;
-      description?: string | null;
-      image_url?: string | null;
-      sort_order?: number;
-      is_active?: boolean;
-    }
-  ): Promise<MenuCategoryRecord | null> {
+  async updateCategory(id: string, data: any): Promise<MenuCategoryRecord | null> {
     const fields: string[] = [];
     const values: any[] = [];
     let idx = 1;
@@ -87,17 +84,24 @@ export class MenuCategoryRepository {
       fields.push(`description = $${idx++}`);
       values.push(data.description);
     }
-    if (data.image_url !== undefined) {
+    const imageUrl = data.image_url !== undefined ? data.image_url : data.imageUrl;
+    if (imageUrl !== undefined) {
       fields.push(`image_url = $${idx++}`);
-      values.push(data.image_url);
+      values.push(imageUrl);
     }
-    if (data.sort_order !== undefined) {
+    const sortOrder = data.sort_order !== undefined ? data.sort_order : data.sortOrder;
+    if (sortOrder !== undefined) {
       fields.push(`sort_order = $${idx++}`);
-      values.push(data.sort_order);
+      values.push(Number(sortOrder));
     }
-    if (data.is_active !== undefined) {
+    const isActive = data.is_active !== undefined ? data.is_active : data.isActive;
+    if (isActive !== undefined) {
       fields.push(`is_active = $${idx++}`);
-      values.push(data.is_active);
+      values.push(Boolean(isActive));
+    }
+    if (data.type !== undefined) {
+      fields.push(`type = $${idx++}`);
+      values.push(data.type);
     }
 
     if (fields.length === 0) {

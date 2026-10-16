@@ -5,6 +5,7 @@ export function useGallery(category?: string) {
   return useQuery({
     queryKey: ['gallery', category || 'all'],
     queryFn: () => getPublicGallery(category),
-    staleTime: 1000 * 60 * 30,
+    staleTime: 1000 * 5,
+    refetchOnMount: true,
   });
 }

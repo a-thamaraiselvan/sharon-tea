@@ -17,6 +17,7 @@ import {
   EditOutlined,
   DeleteOutlined,
   AppstoreOutlined,
+  AppstoreAddOutlined,
 } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm, Controller } from 'react-hook-form';
@@ -27,6 +28,7 @@ import { ImageUpload } from '../components/shared/ImageUpload';
 import { showDeleteConfirm } from '../components/shared/ConfirmDialog';
 import { menuCategoryService } from '../services/menuCategoryService';
 import { MenuCategory, CreateMenuCategoryInput } from '../types';
+import { resolveImageUrl } from '../utils/imageUrl';
 
 const { TextArea } = Input;
 
@@ -41,10 +43,24 @@ const categorySchema = z.object({
 
 type CategoryFormData = z.infer<typeof categorySchema>;
 
+interface BulkCategoryRow {
+  name: string;
+  description: string;
+  sortOrder: number;
+}
+
 export const MenuCategoriesPage: React.FC = () => {
   const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<MenuCategory | null>(null);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
+  // Bulk add state
+  const [bulkRows, setBulkRows] = useState<BulkCategoryRow[]>([
+    { name: '', description: '', sortOrder: 1 },
+    { name: '', description: '', sortOrder: 2 },
+  ]);
 
   const {
     control,
@@ -65,8 +81,8 @@ export const MenuCategoriesPage: React.FC = () => {
 
   // Query categories
   const { data: categories = [], isLoading } = useQuery({
-    queryKey: ['menuCategories'],
-    queryFn: () => menuCategoryService.getAll(),
+    queryKey: ['menuCategories', 'menu'],
+    queryFn: () => menuCategoryService.getAll({ type: 'menu' }),
   });
 
   // Create mutation
@@ -111,6 +127,38 @@ export const MenuCategoriesPage: React.FC = () => {
     },
   });
 
+  // Bulk Delete mutation
+  const bulkDeleteMutation = useMutation({
+    mutationFn: (ids: string[]) => menuCategoryService.bulkDelete(ids),
+    onSuccess: () => {
+      message.success(`Successfully deleted ${selectedRowKeys.length} categories`);
+      setSelectedRowKeys([]);
+      queryClient.invalidateQueries({ queryKey: ['menuCategories'] });
+    },
+    onError: (err: unknown) => {
+      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      message.error(msg || 'Failed to bulk delete categories');
+    },
+  });
+
+  // Bulk Create mutation
+  const bulkCreateMutation = useMutation({
+    mutationFn: (items: CreateMenuCategoryInput[]) => menuCategoryService.bulkCreate(items),
+    onSuccess: (data) => {
+      message.success(`Successfully added ${data.length} categories`);
+      setIsBulkModalOpen(false);
+      setBulkRows([
+        { name: '', description: '', sortOrder: 1 },
+        { name: '', description: '', sortOrder: 2 },
+      ]);
+      queryClient.invalidateQueries({ queryKey: ['menuCategories'] });
+    },
+    onError: (err: unknown) => {
+      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      message.error(msg || 'Failed to bulk create categories');
+    },
+  });
+
   // Toggle active status
   const toggleMutation = useMutation({
     mutationFn: ({ id, isActive }: { id: string; isActive: boolean }) =>
@@ -144,9 +192,9 @@ export const MenuCategoriesPage: React.FC = () => {
       name: category.name,
       slug: category.slug,
       description: category.description || '',
-      imageUrl: category.imageUrl || null,
-      sortOrder: category.sortOrder,
-      isActive: category.isActive,
+      imageUrl: category.imageUrl || (category as any).image_url || null,
+      sortOrder: Number(category.sortOrder ?? (category as any).sort_order ?? 0),
+      isActive: category.isActive !== false && (category as any).is_active !== false,
     });
     setIsModalOpen(true);
   };
@@ -161,6 +209,7 @@ export const MenuCategoriesPage: React.FC = () => {
     const payload: CreateMenuCategoryInput = {
       name: formData.name,
       slug: formData.slug || formData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      type: 'menu',
       description: formData.description || undefined,
       imageUrl: formData.imageUrl || undefined,
       sortOrder: Number(formData.sortOrder) || 0,
@@ -185,47 +234,108 @@ export const MenuCategoriesPage: React.FC = () => {
     });
   };
 
+  const handleBulkDelete = () => {
+    showDeleteConfirm({
+      title: `Delete ${selectedRowKeys.length} selected categories?`,
+      content: 'Are you sure you want to permanently delete all selected categories?',
+      onConfirm: async () => {
+        await bulkDeleteMutation.mutateAsync(selectedRowKeys as string[]);
+      },
+    });
+  };
+
+  const handleAddBulkRow = () => {
+    setBulkRows((prev) => [
+      ...prev,
+      { name: '', description: '', sortOrder: prev.length + 1 },
+    ]);
+  };
+
+  const handleRemoveBulkRow = (index: number) => {
+    setBulkRows((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleBulkRowChange = (index: number, field: keyof BulkCategoryRow, val: string | number) => {
+    setBulkRows((prev) => {
+      const next = [...prev];
+      next[index] = { ...next[index], [field]: val };
+      return next;
+    });
+  };
+
+  const handleSaveBulk = () => {
+    const validRows = bulkRows.filter((r) => r.name.trim().length > 0);
+    if (validRows.length === 0) {
+      message.warning('Please enter at least one category name');
+      return;
+    }
+
+    const payload: CreateMenuCategoryInput[] = validRows.map((r, i) => ({
+      name: r.name.trim(),
+      slug: r.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      type: 'menu',
+      description: r.description.trim() || undefined,
+      sortOrder: r.sortOrder || categories.length + i + 1,
+      isActive: true,
+    }));
+
+    bulkCreateMutation.mutate(payload);
+  };
+
   const columns = [
     {
       title: 'Image',
       dataIndex: 'imageUrl',
       key: 'imageUrl',
       width: 80,
-      render: (url: string | null) => (
-        <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
-          {url ? (
-            <Image src={url} alt="Category" width={48} height={48} className="object-cover" />
-          ) : (
-            <AppstoreOutlined className="text-gray-400 text-lg" />
-          )}
-        </div>
-      ),
+      render: (url: string | null, record: MenuCategory) => {
+        const imageSrc = url || (record as any).image_url;
+        return (
+          <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
+            {imageSrc ? (
+              <Image src={resolveImageUrl(imageSrc)} alt="Category" width={48} height={48} className="object-cover" />
+            ) : (
+              <AppstoreOutlined className="text-gray-400 text-lg" />
+            )}
+          </div>
+        );
+      },
     },
     {
-      title: 'Category Name',
+      title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (name: string, record: MenuCategory) => (
+      render: (text: string, record: MenuCategory) => (
         <div>
-          <div className="font-semibold text-sharon-primary">{name}</div>
-          {record.description && (
-            <div className="text-xs text-gray-500 line-clamp-1">{record.description}</div>
+          <span className="font-semibold text-gray-800 text-sm">{text}</span>
+          {record.slug && (
+            <span className="block text-xs text-gray-400 mt-0.5 font-mono">/{record.slug}</span>
           )}
         </div>
       ),
     },
     {
-      title: 'Slug',
-      dataIndex: 'slug',
-      key: 'slug',
-      render: (slug: string) => <Tag className="font-mono text-xs">{slug}</Tag>,
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
+      ellipsis: true,
+      render: (text: string | null) => (
+        <span className="text-xs text-gray-500">{text || '—'}</span>
+      ),
     },
     {
       title: 'Sort Order',
       dataIndex: 'sortOrder',
       key: 'sortOrder',
       width: 100,
-      sorter: (a: MenuCategory, b: MenuCategory) => a.sortOrder - b.sortOrder,
+      render: (_: unknown, record: MenuCategory) => (
+        <Tag color="blue">{Number(record.sortOrder ?? (record as any).sort_order ?? 0)}</Tag>
+      ),
+      sorter: (a: MenuCategory, b: MenuCategory) => {
+        const orderA = Number(a.sortOrder ?? (a as any).sort_order ?? 0);
+        const orderB = Number(b.sortOrder ?? (b as any).sort_order ?? 0);
+        return orderA - orderB;
+      },
     },
     {
       title: 'Status',
@@ -279,8 +389,38 @@ export const MenuCategoriesPage: React.FC = () => {
           actionLabel="Add Category"
           actionIcon={<PlusOutlined />}
           onAction={handleOpenCreate}
+          extra={
+            <Button
+              icon={<AppstoreAddOutlined />}
+              onClick={() => setIsBulkModalOpen(true)}
+              className="border-sharon-forest text-sharon-forest hover:bg-sharon-forest/5 font-medium"
+            >
+              Bulk Add Categories
+            </Button>
+          }
         />
       </div>
+
+      {/* Bulk action toolbar */}
+      {selectedRowKeys.length > 0 && (
+        <div className="mb-4 p-3 bg-emerald-50 border border-emerald-200 rounded-lg flex items-center justify-between">
+          <span className="text-sm font-semibold text-emerald-900">
+            {selectedRowKeys.length} {selectedRowKeys.length === 1 ? 'category' : 'categories'} selected
+          </span>
+          <Space>
+            <Button
+              danger
+              type="primary"
+              icon={<DeleteOutlined />}
+              loading={bulkDeleteMutation.isPending}
+              onClick={handleBulkDelete}
+            >
+              Delete Selected ({selectedRowKeys.length})
+            </Button>
+            <Button onClick={() => setSelectedRowKeys([])}>Cancel</Button>
+          </Space>
+        </div>
+      )}
 
       <div className="reveal-up is-visible delay-100">
         <Table
@@ -289,6 +429,10 @@ export const MenuCategoriesPage: React.FC = () => {
           rowKey="id"
           loading={isLoading}
           pagination={{ pageSize: 10 }}
+          rowSelection={{
+            selectedRowKeys,
+            onChange: setSelectedRowKeys,
+          }}
           className="bg-white rounded-xl shadow-sm border border-neutral-200/80 overflow-hidden"
         />
       </div>
@@ -302,7 +446,6 @@ export const MenuCategoriesPage: React.FC = () => {
         destroyOnClose
         centered
         width={540}
-        rootClassName="modal-enter"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-3">
           <div>
@@ -349,7 +492,7 @@ export const MenuCategoriesPage: React.FC = () => {
                   value={value || ''}
                   onChange={onChange}
                   rows={3}
-                  placeholder="Brief description of this menu section..."
+                  placeholder="Short details on what items belong in this category..."
                 />
               )}
             />
@@ -400,13 +543,12 @@ export const MenuCategoriesPage: React.FC = () => {
                 <ImageUpload
                   value={field.value}
                   onChange={field.onChange}
-                  aspectRatioLabel="Recommended: 1:1 square, max 5MB"
                 />
               )}
             />
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+          <div className="flex justify-end gap-2 pt-4 border-t border-gray-100">
             <Button onClick={handleCloseModal}>Cancel</Button>
             <Button
               type="primary"
@@ -414,11 +556,93 @@ export const MenuCategoriesPage: React.FC = () => {
               loading={createMutation.isPending || updateMutation.isPending}
               className="bg-sharon-forest hover:bg-emerald-800"
             >
-              {editingCategory ? 'Save Changes' : 'Create Category'}
+              {editingCategory ? 'Update Category' : 'Create Category'}
             </Button>
           </div>
         </form>
       </Modal>
+
+      {/* Bulk Add Categories Modal */}
+      <Modal
+        title="Bulk Add Menu Categories"
+        open={isBulkModalOpen}
+        onCancel={() => setIsBulkModalOpen(false)}
+        footer={null}
+        destroyOnClose
+        centered
+        width={700}
+      >
+        <div className="space-y-4 pt-2">
+          <p className="text-xs text-gray-500">
+            Add multiple categories in a single batch. Empty rows will be ignored.
+          </p>
+
+          <div className="space-y-3 max-h-[380px] overflow-y-auto pr-1">
+            {bulkRows.map((row, idx) => (
+              <div
+                key={idx}
+                className="p-3 bg-neutral-50 rounded-lg border border-neutral-200 flex flex-col sm:flex-row gap-2 items-start sm:items-center"
+              >
+                <div className="w-full sm:w-1/3">
+                  <Input
+                    placeholder="Category Name *"
+                    value={row.name}
+                    onChange={(e) => handleBulkRowChange(idx, 'name', e.target.value)}
+                  />
+                </div>
+                <div className="w-full sm:w-1/2">
+                  <Input
+                    placeholder="Short Description"
+                    value={row.description}
+                    onChange={(e) => handleBulkRowChange(idx, 'description', e.target.value)}
+                  />
+                </div>
+                <div className="w-24">
+                  <InputNumber
+                    min={0}
+                    placeholder="Order"
+                    className="w-full"
+                    value={row.sortOrder}
+                    onChange={(val) => handleBulkRowChange(idx, 'sortOrder', val || 0)}
+                  />
+                </div>
+                {bulkRows.length > 1 && (
+                  <Button
+                    type="text"
+                    danger
+                    icon={<DeleteOutlined />}
+                    onClick={() => handleRemoveBulkRow(idx)}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+
+          <Button
+            type="dashed"
+            block
+            icon={<PlusOutlined />}
+            onClick={handleAddBulkRow}
+            className="border-neutral-300"
+          >
+            Add Another Category Row
+          </Button>
+
+          <div className="flex justify-end gap-2 pt-4 border-t border-gray-100">
+            <Button onClick={() => setIsBulkModalOpen(false)}>Cancel</Button>
+            <Button
+              type="primary"
+              loading={bulkCreateMutation.isPending}
+              onClick={handleSaveBulk}
+              className="bg-sharon-forest hover:bg-emerald-800"
+            >
+              Save All Categories
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
+
+export default MenuCategoriesPage;

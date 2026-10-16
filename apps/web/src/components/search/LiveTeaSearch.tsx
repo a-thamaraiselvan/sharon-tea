@@ -11,6 +11,7 @@ import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import { useUiStore } from '@/stores/useUiStore';
 import type { MenuItem, Product } from '@/types';
 import { cn } from '@/utils/cn';
+import { resolveImageUrl } from '@/utils/imageUrl';
 
 interface LiveTeaSearchProps {
   placeholder?: string;
@@ -389,8 +390,11 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-brand-cream border border-neutral-200/60 overflow-hidden flex items-center justify-center shrink-0">
                                 {beverage.imageUrl ? (
                                   <img
-                                    src={beverage.imageUrl}
+                                    src={resolveImageUrl(beverage.imageUrl, '/images/beverages/sharon-classic.png')}
                                     alt={beverage.name}
+                                    onError={(e) => {
+                                      (e.target as HTMLImageElement).src = '/images/beverages/sharon-classic.png';
+                                    }}
                                     className="w-full h-full object-cover group-hover/item:scale-105 transition-transform"
                                   />
                                 ) : (
@@ -476,8 +480,11 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                               {/* Pouch Thumbnail */}
                               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white border border-neutral-200/60 p-1 flex items-center justify-center shrink-0">
                                 <img
-                                  src={product.imageUrl}
+                                  src={resolveImageUrl(product.imageUrl, '/images/products/img_3687.jpg')}
                                   alt={product.name}
+                                  onError={(e) => {
+                                    (e.target as HTMLImageElement).src = '/images/products/img_3687.jpg';
+                                  }}
                                   className="max-h-full max-w-full object-contain group-hover/item:scale-110 transition-transform"
                                 />
                               </div>

@@ -14,6 +14,7 @@ import {
   Truck,
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
+import { resolveImageUrl } from '@/utils/imageUrl';
 
 interface ProductSlideDrawerProps {
   product: Product | null;
@@ -164,8 +165,11 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
 
             <div className="w-full max-w-[280px] aspect-[4/5] flex items-center justify-center">
               <img
-                src={selectedImg || product.imageUrl}
+                src={resolveImageUrl(selectedImg || product.imageUrl, '/images/products/img_3687.jpg')}
                 alt={product.name}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = '/images/products/img_3687.jpg';
+                }}
                 className="max-h-full max-w-full object-contain filter drop-shadow-md transition-transform duration-300 hover:scale-105"
               />
             </div>
@@ -186,8 +190,11 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
                     )}
                   >
                     <img
-                      src={img}
+                      src={resolveImageUrl(img, '/images/products/img_3687.jpg')}
                       alt={`${product.name} view ${idx + 1}`}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/images/products/img_3687.jpg';
+                      }}
                       className="w-full h-full object-contain"
                     />
                   </button>

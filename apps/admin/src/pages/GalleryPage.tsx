@@ -29,6 +29,7 @@ import { ImageUpload } from '../components/shared/ImageUpload';
 import { showDeleteConfirm } from '../components/shared/ConfirmDialog';
 import { galleryService } from '../services/galleryService';
 import { GalleryItem, GalleryCategory, CreateGalleryItemInput } from '../types';
+import { resolveImageUrl } from '../utils/imageUrl';
 
 const { Option } = Select;
 
@@ -144,8 +145,8 @@ export const GalleryPage: React.FC = () => {
     reset({
       caption: item.caption,
       category: item.category,
-      imageUrl: item.imageUrl,
-      sortOrder: item.sortOrder,
+      imageUrl: item.imageUrl || (item as any).image_url || '',
+      sortOrder: Number(item.sortOrder ?? (item as any).sort_order ?? 0),
     });
     setIsModalOpen(true);
   };
@@ -247,13 +248,13 @@ export const GalleryPage: React.FC = () => {
                     cover={
                       <div className="h-48 overflow-hidden bg-gray-100 relative group">
                         <Image
-                          src={item.imageUrl}
+                          src={resolveImageUrl(item.imageUrl || (item as any).image_url)}
                           alt={item.caption}
                           className="object-cover w-full h-48"
                         />
                         <div className="absolute top-2 right-2">
                           <Tag color="black" className="bg-black/60 border-none text-white text-[11px]">
-                            #{item.sortOrder}
+                            #{item.sortOrder ?? (item as any).sort_order ?? 0}
                           </Tag>
                         </div>
                       </div>
@@ -306,7 +307,6 @@ export const GalleryPage: React.FC = () => {
         destroyOnClose
         centered
         width={520}
-        rootClassName="modal-enter"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-3">
           <div>

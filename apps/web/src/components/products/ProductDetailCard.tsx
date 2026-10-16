@@ -6,6 +6,7 @@ import { trackOrderClick } from '@/services/whatsappService';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import { Heart, Plus, Minus } from 'lucide-react';
 import { cn } from '@/utils/cn';
+import { resolveImageUrl } from '@/utils/imageUrl';
 
 export interface ProductDetailCardProps {
   product: Product;
@@ -104,7 +105,7 @@ export const ProductDetailCard: React.FC<ProductDetailCardProps> = ({
         {/* Standing Product Pouch Upright with Soft Shadow */}
         <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-white flex items-center justify-center p-2 mb-2 sm:mb-3 image-zoom-container">
           <img
-            src={product.imageUrl || '/images/products/img_3687.jpg'}
+            src={resolveImageUrl(product.imageUrl, '/images/products/img_3687.jpg')}
             alt={product.name || 'Sharon Tea Product'}
             loading="lazy"
             onError={(e) => {

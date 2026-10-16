@@ -5,6 +5,7 @@ export function useOutlets() {
   return useQuery({
     queryKey: ['outlets'],
     queryFn: getPublicOutlets,
-    staleTime: 1000 * 60 * 30,
+    staleTime: 1000 * 5,
+    refetchOnMount: true,
   });
 }

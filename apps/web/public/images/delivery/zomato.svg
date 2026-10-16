@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="zomatoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E23744"/>
+      <stop offset="100%" stop-color="#CB202D"/>
+    </linearGradient>
+  </defs>
+  <!-- Zomato Pill Badge -->
+  <rect x="4" y="6" width="192" height="48" rx="14" fill="url(#zomatoGrad)"/>
+  <!-- Text: zomato -->
+  <text x="100" y="38" font-family="'Century Gothic', system-ui, -apple-system, sans-serif" font-size="30" font-weight="900" font-style="italic" letter-spacing="-0.5" fill="#FFFFFF" text-anchor="middle">zomato</text>
+</svg>

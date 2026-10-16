@@ -12,12 +12,12 @@ const slugify = (text: string): string => {
 };
 
 export class MenuCategoryService {
-  async getPublicCategories(): Promise<MenuCategoryRecord[]> {
-    return menuCategoryRepository.findPublicCategories();
+  async getPublicCategories(type?: string): Promise<MenuCategoryRecord[]> {
+    return menuCategoryRepository.findPublicCategories(type);
   }
 
-  async getAllCategories(): Promise<MenuCategoryRecord[]> {
-    return menuCategoryRepository.findAllCategories();
+  async getAllCategories(type?: string): Promise<MenuCategoryRecord[]> {
+    return menuCategoryRepository.findAllCategories(type);
   }
 
   async getCategoryById(id: string): Promise<MenuCategoryRecord> {
@@ -28,14 +28,7 @@ export class MenuCategoryService {
     return category;
   }
 
-  async createCategory(data: {
-    name: string;
-    slug?: string;
-    description?: string | null;
-    image_url?: string | null;
-    sort_order?: number;
-    is_active?: boolean;
-  }): Promise<MenuCategoryRecord> {
+  async createCategory(data: any): Promise<MenuCategoryRecord> {
     const slug = data.slug ? slugify(data.slug) : slugify(data.name);
 
     const existing = await menuCategoryRepository.findCategoryBySlug(slug);
@@ -43,27 +36,22 @@ export class MenuCategoryService {
       throw new AppError(`A category with slug "${slug}" already exists`, 409);
     }
 
+    const imageUrl = data.image_url ?? data.imageUrl ?? null;
+    const sortOrder = Number(data.sort_order ?? data.sortOrder ?? 0);
+    const isActive = data.is_active !== undefined ? Boolean(data.is_active) : (data.isActive !== undefined ? Boolean(data.isActive) : true);
+
     return menuCategoryRepository.createCategory({
       name: data.name,
       slug,
       description: data.description,
-      image_url: data.image_url,
-      sort_order: data.sort_order ?? 0,
-      is_active: data.is_active ?? true,
+      image_url: imageUrl,
+      sort_order: sortOrder,
+      is_active: isActive,
+      type: data.type || 'menu',
     });
   }
 
-  async updateCategory(
-    id: string,
-    data: {
-      name?: string;
-      slug?: string;
-      description?: string | null;
-      image_url?: string | null;
-      sort_order?: number;
-      is_active?: boolean;
-    }
-  ): Promise<MenuCategoryRecord> {
+  async updateCategory(id: string, data: any): Promise<MenuCategoryRecord> {
     const existing = await menuCategoryRepository.findCategoryById(id);
     if (!existing) {
       throw new AppError('Menu category not found', 404);
@@ -78,7 +66,12 @@ export class MenuCategoryService {
       data.slug = slugCandidate;
     }
 
-    const updated = await menuCategoryRepository.updateCategory(id, data);
+    const updated = await menuCategoryRepository.updateCategory(id, {
+      ...data,
+      image_url: data.image_url !== undefined ? data.image_url : data.imageUrl,
+      sort_order: data.sort_order !== undefined ? data.sort_order : data.sortOrder,
+      is_active: data.is_active !== undefined ? data.is_active : data.isActive,
+    });
     if (!updated) {
       throw new AppError('Failed to update category', 500);
     }

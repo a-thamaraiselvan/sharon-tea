@@ -5,6 +5,7 @@ export function useMenuItems(categoryId?: string) {
   return useQuery({
     queryKey: ['menu-items', categoryId || 'all'],
     queryFn: () => getPublicMenuItems(categoryId),
-    staleTime: 1000 * 60 * 10, // 10 minutes
+    staleTime: 1000 * 5,
+    refetchOnMount: true,
   });
 }

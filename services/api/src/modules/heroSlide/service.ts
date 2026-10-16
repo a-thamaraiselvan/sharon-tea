@@ -22,16 +22,29 @@ export class HeroSlideService {
   async createSlide(data: {
     title: string;
     subtitle?: string | null;
-    image_url: string;
+    image_url?: string;
+    imageUrl?: string;
     cta_text?: string | null;
+    ctaText?: string | null;
     cta_link?: string | null;
+    ctaLink?: string | null;
     sort_order?: number;
+    sortOrder?: number;
     is_active?: boolean;
+    isActive?: boolean;
   }): Promise<HeroSlideRecord> {
-    if (!data.title || !data.image_url) {
+    const imageUrl = data.image_url || data.imageUrl;
+    if (!data.title || !imageUrl) {
       throw new AppError('Title and image URL are required for hero slide', 400);
     }
-    return heroSlideRepository.createSlide(data);
+    return heroSlideRepository.createSlide({
+      ...data,
+      image_url: imageUrl,
+      cta_text: data.cta_text ?? data.ctaText,
+      cta_link: data.cta_link ?? data.ctaLink,
+      sort_order: data.sort_order ?? data.sortOrder,
+      is_active: data.is_active ?? data.isActive,
+    });
   }
 
   async updateSlide(
@@ -40,10 +53,15 @@ export class HeroSlideService {
       title?: string;
       subtitle?: string | null;
       image_url?: string;
+      imageUrl?: string;
       cta_text?: string | null;
+      ctaText?: string | null;
       cta_link?: string | null;
+      ctaLink?: string | null;
       sort_order?: number;
+      sortOrder?: number;
       is_active?: boolean;
+      isActive?: boolean;
     }
   ): Promise<HeroSlideRecord> {
     const existing = await heroSlideRepository.findSlideById(id);

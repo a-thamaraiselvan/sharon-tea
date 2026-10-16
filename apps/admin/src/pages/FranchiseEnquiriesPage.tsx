@@ -292,7 +292,6 @@ export const FranchiseEnquiriesPage: React.FC = () => {
         width={560}
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        rootClassName="drawer-enter"
       >
         {selectedEnquiry && (
           <div className="space-y-6">

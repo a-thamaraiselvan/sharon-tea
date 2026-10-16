@@ -56,6 +56,8 @@ export class ProductService {
     preparation_instructions?: string | null;
     image_url?: string | null;
     is_available?: boolean;
+    category_id?: string | null;
+    sort_order?: number;
   }): Promise<ProductRecord> {
     const slug = data.slug ? slugify(data.slug) : slugify(data.name);
 
@@ -64,10 +66,26 @@ export class ProductService {
       throw new AppError(`A product with slug "${slug}" already exists`, 409);
     }
 
+    const categoryId = data.category_id || (data as any).categoryId || null;
+    const sortOrder = Number(data.sort_order ?? (data as any).sortOrder ?? 0);
+    const packSize = data.pack_size || (data as any).packSize || '250g Pouch';
+    const originalPrice = data.original_price !== undefined ? data.original_price : (data as any).originalPrice ?? null;
+    const shortDesc = data.short_description || (data as any).shortDescription || null;
+    const prepInstructions = data.preparation_instructions || (data as any).preparationInstructions || null;
+    const imageUrl = data.image_url || (data as any).imageUrl || null;
+    const isAvail = data.is_available ?? (data as any).isAvailable ?? true;
+
     return productRepository.createProduct({
       ...data,
       slug,
-      is_available: data.is_available ?? true,
+      is_available: isAvail,
+      category_id: categoryId,
+      sort_order: sortOrder,
+      pack_size: packSize,
+      original_price: originalPrice,
+      short_description: shortDesc,
+      preparation_instructions: prepInstructions,
+      image_url: imageUrl,
     });
   }
 
@@ -77,17 +95,27 @@ export class ProductService {
       name?: string;
       slug?: string;
       category?: string | null;
+      category_id?: string | null;
+      categoryId?: string | null;
       badge?: string | null;
       is_featured?: boolean;
       short_description?: string | null;
+      shortDescription?: string | null;
       description?: string | null;
       price?: number;
       original_price?: number | null;
+      originalPrice?: number | null;
       pack_size?: string | null;
+      packSize?: string | null;
       ingredients?: string | null;
       preparation_instructions?: string | null;
+      preparationInstructions?: string | null;
       image_url?: string | null;
+      imageUrl?: string | null;
       is_available?: boolean;
+      isAvailable?: boolean;
+      sort_order?: number;
+      sortOrder?: number;
     }
   ): Promise<ProductRecord> {
     const existing = await productRepository.findProductById(id);
@@ -104,7 +132,19 @@ export class ProductService {
       data.slug = slugCandidate;
     }
 
-    const updated = await productRepository.updateProduct(id, data);
+    const updatePayload: any = {
+      ...data,
+      category_id: data.category_id !== undefined ? data.category_id : data.categoryId,
+      sort_order: data.sort_order !== undefined ? Number(data.sort_order) : (data.sortOrder !== undefined ? Number(data.sortOrder) : undefined),
+      pack_size: data.pack_size || data.packSize,
+      original_price: data.original_price !== undefined ? data.original_price : data.originalPrice,
+      short_description: data.short_description || data.shortDescription,
+      preparation_instructions: data.preparation_instructions || data.preparationInstructions,
+      image_url: data.image_url || data.imageUrl,
+      is_available: data.is_available !== undefined ? data.is_available : data.isAvailable,
+    };
+
+    const updated = await productRepository.updateProduct(id, updatePayload);
     if (!updated) {
       throw new AppError('Failed to update product', 500);
     }

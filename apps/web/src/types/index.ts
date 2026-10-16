@@ -127,3 +127,20 @@ export interface OrderTrackPayload {
   price: number;
   source: string;
 }
+
+export interface DeliveryPartner {
+  id: string;
+  name: string;
+  slug?: string;
+  logoUrl?: string;
+  logo_url?: string;
+  partnerUrl?: string;
+  partner_url?: string;
+  badgeText?: string;
+  badge_text?: string;
+  description?: string;
+  isActive?: boolean;
+  is_active?: boolean;
+  sortOrder?: number;
+  sort_order?: number;
+}
