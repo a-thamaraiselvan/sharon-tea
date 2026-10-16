@@ -10,10 +10,10 @@ export const AboutUsPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>About Us | The Sharon Tea Stall Heritage & Journey</title>
+        <title>About Us | The Sharon Tea and Coffee Heritage & Journey</title>
         <meta
           name="description"
-          content="Learn about Sharon Tea Stall's roots, culinary heritage, 8,000+ cups served daily, and commitment to pure farm-fresh ingredients."
+          content="Learn about Sharon Tea and Coffee's roots, culinary heritage, 8,000+ cups served daily, and commitment to pure farm-fresh ingredients."
         />
       </Helmet>
 

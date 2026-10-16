@@ -328,7 +328,7 @@ export const OutletsPage: React.FC = () => {
       <div>
         <PageHeader
           title="Outlets & Locations"
-          subtitle="Manage official Sharon Tea Stall flagship stalls, kiosk units, and coordinates."
+          subtitle="Manage official Sharon Tea and Coffee flagship stalls, kiosk units, and coordinates."
           actionLabel="Add Outlet"
           actionIcon={<PlusOutlined />}
           onAction={handleOpenCreate}
@@ -369,7 +369,7 @@ export const OutletsPage: React.FC = () => {
                 render={({ field }) => (
                   <Input
                     {...field}
-                    placeholder="e.g. Sharon Tea Stall - Anna Nagar"
+                    placeholder="e.g. Sharon Tea and Coffee - Anna Nagar"
                     status={errors.name ? 'error' : ''}
                   />
                 )}

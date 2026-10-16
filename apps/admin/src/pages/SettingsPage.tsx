@@ -67,7 +67,7 @@ export const SettingsPage: React.FC = () => {
   } = useForm<SettingsFormData>({
     resolver: zodResolver(settingsSchema),
     defaultValues: {
-      brandName: 'Sharon Tea Stall',
+      brandName: 'Sharon Tea and Coffee',
       tagline: 'Authenticity Steeped in Tradition',
       description: 'Serving premium authentic Irani Chai, artisanal blends, and traditional snacks.',
       phone: '+91 98400 12345',
@@ -92,7 +92,7 @@ export const SettingsPage: React.FC = () => {
   useEffect(() => {
     if (settings) {
       reset({
-        brandName: settings.brandName || 'Sharon Tea Stall',
+        brandName: settings.brandName || 'Sharon Tea and Coffee',
         tagline: settings.tagline || '',
         description: settings.description || '',
         phone: settings.phone || '',

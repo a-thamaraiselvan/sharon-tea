@@ -112,7 +112,7 @@ export const Gallery: React.FC = () => {
       <div className="reveal-up">
         <SectionHeading
           badge="Moments & Memories"
-          title="Life at Sharon Tea Stall"
+          title="Life at Sharon Tea and Coffee"
           subtitle="A visual glimpse into our daily brewing rituals, happy patrons, and aromatic packaged tea blends."
         />
       </div>

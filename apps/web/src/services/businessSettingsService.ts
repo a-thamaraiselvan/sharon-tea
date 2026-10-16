@@ -2,7 +2,7 @@ import apiClient from '@/api/apiClient';
 import type { BusinessSettings, ApiResponse } from '@/types';
 
 export const FALLBACK_BUSINESS_SETTINGS: BusinessSettings = {
-  brandName: 'Sharon Tea Stall',
+  brandName: 'Sharon Tea and Coffee',
   tagline: 'Every Cup, A Moment to Savour.',
   phone: '+91 98765 43210',
   whatsappNumber: '919876543210',

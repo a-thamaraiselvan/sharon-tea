@@ -11,7 +11,7 @@ interface FAQItem {
 
 const FAQS: FAQItem[] = [
   {
-    question: 'What is the total investment required to open a Sharon Tea Stall?',
+    question: 'What is the total investment required to open a Sharon Tea and Coffee?',
     answer:
       'The initial investment ranges between ₹3.5 Lakhs to ₹7 Lakhs depending on the chosen store format (Kiosk vs Dine-in Cafe). This includes the franchise license fee, kitchen machinery, stainless steel counters, signage, initial raw material stock, and comprehensive team training.',
   },
@@ -55,7 +55,7 @@ export const FranchiseFAQ: React.FC = () => {
         <SectionHeading
           badge="Clarifications"
           title="Frequently Asked Questions"
-          subtitle="Clear answers to help you evaluate your partnership journey with Sharon Tea Stall."
+          subtitle="Clear answers to help you evaluate your partnership journey with Sharon Tea and Coffee."
         />
       </div>
 

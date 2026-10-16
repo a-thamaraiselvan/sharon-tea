@@ -94,7 +94,7 @@ export const createApp = (): Express => {
   const healthCheckHandler = (_req: Request, res: Response) => {
     res.status(200).json({
       status: 'UP',
-      brand: 'Sharon Tea Stall API',
+      brand: 'Sharon Tea and Coffee API',
       timestamp: new Date().toISOString(),
       environment: env.NODE_ENV,
       version: '1.0.0',

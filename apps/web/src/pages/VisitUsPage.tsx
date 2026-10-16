@@ -12,10 +12,10 @@ export const VisitUsPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Visit Our Stalls | Find a Sharon Tea Stall Near You</title>
+        <title>Visit Our Stalls | Find a Sharon Tea and Coffee Near You</title>
         <meta
           name="description"
-          content="Find Sharon Tea Stall locations in Bangalore: Indiranagar, New Thippasandra, and Kaggadasapura. Check opening hours, street addresses, and get direct Google Maps navigation."
+          content="Find Sharon Tea and Coffee locations in Bangalore: Indiranagar, New Thippasandra, and Kaggadasapura. Check opening hours, street addresses, and get direct Google Maps navigation."
         />
       </Helmet>
 
@@ -27,13 +27,13 @@ export const VisitUsPage: React.FC = () => {
             Find Your Local Stall
           </div>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4 reveal-up">
-            Visit Sharon Tea Stall
+            Visit Sharon Tea and Coffee
           </h1>
           <p
             className="text-base sm:text-lg text-brand-cream/85 max-w-2xl mx-auto font-normal text-reveal"
             style={{ '--reveal-delay': '80ms' } as React.CSSProperties}
           >
-            Whether you need a brisk morning wake-up cup or an evening tea catchup with colleagues, our doors are open 7 days a week.
+            Whether you need a brisk morning wake-up cup or an evening tea catchup with colleagues, our doors are open 6 days a week (Mon – Sat, Sunday Holiday).
           </p>
         </div>
       </section>

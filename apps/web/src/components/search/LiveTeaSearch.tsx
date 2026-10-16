@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, X, Coffee, Package, Sparkles, ArrowRight, CornerDownLeft } from 'lucide-react';
+import { Search, X, Coffee, Package, ArrowRight, CornerDownLeft } from 'lucide-react';
 import { useMenuItems } from '@/hooks/useMenuItems';
 import { useProducts } from '@/hooks/useProducts';
 import { FALLBACK_MENU_ITEMS } from '@/services/menuService';
@@ -11,16 +11,6 @@ import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import { useUiStore } from '@/stores/useUiStore';
 import type { MenuItem, Product } from '@/types';
 import { cn } from '@/utils/cn';
-
-const QUICK_SUGGESTIONS = [
-  'masala',
-  'ginger',
-  'classic',
-  'chocolate',
-  'elaichi',
-  'cinnamon',
-  'filter coffee',
-];
 
 interface LiveTeaSearchProps {
   placeholder?: string;
@@ -34,6 +24,7 @@ interface LiveTeaSearchProps {
   autoFocus?: boolean;
   showShortcutHint?: boolean;
   onCloseMobile?: () => void;
+  disableDropdown?: boolean;
 }
 
 export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
@@ -48,6 +39,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
   autoFocus = false,
   showShortcutHint = true,
   onCloseMobile,
+  disableDropdown = false,
 }) => {
   const navigate = useNavigate();
   const { setActiveDrawerProduct } = useUiStore();
@@ -257,12 +249,6 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
     inputRef.current?.focus();
   };
 
-  const handleSuggestionClick = (suggestion: string) => {
-    setQuery(suggestion);
-    setIsOpen(true);
-    inputRef.current?.focus();
-  };
-
   const hasMatches = beverageResults.length > 0 || productResults.length > 0;
   const isQueryEmpty = !query.trim();
 
@@ -283,9 +269,17 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
           autoFocus={autoFocus}
           onChange={(e) => {
             setQuery(e.target.value);
-            if (!isOpen) setIsOpen(true);
+            if (!disableDropdown && e.target.value.trim()) {
+              setIsOpen(true);
+            } else {
+              setIsOpen(false);
+            }
           }}
-          onFocus={() => setIsOpen(true)}
+          onFocus={() => {
+            if (!disableDropdown && query.trim()) {
+              setIsOpen(true);
+            }
+          }}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           className="w-full bg-transparent text-neutral-800 placeholder-neutral-400 focus:outline-none text-xs sm:text-sm pr-2"
@@ -320,9 +314,8 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
               if (query.trim()) {
                 navigate(`/menu?search=${encodeURIComponent(query.trim())}`);
                 setIsOpen(false);
-              } else {
+              } else if (!disableDropdown) {
                 inputRef.current?.focus();
-                setIsOpen(true);
               }
             }}
             className="p-1 rounded-full text-neutral-500 hover:text-[#521422] transition-colors"
@@ -334,7 +327,7 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
       </div>
 
       {/* Autocomplete Dropdown */}
-      {isOpen && (
+      {!disableDropdown && isOpen && !isQueryEmpty && (
         <div
           className={cn(
             'absolute right-0 top-full mt-2 z-50 w-[340px] sm:w-[380px] max-w-[95vw]',
@@ -345,33 +338,8 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
         >
           {/* Scrollable Results Container */}
           <div className="overflow-y-auto divide-y divide-neutral-100 flex-1 overscroll-contain">
-            {/* Case 1: Empty Query - Quick Suggestions & Popular Blends */}
-            {isQueryEmpty && (
-              <div className="p-4 sm:p-5">
-                <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-500 mb-3">
-                  <Sparkles className="w-3.5 h-3.5 text-[#C49A45]" />
-                  <span>Popular Suggestions</span>
-                </div>
-                <p className="text-xs text-neutral-500 mb-3">
-                  Try searching for our signature brews or packaged blends:
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {QUICK_SUGGESTIONS.map((tag) => (
-                    <button
-                      key={tag}
-                      type="button"
-                      onClick={() => handleSuggestionClick(tag)}
-                      className="px-3 py-1.5 rounded-full text-xs font-medium bg-neutral-100 hover:bg-[#521422]/10 hover:text-[#521422] text-neutral-700 border border-neutral-200 transition-colors capitalize"
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Case 2: Has Results */}
-            {!isQueryEmpty && hasMatches && (
+            {/* Case: Has Results */}
+            {hasMatches && (
               <>
                 {/* Group 1: Signature Beverages */}
                 {beverageResults.length > 0 && (

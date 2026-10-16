@@ -19,8 +19,8 @@ const HIGHLIGHTS = [
   },
   {
     icon: <Coffee className="w-7 h-7 text-brand-burgundy" />,
-    title: 'Signature Tea Varieties',
-    description: 'From cardamom-infused Elaichi tea to our robust Masala chai and invigorating ginger brew, crafted to culinary precision.',
+    title: '50+ Tea Options',
+    description: 'From cardamom-infused Elaichi tea to robust Masala chai, herbal wellness infusions, and refreshing filter coffees crafted to culinary precision.',
     link: '/menu',
   },
   {
@@ -56,7 +56,7 @@ export const BrandHighlights: React.FC = () => {
         <SectionHeading
           badge="Why Sharon"
           title="Brewed with Passion, Served with Love"
-          subtitle="Discover what makes Sharon Tea Stall the most cherished neighborhood gathering spot across South India."
+          subtitle="Discover what makes Sharon Tea and Coffee the most cherished neighborhood gathering spot across South India."
         />
       </div>
 

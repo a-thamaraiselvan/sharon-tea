@@ -85,6 +85,13 @@ export const MenuPage: React.FC = () => {
   const { data: categories = FALLBACK_MENU_CATEGORIES } = useMenuCategories();
   const { data: items, isLoading } = useMenuItems();
 
+  const menuCategories = useMemo(() => {
+    const list = categories && categories.length > 0 ? categories : FALLBACK_MENU_CATEGORIES;
+    const hasAll = list.some((c) => c.id === 'all');
+    if (hasAll) return list;
+    return [{ id: 'all', name: 'All Beverages', slug: 'all', displayOrder: 0, isActive: true }, ...list];
+  }, [categories]);
+
   // Sync state if url param changes
   useEffect(() => {
     setActiveCategory(searchParamCategory || 'all');
@@ -195,15 +202,15 @@ export const MenuPage: React.FC = () => {
     });
   }, [sortedAllItems, activeCategory, searchFilter]);
 
-  const activeCategoryName = categories.find((c) => c.id === activeCategory)?.name || 'Beverages';
+  const activeCategoryName = menuCategories.find((c) => c.id === activeCategory)?.name || 'Beverages';
 
   return (
     <>
       <Helmet>
-        <title>Beverage Menu | Sharon Tea Stall</title>
+        <title>Beverage Menu | Sharon Tea and Coffee</title>
         <meta
           name="description"
-          content="Explore Sharon Tea Stall's freshly brewed teas, aromatic masala chai, traditional South Indian filter coffee, and chilled beverages slow-boiled to golden perfection."
+          content="Explore Sharon Tea and Coffee's freshly brewed teas, aromatic masala chai, traditional South Indian filter coffee, and chilled beverages slow-boiled to golden perfection."
         />
       </Helmet>
 
@@ -239,6 +246,7 @@ export const MenuPage: React.FC = () => {
           <div className="max-w-xl mx-auto reveal-fade">
             <LiveTeaSearch
               value={searchFilter}
+              disableDropdown={true}
               onChange={(val) => {
                 setSearchFilter(val);
                 if (!val) {
@@ -251,15 +259,6 @@ export const MenuPage: React.FC = () => {
                   );
                 }
               }}
-              onSelectBeverage={(selectedBeverage) => {
-                setSearchFilter(selectedBeverage.name);
-                if (selectedBeverage.categoryId) {
-                  setActiveCategory(selectedBeverage.categoryId);
-                }
-                setTimeout(() => {
-                  scrollToMenuGrid();
-                }, 50);
-              }}
               placeholder="Search beverages, spices, filter coffee..."
             />
           </div>
@@ -267,7 +266,7 @@ export const MenuPage: React.FC = () => {
           {/* MenuCategoryNav below search */}
           <div id="menu-category-tabs" className="scroll-mt-24 sm:scroll-mt-28 reveal-fade" style={{ '--reveal-delay': '80ms' } as React.CSSProperties}>
             <MenuCategoryNav
-              categories={categories}
+              categories={menuCategories}
               activeCategory={activeCategory}
               onSelectCategory={handleCategorySelect}
             />
@@ -317,7 +316,7 @@ export const MenuPage: React.FC = () => {
             Craving a Hot Cutting Chai Right Now?
           </h3>
           <p className="text-brand-cream/80 text-sm sm:text-base max-w-xl mx-auto mb-8 font-normal">
-            Walk into our nearest Sharon Tea Stall to experience the bubbling brass samovar and warm smile in person.
+            Walk into our nearest Sharon Tea and Coffee to experience the bubbling brass samovar and warm smile in person.
           </p>
           <BrandButton
             to="/visit-us"

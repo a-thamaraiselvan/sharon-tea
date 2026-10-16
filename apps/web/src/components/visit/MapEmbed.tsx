@@ -9,7 +9,7 @@ interface MapEmbedProps {
 
 export const MapEmbed: React.FC<MapEmbedProps> = ({
   embedUrl = 'https://maps.google.com/maps?q=%2334,+2nd+Main+Road,+1st+Stage,+Indiranagar,+Bangalore+-+560038&t=&z=15&ie=UTF8&iwloc=&output=embed',
-  title = 'Sharon Tea Stall Google Map',
+  title = 'Sharon Tea and Coffee Google Map',
   className,
 }) => {
   return (

@@ -1,5 +1,5 @@
 /**
- * Sharon Tea Stall — Core Constants & Brand Tokens
+ * Sharon Tea and Coffee — Core Constants & Brand Tokens
  */
 
 export const BRAND_COLORS = {
@@ -19,11 +19,11 @@ export type BrandColorKey = keyof typeof BRAND_COLORS;
 
 export const BUSINESS_DEFAULTS = {
   brandName: 'Sharon',
-  tradeName: 'Sharon Tea Stall',
-  registeredName: 'Sharon Tea Stall Private Limited',
+  tradeName: 'Sharon Tea and Coffee',
+  registeredName: 'Sharon Tea and Coffee Private Limited',
   tagline: 'Every Cup, A Moment to Savour.',
   description:
-    'Sharon Tea Stall celebrates the soul of South Indian street chai culture with artisanal brewing, authentic spices, and heartfelt hospitality. Serving over 8,000+ cups daily to happy patrons.',
+    'Sharon Tea and Coffee celebrates the soul of South Indian street chai culture with artisanal brewing, authentic spices, and heartfelt hospitality. Serving over 8,000+ cups daily to happy patrons.',
   cupsServedDaily: '8,000+',
   outletsCount: '12+',
   yearsOfHeritage: '15+',
@@ -42,8 +42,8 @@ export const BRAND_LINES = {
   heroSubtitle:
     'Hand-crafted South Indian tea, authentic filter coffee, fresh herbal infusions, and freshly fried savories — brewed fresh from sunrise to twilight.',
   aboutIntro:
-    'Born from a deep reverence for authentic tea stall culture, Sharon Tea Stall is where age-old brewing traditions meet contemporary quality standards. Every batch is brewed with whole-leaf teas, fresh farm milk, and crushed spices.',
-  franchiseHeadline: 'Brew Success with Sharon Tea Stall',
+    'Born from a deep reverence for authentic tea stall culture, Sharon Tea and Coffee is where age-old brewing traditions meet contemporary quality standards. Every batch is brewed with whole-leaf teas, fresh farm milk, and crushed spices.',
+  franchiseHeadline: 'Brew Success with Sharon Tea and Coffee',
   franchiseSubtitle:
     'Join South India’s fastest-growing tea franchise family. Low operational complexity, beloved daily footfalls, and a proven playbook serving 8,000+ cups daily.',
 } as const;
@@ -143,7 +143,7 @@ export function buildWhatsAppOrderMessage(
   quantity = 1,
   notes?: string
 ): string {
-  const base = `Hello Sharon Tea Stall! 👋\n\nI would like to order:\n• *${quantity}x ${itemName}* (₹${price * quantity})`;
+  const base = `Hello Sharon Tea and Coffee! 👋\n\nI would like to order:\n• *${quantity}x ${itemName}* (₹${price * quantity})`;
   if (notes && notes.trim().length > 0) {
     return `${base}\n• Special Instructions: ${notes.trim()}\n\nPlease confirm availability and pickup time. Thank you!`;
   }
@@ -159,5 +159,5 @@ export function buildWhatsAppProductMessage(
   price: number,
   quantity = 1
 ): string {
-  return `Hello Sharon Tea Stall! 👋\n\nI would like to order the packaged retail product:\n• *Product:* ${productName}\n• *Pack Size:* ${packSize}\n• *Quantity:* ${quantity}\n• *Estimated Total:* ₹${price * quantity}\n\nPlease share delivery options and payment details. Thank you!`;
+  return `Hello Sharon Tea and Coffee! 👋\n\nI would like to order the packaged retail product:\n• *Product:* ${productName}\n• *Pack Size:* ${packSize}\n• *Quantity:* ${quantity}\n• *Estimated Total:* ₹${price * quantity}\n\nPlease share delivery options and payment details. Thank you!`;
 }

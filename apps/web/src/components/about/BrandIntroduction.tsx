@@ -6,10 +6,10 @@ import { cn } from '@/utils/cn';
 
 const TIMELINE_STEPS = [
   {
-    year: '2018',
-    title: 'The First Samovar',
+    year: '2007',
+    title: 'Brewing Since 2007 - The First Samovar',
     description:
-      'Sharon Tea Stall opened its first doors with a single bubbling brass samovar, family-guarded spices, and an uncompromising commitment to whole tea leaves.',
+      'Sharon opened its first doors with a single bubbling brass samovar, family-guarded spices, and an uncompromising commitment to whole tea leaves.',
     icon: <Coffee className="w-5 h-5 text-brand-amber" />,
   },
   {
@@ -50,7 +50,7 @@ export const BrandIntroduction: React.FC = () => {
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal-up">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 text-xs font-semibold tracking-widest uppercase rounded-full mb-4 bg-brand-amber/20 text-brand-amber border border-brand-amber/30">
             <Sparkles className="w-3.5 h-3.5" />
-            Our Heritage & Story
+            Brewing Since 2007 • Our Heritage & Story
           </div>
 
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
@@ -58,7 +58,7 @@ export const BrandIntroduction: React.FC = () => {
           </h1>
 
           <p className="mt-6 text-lg sm:text-xl text-brand-cream/85 max-w-2xl mx-auto leading-relaxed font-normal">
-            From humble beginnings to serving over 8,000 cups daily, discover how authentic spice recipes and genuine hospitality defined Sharon Tea Stall.
+            Brewing since 2007 and serving over 8,000 cups daily with 50+ handcrafted tea options, authentic spice recipes, and genuine hospitality.
           </p>
         </div>
       </section>
@@ -69,14 +69,14 @@ export const BrandIntroduction: React.FC = () => {
           <div className="reveal-up">
             <SectionHeading
               badge="The Sharon Journey"
-              title="Honoring the Timeless Ritual of Chai"
-              subtitle="In every corner of India, chai is more than a beverage—it is connection, camaraderie, and comfort."
+              title="50+ Tea Options"
+              subtitle="Honoring the timeless ritual of chai with over 50+ handcrafted tea varieties, rich whole spices, and comforting aromas."
             />
           </div>
 
           <div className="prose prose-lg text-neutral-600 space-y-6 leading-relaxed font-normal">
             <p className="reveal-left text-reveal">
-              Sharon Tea Stall was created out of deep admiration for India's roadside tea culture, elevated with uncompromising standards of hygiene, consistent taste, and premium whole spices.
+              Sharon Tea and Coffee was created out of deep admiration for India's roadside tea culture, elevated with uncompromising standards of hygiene, consistent taste, and premium whole spices.
             </p>
             <p className="reveal-right text-reveal">
               While ordinary tea stalls often resort to low-grade tea dust and artificial flavour essences, Sharon stood firm on a different path: only whole CTC tea leaves from Assam’s Brahmaputra valley, freshly pounded green cardamom pods from Kerala, ginger harvested at peak aroma, and thick, full-cream farm milk.

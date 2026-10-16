@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
               "Every Cup, A Moment to Savour."
             </p>
             <p className="text-white/80 text-xs sm:text-sm leading-relaxed">
-              Sharon Tea Stall serves authentic, hand-brewed Indian teas and South Indian filter coffee.
+              Sharon Tea and Coffee serves authentic, hand-brewed Indian teas and South Indian filter coffee.
               Crafted from fine estate leaf blends and royal aromatic spices, beloved by over 8,000 patrons every single day.
             </p>
 
@@ -134,7 +134,10 @@ export const Footer: React.FC = () => {
                   <span>Operating Hours</span>
                 </div>
                 <p className="text-white font-medium text-sm">
-                  5:30 AM – 11:30 PM (All 7 Days)
+                  5:30 AM – 11:30 PM (Mon – Sat)
+                </p>
+                <p className="text-xs font-semibold text-brand-amber">
+                  6 Working Days • Sunday Holiday
                 </p>
                 <p className="text-xs text-white/60">
                   Serving piping hot brews from early morning till late night.
@@ -164,7 +167,7 @@ export const Footer: React.FC = () => {
       {/* Copyright Bar */}
       <div className="border-t border-white/10 py-5 bg-[#143927]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between text-xs text-white/70 gap-3 text-center md:text-left">
-          <p>© {new Date().getFullYear()} Sharon Tea Stall. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Sharon Tea and Coffee. All rights reserved.</p>
           <p className="flex items-center gap-1.5 justify-center">
             <span>Design &amp; Developed by</span>
             <a

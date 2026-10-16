@@ -59,7 +59,7 @@ export const BrandStoryPreview: React.FC = () => {
             className="mt-6 text-base text-neutral-600 leading-relaxed font-normal text-reveal"
             style={{ '--reveal-delay': '60ms' } as React.CSSProperties}
           >
-            Sharon Tea Stall began with a humble philosophy: teatime isn't just about grabbing a drink;
+            Sharon Tea and Coffee began with a humble philosophy: teatime isn't just about grabbing a drink;
             it is a cherished pause in a bustling day. A moment when colleagues share dreams,
             friends reconnect, and everyday travelers recharge.
           </p>

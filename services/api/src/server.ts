@@ -6,7 +6,7 @@ import { seedDatabase } from './seed/index.js';
 
 const startServer = async () => {
   try {
-    console.log('--- Initializing Sharon Tea Stall API Server ---');
+    console.log('--- Initializing Sharon Tea and Coffee API Server ---');
 
     // 1. Connect to PostgreSQL
     console.log('Connecting to PostgreSQL database...');
@@ -24,7 +24,7 @@ const startServer = async () => {
     const app = createApp();
     const server = app.listen(env.PORT, () => {
       console.log('====================================================');
-      console.log(` Sharon Tea Stall API Server running on port ${env.PORT}`);
+      console.log(` Sharon Tea and Coffee API Server running on port ${env.PORT}`);
       console.log(` Health check: http://localhost:${env.PORT}/health`);
       console.log(` API base URL: http://localhost:${env.PORT}/api/v1`);
       console.log(` Environment:  ${env.NODE_ENV}`);

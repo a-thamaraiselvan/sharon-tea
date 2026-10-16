@@ -21,7 +21,7 @@ export const AdminLayout: React.FC = () => {
           <Outlet />
         </Content>
         <Footer className="text-center text-xs text-neutral-500 py-3 bg-transparent shrink-0">
-          <span>Sharon Tea Stall Admin • Design &amp; Developed by </span>
+          <span>Sharon Tea and Coffee Admin • Design &amp; Developed by </span>
           <a
             href="https://novacodex.in/"
             target="_blank"

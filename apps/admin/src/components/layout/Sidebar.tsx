@@ -145,7 +145,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onCollapse }) => {
         {!collapsed && (
           <div className="flex flex-col overflow-hidden">
             <span className="font-display font-bold text-base text-sharon-primary truncate tracking-wide">
-              Sharon Tea Stall
+              Sharon Tea & Coffee
             </span>
             <span className="text-[11px] uppercase tracking-wider text-sharon-forest font-semibold">
               Admin Portal

@@ -26,7 +26,7 @@ export const FeaturedProducts: React.FC = () => {
         <SectionHeading
           badge="Packaged Blends"
           title="Bring Sharon Home"
-          subtitle="Savor the authentic Sharon Tea Stall experience right from your kitchen. Packed in freshness-preserving foil pouches."
+          subtitle="Savor the authentic Sharon Tea and Coffee experience right from your kitchen. Packed in freshness-preserving foil pouches."
         />
       </div>
 

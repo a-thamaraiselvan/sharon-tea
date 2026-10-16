@@ -188,7 +188,7 @@ export const seedDatabase = async (): Promise<void> => {
           address, operating_hours, fssai_license, social_links, announcement_text, announcement_active
         ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
         [
-          'Sharon Tea Stall',
+          'Sharon Tea and Coffee',
           'Authentic Chai & Moments of Warmth',
           'Serving authentic South Indian tea, traditional filter coffee, and delicious snacks crafted with rich ingredients and genuine passion.',
           '+91 98765 43210',
@@ -202,7 +202,7 @@ export const seedDatabase = async (): Promise<void> => {
             facebook: 'https://facebook.com/sharonteastall',
             twitter: 'https://twitter.com/sharonteastall',
           }),
-          'Welcome to Sharon Tea Stall! Visit our nearest outlet or order our retail packs via WhatsApp.',
+          'Welcome to Sharon Tea and Coffee! Visit our nearest outlet or order our retail packs via WhatsApp.',
           true,
         ]
       );
@@ -451,7 +451,7 @@ export const seedDatabase = async (): Promise<void> => {
     // 6. Synchronize Outlets
     const outletsData = [
       {
-        name: 'Sharon Tea Stall - Indiranagar (Head Branch)',
+        name: 'Sharon Tea and Coffee - Indiranagar (Head Branch)',
         address: '#34, 2nd Main Road, 1st Stage, Indiranagar, Bangalore - 560038',
         phone: '+91 98765 43210',
         operating_hours: 'Open Daily: 5:30 AM – 11:30 PM',
@@ -459,7 +459,7 @@ export const seedDatabase = async (): Promise<void> => {
         maps_url: 'https://maps.google.com/?q=%2334,+2nd+Main+Road,+1st+Stage,+Indiranagar,+Bangalore+-+560038',
       },
       {
-        name: 'Sharon Tea Stall - New Thippasandra',
+        name: 'Sharon Tea and Coffee - New Thippasandra',
         address: 'No. 111, New Thippasandra Main Road, Sree Veerajaneya Swamy Seva Samathi, Bangalore - 560075',
         phone: '+91 98765 43211',
         operating_hours: 'Open Daily: 6:00 AM – 11:00 PM',
@@ -467,7 +467,7 @@ export const seedDatabase = async (): Promise<void> => {
         maps_url: 'https://maps.google.com/?q=No.+111,+New+Thippasandra+Main+Road,+Bangalore+-+560075',
       },
       {
-        name: 'Sharon Tea Stall - Kaggadasapura',
+        name: 'Sharon Tea and Coffee - Kaggadasapura',
         address: '2nd Floor, Railway Crossing, 40, near MRP, Nagappareddy Layout, Kaggadasapura, Bengaluru, Karnataka - 560093',
         phone: '+91 98765 43212',
         operating_hours: 'Open Daily: 6:00 AM – 11:00 PM',

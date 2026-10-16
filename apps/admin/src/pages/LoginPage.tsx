@@ -70,7 +70,7 @@ export const LoginPage: React.FC = () => {
             className="w-16 h-16 rounded-full object-cover mx-auto mb-3 shadow-md border-2 border-amber-900/20"
           />
           <h1 className="text-3xl font-bold font-display text-sharon-primary m-0">
-            Sharon Tea Stall
+            Sharon Tea and Coffee
           </h1>
           <Text className="text-sm text-gray-500 font-sans block mt-1">
             Official Management Portal
@@ -168,7 +168,7 @@ export const LoginPage: React.FC = () => {
           </form>
 
           <div className="mt-6 text-center text-xs text-gray-400 border-t border-gray-100 pt-4 space-y-1">
-            <div>Authorized personnel only • Sharon Tea Stall Pvt Ltd</div>
+            <div>Authorized personnel only • Sharon Tea and Coffee Pvt Ltd</div>
             <div>
               Design &amp; Developed by{' '}
               <a

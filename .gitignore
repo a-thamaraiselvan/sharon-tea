@@ -27,6 +27,7 @@ uploads/
 tmp/
 temp/
 *.zip
+*.cjs
 deploy-api/
 
 # Logs

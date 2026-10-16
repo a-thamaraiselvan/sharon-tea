@@ -1,7 +1,7 @@
 import apiClient from '@/api/apiClient';
 import type { MenuCategory, MenuItem, ApiResponse } from '@/types';
 
-// Authentic Sharon Tea Stall menu items fallback
+// Authentic Sharon Tea and Coffee menu items fallback
 export const FALLBACK_MENU_CATEGORIES: MenuCategory[] = [
   { id: 'all', name: 'All Beverages', slug: 'all', displayOrder: 0, isActive: true },
   { id: 'hot-teas', name: 'Hot Teas & Chai', slug: 'hot-teas', description: 'Freshly brewed aromatic teas made with authentic whole spices', displayOrder: 1, isActive: true },
@@ -224,15 +224,7 @@ export const FALLBACK_MENU_ITEMS: MenuItem[] = [
 ];
 
 export async function getPublicMenuCategories(): Promise<MenuCategory[]> {
-  try {
-    const response = await apiClient.get<ApiResponse<MenuCategory[]>>('/ProductCategory/GetPublicProductCategories');
-    if (response.data?.data && response.data.data.length > 0) {
-      return response.data.data;
-    }
-    return FALLBACK_MENU_CATEGORIES;
-  } catch {
-    return FALLBACK_MENU_CATEGORIES;
-  }
+  return FALLBACK_MENU_CATEGORIES;
 }
 
 export async function getPublicMenuItems(categoryId?: string): Promise<MenuItem[]> {

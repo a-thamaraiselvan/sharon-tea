@@ -143,7 +143,7 @@ export const DashboardPage: React.FC = () => {
     <div>
       <div>
         <PageHeader
-          title="Sharon Tea Stall Overview"
+          title="Sharon Tea and Coffee Overview"
           subtitle="Real-time monitor of menu offerings, packaged products, orders, and leads."
           extra={
             <Space>

@@ -28,7 +28,7 @@ export const OutletCard: React.FC<OutletCardProps> = ({ outlet, className }) => 
           )}
           <img
             src={outlet.imageUrl}
-            alt={outlet.name || 'Sharon Tea Stall Outlet'}
+            alt={outlet.name || 'Sharon Tea and Coffee Outlet'}
             loading="lazy"
             onError={(e) => {
               (e.target as HTMLImageElement).src =
@@ -91,7 +91,7 @@ export const OutletCard: React.FC<OutletCardProps> = ({ outlet, className }) => 
 
           <a
             href={`https://wa.me/919876543210?text=${encodeURIComponent(
-              `Hello! I would like to visit Sharon Tea Stall (${outlet.name}).`
+              `Hello! I would like to visit Sharon Tea and Coffee (${outlet.name}).`
             )}`}
             target="_blank"
             rel="noopener noreferrer"

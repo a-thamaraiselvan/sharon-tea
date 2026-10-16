@@ -89,7 +89,7 @@ export const FranchiseForm: React.FC = () => {
                   Application Submitted Successfully!
                 </h4>
                 <p className="text-sm text-neutral-700 mt-1">
-                  Thank you for your interest in Sharon Tea Stall. Our franchise onboarding team will review your location details and connect via phone shortly.
+                  Thank you for your interest in Sharon Tea and Coffee. Our franchise onboarding team will review your location details and connect via phone shortly.
                 </p>
                 <button
                   type="button"

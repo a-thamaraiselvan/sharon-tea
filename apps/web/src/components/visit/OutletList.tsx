@@ -74,7 +74,7 @@ export const OutletList: React.FC<OutletListProps> = ({ outlets = [], isLoading 
 
               <a
                 href={`https://wa.me/919876543210?text=${encodeURIComponent(
-                  `Hello Sharon Tea Stall! I want directions to ${currentSelection.name}.`
+                  `Hello Sharon Tea and Coffee! I want directions to ${currentSelection.name}.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"

@@ -24,7 +24,7 @@ export const SharonLogo: React.FC<SharonLogoProps> = ({
       <div className={cn('relative inline-flex items-center justify-center shrink-0', className)}>
         <img
           src="/Sharon_logo.jpg"
-          alt="Sharon Tea Stall"
+          alt="Sharon Tea and Coffee"
           className={cn(
             'rounded-full object-cover aspect-square shadow-md border-2 border-amber-900/15',
             sizeClasses
@@ -60,7 +60,7 @@ export const SharonLogo: React.FC<SharonLogoProps> = ({
             size === 'xl' && 'text-sm'
           )}
         >
-          Tea Stall
+          Tea & Coffee
         </span>
       </div>
     );
@@ -72,7 +72,7 @@ export const SharonLogo: React.FC<SharonLogoProps> = ({
       <div className={cn('relative flex-shrink-0 transition-transform duration-300 group-hover:scale-105', sizeClasses)}>
         <img
           src="/Sharon_logo.jpg"
-          alt="Sharon Tea Stall"
+          alt="Sharon Tea and Coffee"
           className={cn(
             'h-full w-full rounded-full object-cover aspect-square',
             variant === 'light'
@@ -108,7 +108,7 @@ export const SharonLogo: React.FC<SharonLogoProps> = ({
             size === 'xl' && 'text-sm'
           )}
         >
-          Tea Stall
+          Tea & Coffee
         </span>
       </div>
     </div>

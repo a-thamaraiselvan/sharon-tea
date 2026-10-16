@@ -6,8 +6,8 @@ export class BusinessSettingService {
     const settings = await businessSettingRepository.getSettings();
     if (!settings) {
       return {
-        brandName: 'Sharon Tea Stall',
-        brand_name: 'Sharon Tea Stall',
+        brandName: 'Sharon Tea and Coffee',
+        brand_name: 'Sharon Tea and Coffee',
         tagline: 'Authentic Chai & Moments of Warmth',
         phone: '+91 98765 43210',
         email: 'contact@sharonteastall.com',

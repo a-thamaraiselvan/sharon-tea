@@ -12,10 +12,10 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Sharon Tea Stall | Every Cup, A Moment to Savour</title>
+        <title>Sharon Tea and Coffee | Every Cup, A Moment to Savour</title>
         <meta
           name="description"
-          content="Discover the comforting taste of tea, refreshing beverages, and signature flavours crafted for every moment at Sharon Tea Stall. Over 8,000+ cups served daily."
+          content="Discover the comforting taste of tea, refreshing beverages, and signature flavours crafted for every moment at Sharon Tea and Coffee. Over 8,000+ cups served daily."
         />
         <meta
           name="keywords"

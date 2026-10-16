@@ -6,7 +6,7 @@ export const WhatsAppFAB: React.FC = () => {
   const [showTooltip, setShowTooltip] = useState(true);
 
   const whatsappUrl = generateGeneralInquiryLink(
-    'Hello Sharon Tea Stall! 👋 I have an enquiry about your tea blends and franchise opportunities.'
+    'Hello Sharon Tea and Coffee! 👋 I have an enquiry about your tea blends and franchise opportunities.'
   );
 
   return (
@@ -31,7 +31,7 @@ export const WhatsAppFAB: React.FC = () => {
         target="_blank"
         rel="noopener noreferrer"
         className="group relative flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus:ring-4 focus:ring-[#25D366]/30"
-        aria-label="Chat on WhatsApp with Sharon Tea Stall"
+        aria-label="Chat on WhatsApp with Sharon Tea and Coffee"
       >
         {/* Radar ping ring */}
         <span className="absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-30 animate-ping group-hover:hidden" />

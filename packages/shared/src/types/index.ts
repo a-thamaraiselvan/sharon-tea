@@ -1,5 +1,5 @@
 /**
- * Sharon Tea Stall — Shared TypeScript Interfaces & Types
+ * Sharon Tea and Coffee — Shared TypeScript Interfaces & Types
  */
 
 export type EnquiryStatus = 'pending' | 'contacted' | 'approved' | 'rejected' | 'closed';

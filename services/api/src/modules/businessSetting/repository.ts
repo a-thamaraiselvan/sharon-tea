@@ -32,7 +32,7 @@ export class BusinessSettingRepository {
           brand_name, tagline, description, phone, email, whatsapp_number,
           address, operating_hours, fssai_license, social_links, announcement_text, announcement_active
         ) VALUES (
-          COALESCE($1, 'Sharon Tea Stall'), $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, COALESCE($12, false)
+          COALESCE($1, 'Sharon Tea and Coffee'), $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, COALESCE($12, false)
         )
         RETURNING *
       `;

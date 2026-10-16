@@ -9,10 +9,10 @@ export const FranchisePage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Franchise Opportunity | Grow With Sharon Tea Stall</title>
+        <title>Franchise Opportunity | Grow With Sharon Tea and Coffee</title>
         <meta
           name="description"
-          content="Open your own Sharon Tea Stall franchise. High ROI, turnkey operations, comprehensive barista training, and direct spice supplies. Apply online today."
+          content="Open your own Sharon Tea and Coffee franchise. High ROI, turnkey operations, comprehensive barista training, and direct spice supplies. Apply online today."
         />
       </Helmet>
 

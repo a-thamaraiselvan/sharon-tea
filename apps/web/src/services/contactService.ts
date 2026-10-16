@@ -14,7 +14,7 @@ export async function submitContactEnquiry(
     console.info('Simulated contact submission response:', data);
     return {
       success: true,
-      message: 'Thank you for reaching out to Sharon Tea Stall! We will respond shortly.',
+      message: 'Thank you for reaching out to Sharon Tea and Coffee! We will respond shortly.',
       data: {
         id: `MSG-${Date.now().toString().slice(-6)}`,
       },

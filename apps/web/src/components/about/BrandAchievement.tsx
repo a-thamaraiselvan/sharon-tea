@@ -63,9 +63,9 @@ export const BrandAchievement: React.FC = () => {
               <Coffee className="w-5 h-5 sm:w-6 sm:h-6 text-brand-amber" />
             </div>
             <div className="font-display text-2xl sm:text-3xl font-bold text-white">
-              <AnimatedCounter target={25} suffix="+" />
+              <AnimatedCounter target={50} suffix="+" />
             </div>
-            <p className="text-xs sm:text-sm text-brand-cream/80 mt-1 font-medium">Beverage Blends</p>
+            <p className="text-xs sm:text-sm text-brand-cream/80 mt-1 font-medium">Tea Options & Blends</p>
           </div>
 
           <div

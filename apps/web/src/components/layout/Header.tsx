@@ -82,7 +82,7 @@ export const Header: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
           {/* Left: Sharon Logo */}
-          <Link to="/" className="flex items-center shrink-0" aria-label="Sharon Tea Stall Home">
+          <Link to="/" className="flex items-center shrink-0" aria-label="Sharon Tea and Coffee Home">
             <SharonLogo size="md" />
           </Link>
 

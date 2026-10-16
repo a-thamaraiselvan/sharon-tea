@@ -7,7 +7,7 @@ export const NotFoundPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>404 - Page Not Found | Sharon Tea Stall</title>
+        <title>404 - Page Not Found | Sharon Tea and Coffee</title>
         <meta name="robots" content="noindex, follow" />
       </Helmet>
 

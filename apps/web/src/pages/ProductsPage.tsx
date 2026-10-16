@@ -269,8 +269,8 @@ export const ProductsPage: React.FC = () => {
             <div className="max-w-xl mx-auto mt-6 reveal-fade">
               <LiveTeaSearch
                 value={searchFilter}
+                disableDropdown={true}
                 onChange={(val) => setSearchFilter(val)}
-                onSelectProduct={(p) => setActiveDrawerProduct(p)}
                 placeholder="Search packaged tea blends, flavors, pouches..."
               />
             </div>

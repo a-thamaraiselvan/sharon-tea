@@ -289,7 +289,7 @@ export const HeroSection: React.FC = () => {
       onTouchEnd={handleTouchEnd}
       role="region"
       aria-roledescription="carousel"
-      aria-label="Sharon Tea Stall Featured Highlights"
+      aria-label="Sharon Tea and Coffee Featured Highlights"
     >
       {/* Countdown Progress Timer Bar (hidden on prefers-reduced-motion) */}
       {!prefersReducedMotion && (
@@ -321,7 +321,7 @@ export const HeroSection: React.FC = () => {
             >
               <img
                 src={imageUrl}
-                alt={slide.title || 'Sharon Tea Stall'}
+                alt={slide.title || 'Sharon Tea and Coffee'}
                 onError={(e) => {
                   (e.target as HTMLImageElement).src =
                     'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=2000&q=85';
