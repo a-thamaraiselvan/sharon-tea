@@ -163,7 +163,7 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
               </span>
             )}
 
-            <div className="w-full max-w-[280px] aspect-[4/5] flex items-center justify-center">
+            <div className="w-full max-w-[260px] h-56 sm:h-64 rounded-xl overflow-hidden bg-white p-3 border border-neutral-200/60 shadow-xs flex items-center justify-center">
               <img
                 src={resolveImageUrl(selectedImg || product.imageUrl, '/images/products/img_3687.jpg')}
                 alt={product.name}
@@ -171,7 +171,7 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = '/images/products/img_3687.jpg';
                 }}
-                className="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-105"
+                className="w-full h-full object-contain rounded-lg transition-transform duration-300 hover:scale-105"
               />
             </div>
 
