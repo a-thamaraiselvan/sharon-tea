@@ -167,10 +167,11 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
               <img
                 src={resolveImageUrl(selectedImg || product.imageUrl, '/images/products/img_3687.jpg')}
                 alt={product.name}
+                decoding="async"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = '/images/products/img_3687.jpg';
                 }}
-                className="max-h-full max-w-full object-contain filter drop-shadow-md transition-transform duration-300 hover:scale-105"
+                className="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-105"
               />
             </div>
 

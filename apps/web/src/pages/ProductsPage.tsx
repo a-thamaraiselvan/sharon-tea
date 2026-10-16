@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useDeferredValue } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ProductGrid } from '@/components/products/ProductGrid';
 import { LiveTeaSearch } from '@/components/search/LiveTeaSearch';
@@ -30,7 +30,8 @@ export const ProductsPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedFlavor, setSelectedFlavor] = useState<string | null>(null);
   const [searchFilter, setSearchFilter] = useState<string>('');
-  const { activeDrawerProduct, setActiveDrawerProduct } = useUiStore();
+  const deferredSearchFilter = useDeferredValue(searchFilter);
+  const { setActiveDrawerProduct } = useUiStore();
 
   // Strict rule: If API returns products, show ONLY API products.
   // When API call list comes empty, show the default from use.
@@ -44,17 +45,18 @@ export const ProductsPage: React.FC = () => {
     return ['All', ...list];
   }, [allProducts]);
 
-  // Filter products based on Search, Category and Flavor selection
+  // Filter products based on Search, Category and Flavor selection (using deferredSearchFilter for 60fps responsiveness)
   const filteredProducts = useMemo(() => {
+    const cleanSearch = deferredSearchFilter.trim().toLowerCase();
     return allProducts.filter((p: Product) => {
       // Live search filter
       const matchesSearch =
-        !searchFilter.trim() ||
-        p.name.toLowerCase().includes(searchFilter.toLowerCase()) ||
-        (p.description && p.description.toLowerCase().includes(searchFilter.toLowerCase())) ||
-        (p.shortDescription && p.shortDescription.toLowerCase().includes(searchFilter.toLowerCase())) ||
-        (p.flavor && p.flavor.toLowerCase().includes(searchFilter.toLowerCase())) ||
-        (p.category && p.category.toLowerCase().includes(searchFilter.toLowerCase()));
+        !cleanSearch ||
+        p.name.toLowerCase().includes(cleanSearch) ||
+        (p.description && p.description.toLowerCase().includes(cleanSearch)) ||
+        (p.shortDescription && p.shortDescription.toLowerCase().includes(cleanSearch)) ||
+        (p.flavor && p.flavor.toLowerCase().includes(cleanSearch)) ||
+        (p.category && p.category.toLowerCase().includes(cleanSearch));
 
       // Category filter
       const matchesCategory =
@@ -74,7 +76,7 @@ export const ProductsPage: React.FC = () => {
 
       return matchesSearch && matchesCategory && matchesFlavor;
     });
-  }, [allProducts, selectedCategory, selectedFlavor, searchFilter]);
+  }, [allProducts, selectedCategory, selectedFlavor, deferredSearchFilter]);
 
   const scrollToProducts = (targetId?: unknown) => {
     const id = typeof targetId === 'string' ? targetId : 'products-grid-container';
@@ -96,27 +98,18 @@ export const ProductsPage: React.FC = () => {
     } else {
       setSelectedFlavor(flavorName);
       setSelectedCategory('All'); // Clear category so the flavor is never filtered out
-      setTimeout(() => {
-        scrollToProducts();
-      }, 50);
     }
   };
 
   const handleCategoryClick = (cat: string) => {
     setSelectedCategory(cat);
     setSelectedFlavor(null); // Clear flavor so the entire category collection displays
-    setTimeout(() => {
-      scrollToProducts();
-    }, 50);
   };
 
   const handleResetFilters = () => {
     setSelectedCategory('All');
     setSelectedFlavor(null);
     setSearchFilter('');
-    setTimeout(() => {
-      scrollToProducts();
-    }, 50);
   };
 
   return (

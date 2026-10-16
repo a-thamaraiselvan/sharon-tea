@@ -154,9 +154,14 @@ export function initGlobalScrollReveal(): () => void {
 
   observeAll();
 
-  // Watch for newly rendered DOM nodes (e.g. route transitions, loaded data)
+  // Watch for newly rendered DOM nodes (debounced with requestAnimationFrame)
+  let rafId: number | null = null;
   const mutationObserver = new MutationObserver(() => {
-    observeAll();
+    if (rafId !== null) return;
+    rafId = requestAnimationFrame(() => {
+      rafId = null;
+      observeAll();
+    });
   });
 
   mutationObserver.observe(document.body, {
@@ -165,6 +170,9 @@ export function initGlobalScrollReveal(): () => void {
   });
 
   return () => {
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
+    }
     observer.disconnect();
     mutationObserver.disconnect();
   };

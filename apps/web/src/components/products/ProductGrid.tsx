@@ -55,18 +55,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   return (
     <>
       {/* 2-column on mobile, 3-col on tablet, 4-column on desktop */}
-      <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 reveal-stagger ${className || ''}`}>
-        {products.map((product, index) => (
-          <div
+      <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 ${className || ''}`}>
+        {products.map((product) => (
+          <ProductDetailCard
             key={product.id}
-            className="reveal-up"
-            style={{ '--reveal-delay': `${(index % 4) * 50}ms` } as React.CSSProperties}
-          >
-            <ProductDetailCard
-              product={product}
-              onSelectProduct={handleCardClick}
-            />
-          </div>
+            product={product}
+            onSelectProduct={handleCardClick}
+          />
         ))}
       </div>
 

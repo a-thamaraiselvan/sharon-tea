@@ -27,7 +27,6 @@
   transition: opacity var(--duration-reveal) var(--ease-spring),
               transform var(--duration-reveal) var(--ease-spring);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: transform, opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
@@ -101,7 +100,6 @@
 .reveal-stagger > * {
   transition: opacity var(--duration-reveal) var(--ease-spring),
               transform var(--duration-reveal) var(--ease-spring);
-  will-change: transform, opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
@@ -130,7 +128,6 @@
 .hover-lift {
   transition: transform var(--duration-micro) var(--ease-spring),
               box-shadow var(--duration-micro) var(--ease-spring);
-  will-change: transform, box-shadow;
 }
 
 .hover-lift:hover {
@@ -141,7 +138,6 @@
 
 .hover-scale {
   transition: transform var(--duration-micro) var(--ease-spring);
-  will-change: transform;
 }
 
 .hover-scale:hover {
@@ -154,7 +150,6 @@
 
 .image-zoom {
   transition: transform 450ms var(--ease-spring);
-  will-change: transform;
 }
 
 .image-zoom:hover,
