@@ -14,7 +14,7 @@ import {
   Bike,
 } from 'lucide-react';
 import { useDeliveryPartners } from '@/hooks/useDeliveryPartners';
-import { FALLBACK_DELIVERY_PARTNERS } from '@/services/deliveryPartnerService';
+import { FALLBACK_DELIVERY_PARTNERS, resolvePartnerUrl } from '@/services/deliveryPartnerService';
 import { resolveImageUrl } from '@/utils/imageUrl';
 
 export const Footer: React.FC = () => {
@@ -169,7 +169,7 @@ export const Footer: React.FC = () => {
             <div className="grid grid-cols-2 gap-2.5 sm:gap-4 w-full sm:w-auto max-w-sm sm:max-w-none">
               {partners.map((partner) => {
                 const logo = partner.logoUrl || partner.logo_url;
-                const link = partner.partnerUrl || partner.partner_url || 'https://www.swiggy.com';
+                const link = resolvePartnerUrl(partner);
                 const badge = partner.badgeText || partner.badge_text;
                 return (
                   <a

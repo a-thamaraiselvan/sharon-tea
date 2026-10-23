@@ -65,7 +65,7 @@ export const FeaturedMenu: React.FC = () => {
               className="reveal-up"
               style={{ '--reveal-delay': `${(index % 4) * 60}ms` } as React.CSSProperties}
             >
-              <MenuItemCard item={item} />
+              <MenuItemCard item={item} showPrice={false} />
             </div>
           ))}
         </div>
@@ -78,7 +78,7 @@ export const FeaturedMenu: React.FC = () => {
             size="lg"
             icon={<ArrowRight className="w-4 h-4" />}
           >
-            View Full Menu & Pricing
+            View Full Beverage Menu
           </BrandButton>
         </div>
       </div>

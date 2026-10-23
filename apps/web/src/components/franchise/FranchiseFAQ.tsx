@@ -13,7 +13,7 @@ const FAQS: FAQItem[] = [
   {
     question: 'What is the total investment required to open a Sharon Tea and Coffee?',
     answer:
-      'The initial investment ranges between ₹3.5 Lakhs to ₹7 Lakhs depending on the chosen store format (Kiosk vs Dine-in Cafe). This includes the franchise license fee, kitchen machinery, stainless steel counters, signage, initial raw material stock, and comprehensive team training.',
+      'The initial investment ranges between ₹15 Lakhs to ₹30 Lakhs depending on the chosen store format (Sharon Cafe Model vs Master Franchise). This includes the franchise license fee, kitchen machinery, stainless steel counters, signage, initial raw material stock, and comprehensive team training.',
   },
   {
     question: 'How much commercial space is required?',
@@ -33,7 +33,7 @@ const FAQS: FAQItem[] = [
   {
     question: 'What is the expected payback period and profit margin?',
     answer:
-      'Most franchise partners recover their capital investment within 10 to 14 months. Due to high consumer volume and strong gross beverage margins of 55-65%, net monthly operational profits remain attractive.',
+      'Most franchise partners recover their capital investment within 10 to 14 months. Due to high consumer volume and strong gross beverage margins, net monthly operational profits remain attractive.',
   },
   {
     question: 'Is geographic exclusivity provided?',

@@ -31,7 +31,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     flavor: 'Cinnamon Tea',
     badge: 'New',
     imageUrl: '/images/products/cinnamon-pouch.png',
-    images: ['/images/products/cinnamon-pouch.png', '/images/products/img_3693.jpg'],
+    images: ['/images/products/cinnamon-pouch.png'],
     weight: '250g Pouch',
     shortDescription: 'Aromatic cinnamon blend for a warm and refreshing cup.',
     description: 'Ceylon cinnamon quills blended with rich black tea for a delicate, naturally sweet and woody spiced cup.',
@@ -69,7 +69,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     flavor: 'Ginger Tea',
     badge: 'New',
     imageUrl: '/images/products/ginger-pouch.png',
-    images: ['/images/products/ginger-pouch.png', '/images/products/img_3689.jpg'],
+    images: ['/images/products/ginger-pouch.png'],
     weight: '250g Pouch',
     shortDescription: 'A perfect mix of ginger and elaichi for a strong and refreshing tea.',
     description: 'The golden duo of crushed sun-dried ginger and fragrant cardamom paired with robust CTC tea.',
@@ -107,7 +107,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     flavor: 'Ginger Tea',
     badge: 'New',
     imageUrl: '/images/products/ginger-pouch.png',
-    images: ['/images/products/ginger-pouch.png', '/images/products/img_4746.jpg'],
+    images: ['/images/products/ginger-pouch.png'],
     weight: '250g Pouch',
     shortDescription: 'Bold sun-dried ginger warmth for an invigorating cup.',
     description: 'High-grade dry ginger crushed with premium granular tea to clear the throat and warm the soul.',
@@ -125,8 +125,8 @@ export const FALLBACK_PRODUCTS: Product[] = [
     category: 'Masala Tea',
     flavor: 'Masala Tea',
     badge: 'Bestseller',
-    imageUrl: '/images/products/img_3704.png',
-    images: ['/images/products/img_3704.png'],
+    imageUrl: '/images/products/img_3689.jpg',
+    images: ['/images/products/img_3689.jpg', '/images/products/masala-pouch.png'],
     weight: '250g Pouch',
     shortDescription: 'Signature handcrafted masala chai blend with authentic aromatic spices.',
     description: 'Our signature blend of selected high-grown Assam CTC black tea expertly combined with crushed cardamom, dried ginger, cinnamon, and cloves.',
@@ -155,15 +155,144 @@ export const FALLBACK_PRODUCTS: Product[] = [
   },
 ];
 
+/**
+ * Image correction mapping for products catalog:
+ * Corrects mismatched API images or product slugs to their authentic tea pouch visual.
+ */
+export function resolveProductImage(
+  slug: string = '',
+  name: string = '',
+  rawImageUrl?: string
+): { imageUrl: string; images: string[] } {
+  const cleanSlug = (slug || '').toLowerCase().trim();
+  const cleanName = (name || '').toLowerCase().trim();
+  const rawUrl = (rawImageUrl || '').trim();
+
+  // 1. Cinnamon Tea: fix cutting chai glass (img_3693.jpg) -> cinnamon pouch
+  if (
+    cleanSlug === 'cinnamon-tea' ||
+    cleanName.includes('cinnamon') ||
+    rawUrl.includes('img_3693')
+  ) {
+    return {
+      imageUrl: '/images/products/cinnamon-pouch.png',
+      images: ['/images/products/cinnamon-pouch.png'],
+    };
+  }
+
+  // 2. Ginger Elaichi Tea: fix Masala pouch (img_3689.jpg) -> authentic ginger elaichi pouch
+  if (
+    cleanSlug === 'ginger-elaichi-tea' ||
+    (cleanName.includes('ginger') && cleanName.includes('elaichi'))
+  ) {
+    return {
+      imageUrl: '/images/products/ginger-pouch.png',
+      images: ['/images/products/ginger-pouch.png'],
+    };
+  }
+
+  // 3. Ginger Tea: fix chai glasses (img_4746.jpg) -> ginger pouch
+  if (
+    cleanSlug === 'ginger-tea' ||
+    cleanName === 'ginger tea' ||
+    rawUrl.includes('img_4746')
+  ) {
+    return {
+      imageUrl: '/images/products/ginger-pouch.png',
+      images: ['/images/products/ginger-pouch.png'],
+    };
+  }
+
+  // 4. Masala Tea: fix logo badge (img_3704.png) -> authentic Sharon Masala tea pouch (img_3689.jpg)
+  if (
+    cleanSlug === 'masala-tea' ||
+    cleanName.includes('masala') ||
+    rawUrl.includes('img_3704')
+  ) {
+    return {
+      imageUrl: '/images/products/img_3689.jpg',
+      images: ['/images/products/img_3689.jpg', '/images/products/masala-pouch.png'],
+    };
+  }
+
+  // 5. Elaichi Tea: ensure authentic pouch image
+  if (cleanSlug === 'elaichi-tea' || cleanName === 'elaichi tea') {
+    const primary =
+      rawUrl &&
+      !rawUrl.includes('img_3704') &&
+      !rawUrl.includes('img_3693') &&
+      !rawUrl.includes('img_4746')
+        ? rawUrl
+        : '/images/products/elachi-pouch.png';
+    return {
+      imageUrl: primary,
+      images: [primary, '/images/products/elachi-pouch.png'],
+    };
+  }
+
+  // 6. Chocolate Tea
+  if (cleanSlug === 'chocolate-tea' || cleanName.includes('chocolate')) {
+    const primary =
+      rawUrl &&
+      !rawUrl.includes('img_3704') &&
+      !rawUrl.includes('img_3693') &&
+      !rawUrl.includes('img_4746')
+        ? rawUrl
+        : '/images/products/chocolate-pouch.png';
+    return {
+      imageUrl: primary,
+      images: [primary, '/images/products/chocolate-pouch.png'],
+    };
+  }
+
+  // Fallback checks for mismatched non-pouch images
+  if (rawUrl.includes('img_3693')) {
+    return {
+      imageUrl: '/images/products/cinnamon-pouch.png',
+      images: ['/images/products/cinnamon-pouch.png'],
+    };
+  }
+  if (rawUrl.includes('img_4746')) {
+    return {
+      imageUrl: '/images/products/ginger-pouch.png',
+      images: ['/images/products/ginger-pouch.png'],
+    };
+  }
+  if (rawUrl.includes('img_3704')) {
+    return {
+      imageUrl: '/images/products/img_3689.jpg',
+      images: ['/images/products/img_3689.jpg'],
+    };
+  }
+
+  const fallback = rawUrl || '/images/products/img_3687.jpg';
+  return {
+    imageUrl: fallback,
+    images: [fallback],
+  };
+}
+
 export function normalizeProduct(p: any): Product {
   const price = Number(p.price) || 0;
   const originalPrice = p.originalPrice || p.original_price
     ? Number(p.originalPrice || p.original_price)
     : undefined;
-  const imageUrl = p.imageUrl || p.image_url || '/images/products/img_3701.jpg';
-  const images = Array.isArray(p.images) && p.images.length > 0
-    ? p.images
-    : [imageUrl];
+
+  const rawImageUrl = p.imageUrl || p.image_url;
+  const resolved = resolveProductImage(p.slug, p.name, rawImageUrl);
+
+  // Filter out any mismatched non-pouch images from incoming p.images array
+  const rawImages = Array.isArray(p.images) && p.images.length > 0
+    ? p.images.filter((img: string) => (
+        typeof img === 'string' &&
+        !img.includes('img_3693') &&
+        !img.includes('img_4746') &&
+        !img.includes('img_3704')
+      ))
+    : [];
+
+  const images = rawImages.length > 0 ? rawImages : resolved.images;
+  const imageUrl = resolved.imageUrl;
 
   const ingredients = Array.isArray(p.ingredients)
     ? p.ingredients

@@ -211,17 +211,14 @@ export const FranchiseForm: React.FC = () => {
                 }`}
               >
                 <option value="">Select your planned budget range</option>
-                <option value="₹3.5 Lakhs - ₹5 Lakhs (Kiosk / Quick Counter)">
-                  ₹3.5 Lakhs – ₹5 Lakhs (Kiosk / Quick Counter)
+                <option value="₹15 Lakhs - ₹20 Lakhs (Sharon Cafe Model)">
+                  ₹15 Lakhs – ₹20 Lakhs (Sharon Cafe Model)
                 </option>
-                <option value="₹5 Lakhs - ₹8 Lakhs (Semi-Dine-In Outlet)">
-                  ₹5 Lakhs – ₹8 Lakhs (Semi-Dine-In Outlet)
+                <option value="₹25 Lakhs - ₹30 Lakhs (Sharon Master Franchise)">
+                  ₹25 Lakhs – ₹30 Lakhs (Sharon Master Franchise)
                 </option>
-                <option value="₹8 Lakhs - ₹15 Lakhs (Multi-Unit / Master Hub)">
-                  ₹8 Lakhs – ₹15 Lakhs (Multi-Unit / Master Hub)
-                </option>
-                <option value="₹15 Lakhs+ (Regional Development)">
-                  ₹15 Lakhs+ (Regional Development)
+                <option value="Above ₹30 Lakhs (Multi-Unit Expansion)">
+                  Above ₹30 Lakhs (Multi-Unit Expansion)
                 </option>
               </select>
               {errors.investmentBudget && (

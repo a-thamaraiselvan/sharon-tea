@@ -142,6 +142,7 @@ export const ProductDetailCard: React.FC<ProductDetailCardProps> = ({
     product.shortDescription || product.short_description || product.description;
 
   const featurePills = getProductFeaturePills(product);
+  const isPouchGraphic = Boolean(product.imageUrl && product.imageUrl.includes('pouch'));
 
   return (
     <div
@@ -154,7 +155,12 @@ export const ProductDetailCard: React.FC<ProductDetailCardProps> = ({
       <div>
         {/* Top Image Container with padding framing */}
         <div className="p-2.5 sm:p-3 pb-0">
-          <div className="relative w-full aspect-[16/10] sm:aspect-[16/10] rounded-xl overflow-hidden bg-neutral-100 flex items-center justify-center">
+          <div
+            className={cn(
+              'relative w-full aspect-[16/10] sm:aspect-[16/10] rounded-xl overflow-hidden flex items-center justify-center',
+              isPouchGraphic ? 'bg-white p-2' : 'bg-neutral-100'
+            )}
+          >
             <img
               src={resolveImageUrl(product.imageUrl, '/images/products/img_3687.jpg')}
               alt={product.name || 'Sharon Tea Product'}
@@ -163,7 +169,10 @@ export const ProductDetailCard: React.FC<ProductDetailCardProps> = ({
               onError={(e) => {
                 (e.target as HTMLImageElement).src = '/images/products/img_3687.jpg';
               }}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              className={cn(
+                'w-full h-full group-hover:scale-105 transition-transform duration-300',
+                isPouchGraphic ? 'object-contain' : 'object-cover'
+              )}
             />
 
             {/* Overlay Badge on Top Left of Image */}

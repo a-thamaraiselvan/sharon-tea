@@ -10,6 +10,7 @@ interface MenuGridProps {
   isLoading?: boolean;
   onReset?: () => void;
   className?: string;
+  showPrice?: boolean;
 }
 
 export const MenuGrid: React.FC<MenuGridProps> = ({
@@ -17,6 +18,7 @@ export const MenuGrid: React.FC<MenuGridProps> = ({
   isLoading = false,
   onReset,
   className,
+  showPrice = false,
 }) => {
   if (isLoading) {
     return <MinimalLoader text="Preparing delicious teas..." />;
@@ -63,7 +65,7 @@ export const MenuGrid: React.FC<MenuGridProps> = ({
             className="w-full min-w-0 reveal-up"
             style={{ '--reveal-delay': `${(index % 4) * 40}ms` } as React.CSSProperties}
           >
-            <MenuItemCard item={item} />
+            <MenuItemCard item={item} showPrice={showPrice} />
           </div>
         );
       })}

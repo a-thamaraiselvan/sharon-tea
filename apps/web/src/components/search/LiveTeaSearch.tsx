@@ -420,10 +420,10 @@ export const LiveTeaSearch: React.FC<LiveTeaSearchProps> = ({
                               </div>
                             </div>
 
-                            {/* Price only - View only */}
+                            {/* Beverage indicator tag */}
                             <div className="flex items-center gap-1.5 shrink-0">
-                              <span className="text-xs sm:text-sm font-bold text-brand-burgundy bg-brand-cream px-2 py-0.5 rounded-md border border-brand-amber/30">
-                                {formatPrice(beverage.price)}
+                              <span className="text-[10px] sm:text-xs font-semibold text-brand-green bg-brand-green/10 border border-brand-green/20 px-2 py-0.5 rounded-full">
+                                Fresh Brew
                               </span>
                             </div>
                           </div>

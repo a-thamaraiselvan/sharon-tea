@@ -10,7 +10,6 @@ import {
   Headphones,
   Store,
   CheckCircle,
-  Coffee,
   Sparkles,
   ArrowRight,
 } from 'lucide-react';
@@ -21,7 +20,7 @@ const BENEFITS = [
     icon: <TrendingUp className="w-7 h-7 text-brand-green" />,
     title: 'High Gross Margins',
     description:
-      'High repeat daily consumption ensures 55-65% gross profit margins with swift cash flow from day one.',
+      'High repeat daily consumption ensures strong gross profit margins with swift cash flow from day one.',
   },
   {
     icon: <Award className="w-7 h-7 text-brand-green" />,
@@ -57,23 +56,8 @@ const BENEFITS = [
 
 const INVESTMENT_TIERS = [
   {
-    name: 'Sharon Kiosk Model',
-    price: '₹3.5 – ₹4.5 Lakhs',
-    payback: '8–10 Months',
-    area: '80 – 120 Sq. Ft.',
-    badge: 'Popular for Transit Hubs',
-    recommended: false,
-    icon: <Coffee className="w-7 h-7 text-brand-green" />,
-    highlights: [
-      'Takeaway-focused high volume model',
-      'Turnkey setup with commercial samovar & equipment',
-      'Full staff training & starter raw materials pack',
-      'Ideal for metro stations, tech parks & markets',
-    ],
-  },
-  {
     name: 'Sharon Cafe Model',
-    price: '₹5.5 – ₹7.5 Lakhs',
+    price: '₹15 – ₹20 Lakhs',
     payback: '10–12 Months',
     area: '150 – 300 Sq. Ft.',
     badge: 'Most Recommended',
@@ -88,7 +72,7 @@ const INVESTMENT_TIERS = [
   },
   {
     name: 'Sharon Master Franchise',
-    price: '₹18 – ₹25 Lakhs',
+    price: '₹25 – ₹30 Lakhs',
     payback: '14–18 Months',
     area: 'Territory / City Rights',
     badge: 'Exclusive Regional Rights',
@@ -171,11 +155,11 @@ export const FranchiseInfo: React.FC = () => {
           <SectionHeading
             badge="Investment Tiers"
             title="Choose Your Franchise Model"
-            subtitle="Flexible investment tiers designed for standalone kiosks, bustling corner cafes, and regional master partners."
+            subtitle="Flexible investment tiers designed for bustling corner cafes and regional master partners."
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto reveal-stagger">
+        <div className="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-6 sm:gap-8 reveal-stagger">
           {INVESTMENT_TIERS.map((tier, idx) => (
             <div
               key={tier.name}
@@ -239,7 +223,7 @@ export const FranchiseInfo: React.FC = () => {
                 className="w-full text-center button-interaction"
                 icon={<ArrowRight className="w-4 h-4" />}
               >
-                Apply for {tier.name.split(' ')[0]}
+                Apply for {tier.name.replace('Sharon ', '')}
               </BrandButton>
             </div>
           ))}

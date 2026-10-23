@@ -12,7 +12,7 @@ import { LiveTeaSearch } from '@/components/search/LiveTeaSearch';
 import type { MenuItem } from '@/types';
 import { MapPin, ExternalLink, Bike } from 'lucide-react';
 import { useDeliveryPartners } from '@/hooks/useDeliveryPartners';
-import { FALLBACK_DELIVERY_PARTNERS } from '@/services/deliveryPartnerService';
+import { FALLBACK_DELIVERY_PARTNERS, resolvePartnerUrl } from '@/services/deliveryPartnerService';
 import { resolveImageUrl } from '@/utils/imageUrl';
 
 const SIGNATURE_TEA_NAMES = [
@@ -327,6 +327,7 @@ export const MenuPage: React.FC = () => {
             items={filteredItems}
             isLoading={isLoading}
             onReset={() => handleCategorySelect('all')}
+            showPrice={false}
           />
         </div>
 
@@ -357,7 +358,7 @@ export const MenuPage: React.FC = () => {
 
             {deliveryPartners.map((partner) => {
               const logo = partner.logoUrl || partner.logo_url;
-              const link = partner.partnerUrl || partner.partner_url || 'https://www.swiggy.com';
+              const link = resolvePartnerUrl(partner);
               return (
                 <a
                   key={partner.id}

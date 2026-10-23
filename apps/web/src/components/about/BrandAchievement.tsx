@@ -50,7 +50,7 @@ export const BrandAchievement: React.FC = () => {
               <Store className="w-5 h-5 sm:w-6 sm:h-6 text-brand-amber" />
             </div>
             <div className="font-display text-2xl sm:text-3xl font-bold text-brand-amber">
-              <AnimatedCounter target={12} suffix="+" />
+              <AnimatedCounter target={6} suffix="+" />
             </div>
             <p className="text-xs sm:text-sm text-brand-cream/80 mt-1 font-medium">Active Outlets</p>
           </div>

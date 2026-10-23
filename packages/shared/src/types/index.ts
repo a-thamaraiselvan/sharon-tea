@@ -110,6 +110,7 @@ export interface GalleryImage {
   caption: string;
   category: string;
   sortOrder: number;
+  youtubeUrl?: string;
   createdAt?: string;
 }
 

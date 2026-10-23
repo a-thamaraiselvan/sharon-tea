@@ -25,7 +25,7 @@ export const BUSINESS_DEFAULTS = {
   description:
     'Sharon Tea and Coffee celebrates the soul of South Indian street chai culture with artisanal brewing, authentic spices, and heartfelt hospitality. Serving over 8,000+ cups daily to happy patrons.',
   cupsServedDaily: '8,000+',
-  outletsCount: '12+',
+  outletsCount: '6+',
   yearsOfHeritage: '15+',
   rating: '4.8',
   defaultPhone: '+91 94441 23456',

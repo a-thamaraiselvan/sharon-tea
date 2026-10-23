@@ -9,7 +9,7 @@ export const FALLBACK_BUSINESS_SETTINGS: BusinessSettings = {
   email: 'contact@sharonteastall.com',
   address: '#34, 2nd Main Road, 1st Stage, Indiranagar, Bangalore - 560038',
   cupsServedCount: 8000,
-  outletsCount: 3,
+  outletsCount: 6,
   socialLinks: {
     instagram: 'https://instagram.com/sharonteastall',
     facebook: 'https://facebook.com/sharonteastall',

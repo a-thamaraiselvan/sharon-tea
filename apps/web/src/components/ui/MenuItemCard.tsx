@@ -2,17 +2,23 @@ import React from 'react';
 import type { MenuItem } from '@/types';
 import { cn } from '@/utils/cn';
 import { resolveImageUrl } from '@/utils/imageUrl';
+import { generateBeverageOrderLink } from '@/utils/whatsappLink';
+import { Plus } from 'lucide-react';
 
-interface MenuItemCardProps {
+export interface MenuItemCardProps {
   item: MenuItem;
   className?: string;
   layout?: 'vertical' | 'horizontal';
+  showPrice?: boolean;
+  showOrderButton?: boolean;
 }
 
 export const MenuItemCard: React.FC<MenuItemCardProps> = ({
   item,
   className,
   layout = 'vertical',
+  showPrice = false,
+  showOrderButton = true,
 }) => {
   if (!item) return null;
 
@@ -22,12 +28,37 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
     itemName.toLowerCase().includes('sharon classic');
   const isBestseller = Boolean(item.isBestseller || isClassic || item.badge);
 
-  // Horizontal layout variant (compact list/row view) - VIEW ONLY
+  const handleOrderClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const url = generateBeverageOrderLink({
+      name: itemName,
+      price: showPrice ? item.price : undefined,
+    });
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  // Horizontal layout variant (compact list/row view)
   if (layout === 'horizontal') {
     return (
       <div
+        onClick={showOrderButton ? handleOrderClick : undefined}
+        role={showOrderButton ? 'button' : undefined}
+        tabIndex={showOrderButton ? 0 : undefined}
+        aria-label={showOrderButton ? `Enquire about ${itemName} on WhatsApp` : itemName}
+        onKeyDown={
+          showOrderButton
+            ? (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleOrderClick(e as unknown as React.MouseEvent);
+                }
+              }
+            : undefined
+        }
         className={cn(
           'bg-white rounded-2xl p-2.5 sm:p-3.5 border border-brand-grey/60 shadow-sm hover-lift flex flex-row items-center gap-2.5 sm:gap-3.5 relative overflow-hidden group text-left select-none',
+          showOrderButton && 'cursor-pointer hover:border-brand-burgundy/30',
           className
         )}
       >
@@ -78,23 +109,82 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
           </div>
 
           <div className="flex items-center justify-between mt-auto pt-1 border-t border-neutral-100/80">
-            <span className="font-bold text-xs sm:text-sm md:text-base text-brand-chai font-sans">
-              ₹{item.price}
-            </span>
-            <span className="text-[9px] sm:text-[10px] text-neutral-400 font-medium px-1.5 py-0.5 rounded bg-neutral-50">
-              Per Cup
-            </span>
+            {showPrice ? (
+              <>
+                <span className="font-bold text-xs sm:text-sm md:text-base text-brand-chai font-sans">
+                  ₹{item.price}
+                </span>
+                {showOrderButton ? (
+                  <button
+                    type="button"
+                    onClick={handleOrderClick}
+                    aria-label={`Enquire about ${itemName} on WhatsApp`}
+                    title={`Enquire about ${itemName} on WhatsApp`}
+                    className={cn(
+                      'w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center font-bold text-xs transition-transform active:scale-90 shadow-xs shrink-0 cursor-pointer',
+                      isClassic
+                        ? 'bg-brand-burgundy text-white hover:bg-brand-rust'
+                        : 'bg-brand-burgundy/10 text-brand-burgundy hover:bg-brand-burgundy/20'
+                    )}
+                  >
+                    <Plus className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2.5]" />
+                  </button>
+                ) : (
+                  <span className="text-[9px] sm:text-[10px] text-neutral-400 font-medium px-1.5 py-0.5 rounded bg-neutral-50">
+                    Per Cup
+                  </span>
+                )}
+              </>
+            ) : (
+              <>
+                <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-semibold text-brand-green bg-brand-green/10 px-2 py-0.5 rounded-full border border-brand-green/20">
+                  <span className="w-1 h-1 rounded-full bg-brand-leaf-green shrink-0" />
+                  Fresh Brew
+                </span>
+                {showOrderButton && (
+                  <button
+                    type="button"
+                    onClick={handleOrderClick}
+                    aria-label={`Enquire about ${itemName} on WhatsApp`}
+                    title={`Enquire about ${itemName} on WhatsApp`}
+                    className={cn(
+                      'w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center font-bold text-xs transition-transform active:scale-90 shadow-xs shrink-0 cursor-pointer group-hover:scale-105',
+                      isClassic
+                        ? 'bg-brand-burgundy text-white hover:bg-brand-rust'
+                        : 'bg-brand-cream border border-brand-grey text-brand-burgundy hover:bg-brand-burgundy hover:text-white'
+                    )}
+                  >
+                    <Plus className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[2.5]" />
+                  </button>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>
     );
   }
 
-  // Default: Clean vertical card layout for 2-col mobile & 4-col desktop grids - VIEW ONLY
+  // Default: Clean vertical card layout for 2-col mobile & 4-col desktop grids
   return (
     <div
+      onClick={showOrderButton ? handleOrderClick : undefined}
+      role={showOrderButton ? 'button' : undefined}
+      tabIndex={showOrderButton ? 0 : undefined}
+      aria-label={showOrderButton ? `Enquire about ${itemName} on WhatsApp` : itemName}
+      onKeyDown={
+        showOrderButton
+          ? (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleOrderClick(e as unknown as React.MouseEvent);
+              }
+            }
+          : undefined
+      }
       className={cn(
         'bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 border border-brand-grey/60 shadow-sm hover-lift flex flex-col justify-between relative overflow-hidden group text-left select-none h-full',
+        showOrderButton && 'cursor-pointer hover:border-brand-burgundy/30',
         className
       )}
     >
@@ -145,14 +235,58 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
           )}
         </div>
 
-        {/* Bottom row: Bold price & Per Cup indicator (VIEW ONLY, No buy button) */}
-        <div className="flex items-center justify-between mt-auto pt-2.5 border-t border-neutral-100">
-          <span className="font-bold text-sm sm:text-base text-brand-chai font-sans tracking-tight">
-            ₹{item.price}
-          </span>
-          <span className="text-[10px] sm:text-xs font-medium text-neutral-400 bg-neutral-100/80 px-2 py-0.5 rounded-full">
-            Per Cup
-          </span>
+        {/* Bottom row: Price (if showPrice) OR Fresh Brew badge & WhatsApp enquiry (+) button */}
+        <div className="flex items-center justify-between mt-auto pt-2.5 border-t border-neutral-100/80">
+          {showPrice ? (
+            <>
+              <span className="font-bold text-sm sm:text-base text-brand-chai font-sans tracking-tight">
+                ₹{item.price}
+              </span>
+              {showOrderButton ? (
+                <button
+                  type="button"
+                  onClick={handleOrderClick}
+                  aria-label={`Enquire about ${itemName} on WhatsApp`}
+                  title={`Enquire about ${itemName} on WhatsApp`}
+                  className={cn(
+                    'w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-transform active:scale-90 shadow-xs shrink-0 cursor-pointer',
+                    isClassic
+                      ? 'bg-brand-burgundy text-white hover:bg-brand-rust'
+                      : 'bg-brand-burgundy/10 text-brand-burgundy hover:bg-brand-burgundy/20'
+                  )}
+                >
+                  <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                </button>
+              ) : (
+                <span className="text-[10px] sm:text-xs font-medium text-neutral-400 bg-neutral-100/80 px-2 py-0.5 rounded-full">
+                  Per Cup
+                </span>
+              )}
+            </>
+          ) : (
+            <>
+              <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-medium text-brand-green bg-brand-green/10 border border-brand-green/20 px-2 sm:px-2.5 py-1 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-leaf-green shrink-0" />
+                <span>Fresh Brew</span>
+              </span>
+              {showOrderButton && (
+                <button
+                  type="button"
+                  onClick={handleOrderClick}
+                  aria-label={`Enquire about ${itemName} on WhatsApp`}
+                  title={`Enquire about ${itemName} on WhatsApp`}
+                  className={cn(
+                    'w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-transform active:scale-90 shadow-xs shrink-0 cursor-pointer group-hover:scale-105',
+                    isClassic
+                      ? 'bg-brand-burgundy text-white hover:bg-brand-rust'
+                      : 'bg-brand-cream border border-brand-grey text-brand-burgundy hover:bg-brand-burgundy hover:text-white'
+                  )}
+                >
+                  <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                </button>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

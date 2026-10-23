@@ -8,6 +8,7 @@ export const FALLBACK_GALLERY: GalleryItem[] = [
     category: 'brewing',
     imageUrl: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80',
     caption: 'Long meter tea pour creating the iconic Sharon velvety froth.',
+    youtubeUrl: 'https://youtube.com/shorts/WfSvL4IWFDQ',
   },
   {
     id: 'g-2',
@@ -15,6 +16,7 @@ export const FALLBACK_GALLERY: GalleryItem[] = [
     category: 'store',
     imageUrl: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80',
     caption: 'Modern, hygienic, and warm aesthetic at our Cathedral Road hub.',
+    youtubeUrl: 'https://youtube.com/shorts/3GQsvQqf-FU',
   },
   {
     id: 'g-3',
@@ -22,6 +24,7 @@ export const FALLBACK_GALLERY: GalleryItem[] = [
     category: 'products',
     imageUrl: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=800&q=80',
     caption: 'Pure natural green cardamom and Ceylon cinnamon quills.',
+    youtubeUrl: 'https://youtu.be/e9CNmNKajOA',
   },
   {
     id: 'g-4',
@@ -29,6 +32,7 @@ export const FALLBACK_GALLERY: GalleryItem[] = [
     category: 'moments',
     imageUrl: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=800&q=80',
     caption: 'Over 8,000 daily customers start their day with Sharon chai.',
+    youtubeUrl: 'https://youtu.be/TT4oscwnRBc',
   },
   {
     id: 'g-5',
@@ -36,6 +40,7 @@ export const FALLBACK_GALLERY: GalleryItem[] = [
     category: 'products',
     imageUrl: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80',
     caption: 'Artisan tea packets sealed with aroma-lock foil technology.',
+    youtubeUrl: 'https://youtu.be/TT4oscwnRBc',
   },
   {
     id: 'g-6',
@@ -43,6 +48,7 @@ export const FALLBACK_GALLERY: GalleryItem[] = [
     category: 'brewing',
     imageUrl: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80',
     caption: 'Steaming hot decoction and chicory harmony.',
+    youtubeUrl: 'https://youtu.be/b8GJ_Zassjo',
   },
   {
     id: 'g-7',
@@ -50,6 +56,7 @@ export const FALLBACK_GALLERY: GalleryItem[] = [
     category: 'moments',
     imageUrl: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80',
     caption: 'Connecting friends, coworkers, and families over hot tea.',
+    youtubeUrl: 'https://youtube.com/shorts/WfSvL4IWFDQ',
   },
   {
     id: 'g-8',
@@ -57,6 +64,7 @@ export const FALLBACK_GALLERY: GalleryItem[] = [
     category: 'store',
     imageUrl: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80',
     caption: 'Strict hygiene and standard operating procedures across all outlets.',
+    youtubeUrl: 'https://youtube.com/shorts/3GQsvQqf-FU',
   },
 ];
 

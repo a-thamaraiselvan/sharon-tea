@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Maximize2, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Maximize2, X, ChevronLeft, ChevronRight, Play, ExternalLink } from 'lucide-react';
 import { SectionContainer } from '@/components/ui/SectionContainer';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { useGallery } from '@/hooks/useGallery';
@@ -23,7 +23,20 @@ const CATEGORY_LABELS: Record<string, string> = {
   moments: 'Sharon Moments',
 };
 
+const GALLERY_YOUTUBE_URLS = [
+  'https://youtube.com/shorts/WfSvL4IWFDQ',
+  'https://youtube.com/shorts/3GQsvQqf-FU',
+  'https://youtu.be/e9CNmNKajOA',
+  'https://youtu.be/TT4oscwnRBc',
+  'https://youtu.be/TT4oscwnRBc',
+  'https://youtu.be/b8GJ_Zassjo',
+];
+
 const getCategoryLabel = (category: string) => CATEGORY_LABELS[category] || category;
+
+const getVideoUrl = (item: { youtubeUrl?: string }, index: number) => {
+  return item.youtubeUrl || GALLERY_YOUTUBE_URLS[index % GALLERY_YOUTUBE_URLS.length];
+};
 
 /**
  * Asymmetric Bento Grid Spans for responsive layout across screen sizes:
@@ -147,17 +160,20 @@ export const Gallery: React.FC = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-[160px] sm:auto-rows-[190px] md:auto-rows-[220px] lg:auto-rows-[250px] gap-2.5 sm:gap-3.5 md:gap-4 lg:gap-5 reveal-stagger">
         {filtered.map((item, index) => {
           const isHero = (index % 8) === 0;
+          const videoUrl = getVideoUrl(item, index);
           return (
             <div
               key={item.id}
               role="button"
               tabIndex={0}
-              aria-label={`Open photo: ${item.title}`}
-              onClick={() => setLightboxIndex(index)}
+              aria-label={`Watch video: ${item.title}`}
+              onClick={() => {
+                window.open(videoUrl, '_blank', 'noopener,noreferrer');
+              }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  setLightboxIndex(index);
+                  window.open(videoUrl, '_blank', 'noopener,noreferrer');
                 }
               }}
               style={{ '--reveal-delay': `${(index % 4) * 50}ms` } as React.CSSProperties}
@@ -171,27 +187,51 @@ export const Gallery: React.FC = () => {
                 src={resolveImageUrl(item.imageUrl)}
                 alt={item.title}
                 loading="lazy"
-                className="w-full h-full object-cover image-zoom"
+                className="w-full h-full object-cover image-zoom group-hover:scale-105 transition-transform duration-500"
               />
 
               {/* Floating Top-Left Glass Badge */}
               <div className="absolute top-2.5 left-2.5 sm:top-4 sm:left-4 z-10">
-                <span className="inline-flex items-center gap-1 sm:gap-1.5 bg-black/55 backdrop-blur-md px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[11px] font-semibold tracking-wider text-brand-amber border border-white/15 uppercase shadow-xs">
+                <span className="inline-flex items-center gap-1 sm:gap-1.5 bg-black/60 backdrop-blur-md px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[11px] font-semibold tracking-wider text-brand-amber border border-white/15 uppercase shadow-xs">
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-amber" />
                   {getCategoryLabel(item.category)}
                 </span>
               </div>
 
-              {/* Expand / Zoom Indicator on Hover */}
-              <div
-                className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-10 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 shadow-lg"
-                title="View Fullscreen"
-              >
-                <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-amber" />
+              {/* Top-Right Badges: Watch Video Pill & Fullscreen Toggle */}
+              <div className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-20 flex items-center gap-1.5 sm:gap-2">
+                <span className="inline-flex items-center gap-1 sm:gap-1.5 bg-red-600/90 text-white backdrop-blur-md px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold tracking-wide border border-white/20 shadow-md transition-all duration-300 group-hover:bg-red-600 group-hover:scale-105">
+                  <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-white" />
+                  <span>Watch Video</span>
+                </span>
+
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setLightboxIndex(index);
+                  }}
+                  aria-label="View Fullscreen"
+                  title="View Fullscreen"
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/60 hover:bg-black/90 backdrop-blur-md border border-white/20 text-white/90 hover:text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-md cursor-pointer"
+                >
+                  <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-amber" />
+                </button>
+              </div>
+
+              {/* Center YouTube Play Icon on hover */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-red-600/95 text-white flex items-center justify-center shadow-2xl transform scale-75 group-hover:scale-100 transition-all duration-300 border-2 border-white">
+                  <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-white ml-0.5 text-white" />
+                </div>
               </div>
 
               {/* Permanent Readable Bottom Gradient & Typography */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3 sm:p-5 md:p-6 flex flex-col justify-end text-white pointer-events-none z-10 pt-8 sm:pt-14">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent p-3 sm:p-5 md:p-6 flex flex-col justify-end text-white pointer-events-none z-10 pt-8 sm:pt-14">
+                <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-red-400 font-semibold mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <ExternalLink className="w-3 h-3" />
+                  <span>Click to watch on YouTube</span>
+                </div>
                 <h4
                   className={cn(
                     'font-display font-bold text-white group-hover:text-brand-amber transition-colors leading-tight line-clamp-1 sm:line-clamp-2',
@@ -219,95 +259,127 @@ export const Gallery: React.FC = () => {
       </div>
 
       {/* Interactive Lightbox / Fullscreen Modal */}
-      {currentLightboxItem && lightboxIndex !== null && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={currentLightboxItem.title}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8 bg-brand-black/95 backdrop-blur-xl drawer-backdrop"
-          onClick={closeLightbox}
-        >
-          {/* Top Bar: Counter & Close Button */}
-          <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-50 flex items-center gap-3">
-            <span className="px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-xs sm:text-sm font-medium text-brand-amber tracking-wide shadow-md">
-              {lightboxIndex + 1} of {filtered.length}
-            </span>
-          </div>
-
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              closeLightbox();
-            }}
-            aria-label="Close modal"
-            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2.5 rounded-full bg-black/60 hover:bg-black/90 text-white/90 hover:text-white backdrop-blur-md border border-white/15 transition-all hover:scale-105 cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-brand-amber"
-          >
-            <X className="w-5 h-5" />
-          </button>
-
-          {/* Left/Right Navigation Buttons */}
-          {filtered.length > 1 && (
-            <>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  goToPrevious();
-                }}
-                aria-label="Previous photo"
-                className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-50 p-3 sm:p-3.5 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md border border-white/15 transition-all hover:scale-110 cursor-pointer shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-amber"
-              >
-                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-              </button>
-
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  goToNext();
-                }}
-                aria-label="Next photo"
-                className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-50 p-3 sm:p-3.5 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md border border-white/15 transition-all hover:scale-110 cursor-pointer shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-amber"
-              >
-                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-              </button>
-            </>
-          )}
-
-          {/* Modal Content Card */}
+      {currentLightboxItem && lightboxIndex !== null && (() => {
+        const currentVideoUrl = getVideoUrl(currentLightboxItem, lightboxIndex);
+        return (
           <div
-            className="relative max-w-5xl w-full max-h-[92vh] flex flex-col rounded-3xl overflow-hidden bg-brand-black/95 border border-white/15 shadow-2xl backdrop-blur-2xl modal-enter"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label={currentLightboxItem.title}
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8 bg-brand-black/95 backdrop-blur-xl drawer-backdrop"
+            onClick={closeLightbox}
           >
-            {/* Image Showcase */}
-            <div className="relative flex-1 min-h-[280px] max-h-[68vh] overflow-hidden bg-brand-black flex items-center justify-center p-2 sm:p-4">
-              <img
-                src={resolveImageUrl(currentLightboxItem.imageUrl)}
-                alt={currentLightboxItem.title}
-                className="max-w-full max-h-[64vh] object-contain rounded-xl select-none"
-              />
+            {/* Top Bar: Counter & Close Button */}
+            <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-50 flex items-center gap-3">
+              <span className="px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-xs sm:text-sm font-medium text-brand-amber tracking-wide shadow-md">
+                {lightboxIndex + 1} of {filtered.length}
+              </span>
             </div>
 
-            {/* Caption & Metadata Panel */}
-            <div className="p-4 sm:p-6 bg-brand-black text-white border-t border-white/10 flex flex-col">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider text-brand-amber border border-white/15 uppercase">
-                  {getCategoryLabel(currentLightboxItem.category)}
-                </span>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                closeLightbox();
+              }}
+              aria-label="Close modal"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2.5 rounded-full bg-black/60 hover:bg-black/90 text-white/90 hover:text-white backdrop-blur-md border border-white/15 transition-all hover:scale-105 cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-brand-amber"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Left/Right Navigation Buttons */}
+            {filtered.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goToPrevious();
+                  }}
+                  aria-label="Previous photo"
+                  className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-50 p-3 sm:p-3.5 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md border border-white/15 transition-all hover:scale-110 cursor-pointer shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-amber"
+                >
+                  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goToNext();
+                  }}
+                  aria-label="Next photo"
+                  className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-50 p-3 sm:p-3.5 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md border border-white/15 transition-all hover:scale-110 cursor-pointer shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-amber"
+                >
+                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+              </>
+            )}
+
+            {/* Modal Content Card */}
+            <div
+              className="relative max-w-5xl w-full max-h-[92vh] flex flex-col rounded-3xl overflow-hidden bg-brand-black/95 border border-white/15 shadow-2xl backdrop-blur-2xl modal-enter"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Image Showcase */}
+              <div
+                className="relative flex-1 min-h-[280px] max-h-[68vh] overflow-hidden bg-brand-black flex items-center justify-center p-2 sm:p-4 cursor-pointer group/modal-img"
+                onClick={() => {
+                  if (currentVideoUrl) {
+                    window.open(currentVideoUrl, '_blank', 'noopener,noreferrer');
+                  }
+                }}
+                title="Click to Watch on YouTube"
+              >
+                <img
+                  src={resolveImageUrl(currentLightboxItem.imageUrl)}
+                  alt={currentLightboxItem.title}
+                  className="max-w-full max-h-[64vh] object-contain rounded-xl select-none group-hover/modal-img:opacity-90 transition-opacity"
+                />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/modal-img:opacity-100 transition-opacity pointer-events-none">
+                  <div className="w-14 h-14 rounded-full bg-red-600/95 text-white flex items-center justify-center shadow-2xl border-2 border-white">
+                    <Play className="w-6 h-6 fill-white ml-0.5 text-white" />
+                  </div>
+                </div>
               </div>
-              <h3 className="font-display text-lg sm:text-2xl font-bold text-white">
-                {currentLightboxItem.title}
-              </h3>
-              {currentLightboxItem.caption && (
-                <p className="text-xs sm:text-base text-neutral-300 mt-1 sm:mt-1.5 leading-relaxed max-w-2xl">
-                  {currentLightboxItem.caption}
-                </p>
-              )}
+
+              {/* Caption & Metadata Panel */}
+              <div className="p-4 sm:p-6 bg-brand-black text-white border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider text-brand-amber border border-white/15 uppercase">
+                      {getCategoryLabel(currentLightboxItem.category)}
+                    </span>
+                  </div>
+                  <h3 className="font-display text-lg sm:text-2xl font-bold text-white">
+                    {currentLightboxItem.title}
+                  </h3>
+                  {currentLightboxItem.caption && (
+                    <p className="text-xs sm:text-base text-neutral-300 mt-1 sm:mt-1.5 leading-relaxed max-w-2xl">
+                      {currentLightboxItem.caption}
+                    </p>
+                  )}
+                </div>
+
+                {/* Prominent Watch on YouTube Action */}
+                <div className="shrink-0 pt-2 sm:pt-0">
+                  <a
+                    href={currentVideoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-semibold transition-all shadow-lg hover:scale-105 active:scale-95"
+                  >
+                    <Play className="w-4 h-4 fill-white" />
+                    <span>Watch on YouTube</span>
+                    <ExternalLink className="w-3.5 h-3.5 ml-1 opacity-80" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </SectionContainer>
   );
 };

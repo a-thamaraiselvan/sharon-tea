@@ -91,6 +91,7 @@ export interface GalleryItem {
   category: 'store' | 'brewing' | 'products' | 'moments';
   imageUrl: string;
   caption?: string;
+  youtubeUrl?: string;
 }
 
 export interface BusinessSettings {
