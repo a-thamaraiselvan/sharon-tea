@@ -8,8 +8,6 @@ import {
   Coffee,
   Package,
   Award,
-  ChevronLeft,
-  ChevronRight,
   Leaf,
   Pause,
   Play,
@@ -293,20 +291,7 @@ export const HeroSection: React.FC = () => {
       aria-roledescription="carousel"
       aria-label="Sharon Tea and Coffee Featured Highlights"
     >
-      {/* Countdown Progress Timer Bar (hidden on prefers-reduced-motion) */}
-      {!prefersReducedMotion && (
-        <div className="absolute top-0 left-0 right-0 h-1 bg-white/10 z-30 overflow-hidden" aria-hidden="true">
-          <div
-            key={`${currentIndex}-${isEffectivelyPaused}`}
-            className="h-full bg-brand-amber origin-left"
-            style={{
-              animation: isEffectivelyPaused
-                ? 'none'
-                : `heroProgressBar ${AUTOPLAY_INTERVAL}ms linear forwards`,
-            }}
-          />
-        </div>
-      )}
+
 
       {/* Crossfading Background Slides with Ken Burns Zoom */}
       <div className="absolute inset-0 z-0">
@@ -427,24 +412,7 @@ export const HeroSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Floating Prev / Next Navigation Arrows */}
-      <button
-        type="button"
-        onClick={goToPrev}
-        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/30 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-amber"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="w-6 h-6 text-white group-hover:-translate-x-0.5 transition-transform" />
-      </button>
 
-      <button
-        type="button"
-        onClick={goToNext}
-        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/30 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-amber"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="w-6 h-6 text-white group-hover:translate-x-0.5 transition-transform" />
-      </button>
 
       {/* Animated Pagination Dots and Accessible Controls */}
       <div className="relative z-20 flex items-center justify-center gap-3 pb-6 sm:pb-8">
