@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Maximize2, X, ChevronLeft, ChevronRight, Play, ExternalLink } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Play, ExternalLink } from 'lucide-react';
 import { SectionContainer } from '@/components/ui/SectionContainer';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { useGallery } from '@/hooks/useGallery';
@@ -191,50 +191,33 @@ export const Gallery: React.FC = () => {
               />
 
               {/* Floating Top-Left Glass Badge */}
-              <div className="absolute top-2.5 left-2.5 sm:top-4 sm:left-4 z-10">
-                <span className="inline-flex items-center gap-1 sm:gap-1.5 bg-black/60 backdrop-blur-md px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[11px] font-semibold tracking-wider text-brand-amber border border-white/15 uppercase shadow-xs">
+              <div className="absolute top-2.5 left-2.5 sm:top-3.5 sm:left-3.5 z-10 pointer-events-none">
+                <span className="inline-flex items-center gap-1 sm:gap-1.5 bg-black/60 backdrop-blur-md px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-semibold tracking-wider text-brand-amber border border-white/15 uppercase shadow-xs">
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-amber" />
                   {getCategoryLabel(item.category)}
                 </span>
               </div>
 
-              {/* Top-Right Badges: Watch Video Pill & Fullscreen Toggle */}
-              <div className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-20 flex items-center gap-1.5 sm:gap-2">
-                <span className="inline-flex items-center gap-1 sm:gap-1.5 bg-red-600/90 text-white backdrop-blur-md px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold tracking-wide border border-white/20 shadow-md transition-all duration-300 group-hover:bg-red-600 group-hover:scale-105">
+              {/* Top-Right Badge: Sleek YouTube Video indicator */}
+              <div className="absolute top-2.5 right-2.5 sm:top-3.5 sm:right-3.5 z-10 pointer-events-none">
+                <span className="inline-flex items-center gap-1 sm:gap-1.5 bg-black/60 group-hover:bg-red-600/90 text-white backdrop-blur-md px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[11px] font-medium tracking-wide border border-white/20 shadow-xs transition-colors duration-300">
                   <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-white" />
-                  <span>Watch Video</span>
+                  <span>YouTube</span>
                 </span>
-
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLightboxIndex(index);
-                  }}
-                  aria-label="View Fullscreen"
-                  title="View Fullscreen"
-                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/60 hover:bg-black/90 backdrop-blur-md border border-white/20 text-white/90 hover:text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-md cursor-pointer"
-                >
-                  <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-amber" />
-                </button>
               </div>
 
-              {/* Center YouTube Play Icon on hover */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-red-600/95 text-white flex items-center justify-center shadow-2xl transform scale-75 group-hover:scale-100 transition-all duration-300 border-2 border-white">
+              {/* Upper-Half YouTube Play Icon on hover (Never touches bottom text) */}
+              <div className="absolute top-[36%] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/65 group-hover:bg-red-600 text-white flex items-center justify-center shadow-2xl backdrop-blur-md border border-white/40 transform scale-85 group-hover:scale-100 transition-all duration-300">
                   <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-white ml-0.5 text-white" />
                 </div>
               </div>
 
-              {/* Permanent Readable Bottom Gradient & Typography */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent p-3 sm:p-5 md:p-6 flex flex-col justify-end text-white pointer-events-none z-10 pt-8 sm:pt-14">
-                <div className="flex items-center gap-1.5 text-[10px] sm:text-xs text-red-400 font-semibold mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <ExternalLink className="w-3 h-3" />
-                  <span>Click to watch on YouTube</span>
-                </div>
+              {/* Permanent Readable Bottom Gradient & Typography (No colliding text) */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/65 to-transparent p-3 sm:p-4 md:p-5 flex flex-col justify-end text-white pointer-events-none z-10 pt-10 sm:pt-16">
                 <h4
                   className={cn(
-                    'font-display font-bold text-white group-hover:text-brand-amber transition-colors leading-tight line-clamp-1 sm:line-clamp-2',
+                    'font-display font-bold text-white group-hover:text-brand-amber transition-colors leading-snug line-clamp-1 sm:line-clamp-2',
                     isHero ? 'text-xs sm:text-base md:text-xl' : 'text-[11px] sm:text-sm md:text-base'
                   )}
                 >
@@ -243,7 +226,7 @@ export const Gallery: React.FC = () => {
                 {item.caption && (
                   <p
                     className={cn(
-                      'text-neutral-200/90 mt-0.5 sm:mt-1.5 leading-relaxed',
+                      'text-neutral-200/90 mt-0.5 sm:mt-1 leading-relaxed',
                       isHero
                         ? 'text-[10px] sm:text-xs md:text-sm line-clamp-2'
                         : 'hidden sm:block text-[10px] sm:text-xs line-clamp-1'
