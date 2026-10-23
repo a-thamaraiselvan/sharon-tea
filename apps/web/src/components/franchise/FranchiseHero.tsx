@@ -50,28 +50,6 @@ export const FranchiseHero: React.FC = () => {
             Instant WhatsApp Query
           </BrandButton>
         </div>
-
-        {/* Quick Highlights Row */}
-        <div
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-16 pt-10 border-t border-white/15 w-full max-w-4xl text-left reveal-stagger"
-        >
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 hover-lift reveal-up" style={{ '--reveal-delay': '100ms' } as React.CSSProperties}>
-            <span className="text-xs text-brand-amber uppercase font-semibold">Low Investment</span>
-            <p className="font-display text-lg font-bold text-white mt-1">From ₹3.5 Lakhs</p>
-          </div>
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 hover-lift reveal-up" style={{ '--reveal-delay': '160ms' } as React.CSSProperties}>
-            <span className="text-xs text-brand-amber uppercase font-semibold">Fast Setup</span>
-            <p className="font-display text-lg font-bold text-white mt-1">Launch in 21 Days</p>
-          </div>
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 hover-lift reveal-up" style={{ '--reveal-delay': '220ms' } as React.CSSProperties}>
-            <span className="text-xs text-brand-amber uppercase font-semibold">High Margin</span>
-            <p className="font-display text-lg font-bold text-white mt-1">Up to 60% Gross Profit</p>
-          </div>
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 hover-lift reveal-up" style={{ '--reveal-delay': '280ms' } as React.CSSProperties}>
-            <span className="text-xs text-brand-amber uppercase font-semibold">Full Training</span>
-            <p className="font-display text-lg font-bold text-white mt-1">Recipes & Operations</p>
-          </div>
-        </div>
       </div>
     </section>
   );
