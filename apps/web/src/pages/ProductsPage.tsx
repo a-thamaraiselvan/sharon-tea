@@ -14,6 +14,7 @@ import {
   Leaf,
   ArrowRight,
 } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import { cn } from '@/utils/cn';
 
 const FLAVOR_BUBBLES = [
@@ -122,7 +123,7 @@ export const ProductsPage: React.FC = () => {
         />
       </Helmet>
 
-      {/* Top Banner Bar matching reference screenshot */}
+      {/* Top Banner Bar */}
       <div className="bg-brand-green text-white text-[11px] sm:text-xs py-2 px-4 border-b border-brand-green/30">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-4 text-center sm:text-left">
           <div className="flex items-center gap-1.5 font-medium">
@@ -130,8 +131,6 @@ export const ProductsPage: React.FC = () => {
             <span>Premium Tea Blends for a Healthier, Happier You</span>
           </div>
           <div className="flex items-center gap-2 sm:gap-3 text-white/90">
-            <span className="font-semibold text-brand-amber">Free Shipping on Orders Above Rs.500</span>
-            <span className="text-white/40">|</span>
             <span>100% Natural</span>
             <span className="text-white/40">|</span>
             <span className="flex items-center gap-1">
@@ -142,46 +141,95 @@ export const ProductsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Hero Section matching screenshot */}
-      <section className="bg-brand-green text-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-white/10">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-2xl reveal-down">
-            <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-brand-amber mb-2 sm:mb-3">
-              NATURAL • AROMATIC • REFRESHING
-            </p>
-            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
-              Discover the <br />
-              <span className="italic font-normal text-brand-amber">Taste of Sharon</span>
-            </h1>
-            <p className="text-sm sm:text-base text-neutral-200 mt-4 max-w-xl leading-relaxed">
-              Premium tea blends crafted for your everyday wellness. Pure taste. Natural goodness. Freshly packed in aroma-locking seal pouches.
-            </p>
+      {/* Hero Section with Responsive 2-Column Product Banner */}
+      <section className="bg-brand-green text-white py-10 sm:py-14 md:py-16 px-4 sm:px-6 lg:px-8 border-b border-white/10 relative overflow-hidden">
+        {/* Subtle background ambient lighting */}
+        <div className="absolute -top-24 right-0 w-96 h-96 bg-brand-amber/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-20 w-80 h-80 bg-brand-leaf-green/10 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-4">
-              <button
-                type="button"
-                onClick={scrollToProducts}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-burgundy hover:bg-brand-rust text-white text-sm font-semibold transition-all shadow-md button-interaction"
-              >
-                <span>Shop Now</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            {/* Left Content Column */}
+            <div className="lg:col-span-7 xl:col-span-7 reveal-down">
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-brand-amber mb-2 sm:mb-3">
+                NATURAL • AROMATIC • REFRESHING
+              </p>
+              <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
+                Discover the <br />
+                <span className="italic font-normal text-brand-amber">Taste of Sharon</span>
+              </h1>
+              <p className="text-sm sm:text-base text-neutral-200 mt-3 sm:mt-4 max-w-xl leading-relaxed">
+                Premium tea blends crafted for your everyday wellness. Pure taste. Natural goodness. Freshly packed in aroma-locking seal pouches.
+              </p>
+
+              <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+                <button
+                  type="button"
+                  onClick={scrollToProducts}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-burgundy hover:bg-brand-rust text-white text-xs sm:text-sm font-semibold transition-all shadow-md button-interaction cursor-pointer"
+                >
+                  <span>Shop Tea Blends</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                <a
+                  href="https://wa.me/919940866657?text=Hi%20Sharon%20Tea%2C%20I%20would%20like%20to%20order%20packaged%20tea%20blends"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold border border-white/20 transition-all backdrop-blur-xs cursor-pointer"
+                >
+                  <WhatsAppIcon className="w-4 h-4 text-[#25D366] fill-[#25D366]" />
+                  <span>Order on WhatsApp</span>
+                </a>
+              </div>
+
+              {/* Value badges below CTA */}
+              <div className="mt-8 flex flex-wrap items-center gap-2.5 sm:gap-3.5 text-xs text-neutral-200">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-xs border border-white/15">
+                  <Leaf className="w-3.5 h-3.5 text-brand-leaf-green" />
+                  100% Natural
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-xs border border-white/15">
+                  <Heart className="w-3.5 h-3.5 text-red-400" />
+                  Rich in Antioxidants
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-xs border border-white/15">
+                  <Sparkles className="w-3.5 h-3.5 text-brand-amber" />
+                  Better Living
+                </span>
+              </div>
             </div>
 
-            {/* Value badges below CTA */}
-            <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-5 text-xs text-neutral-200">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-xs border border-white/15">
-                <Leaf className="w-3.5 h-3.5 text-brand-leaf-green" />
-                100% Natural
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-xs border border-white/15">
-                <Heart className="w-3.5 h-3.5 text-red-400" />
-                Rich in Antioxidants
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-xs border border-white/15">
-                <Sparkles className="w-3.5 h-3.5 text-brand-amber" />
-                Better Living
-              </span>
+            {/* Right Column: Dynamic Banner Visual Showcase */}
+            <div className="lg:col-span-5 xl:col-span-5 reveal-fade" style={{ '--reveal-delay': '120ms' } as React.CSSProperties}>
+              <div className="relative rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-br from-black/40 via-brand-green/60 to-black/60 shadow-warm-xl p-2 sm:p-2.5 group">
+                <div className="relative aspect-[16/10] sm:aspect-[16/10] lg:aspect-[4/3] rounded-2xl overflow-hidden bg-brand-green/80 image-zoom-container">
+                  <img
+                    src="/images/products/products-hero-banner.jpg"
+                    alt="Sharon Premium Packaged Tea Blends & Whole Spices"
+                    loading="eager"
+                    className="w-full h-full object-cover image-zoom group-hover:scale-105 transition-transform duration-700"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/images/products/products-hero-banner.png';
+                    }}
+                  />
+
+                  {/* Top-left floating badge */}
+                  <div className="absolute top-3 left-3 z-10 pointer-events-none">
+                    <span className="inline-flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold text-brand-amber border border-white/20 shadow-md">
+                      <Sparkles className="w-3 h-3 text-brand-amber" />
+                      <span>8 Signature Blends</span>
+                    </span>
+                  </div>
+
+                  {/* Bottom-right floating badge */}
+                  <div className="absolute bottom-3 right-3 z-10 pointer-events-none">
+                    <span className="inline-flex items-center gap-1.5 bg-brand-burgundy/90 text-white backdrop-blur-md px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold border border-white/20 shadow-md">
+                      <ShieldCheck className="w-3.5 h-3.5 text-brand-leaf-green" />
+                      <span>Aroma-Lock Foil Pouches</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
