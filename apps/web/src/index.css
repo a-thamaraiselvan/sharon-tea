@@ -8,7 +8,7 @@
 @layer base {
   :root {
     --color-brand-primary: #241C24;
-    --color-brand-forest: #1C4C34;
+    --color-brand-forest: #241C24;
     --color-brand-leaf: #34A43C;
     --color-brand-chai: #A44C14;
     --color-brand-rust: #7C2C0C;
@@ -20,8 +20,6 @@
 
   html {
     -webkit-tap-highlight-color: transparent;
-    overflow-x: hidden;
-    max-width: 100vw;
   }
 
   body {
@@ -32,8 +30,6 @@
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-    max-width: 100vw;
   }
 
   h1, h2, h3, h4, .font-display {
@@ -53,7 +49,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1C4C34;
+  background: #241C24;
   border-radius: 4px;
 }
 
@@ -71,10 +67,10 @@
 }
 
 .ant-tabs-ink-bar {
-  background-color: #1C4C34 !important;
+  background-color: #241C24 !important;
 }
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #1C4C34 !important;
+  color: #241C24 !important;
   font-weight: 600 !important;
 }

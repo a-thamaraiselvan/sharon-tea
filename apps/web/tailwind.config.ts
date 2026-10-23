@@ -10,8 +10,8 @@ const config: Config = {
       colors: {
         brand: {
           black: '#241C24',
-          green: '#1C4C34',
-          forest: '#1C4C34',
+          green: '#241C24',
+          forest: '#241C24',
           'leaf-green': '#34A43C',
           leaf: '#34A43C',
           chai: '#A44C14',
@@ -26,8 +26,8 @@ const config: Config = {
         },
         sharon: {
           black: '#241C24',
-          green: '#1C4C34',
-          forest: '#1C4C34',
+          green: '#241C24',
+          forest: '#241C24',
           'leaf-green': '#34A43C',
           leaf: '#34A43C',
           chai: '#A44C14',
