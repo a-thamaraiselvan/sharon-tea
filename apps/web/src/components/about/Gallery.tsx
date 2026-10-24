@@ -147,7 +147,7 @@ export const Gallery: React.FC = () => {
                 'px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 border flex items-center gap-2 cursor-pointer button-interaction',
                 isActive
                   ? 'bg-brand-green text-white border-brand-green shadow-md shadow-brand-green/20 scale-[1.02]'
-                  : 'bg-white/80 backdrop-blur-sm text-neutral-700 border-neutral-200 hover:border-brand-green/60 hover:text-brand-green hover:bg-white shadow-xs'
+                  : 'bg-white/80 backdrop-blur-sm text-neutral-700 border-neutral-200 hover:border-[#FC9C34] hover:text-[#FC9C34] hover:bg-white shadow-xs'
               )}
             >
               <span>{tab.label}</span>

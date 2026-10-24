@@ -269,8 +269,8 @@ export const ProductsPage: React.FC = () => {
                     className={cn(
                       'w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden p-1 transition-all duration-200 bg-neutral-100',
                       isSelected
-                        ? 'ring-3 ring-brand-green shadow-md scale-105'
-                        : 'border border-neutral-200 group-hover:border-brand-green/50 group-hover:shadow-sm'
+                        ? 'ring-3 ring-[#FC9C34] shadow-md scale-105'
+                        : 'border border-neutral-200 group-hover:border-[#FC9C34] group-hover:shadow-sm'
                     )}
                   >
                     <img
@@ -284,7 +284,7 @@ export const ProductsPage: React.FC = () => {
                       'text-xs sm:text-sm font-semibold transition-colors',
                       isSelected
                         ? 'text-brand-green font-bold'
-                        : 'text-neutral-700 group-hover:text-brand-green'
+                        : 'text-neutral-700 group-hover:text-[#FC9C34]'
                     )}
                   >
                     {flavor.name}
@@ -340,7 +340,7 @@ export const ProductsPage: React.FC = () => {
                       'px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 shadow-xs button-interaction',
                       isActive
                         ? 'bg-brand-green text-white shadow-sm'
-                        : 'bg-white text-brand-black border border-neutral-200 hover:border-brand-green'
+                        : 'bg-white text-brand-black border border-neutral-200 hover:border-[#FC9C34] hover:text-[#FC9C34]'
                     )}
                   >
                     {cat}
