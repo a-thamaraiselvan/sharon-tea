@@ -121,7 +121,7 @@ export const Footer: React.FC = () => {
                   <span>Operating Hours</span>
                 </div>
                 <p className="text-white font-medium text-sm">
-                  5:30 AM – 11:30 PM (Mon – Sat)
+                  5:30 AM – 11:00 PM (Mon – Sat)
                 </p>
                 <p className="text-xs font-semibold text-brand-leaf-green">
                   6 Working Days • Sunday Holiday

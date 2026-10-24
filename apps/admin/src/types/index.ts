@@ -352,6 +352,7 @@ export interface BusinessSettings {
   socialLinks: SocialLinks;
   announcement: AnnouncementSettings;
   isCartEnabled?: boolean;
+  is_cart_enabled?: boolean;
   updatedAt?: string;
 }
 

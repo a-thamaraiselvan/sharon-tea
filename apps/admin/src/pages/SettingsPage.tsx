@@ -75,7 +75,7 @@ export const SettingsPage: React.FC = () => {
       email: 'contact@sharonteastall.com',
       whatsappNumber: '919840012345',
       address: 'No. 45, Grand Trunk Road, Chennai, Tamil Nadu 600001',
-      operatingHours: '5:30 AM - 11:30 PM Daily',
+      operatingHours: '5:30 AM - 11:00 PM Daily',
       fssaiLicense: '12421008000412',
       socialLinks: {
         facebook: 'https://facebook.com/sharonteastall',
@@ -164,6 +164,8 @@ export const SettingsPage: React.FC = () => {
       },
       announcement_text: formData.announcement.text || '',
       announcement_active: formData.announcement.isActive,
+      isCartEnabled: formData.isCartEnabled,
+      is_cart_enabled: formData.isCartEnabled,
     };
     updateMutation.mutate(payload as any);
   };

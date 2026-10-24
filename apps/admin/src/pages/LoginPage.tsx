@@ -112,7 +112,7 @@ export const LoginPage: React.FC = () => {
                   <Input
                     {...field}
                     size="large"
-                    placeholder="admin@novacodex.in"
+                    placeholder="Enter email id"
                     prefix={<MailOutlined className="text-gray-400 mr-1" />}
                     status={errors.email ? 'error' : ''}
                     disabled={isSubmitting}
@@ -138,7 +138,7 @@ export const LoginPage: React.FC = () => {
                   <Input.Password
                     {...field}
                     size="large"
-                    placeholder="••••••••"
+                    placeholder="Enter password"
                     prefix={<LockOutlined className="text-gray-400 mr-1" />}
                     status={errors.password ? 'error' : ''}
                     disabled={isSubmitting}
