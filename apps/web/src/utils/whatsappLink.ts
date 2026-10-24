@@ -71,3 +71,26 @@ export function generateBeverageOrderLink(
   return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
 }
 
+export interface BulkOrderItem {
+  name: string;
+  quantity: number;
+  price: number;
+  weight?: string;
+}
+
+export function createWhatsAppBulkOrderUrl(
+  items: BulkOrderItem[],
+  total: number,
+  customNumber?: string
+): string {
+  const number = (customNumber || getWhatsAppNumber()).replace(/[^0-9]/g, '');
+  let text = `Hi Sharon Tea & Coffee! 👋\nI would like to place an order:\n\n`;
+  items.forEach((item) => {
+    const itemTotal = item.price * item.quantity;
+    const weightText = item.weight ? ` (${item.weight})` : '';
+    text += `• ${item.quantity}x ${item.name}${weightText} (₹${itemTotal})\n`;
+  });
+  text += `\n*Total: ₹${total}*\n\nPlease let me know how to proceed with payment and delivery.`;
+  return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
+}
+

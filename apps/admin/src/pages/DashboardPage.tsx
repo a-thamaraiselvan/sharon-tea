@@ -82,7 +82,7 @@ export const DashboardPage: React.FC = () => {
     return [
       { name: 'Sharon Special Tea', clicks: 124 },
       { name: 'Cardamom Premix', clicks: 88 },
-      { name: 'Masala Chai Blend', clicks: 64 },
+      { name: 'Masala Tea Blend', clicks: 64 },
       { name: 'Ginger Tea Powder', clicks: 42 },
       { name: 'Kulhad Cups Set', clicks: 35 },
     ];

@@ -12,7 +12,7 @@ export const BrandStoryPreview: React.FC = () => {
           <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] sm:aspect-[16/10] image-zoom-container">
             <img
               src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=1200&q=85"
-              alt="Art of Sharon Chai Boiling"
+              alt="Art of Sharon Tea Brewing"
               className="w-full h-full object-cover image-zoom"
             />
             <div className="absolute inset-x-0 bottom-0 bg-brand-black/85 p-6 text-white border-t border-white/10">
@@ -51,26 +51,22 @@ export const BrandStoryPreview: React.FC = () => {
           </div>
 
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-black leading-tight">
-            Crafted for Comfort, Built on{' '}
-            <span className="italic text-brand-burgundy">Tradition.</span>
+            Crafted for Comfort, Built for{' '}
+            <span className="italic text-brand-burgundy">Those Who Move India Forward.</span>
           </h2>
 
           <p
             className="mt-6 text-base text-neutral-600 leading-relaxed font-normal text-reveal"
             style={{ '--reveal-delay': '60ms' } as React.CSSProperties}
           >
-            Sharon Tea and Coffee began with a humble philosophy: teatime isn't just about grabbing a drink;
-            it is a cherished pause in a bustling day. A moment when colleagues share dreams,
-            friends reconnect, and everyday travelers recharge.
+            SHARON TEA STALL launched its first store in Bangalore in 2007. We were never built just to serve tea — we were built to give authentic taste to the people who move India forward.
           </p>
 
           <p
             className="mt-4 text-base text-neutral-600 leading-relaxed font-normal text-reveal"
             style={{ '--reveal-delay': '120ms' } as React.CSSProperties}
           >
-            We source our tea leaves directly from prime estates in Assam and the Nilgiris,
-            blending them with freshly cracked green cardamom, whole cinnamon quills, and hand-crushed ginger.
-            No artificial extracts, no powders—just unadulterated flavor and true hospitality.
+            Over nearly two decades, our journey has seen highs, lows, and difficult losses — every challenge taught us resilience and gave us the strength to keep going. Today, with six shops across Bengaluru and our modern cafe model, our story is still growing. The next chapter is brewing.
           </p>
 
           {/* Key pillars */}

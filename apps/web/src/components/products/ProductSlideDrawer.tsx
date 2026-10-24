@@ -12,9 +12,13 @@ import {
   Coffee,
   ShieldCheck,
   Truck,
+  ShoppingBag,
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { resolveImageUrl } from '@/utils/imageUrl';
+import { useCart } from '@/contexts/CartContext';
+import { useUiStore } from '@/stores/useUiStore';
+import { useBusinessSettings } from '@/hooks/useBusinessSettings';
 
 interface ProductSlideDrawerProps {
   product: Product | null;
@@ -31,6 +35,20 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
   const [quantity, setQuantity] = useState(1);
   const [isOrdered, setIsOrdered] = useState(false);
   const [selectedImg, setSelectedImg] = useState<string>('');
+  const { addToCart } = useCart();
+  const { isCartEnabled: uiCartEnabled, setCartDrawerOpen } = useUiStore();
+  const { data: settings } = useBusinessSettings();
+  const isCartEnabled =
+    (settings as any)?.isCartEnabled ??
+    (settings as any)?.is_cart_enabled ??
+    uiCartEnabled;
+
+  const handleAddToCart = () => {
+    if (!product) return;
+    addToCart(product, quantity);
+    onClose();
+    setCartDrawerOpen(true);
+  };
 
   // Reset quantity and selected image when product changes or drawer opens
   useEffect(() => {
@@ -332,18 +350,31 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
             </div>
           </div>
 
-          {/* Full-width High-Converting Order on WhatsApp Button */}
-          <button
-            type="button"
-            onClick={handleWhatsAppOrder}
-            className="w-full bg-[#25D366] hover:bg-[#20ba5c] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 text-sm sm:text-base"
-          >
-            <WhatsAppIcon className="w-5 h-5 shrink-0 fill-current" />
-            <span>{isOrdered ? 'Opening WhatsApp...' : 'Order on WhatsApp'}</span>
-            <span className="ml-1 px-2.5 py-0.5 rounded-full bg-black/15 text-white text-xs sm:text-sm font-semibold">
-              ₹{product.price * quantity}
-            </span>
-          </button>
+          {/* Action Buttons: Add to Cart & Order on WhatsApp */}
+          <div className="space-y-2">
+            {isCartEnabled && (
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className="w-full bg-[#FAF6EF] hover:bg-[#F3ECE0] text-brand-green border border-brand-green/30 font-bold py-3 px-6 rounded-xl transition-all active:scale-95 flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer"
+              >
+                <ShoppingBag className="w-5 h-5 shrink-0 text-brand-green" />
+                <span>Add to Cart ({quantity})</span>
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={handleWhatsAppOrder}
+              className="w-full bg-[#119243] hover:bg-[#0E7B38] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer"
+            >
+              <WhatsAppIcon className="w-5 h-5 shrink-0 fill-current" />
+              <span>{isOrdered ? 'Opening WhatsApp...' : 'Order on WhatsApp'}</span>
+              <span className="ml-1 px-2.5 py-0.5 rounded-full bg-black/15 text-white text-xs sm:text-sm font-semibold">
+                ₹{product.price * quantity}
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

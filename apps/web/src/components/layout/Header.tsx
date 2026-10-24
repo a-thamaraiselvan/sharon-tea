@@ -3,8 +3,9 @@ import { NavLink, Link } from 'react-router-dom';
 import { SharonLogo } from '@/components/ui/SharonLogo';
 import { BrandButton } from '@/components/ui/BrandButton';
 import { useUiStore } from '@/stores/useUiStore';
+import { useCart } from '@/contexts/CartContext';
 import { useBusinessSettings } from '@/hooks/useBusinessSettings';
-import { Search, Menu, Phone, Sparkles, X, Megaphone } from 'lucide-react';
+import { Search, Menu, Phone, Sparkles, X, Megaphone, ShoppingBag } from 'lucide-react';
 import { LiveTeaSearch } from '@/components/search/LiveTeaSearch';
 import { cn } from '@/utils/cn';
 
@@ -20,8 +21,14 @@ const NAV_LINKS = [
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
-  const { toggleMobileMenu } = useUiStore();
+  const { toggleMobileMenu, setCartDrawerOpen, isCartEnabled: uiCartEnabled } = useUiStore();
+  const { totalItems } = useCart();
   const { data: settings } = useBusinessSettings();
+
+  const isCartEnabled =
+    (settings as any)?.isCartEnabled ??
+    (settings as any)?.is_cart_enabled ??
+    uiCartEnabled;
 
   const announcementText =
     (settings as any)?.announcementText ||
@@ -153,6 +160,23 @@ export const Header: React.FC = () => {
             >
               {mobileSearchOpen ? <X className="w-5 h-5" /> : <Search className="w-5 h-5" />}
             </button>
+
+            {/* Cart Button (Desktop & Mobile) */}
+            {isCartEnabled && (
+              <button
+                type="button"
+                onClick={() => setCartDrawerOpen(true)}
+                className="relative p-2 rounded-full text-brand-black hover:text-brand-green hover:bg-brand-green/5 transition-colors shrink-0"
+                aria-label={`View cart with ${totalItems} items`}
+              >
+                <ShoppingBag className="w-5 h-5" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-brand-burgundy text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center shadow-xs font-sans ring-2 ring-white">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+            )}
 
             {/* Quick Franchise CTA for Desktop */}
             <div className="hidden sm:block shrink-0">

@@ -1,10 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useUiStore } from '@/stores/useUiStore';
+import { useCart } from '@/contexts/CartContext';
+import { useBusinessSettings } from '@/hooks/useBusinessSettings';
 import { SharonLogo } from '@/components/ui/SharonLogo';
 import { BrandButton } from '@/components/ui/BrandButton';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
-import { X, Phone, MapPin, ChevronRight } from 'lucide-react';
+import { X, Phone, MapPin, ChevronRight, ShoppingBag } from 'lucide-react';
 import { generateGeneralInquiryLink } from '@/utils/whatsappLink';
 import { cn } from '@/utils/cn';
 
@@ -20,7 +22,14 @@ const NAV_ITEMS = [
 ];
 
 export const MobileNav: React.FC = () => {
-  const { mobileMenuOpen, setMobileMenuOpen } = useUiStore();
+  const { mobileMenuOpen, setMobileMenuOpen, setCartDrawerOpen, isCartEnabled: uiCartEnabled } = useUiStore();
+  const { totalItems } = useCart();
+  const { data: settings } = useBusinessSettings();
+
+  const isCartEnabled =
+    (settings as any)?.isCartEnabled ??
+    (settings as any)?.is_cart_enabled ??
+    uiCartEnabled;
 
   if (!mobileMenuOpen) return null;
 
@@ -75,6 +84,28 @@ export const MobileNav: React.FC = () => {
                 <ChevronRight className="w-4 h-4 opacity-50" />
               </NavLink>
             ))}
+
+            {/* Cart Quick Drawer Action */}
+            {isCartEnabled && (
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setCartDrawerOpen(true);
+                }}
+                className="flex items-center justify-between w-full px-4 py-3 rounded-xl text-base font-medium text-brand-black hover:bg-brand-green/10 hover:text-brand-green transition-all"
+              >
+                <div className="flex items-center gap-2.5">
+                  <ShoppingBag className="w-5 h-5 text-brand-green" />
+                  <span>Your Cart</span>
+                </div>
+                {totalItems > 0 && (
+                  <span className="bg-brand-burgundy text-white text-xs px-2 py-0.5 rounded-full font-bold font-sans">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+            )}
           </nav>
         </div>
 
@@ -96,7 +127,7 @@ export const MobileNav: React.FC = () => {
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full border border-brand-green/30 text-brand-green hover:bg-brand-green/5 text-sm font-medium transition-colors"
           >
-            <WhatsAppIcon className="w-4 h-4 text-[#25D366] fill-current" />
+            <WhatsAppIcon className="w-4 h-4 text-[#119243] fill-current" />
             <span>Chat on WhatsApp</span>
           </a>
 

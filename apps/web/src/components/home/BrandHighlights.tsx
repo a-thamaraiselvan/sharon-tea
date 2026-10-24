@@ -14,7 +14,7 @@ const HIGHLIGHTS = [
         <span className="text-brand-amber"><AnimatedCounter target={8000} suffix="+" /></span> Cups Served Daily
       </span>
     ),
-    description: 'Every sunrise, thousands of tea lovers flock to Sharon outlets for our unforgettable freshly strained chai.',
+    description: 'Every sunrise, thousands of tea and coffee lovers flock to Sharon outlets for our unforgettable freshly brewed tea & coffee.',
     link: '/about-us',
   },
   {
@@ -25,7 +25,7 @@ const HIGHLIGHTS = [
         <span className="text-brand-chai">50+</span> Tea Options
       </span>
     ),
-    description: 'From cardamom-infused Elaichi tea to robust Masala chai, herbal wellness infusions, and refreshing filter coffees crafted to culinary precision.',
+    description: 'From cardamom-infused Elaichi tea to robust Masala tea, herbal wellness infusions, and refreshing filter coffees crafted to culinary precision.',
     link: '/menu',
   },
   {

@@ -4,6 +4,17 @@ import { successResponse } from '../../utils/response.js';
 
 export const formatPublicHeroSlide = (s: any) => ({
   id: s.id,
+  title: (s.title || '').replace(/\bchai\b/gi, 'Tea'),
+  subtitle: (s.subtitle || '').replace(/\bchai\b/gi, 'tea'),
+  imageUrl: s.image_url || s.imageUrl || null,
+  ctaText: s.cta_text || s.ctaText || null,
+  ctaLink: s.cta_link || s.ctaLink || null,
+  secondaryCtaText: s.secondary_cta_text || s.secondaryCtaText || null,
+  secondaryCtaLink: s.secondary_cta_link || s.secondaryCtaLink || null,
+});
+
+export const formatAdminHeroSlide = (s: any) => ({
+  id: s.id,
   title: s.title,
   subtitle: s.subtitle || '',
   imageUrl: s.image_url || s.imageUrl || null,
@@ -22,6 +33,8 @@ export const formatPublicHeroSlide = (s: any) => ({
   display_order: s.sort_order ?? s.sortOrder ?? 0,
   isActive: s.is_active ?? s.isActive ?? true,
   is_active: s.is_active ?? s.isActive ?? true,
+  createdAt: s.created_at || s.createdAt,
+  updatedAt: s.updated_at || s.updatedAt,
 });
 
 export class HeroSlideController {
@@ -38,7 +51,7 @@ export class HeroSlideController {
   async getAll(_req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const slides = await heroSlideService.getAllSlides();
-      const sanitized = slides.map(formatPublicHeroSlide);
+      const sanitized = slides.map(formatAdminHeroSlide);
       successResponse(res, sanitized, 'All hero slides retrieved');
     } catch (error) {
       next(error);
@@ -47,8 +60,9 @@ export class HeroSlideController {
 
   async getById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
+      const isAdmin = Boolean((req as any).user && ['ADMIN', 'STAFF'].includes((req as any).user.role));
       const slide = await heroSlideService.getSlideById(req.params.id as string);
-      successResponse(res, formatPublicHeroSlide(slide), 'Hero slide details retrieved');
+      successResponse(res, isAdmin ? formatAdminHeroSlide(slide) : formatPublicHeroSlide(slide), 'Hero slide details retrieved');
     } catch (error) {
       next(error);
     }

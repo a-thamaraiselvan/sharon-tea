@@ -70,6 +70,9 @@ export interface Outlet {
   embedUrl?: string;
   imageUrl?: string;
   isMainBranch?: boolean;
+  latitude?: number;
+  longitude?: number;
+  distanceKm?: number;
 }
 
 export interface HeroSlide {

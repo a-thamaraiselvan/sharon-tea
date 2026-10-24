@@ -19,7 +19,7 @@ export const HomePage: React.FC = () => {
         />
         <meta
           name="keywords"
-          content="Sharon Tea, Chai, Masala Tea, Filter Coffee, Tea Stall, Tea Franchise Chennai"
+          content="Sharon Tea and Coffee, Tea, Filter Coffee, Tea Franchise, Fresh Tea Blends"
         />
       </Helmet>
 

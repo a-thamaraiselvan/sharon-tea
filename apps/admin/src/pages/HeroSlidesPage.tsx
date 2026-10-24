@@ -441,7 +441,7 @@ export const HeroSlidesPage: React.FC = () => {
                   value={value || ''}
                   onChange={onChange}
                   rows={2}
-                  placeholder="e.g. Relish the velvety rich notes of slow-boiled Sharon Irani chai"
+                  placeholder="e.g. Relish the velvety rich notes of slow-boiled Sharon Irani tea"
                 />
               )}
             />

@@ -4,9 +4,12 @@ import { formatPrice } from '@/utils/formatPrice';
 import { generateProductOrderLink } from '@/utils/whatsappLink';
 import { trackOrderClick } from '@/services/whatsappService';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
-import { Heart, Plus, Minus, Leaf, Coffee, Star, Sparkles } from 'lucide-react';
+import { Heart, Plus, Minus, Leaf, Coffee, Star, Sparkles, ShoppingBag } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { resolveImageUrl } from '@/utils/imageUrl';
+import { useCart } from '@/contexts/CartContext';
+import { useUiStore } from '@/stores/useUiStore';
+import { useBusinessSettings } from '@/hooks/useBusinessSettings';
 
 export interface ProductDetailCardProps {
   product: Product;
@@ -62,7 +65,7 @@ const getProductFeaturePills = (product: Product) => {
   if (name.includes('masala')) {
     return [
       { icon: <Leaf className="w-3 h-3 text-emerald-600 shrink-0" />, label: 'Royal Spices' },
-      { icon: <Coffee className="w-3 h-3 text-amber-700 shrink-0" />, label: 'Kadak Chai' },
+      { icon: <Coffee className="w-3 h-3 text-amber-700 shrink-0" />, label: 'Kadak Tea' },
       { icon: <Star className="w-3 h-3 text-amber-500 fill-amber-500 shrink-0" />, label: 'Authentic' },
     ];
   }
@@ -83,6 +86,16 @@ export const ProductDetailCard: React.FC<ProductDetailCardProps> = ({
 
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const { items, addToCart, updateQuantity } = useCart();
+  const { isCartEnabled: uiCartEnabled, setCartDrawerOpen } = useUiStore();
+  const { data: settings } = useBusinessSettings();
+  const isCartEnabled =
+    (settings as any)?.isCartEnabled ??
+    (settings as any)?.is_cart_enabled ??
+    uiCartEnabled;
+
+  const cartItem = items.find((i) => i.product.id === product.id);
+  const inCartQty = cartItem ? cartItem.quantity : 0;
 
   const handleDecrease = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -107,21 +120,18 @@ export const ProductDetailCard: React.FC<ProductDetailCardProps> = ({
 
   const handleWhatsAppOrder = (e: React.MouseEvent) => {
     e.stopPropagation();
+    const orderQty = isCartEnabled && inCartQty > 0 ? inCartQty : quantity;
     trackOrderClick({
       productId: product.id,
       productName: product.name,
-      quantity,
+      quantity: orderQty,
       price: product.price,
       source: 'product_card_whatsapp_order',
     });
 
-    if (onAddToCart) {
-      onAddToCart(product, quantity);
-    }
-
     const link = generateProductOrderLink({
       name: product.name,
-      quantity,
+      quantity: orderQty,
       price: product.price,
       weight: product.weight || product.packSize,
     });
@@ -216,12 +226,12 @@ export const ProductDetailCard: React.FC<ProductDetailCardProps> = ({
             {shortDesc}
           </p>
 
-          {/* Row 3: Feature Pills with Icons */}
-          <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+          {/* Row 3: Feature Pills with Icons (Single Horizontal Row) */}
+          <div className="flex items-center gap-1 pt-0.5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden no-scrollbar whitespace-nowrap">
             {featurePills.map((pill, idx) => (
               <span
                 key={idx}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-600 text-[10px] sm:text-[11px] font-medium"
+                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-neutral-100 text-neutral-600 text-[10px] sm:text-[11px] font-medium shrink-0"
               >
                 {pill.icon}
                 <span>{pill.label}</span>
@@ -248,48 +258,106 @@ export const ProductDetailCard: React.FC<ProductDetailCardProps> = ({
         </div>
       </div>
 
-      {/* Row 5: Action Controls (Quantity Selector + WhatsApp Order Button) */}
+      {/* Row 5: Action Controls */}
       <div className="p-2.5 sm:p-3 pt-0 pb-3 flex items-center gap-2">
-        {/* Quantity Controls */}
-        <div
-          onClick={(e) => e.stopPropagation()}
-          className="flex items-center border border-neutral-200 rounded-lg bg-white px-1.5 py-0.5 shrink-0 h-8 sm:h-9"
-        >
-          <button
-            type="button"
-            onClick={handleDecrease}
-            disabled={quantity <= 1}
-            className="w-4 h-6 sm:w-5 sm:h-7 flex items-center justify-center text-neutral-600 hover:text-brand-black disabled:opacity-30 transition-colors"
-            aria-label="Decrease quantity"
-          >
-            <Minus className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-          </button>
-          <span className="w-5 sm:w-6 text-center text-xs sm:text-sm font-bold text-neutral-900">
-            {quantity}
-          </span>
-          <button
-            type="button"
-            onClick={handleIncrease}
-            disabled={quantity >= 20}
-            className="w-4 h-6 sm:w-5 sm:h-7 flex items-center justify-center text-neutral-600 hover:text-brand-black transition-colors"
-            aria-label="Increase quantity"
-          >
-            <Plus className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-          </button>
-        </div>
+        {isCartEnabled ? (
+          <>
+            {/* Bulk Order ON: Dynamic Add Button or Active in-cart Stepper */}
+            {inCartQty === 0 ? (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  addToCart(product, 1);
+                  setCartDrawerOpen(true);
+                }}
+                className="flex-1 h-8 sm:h-9 rounded-lg border border-neutral-300 hover:border-brand-black bg-white hover:bg-brand-black text-brand-black hover:text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all duration-200 active:scale-95 cursor-pointer shadow-xs"
+                aria-label={`Add ${product.name} to cart`}
+              >
+                <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+                <span>Add</span>
+              </button>
+            ) : (
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className="flex-1 flex items-center justify-between border-2 border-brand-green rounded-lg bg-brand-green/10 px-1.5 h-8 sm:h-9 shadow-2xs"
+              >
+                <button
+                  type="button"
+                  onClick={() => updateQuantity(product.id, inCartQty - 1)}
+                  className="w-7 h-full flex items-center justify-center text-brand-green hover:text-brand-burgundy font-bold text-base transition-colors cursor-pointer active:scale-90"
+                  aria-label="Decrease quantity"
+                >
+                  <Minus className="w-3 h-3" />
+                </button>
+                <span className="text-xs sm:text-sm font-extrabold text-brand-green font-sans px-1 select-none">
+                  {inCartQty}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => updateQuantity(product.id, inCartQty + 1)}
+                  className="w-7 h-full flex items-center justify-center text-brand-green hover:text-brand-burgundy font-bold text-base transition-colors cursor-pointer active:scale-90"
+                  aria-label="Increase quantity"
+                >
+                  <Plus className="w-3 h-3" />
+                </button>
+              </div>
+            )}
 
-        {/* Direct WhatsApp Order Button */}
-        <button
-          type="button"
-          onClick={handleWhatsAppOrder}
-          className="flex-1 h-8 sm:h-9 bg-[#25D366] hover:bg-[#20ba5c] text-white font-bold text-xs sm:text-sm px-3 rounded-lg shadow-xs transition-all duration-200 active:scale-95 flex items-center justify-center gap-1.5 min-w-0"
-          aria-label={`Order ${product.name} on WhatsApp`}
-        >
-          <WhatsAppIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 fill-current" />
-          <span className="truncate whitespace-nowrap font-bold">
-            Order on WhatsApp
-          </span>
-        </button>
+            {/* Direct WhatsApp Order Icon Button */}
+            <button
+              type="button"
+              onClick={handleWhatsAppOrder}
+              className="h-8 sm:h-9 w-9 sm:w-10 bg-[#119243] hover:bg-[#0E7B38] text-white rounded-lg flex items-center justify-center shadow-xs transition-all duration-200 active:scale-95 shrink-0 cursor-pointer"
+              title={`Order ${product.name} directly on WhatsApp`}
+              aria-label={`Order ${product.name} directly on WhatsApp`}
+            >
+              <WhatsAppIcon className="w-4 h-4 fill-white" />
+            </button>
+          </>
+        ) : (
+          <>
+            {/* Bulk Order OFF: Standard Stepper + Full-width Order Button */}
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center border border-neutral-200 rounded-lg bg-white px-1.5 py-0.5 shrink-0 h-8 sm:h-9"
+            >
+              <button
+                type="button"
+                onClick={handleDecrease}
+                disabled={quantity <= 1}
+                className="w-4 h-6 sm:w-5 sm:h-7 flex items-center justify-center text-neutral-600 hover:text-brand-black disabled:opacity-30 transition-colors"
+                aria-label="Decrease quantity"
+              >
+                <Minus className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+              </button>
+              <span className="w-5 sm:w-6 text-center text-xs sm:text-sm font-bold text-neutral-900">
+                {quantity}
+              </span>
+              <button
+                type="button"
+                onClick={handleIncrease}
+                disabled={quantity >= 20}
+                className="w-4 h-6 sm:w-5 sm:h-7 flex items-center justify-center text-neutral-600 hover:text-brand-black transition-colors"
+                aria-label="Increase quantity"
+              >
+                <Plus className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+              </button>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleWhatsAppOrder}
+              className="flex-1 h-8 sm:h-9 bg-[#119243] hover:bg-[#0E7B38] text-white font-bold text-xs sm:text-sm px-3 rounded-lg shadow-xs transition-all duration-200 active:scale-95 flex items-center justify-center gap-1.5 min-w-0"
+              aria-label={`Order ${product.name} on WhatsApp`}
+            >
+              <WhatsAppIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 fill-current" />
+              <span className="truncate whitespace-nowrap font-bold">
+                Order on WhatsApp
+              </span>
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

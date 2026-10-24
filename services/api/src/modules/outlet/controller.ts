@@ -12,24 +12,28 @@ export const formatPublicOutlet = (o: any) => ({
   pincode: o.pincode || null,
   phone: o.phone,
   hours: o.hours || o.operating_hours || o.operatingHours || '6:00 AM - 11:00 PM',
+  googleMapsUrl: o.maps_url || o.google_maps_url || o.googleMapsUrl || '',
+  embedUrl: o.embed_url || o.embedUrl || (o.address ? `https://maps.google.com/maps?q=${encodeURIComponent(o.address)}&t=&z=15&ie=UTF8&iwloc=&output=embed` : null),
+  imageUrl: o.image_url || o.imageUrl || null,
+  isMainBranch: Boolean(o.is_main_branch || o.isMainBranch || o.name?.includes('Head Branch')),
+  latitude: o.latitude ? Number(o.latitude) : null,
+  longitude: o.longitude ? Number(o.longitude) : null,
+});
+
+export const formatAdminOutlet = (o: any) => ({
+  ...formatPublicOutlet(o),
   operatingHours: o.hours || o.operating_hours || o.operatingHours || '6:00 AM - 11:00 PM',
   operating_hours: o.hours || o.operating_hours || o.operatingHours || '6:00 AM - 11:00 PM',
-  googleMapsUrl: o.maps_url || o.google_maps_url || o.googleMapsUrl || '',
-  google_maps_url: o.maps_url || o.google_maps_url || o.googleMapsUrl || '',
   mapsUrl: o.maps_url || o.google_maps_url || o.googleMapsUrl || '',
   maps_url: o.maps_url || o.google_maps_url || o.googleMapsUrl || '',
-  embedUrl: o.embed_url || o.embedUrl || (o.address ? `https://maps.google.com/maps?q=${encodeURIComponent(o.address)}&t=&z=15&ie=UTF8&iwloc=&output=embed` : null),
-  embed_url: o.embed_url || o.embedUrl || (o.address ? `https://maps.google.com/maps?q=${encodeURIComponent(o.address)}&t=&z=15&ie=UTF8&iwloc=&output=embed` : null),
-  imageUrl: o.image_url || o.imageUrl || null,
   image_url: o.image_url || o.imageUrl || null,
-  isMainBranch: Boolean(o.is_main_branch || o.isMainBranch || o.name?.includes('Head Branch')),
   is_main_branch: Boolean(o.is_main_branch || o.isMainBranch || o.name?.includes('Head Branch')),
   isActive: o.is_active ?? o.isActive ?? true,
   is_active: o.is_active ?? o.isActive ?? true,
   sortOrder: Number(o.sort_order ?? o.sortOrder ?? 0),
   sort_order: Number(o.sort_order ?? o.sortOrder ?? 0),
-  latitude: o.latitude ? Number(o.latitude) : null,
-  longitude: o.longitude ? Number(o.longitude) : null,
+  createdAt: o.created_at || o.createdAt,
+  updatedAt: o.updated_at || o.updatedAt,
 });
 
 export class OutletController {
@@ -46,7 +50,7 @@ export class OutletController {
   async getAll(_req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const outlets = await outletService.getAllOutlets();
-      const sanitized = outlets.map(formatPublicOutlet);
+      const sanitized = outlets.map(formatAdminOutlet);
       successResponse(res, sanitized, 'All outlets retrieved');
     } catch (error) {
       next(error);
@@ -55,8 +59,9 @@ export class OutletController {
 
   async getById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
+      const isAdmin = Boolean((req as any).user && ['ADMIN', 'STAFF'].includes((req as any).user.role));
       const outlet = await outletService.getOutletById(req.params.id as string);
-      successResponse(res, formatPublicOutlet(outlet), 'Outlet details retrieved');
+      successResponse(res, isAdmin ? formatAdminOutlet(outlet) : formatPublicOutlet(outlet), 'Outlet details retrieved');
     } catch (error) {
       next(error);
     }
@@ -65,7 +70,7 @@ export class OutletController {
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const outlet = await outletService.createOutlet(req.body);
-      successResponse(res, formatPublicOutlet(outlet), 'Outlet created successfully', 201);
+      successResponse(res, formatAdminOutlet(outlet), 'Outlet created successfully', 201);
     } catch (error) {
       next(error);
     }
@@ -74,7 +79,7 @@ export class OutletController {
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const outlet = await outletService.updateOutlet(req.params.id as string, req.body);
-      successResponse(res, formatPublicOutlet(outlet), 'Outlet updated successfully');
+      successResponse(res, formatAdminOutlet(outlet), 'Outlet updated successfully');
     } catch (error) {
       next(error);
     }

@@ -22,6 +22,7 @@ export class BusinessSettingRepository {
     social_links?: Record<string, string>;
     announcement_text?: string | null;
     announcement_active?: boolean;
+    is_cart_enabled?: boolean;
   }): Promise<BusinessSettingRecord> {
     const current = await this.getSettings();
 
@@ -104,6 +105,10 @@ export class BusinessSettingRepository {
     if (data.announcement_active !== undefined) {
       fields.push(`announcement_active = $${idx++}`);
       values.push(data.announcement_active);
+    }
+    if (data.is_cart_enabled !== undefined) {
+      fields.push(`is_cart_enabled = $${idx++}`);
+      values.push(data.is_cart_enabled);
     }
 
     if (fields.length === 0) {

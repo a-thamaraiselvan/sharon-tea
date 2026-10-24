@@ -128,7 +128,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
     imageUrl: '/images/products/img_3689.jpg',
     images: ['/images/products/img_3689.jpg', '/images/products/masala-pouch.png'],
     weight: '250g Pouch',
-    shortDescription: 'Signature handcrafted masala chai blend with authentic aromatic spices.',
+    shortDescription: 'Signature handcrafted masala tea blend with authentic aromatic spices.',
     description: 'Our signature blend of selected high-grown Assam CTC black tea expertly combined with crushed cardamom, dried ginger, cinnamon, and cloves.',
     ingredients: ['Assam Black CTC Tea', 'Cardamom', 'Ginger', 'Cinnamon', 'Black Pepper', 'Cloves'],
     brewingInstructions: 'Boil 1 cup of water and 1 cup of milk. Add 1.5 teaspoons of Sharon Masala Tea. Simmer for 3-4 minutes.',

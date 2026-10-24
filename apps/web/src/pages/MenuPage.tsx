@@ -186,8 +186,7 @@ export const MenuPage: React.FC = () => {
         return (
           i.categoryId === 'hot-teas' ||
           i.category === 'Tea' ||
-          name.includes('tea') ||
-          name.includes('chai')
+          name.includes('tea')
         );
       }
       if (activeCategory === 'coffees') {
@@ -232,7 +231,7 @@ export const MenuPage: React.FC = () => {
         <title>Beverage Menu | Sharon Tea and Coffee</title>
         <meta
           name="description"
-          content="Explore Sharon Tea and Coffee's freshly brewed teas, aromatic masala chai, traditional South Indian filter coffee, and chilled beverages slow-boiled to golden perfection."
+          content="Explore Sharon Tea and Coffee's freshly brewed teas, aromatic masala tea, traditional South Indian filter coffee, and chilled beverages slow-boiled to golden perfection."
         />
       </Helmet>
 
@@ -340,7 +339,7 @@ export const MenuPage: React.FC = () => {
             <span>Dine In or Order Online</span>
           </div>
           <h3 className="font-display text-2xl sm:text-3xl font-bold mb-3">
-            Craving a Hot Cutting Chai Right Now?
+            Craving a Hot Cup of Tea or Coffee Right Now?
           </h3>
           <p className="text-brand-cream/80 text-sm sm:text-base max-w-xl mx-auto mb-8 font-normal">
             Walk into our nearest Sharon Tea and Coffee outlet to experience the brass samovar in person, or order piping hot brews to your doorstep through our online delivery partners!
@@ -353,7 +352,7 @@ export const MenuPage: React.FC = () => {
               icon={<MapPin className="w-4 h-4 text-brand-black" />}
               className="text-brand-black font-bold"
             >
-              Find Your Nearest Sharon Stall
+              Find Your Nearest Sharon Outlet
             </BrandButton>
 
             {deliveryPartners.map((partner) => {

@@ -8,7 +8,7 @@ const DIFFERENTIATORS = [
     icon: <Coffee className="w-8 h-8 text-brand-burgundy" />,
     title: 'Extensive Beverage Variety',
     description:
-      'From strong morning Assam chai and south Indian chicory coffee to iced rose milk and lemon coolers, our menu caters to every mood, weather, and craving.',
+      'From strong morning Assam tea and South Indian filter coffee to iced rose milk and lemon coolers, our menu caters to every mood, weather, and craving.',
   },
   {
     icon: <Flame className="w-8 h-8 text-brand-rust" />,
@@ -37,7 +37,7 @@ export const WhySharon: React.FC = () => {
         <SectionHeading
           badge="The Sharon Advantage"
           title="Why Patrons Choose Sharon"
-          subtitle="Four defining pillars that set our tea stall apart from the ordinary street vendor."
+          subtitle="Four defining pillars that set Sharon Tea & Coffee apart from ordinary vendors."
         />
       </div>
 

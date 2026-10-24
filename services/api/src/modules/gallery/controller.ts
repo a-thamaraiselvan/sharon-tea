@@ -4,15 +4,27 @@ import { successResponse } from '../../utils/response.js';
 
 export const formatPublicGalleryImage = (img: any) => ({
   id: img.id,
+  title: (img.title || img.caption || '').replace(/\bchai\b/gi, 'Tea'),
+  category: img.category,
+  imageUrl: img.image_url || img.imageUrl || null,
+  caption: (img.caption || null)?.replace(/\bchai\b/gi, 'tea'),
+  youtubeUrl: img.youtube_url || img.youtubeUrl || null,
+});
+
+export const formatAdminGalleryImage = (img: any) => ({
+  id: img.id,
   title: img.title,
   category: img.category,
   imageUrl: img.image_url || img.imageUrl || null,
   image_url: img.image_url || img.imageUrl || null,
   caption: img.caption || null,
+  youtubeUrl: img.youtube_url || img.youtubeUrl || null,
   sortOrder: img.sort_order ?? img.sortOrder ?? 0,
   sort_order: img.sort_order ?? img.sortOrder ?? 0,
   isActive: img.is_active ?? img.isActive ?? true,
   is_active: img.is_active ?? img.isActive ?? true,
+  createdAt: img.created_at || img.createdAt,
+  updatedAt: img.updated_at || img.updatedAt,
 });
 
 export class GalleryController {
@@ -31,7 +43,7 @@ export class GalleryController {
     try {
       const category = req.query.category as string | undefined;
       const images = await galleryService.getAllImages(category);
-      const sanitized = images.map(formatPublicGalleryImage);
+      const sanitized = images.map(formatAdminGalleryImage);
       successResponse(res, sanitized, 'All gallery images retrieved');
     } catch (error) {
       next(error);
@@ -41,7 +53,7 @@ export class GalleryController {
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const image = await galleryService.createImage(req.body);
-      successResponse(res, formatPublicGalleryImage(image), 'Gallery image added successfully', 201);
+      successResponse(res, formatAdminGalleryImage(image), 'Gallery image added successfully', 201);
     } catch (error) {
       next(error);
     }
@@ -50,7 +62,7 @@ export class GalleryController {
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const image = await galleryService.updateImage(req.params.id as string, req.body);
-      successResponse(res, formatPublicGalleryImage(image), 'Gallery image updated successfully');
+      successResponse(res, formatAdminGalleryImage(image), 'Gallery image updated successfully');
     } catch (error) {
       next(error);
     }

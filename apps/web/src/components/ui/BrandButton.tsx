@@ -35,23 +35,23 @@ export const BrandButton: React.FC<BrandButtonProps> = ({
   }[size];
 
   const variantClasses = {
-    // Primary: Forest Green (#1C4C34) -> hover Black (#241C24)
+    // Primary: Deep Black/Forest (#241C24) -> hover Burgundy (#541424)
     primary:
-      'bg-brand-green text-white hover:bg-brand-black hover:shadow-green-subtle focus:ring-brand-green',
-    // Secondary / Burgundy: Burgundy (#541424) -> hover Rust (#7C2C0C)
+      'bg-brand-black text-white hover:bg-brand-burgundy shadow-sm hover:shadow-md focus:ring-brand-black font-semibold',
+    // Secondary / Burgundy: Deep Burgundy (#541424) -> hover Rust (#7C2C0C)
     secondary:
-      'bg-brand-burgundy text-white hover:bg-brand-rust hover:shadow-warm-lg focus:ring-brand-burgundy',
+      'bg-brand-burgundy text-white hover:bg-brand-rust shadow-sm hover:shadow-warm-lg focus:ring-brand-burgundy font-semibold',
     burgundy:
-      'bg-brand-burgundy text-white hover:bg-brand-rust hover:shadow-warm-lg focus:ring-brand-burgundy',
-    // Amber: Amber Highlight (#FC9C34) -> hover Chai (#A44C14)
+      'bg-brand-burgundy text-white hover:bg-brand-rust shadow-sm hover:shadow-warm-lg focus:ring-brand-burgundy font-semibold',
+    // Amber: Rich Amber (#E67E17) -> hover Rust/Chai with crisp high contrast
     amber:
-      'bg-brand-amber text-brand-black font-semibold hover:bg-brand-chai hover:text-white focus:ring-brand-amber shadow-warm',
-    // Outline: Border 2 Forest Green -> hover Forest Green
+      'bg-[#E67E17] text-white font-bold hover:bg-[#C2410C] focus:ring-[#E67E17] shadow-sm',
+    // Outline: Deep Black/Forest Border
     outline:
-      'border-2 border-brand-green text-brand-green hover:bg-brand-green hover:text-white focus:ring-brand-green',
+      'border-2 border-brand-black text-brand-black hover:bg-brand-black hover:text-white focus:ring-brand-black font-semibold',
     // Ghost
     ghost:
-      'text-brand-green hover:bg-brand-green/10 focus:ring-brand-green shadow-none',
+      'text-brand-black hover:bg-black/5 focus:ring-brand-black shadow-none font-semibold',
   }[variant];
 
   const combinedClasses = cn(baseClasses, sizeClasses, variantClasses, className);

@@ -177,7 +177,7 @@ export const ProductsPage: React.FC = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold border border-white/20 transition-all backdrop-blur-xs cursor-pointer"
                 >
-                  <WhatsAppIcon className="w-4 h-4 text-[#25D366] fill-[#25D366]" />
+                  <WhatsAppIcon className="w-4 h-4 text-[#119243] fill-[#119243]" />
                   <span>Order on WhatsApp</span>
                 </a>
               </div>
@@ -217,7 +217,7 @@ export const ProductsPage: React.FC = () => {
                   <div className="absolute top-3 left-3 z-10 pointer-events-none">
                     <span className="inline-flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold text-brand-amber border border-white/20 shadow-md">
                       <Sparkles className="w-3 h-3 text-brand-amber" />
-                      <span>8 Signature Blends</span>
+                      <span>3 Signature Blends</span>
                     </span>
                   </div>
 
@@ -254,7 +254,7 @@ export const ProductsPage: React.FC = () => {
           </div>
 
           <div
-            className="flex items-center justify-start md:justify-center gap-5 sm:gap-8 lg:gap-12 overflow-x-auto pb-2 scrollbar-none reveal-fade"
+            className="flex items-center justify-start md:justify-center gap-5 sm:gap-8 lg:gap-12 overflow-x-auto pb-2 scrollbar-none no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden reveal-fade"
           >
             {FLAVOR_BUBBLES.map((flavor) => {
               const isSelected = selectedFlavor === flavor.name;

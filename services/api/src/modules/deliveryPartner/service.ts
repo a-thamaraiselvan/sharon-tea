@@ -3,6 +3,18 @@ import { DeliveryPartnerRecord } from '../../types/index.js';
 import { AppError } from '../../middleware/errorHandler.js';
 
 export class DeliveryPartnerService {
+  formatPublicPartner(record: DeliveryPartnerRecord) {
+    return {
+      id: record.id,
+      name: record.name,
+      slug: record.slug,
+      logoUrl: record.logo_url,
+      partnerUrl: record.partner_url,
+      badgeText: record.badge_text,
+      description: (record.description || '').replace(/\bchai\b/gi, 'tea'),
+    };
+  }
+
   private formatPartner(record: DeliveryPartnerRecord) {
     return {
       ...record,
@@ -22,7 +34,7 @@ export class DeliveryPartnerService {
 
   async getPublicPartners(): Promise<any[]> {
     const list = await deliveryPartnerRepository.findPublic();
-    return list.map(this.formatPartner);
+    return list.map((p) => this.formatPublicPartner(p));
   }
 
   async getAllPartners(): Promise<any[]> {
@@ -30,12 +42,12 @@ export class DeliveryPartnerService {
     return list.map(this.formatPartner);
   }
 
-  async getPartnerById(id: string): Promise<any> {
+  async getPartnerById(id: string, isAdmin = false): Promise<any> {
     const partner = await deliveryPartnerRepository.findById(id);
     if (!partner) {
       throw new AppError('Delivery partner not found', 404);
     }
-    return this.formatPartner(partner);
+    return isAdmin ? this.formatPartner(partner) : this.formatPublicPartner(partner);
   }
 
   async createPartner(data: any): Promise<any> {

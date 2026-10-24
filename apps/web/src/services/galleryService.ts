@@ -4,7 +4,7 @@ import type { GalleryItem, ApiResponse } from '@/types';
 export const FALLBACK_GALLERY: GalleryItem[] = [
   {
     id: 'g-1',
-    title: 'The Sharon Signature Chai Pour',
+    title: 'The Sharon Signature Tea Pour',
     category: 'brewing',
     imageUrl: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80',
     caption: 'Long meter tea pour creating the iconic Sharon velvety froth.',
@@ -12,7 +12,7 @@ export const FALLBACK_GALLERY: GalleryItem[] = [
   },
   {
     id: 'g-2',
-    title: 'Flagship Tea Stall Experience',
+    title: 'Flagship Tea & Coffee Experience',
     category: 'store',
     imageUrl: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80',
     caption: 'Modern, hygienic, and warm aesthetic at our Cathedral Road hub.',
@@ -31,7 +31,7 @@ export const FALLBACK_GALLERY: GalleryItem[] = [
     title: 'Morning Rush & Smiling Faces',
     category: 'moments',
     imageUrl: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=800&q=80',
-    caption: 'Over 8,000 daily customers start their day with Sharon chai.',
+    caption: 'Over 8,000 daily customers start their day with Sharon tea & coffee.',
     youtubeUrl: 'https://youtu.be/TT4oscwnRBc',
   },
   {
@@ -52,7 +52,7 @@ export const FALLBACK_GALLERY: GalleryItem[] = [
   },
   {
     id: 'g-7',
-    title: 'Evenings at Sharon Stall',
+    title: 'Evenings at Sharon Tea & Coffee',
     category: 'moments',
     imageUrl: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80',
     caption: 'Connecting friends, coworkers, and families over hot tea.',

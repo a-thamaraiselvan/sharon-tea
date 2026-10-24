@@ -14,7 +14,7 @@ export const FALLBACK_DELIVERY_PARTNERS: DeliveryPartner[] = [
     logoUrl: '/images/delivery/swiggy.svg',
     partnerUrl: 'https://www.swiggy.com/direct/brand/182245?source=swiggy-direct&subSource=generic',
     badgeText: '30-40 Mins',
-    description: 'Order Sharon classic chai, special spiced brews, and evening snacks directly on Swiggy.',
+    description: 'Order Sharon classic tea, special spiced brews, and evening snacks directly on Swiggy.',
     isActive: true,
     sortOrder: 1,
   },

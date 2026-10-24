@@ -31,7 +31,7 @@ export const WhatsAppFAB: React.FC = () => {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="pointer-events-auto group relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-[#25D366] hover:bg-[#20ba5c] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-[#25D366]/30 cursor-pointer"
+        className="pointer-events-auto group relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-[#119243] hover:bg-[#0E7B38] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-[#119243]/30 cursor-pointer"
         aria-label="Chat on WhatsApp with Sharon Tea and Coffee"
       >
         <WhatsAppIcon className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-white relative z-10 shrink-0" />

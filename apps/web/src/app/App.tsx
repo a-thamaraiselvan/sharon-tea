@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { ConfigProvider } from 'antd';
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
+import { CartProvider } from '@/contexts/CartContext';
 import { AppRoutes } from './routes/AppRoutes';
 import { initGlobalScrollReveal } from '@/hooks/useScrollReveal';
 
@@ -25,7 +26,9 @@ export const App: React.FC = () => {
       }}
     >
       <ErrorBoundary>
-        <AppRoutes />
+        <CartProvider>
+          <AppRoutes />
+        </CartProvider>
       </ErrorBoundary>
     </ConfigProvider>
   );

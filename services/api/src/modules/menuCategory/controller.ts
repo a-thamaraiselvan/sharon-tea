@@ -4,6 +4,16 @@ import { successResponse } from '../../utils/response.js';
 
 export const formatPublicMenuCategory = (c: any) => ({
   id: c.id,
+  name: (c.name || '').replace(/\bchai\b/gi, 'Tea'),
+  slug: c.slug,
+  type: c.type || 'menu',
+  description: (c.description || null)?.replace(/\bchai\b/gi, 'tea'),
+  imageUrl: c.image_url || c.imageUrl || null,
+  displayOrder: Number(c.sort_order ?? c.sortOrder ?? 0),
+});
+
+export const formatAdminMenuCategory = (c: any) => ({
+  id: c.id,
   name: c.name,
   slug: c.slug,
   type: c.type || 'menu',
@@ -36,7 +46,7 @@ export class MenuCategoryController {
     try {
       const type = req.query.type as string | undefined;
       const categories = await menuCategoryService.getAllCategories(type);
-      const sanitized = categories.map(formatPublicMenuCategory);
+      const sanitized = categories.map(formatAdminMenuCategory);
       successResponse(res, sanitized, 'All categories retrieved');
     } catch (error) {
       next(error);
@@ -45,8 +55,9 @@ export class MenuCategoryController {
 
   async getById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
+      const isAdmin = Boolean((req as any).user && ['ADMIN', 'STAFF'].includes((req as any).user.role));
       const category = await menuCategoryService.getCategoryById(req.params.id as string);
-      successResponse(res, formatPublicMenuCategory(category), 'Category details retrieved');
+      successResponse(res, isAdmin ? formatAdminMenuCategory(category) : formatPublicMenuCategory(category), 'Category details retrieved');
     } catch (error) {
       next(error);
     }

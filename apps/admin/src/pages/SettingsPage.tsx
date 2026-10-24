@@ -47,6 +47,7 @@ const settingsSchema = z.object({
     text: z.string().optional().nullable(),
     isActive: z.boolean().default(false),
   }),
+  isCartEnabled: z.boolean().default(true),
 });
 
 type SettingsFormData = z.infer<typeof settingsSchema>;
@@ -69,7 +70,7 @@ export const SettingsPage: React.FC = () => {
     defaultValues: {
       brandName: 'Sharon Tea and Coffee',
       tagline: 'Authenticity Steeped in Tradition',
-      description: 'Serving premium authentic Irani Chai, artisanal blends, and traditional snacks.',
+      description: 'Serving premium authentic tea, artisanal blends, and traditional snacks.',
       phone: '+91 98400 12345',
       email: 'contact@sharonteastall.com',
       whatsappNumber: '919840012345',
@@ -86,6 +87,7 @@ export const SettingsPage: React.FC = () => {
         text: 'New Sharon Express Outlet Opening Soon in T. Nagar!',
         isActive: true,
       },
+      isCartEnabled: true,
     },
   });
 
@@ -112,6 +114,7 @@ export const SettingsPage: React.FC = () => {
           text: s.announcement?.text || s.announcement_text || '',
           isActive: s.announcement?.isActive ?? s.announcement_active ?? false,
         },
+        isCartEnabled: s.isCartEnabled ?? s.is_cart_enabled ?? true,
       });
     }
   }, [settings, reset]);
@@ -500,6 +503,42 @@ export const SettingsPage: React.FC = () => {
                   )}
                 />
               </div>
+            </div>
+          </Card>
+
+          {/* Cart & Bulk Ordering System */}
+          <Card
+            title={
+              <div className="flex items-center gap-2">
+                <ShopOutlined className="text-sharon-forest" />
+                <span className="font-semibold text-sharon-primary">
+                  Cart & Bulk Ordering System
+                </span>
+              </div>
+            }
+            className="rounded-xl border border-neutral-200/80 bg-white shadow-sm"
+          >
+            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-200">
+              <div>
+                <div className="font-semibold text-sm text-gray-800">
+                  Enable Cart & Bulk Ordering
+                </div>
+                <div className="text-xs text-gray-500 mt-0.5">
+                  When enabled, customers can add multiple products to a slide-out cart drawer and place combined bulk orders via WhatsApp.
+                </div>
+              </div>
+              <Controller
+                name="isCartEnabled"
+                control={control}
+                render={({ field }) => (
+                  <Switch
+                    checked={field.value}
+                    onChange={field.onChange}
+                    checkedChildren="Enabled"
+                    unCheckedChildren="Disabled"
+                  />
+                )}
+              />
             </div>
           </Card>
 

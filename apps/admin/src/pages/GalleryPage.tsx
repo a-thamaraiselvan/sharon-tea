@@ -338,7 +338,7 @@ export const GalleryPage: React.FC = () => {
               render={({ field }) => (
                 <Input
                   {...field}
-                  placeholder="e.g. Master Chai Brewer pouring frothy Irani tea from height"
+                  placeholder="e.g. Master Tea Brewer pouring frothy Irani tea from height"
                   status={errors.caption ? 'error' : ''}
                 />
               )}

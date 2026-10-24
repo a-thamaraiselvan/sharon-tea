@@ -488,7 +488,7 @@ export const MenuItemsPage: React.FC = () => {
                 render={({ field }) => (
                   <Input
                     {...field}
-                    placeholder="e.g. Sharon Irani Dum Chai"
+                    placeholder="e.g. Sharon Irani Dum Tea"
                     status={errors.name ? 'error' : ''}
                   />
                 )}

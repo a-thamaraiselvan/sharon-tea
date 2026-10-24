@@ -5,6 +5,22 @@ import { paginatedResponse, successResponse } from '../../utils/response.js';
 export const formatPublicMenuItem = (m: any) => ({
   id: m.id,
   categoryId: m.category_id || m.categoryId,
+  categoryName: m.category_name || m.categoryName || undefined,
+  categorySlug: m.category_slug || m.categorySlug || undefined,
+  name: (m.name || '').replace(/\bchai\b/gi, 'Tea'),
+  slug: m.slug,
+  description: (m.short_description || m.shortDescription || m.description || null)?.replace(/\bchai\b/gi, 'tea'),
+  shortDescription: (m.short_description || m.shortDescription || m.description || null)?.replace(/\bchai\b/gi, 'tea'),
+  price: typeof m.price === 'string' ? parseFloat(m.price) : Number(m.price) || 0,
+  imageUrl: m.image_url || m.imageUrl || null,
+  isAvailable: m.is_available ?? m.isAvailable ?? true,
+  isVegetarian: m.is_vegetarian !== false && m.isVegetarian !== false,
+  isBestseller: m.sort_order === 1 || Boolean(m.is_bestseller || m.isBestseller),
+});
+
+export const formatAdminMenuItem = (m: any) => ({
+  id: m.id,
+  categoryId: m.category_id || m.categoryId,
   category_id: m.category_id || m.categoryId,
   categoryName: m.category_name || m.categoryName || undefined,
   category_name: m.category_name || m.categoryName || undefined,
@@ -54,7 +70,7 @@ export class MenuItemController {
         limit: limit ? parseInt(limit as string, 10) : 50,
       });
 
-      const sanitized = result.items.map(formatPublicMenuItem);
+      const sanitized = result.items.map(formatAdminMenuItem);
       paginatedResponse(res, sanitized, result.total, result.page, result.limit);
     } catch (error) {
       next(error);

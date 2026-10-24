@@ -38,23 +38,37 @@
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - subtle, thin, non-intrusive */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAF7F2;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #241C24;
-  border-radius: 4px;
+  background: #D4D4D4;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #541424;
+  background: #A44C14;
+}
+
+/* Utilities to completely suppress scrollbars across all browsers */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
 }
 
 /* Ant Design overrides to harmonize with Sharon branding */

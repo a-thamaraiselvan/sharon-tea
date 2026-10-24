@@ -37,7 +37,7 @@ VALUES
         '/images/delivery/swiggy.svg',
         'https://www.swiggy.com/direct/brand/182245?source=swiggy-direct&subSource=generic',
         '30-40 Mins',
-        'Order Sharon classic chai, special spiced brews, and evening snacks directly on Swiggy.',
+        'Order Sharon classic tea, special spiced brews, and evening snacks directly on Swiggy.',
         true,
         1
     ),

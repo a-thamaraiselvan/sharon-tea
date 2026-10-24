@@ -351,6 +351,7 @@ export interface BusinessSettings {
   fssaiLicense: string;
   socialLinks: SocialLinks;
   announcement: AnnouncementSettings;
+  isCartEnabled?: boolean;
   updatedAt?: string;
 }
 

@@ -6,6 +6,8 @@ import { MobileNav } from './MobileNav';
 import { ScrollToTop } from './ScrollToTop';
 import { WhatsAppFAB } from './WhatsAppFAB';
 import { ProductSlideDrawer } from '@/components/products/ProductSlideDrawer';
+import { CartDrawer } from '@/components/cart/CartDrawer';
+import { FloatingCartBar } from '@/components/cart/FloatingCartBar';
 import { useUiStore } from '@/stores/useUiStore';
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 
@@ -24,6 +26,8 @@ export const PublicLayout: React.FC = () => {
       </main>
       <Footer />
       <WhatsAppFAB />
+      <CartDrawer />
+      <FloatingCartBar />
       <ProductSlideDrawer
         product={activeDrawerProduct}
         isOpen={Boolean(activeDrawerProduct)}

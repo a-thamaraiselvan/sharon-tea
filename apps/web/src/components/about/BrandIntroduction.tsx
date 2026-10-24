@@ -1,43 +1,56 @@
 import React from 'react';
 import { SectionContainer } from '@/components/ui/SectionContainer';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Sparkles, Calendar, Coffee, Heart, CheckCircle2 } from 'lucide-react';
+import { Sparkles, Store, Coffee, Heart, HeartHandshake, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
 const TIMELINE_STEPS = [
   {
     year: '2007',
-    title: 'Brewing Since 2007 - The First Samovar',
+    category: 'Stores',
+    title: 'First Store in Bangalore',
     description:
-      'Sharon opened its first doors with a single bubbling brass samovar, family-guarded spices, and an uncompromising commitment to whole tea leaves.',
+      'SHARON TEA STALL launched its first store in Bangalore. We were never built just to serve tea — we were built to give the authentic taste to people who move India forward.',
+    icon: <Store className="w-5 h-5 text-white" />,
+  },
+  {
+    year: '2011',
+    category: '100+ Varieties',
+    title: 'Beverages & Made-For-Tea Bites',
+    description:
+      'We launched many varieties (100+) of our beverages and made-for-tea snacks and bites, creating an everyday culinary tradition for our community.',
     icon: <Coffee className="w-5 h-5 text-white" />,
   },
   {
-    year: '2020',
-    title: 'Proprietary Spice Formulations',
+    year: '2016',
+    category: 'Expansion',
+    title: 'Second Branch in Indiranagar',
     description:
-      'Standardized our signature cardamom, dry ginger, and royal masala decoction recipes, creating an everyday ritual for commuters and local residents.',
+      'We inaugurated our second branch in Indiranagar, which unlocked immense new potential and brought our authentic brewing to an iconic Bangalore hub.',
     icon: <Sparkles className="w-5 h-5 text-white" />,
   },
   {
-    year: '2022',
-    title: 'Transit & Metro Hub Expansion',
+    year: '2017',
+    category: 'Packaged Products',
+    title: 'Packaged Retail Blends & Online Store',
     description:
-      'Expanded across Indiranagar, Thippasandra, and high-footfall business corridors, proving our scalable quick-service tea kiosk blueprint.',
-    icon: <Calendar className="w-5 h-5 text-white" />,
-  },
-  {
-    year: '2024',
-    title: '8,000+ Cups Daily & Retail Blends',
-    description:
-      'Surpassed 8,000 daily cups served and introduced freshness-sealed foil retail pouches for tea connoisseurs to enjoy Sharon chai at home.',
+      'Authentic beverages and packaged blends became available online, enabling tea lovers to brew the signature Sharon taste in their own homes.',
     icon: <Heart className="w-5 h-5 text-white" />,
   },
   {
-    year: 'Today',
-    title: 'Scaling Turnkey Franchise Partnerships',
+    year: '2020',
+    category: 'FICO Model',
+    title: 'Franchise Investment & Resilience',
     description:
-      'Empowering motivated entrepreneurs across South India with comprehensive barista training, direct estate supply, and proven commercial returns.',
+      'Launched a new Franchise-Invested, Company-Operated (FICO) model combining partner investment with Sharon’s end-to-end operational expertise. Our journey has seen highs, lows, and difficult losses — every challenge taught us something and gave us the strength to keep going.',
+    icon: <HeartHandshake className="w-5 h-5 text-white" />,
+  },
+  {
+    year: '2026',
+    category: 'Cafe Model',
+    title: 'Cafe Model Outlet & "Taste and See the Lord is Good"',
+    description:
+      'We inaugurated our cafe model outlet, proudly spreading our motto: "TASTE AND SEE THE LORD IS GOOD". Today, nearly 20 years later, with six shops across Bengaluru, our story is still growing. The next chapter is brewing.',
     icon: <CheckCircle2 className="w-5 h-5 text-white" />,
   },
 ];
@@ -58,8 +71,12 @@ export const BrandIntroduction: React.FC = () => {
           </h1>
 
           <p className="mt-6 text-lg sm:text-xl text-brand-cream/85 max-w-2xl mx-auto leading-relaxed font-normal">
-            Brewing since 2007 and serving over 8,000 cups daily with 50+ handcrafted tea options, authentic spice recipes, and genuine hospitality.
+            Nearly 20 years of authentic brewing, six shops across Bengaluru, 100+ beverage varieties, and the same passion that started it all in 2007.
           </p>
+
+          <div className="mt-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-xs border border-white/20 text-brand-amber font-display italic text-sm sm:text-base">
+            "Taste and see the Lord is good."
+          </div>
         </div>
       </section>
 
@@ -69,25 +86,25 @@ export const BrandIntroduction: React.FC = () => {
           <div className="reveal-up">
             <SectionHeading
               badge="The Sharon Journey"
-              title="50+ Tea Options"
-              subtitle="Honoring the timeless ritual of chai with over 50+ handcrafted tea varieties, rich whole spices, and comforting aromas."
+              title="100+ Beverage Varieties & Made-For-Tea Bites"
+              subtitle="From a single bubbling samovar in 2007 to six thriving locations across Bengaluru, built to serve the people who move India forward."
             />
           </div>
 
           <div className="prose prose-lg text-neutral-600 space-y-6 leading-relaxed font-normal">
             <p className="reveal-left text-reveal">
-              Sharon Tea and Coffee was created out of deep admiration for India's roadside tea culture, elevated with uncompromising standards of hygiene, consistent taste, and premium whole spices.
+              In 2007, Sharon Tea Stall launched its first store in Bangalore. We were never built just to serve tea — we were built to give authentic taste to the people who move India forward.
             </p>
             <p className="reveal-right text-reveal">
-              While ordinary tea stalls often resort to low-grade tea dust and artificial flavour essences, Sharon stood firm on a different path: only whole CTC tea leaves from Assam’s Brahmaputra valley, freshly pounded green cardamom pods from Kerala, ginger harvested at peak aroma, and thick, full-cream farm milk.
+              Over nearly two decades, our journey has seen highs, lows, and difficult losses. Every challenge taught us something invaluable, giving us resilience, humility, and the strength to keep going. We remained uncompromising on quality: whole CTC tea leaves from prime estates, fresh milk, and whole spices pounded by hand.
             </p>
             <blockquote
-              className="border-l-4 border-brand-burgundy pl-5 italic text-brand-black font-display text-xl my-6 bg-brand-cream/60 py-4 rounded-r-xl shadow-xs reveal-scale"
+              className="border-l-4 border-brand-burgundy pl-5 italic text-brand-black font-display text-xl sm:text-2xl my-6 bg-brand-cream/60 py-4 rounded-r-xl shadow-xs reveal-scale"
             >
-              "We believe that a single cup of piping hot tea has the power to uplift the spirit, turn strangers into companions, and bring peace to a hectic day."
+              "We were never built just to serve tea. We were built to give authentic taste to people who move India forward."
             </blockquote>
             <p className="reveal-left text-reveal">
-              Today, Sharon has grown into a cherished landmark across neighborhoods. Whether it is an early-morning commuter reaching for their first strong brew or a group of tech workers unwinding in the evening over fragrant Elaichi tea, every guest is met with the same authentic aroma and warmth.
+              Today, nearly 20 years later, we continue to improve our shops and serve our customers with the same passion that started it all. With our cafe model outlet, our slogan <span className="font-semibold text-brand-black">"Taste and see the Lord is good"</span>, and six shops across Bengaluru, our story is still growing. The next chapter is brewing.
             </p>
           </div>
         </div>
@@ -103,7 +120,7 @@ export const BrandIntroduction: React.FC = () => {
               Our Heritage Timeline
             </h3>
             <p className="text-neutral-500 text-xs sm:text-sm max-w-md mx-auto mt-2 px-4">
-              Every year brought a new chapter of flavour consistency and community bonding.
+              From our first store in 2007 to our modern cafe model outlet — every chapter shaped with passion and perseverance.
             </p>
           </div>
 
@@ -155,7 +172,7 @@ export const BrandIntroduction: React.FC = () => {
                             {step.year}
                           </span>
                           <span className="text-[10px] sm:text-[11px] font-bold text-neutral-400 uppercase tracking-wider">
-                            Milestone {stepNumber}
+                            {step.category || `Milestone ${stepNumber}`}
                           </span>
                         </div>
 
@@ -186,7 +203,7 @@ export const BrandIntroduction: React.FC = () => {
                               {step.year}
                             </span>
                             <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">
-                              Milestone {stepNumber}
+                              {step.category || `Milestone ${stepNumber}`}
                             </span>
                           </div>
 

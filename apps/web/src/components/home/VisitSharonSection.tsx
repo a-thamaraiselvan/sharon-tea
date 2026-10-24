@@ -20,8 +20,8 @@ export const VisitSharonSection: React.FC = () => {
       <div className="reveal-up">
         <SectionHeading
           badge="Locations"
-          title="Visit Your Neighborhood Sharon Stall"
-          subtitle="Step in for a steaming cutting chai, friendly greetings, and an atmosphere buzzing with life."
+          title="Visit Your Neighborhood Sharon Tea & Coffee"
+          subtitle="Step in for a steaming cup of tea or coffee, friendly greetings, and an atmosphere buzzing with life."
         />
       </div>
 

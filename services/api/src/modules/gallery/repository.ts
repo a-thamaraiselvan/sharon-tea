@@ -4,11 +4,11 @@ import { GalleryImageRecord } from '../../types/index.js';
 export class GalleryRepository {
   async findPublicImages(category?: string): Promise<GalleryImageRecord[]> {
     const values: any[] = [];
-    let sql = 'SELECT * FROM gallery_images';
+    let sql = 'SELECT * FROM gallery_images WHERE is_active = true';
 
     if (category) {
       values.push(category);
-      sql += ' WHERE category = $1';
+      sql += ' AND category = $1';
     }
 
     sql += ' ORDER BY sort_order ASC, created_at DESC';

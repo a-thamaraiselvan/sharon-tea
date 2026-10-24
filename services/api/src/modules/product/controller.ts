@@ -4,27 +4,15 @@ import { paginatedResponse, successResponse } from '../../utils/response.js';
 
 export const formatPublicProduct = (p: any) => ({
   id: p.id,
-  name: p.name,
+  name: (p.name || '').replace(/\bchai\b/gi, 'Tea'),
   slug: p.slug,
   categoryId: p.category_id || p.categoryId || null,
-  category_id: p.category_id || p.categoryId || null,
   category: p.category || null,
   badge: p.badge || null,
-  is_featured: p.is_featured ?? p.isFeatured ?? false,
   isFeatured: p.is_featured ?? p.isFeatured ?? false,
-  short_description: p.short_description || p.shortDescription || null,
-  shortDescription: p.short_description || p.shortDescription || null,
-  description: p.description || null,
+  shortDescription: (p.short_description || p.shortDescription || null)?.replace(/\bchai\b/gi, 'tea'),
+  description: (p.description || null)?.replace(/\bchai\b/gi, 'tea'),
   price: typeof p.price === 'string' ? parseFloat(p.price) : Number(p.price) || 0,
-  original_price: p.original_price
-    ? typeof p.original_price === 'string'
-      ? parseFloat(p.original_price)
-      : p.original_price
-    : p.originalPrice
-    ? typeof p.originalPrice === 'string'
-      ? parseFloat(p.originalPrice)
-      : p.originalPrice
-    : null,
   originalPrice: p.original_price
     ? typeof p.original_price === 'string'
       ? parseFloat(p.original_price)
@@ -34,21 +22,26 @@ export const formatPublicProduct = (p: any) => ({
       ? parseFloat(p.originalPrice)
       : p.originalPrice
     : null,
-  pack_size: p.pack_size || p.packSize || p.weight || '250g',
   packSize: p.pack_size || p.packSize || p.weight || '250g',
   weight: p.pack_size || p.packSize || p.weight || '250g',
   ingredients: p.ingredients || null,
-  preparation_instructions:
-    p.preparation_instructions || p.preparationInstructions || p.brewingInstructions || null,
-  preparationInstructions:
-    p.preparation_instructions || p.preparationInstructions || p.brewingInstructions || null,
   brewingInstructions:
-    p.preparation_instructions || p.preparationInstructions || p.brewingInstructions || null,
-  image_url: p.image_url || p.imageUrl || null,
+    (p.preparation_instructions || p.preparationInstructions || p.brewingInstructions || null)?.replace(/\bchai\b/gi, 'tea'),
   imageUrl: p.image_url || p.imageUrl || null,
-  is_available: p.is_available ?? p.isAvailable ?? true,
   isAvailable: p.is_available ?? p.isAvailable ?? true,
   inStock: p.is_available ?? p.isAvailable ?? true,
+});
+
+export const formatAdminProduct = (p: any) => ({
+  ...formatPublicProduct(p),
+  category_id: p.category_id || p.categoryId || null,
+  is_featured: p.is_featured ?? p.isFeatured ?? false,
+  short_description: p.short_description || p.shortDescription || null,
+  original_price: p.original_price ?? p.originalPrice ?? null,
+  pack_size: p.pack_size || p.packSize || p.weight || '250g',
+  preparation_instructions: p.preparation_instructions || p.preparationInstructions || null,
+  image_url: p.image_url || p.imageUrl || null,
+  is_available: p.is_available ?? p.isAvailable ?? true,
   sortOrder: Number(p.sort_order ?? p.sortOrder ?? 0),
   sort_order: Number(p.sort_order ?? p.sortOrder ?? 0),
   createdAt: p.created_at || p.createdAt,
@@ -84,7 +77,7 @@ export class ProductController {
         page: page ? parseInt(page as string, 10) : 1,
         limit: limit ? parseInt(limit as string, 10) : 20,
       });
-      const sanitized = result.items.map(formatPublicProduct);
+      const sanitized = result.items.map(formatAdminProduct);
       paginatedResponse(res, sanitized, result.total, result.page, result.limit);
     } catch (error) {
       next(error);
@@ -93,8 +86,9 @@ export class ProductController {
 
   async getById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
+      const isAdmin = Boolean((req as any).user && ['ADMIN', 'STAFF'].includes((req as any).user.role));
       const product = await productService.getProductById(req.params.id as string);
-      successResponse(res, formatPublicProduct(product), 'Product retrieved');
+      successResponse(res, isAdmin ? formatAdminProduct(product) : formatPublicProduct(product), 'Product retrieved');
     } catch (error) {
       next(error);
     }
@@ -103,7 +97,7 @@ export class ProductController {
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const product = await productService.createProduct(req.body);
-      successResponse(res, formatPublicProduct(product), 'Product created successfully', 201);
+      successResponse(res, formatAdminProduct(product), 'Product created successfully', 201);
     } catch (error) {
       next(error);
     }
@@ -112,7 +106,7 @@ export class ProductController {
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const product = await productService.updateProduct(req.params.id as string, req.body);
-      successResponse(res, formatPublicProduct(product), 'Product updated successfully');
+      successResponse(res, formatAdminProduct(product), 'Product updated successfully');
     } catch (error) {
       next(error);
     }

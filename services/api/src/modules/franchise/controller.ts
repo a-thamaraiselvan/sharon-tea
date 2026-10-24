@@ -7,11 +7,11 @@ export class FranchiseController {
     try {
       const enquiry = await franchiseService.submitEnquiry(req.body);
       successResponse(res, {
-        ...enquiry,
+        id: enquiry.id,
         enquiryId: enquiry.business_id,
         businessId: enquiry.business_id,
         fullName: enquiry.full_name,
-        investmentBudget: enquiry.investment_budget,
+        city: enquiry.city,
       }, 'Franchise enquiry submitted successfully. Our team will contact you soon.', 201);
     } catch (error) {
       next(error);

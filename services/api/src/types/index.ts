@@ -170,6 +170,7 @@ export interface BusinessSettingRecord {
   favicon_url: string | null;
   announcement_text: string | null;
   announcement_active: boolean;
+  is_cart_enabled?: boolean;
   created_at: Date;
   updated_at: Date;
 }

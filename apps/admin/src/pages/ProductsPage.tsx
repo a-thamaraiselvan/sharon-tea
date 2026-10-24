@@ -589,7 +589,7 @@ export const ProductsPage: React.FC = () => {
                 render={({ field }) => (
                   <Input
                     {...field}
-                    placeholder="e.g. Sharon Royal Masala Chai Blend"
+                    placeholder="e.g. Sharon Royal Masala Tea Blend"
                     status={errors.name ? 'error' : ''}
                   />
                 )}

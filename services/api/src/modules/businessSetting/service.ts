@@ -8,9 +8,9 @@ export class BusinessSettingService {
       return {
         brandName: 'Sharon Tea and Coffee',
         brand_name: 'Sharon Tea and Coffee',
-        tagline: 'Authentic Chai & Moments of Warmth',
+        tagline: 'Authentic Tea & Coffee Moments',
         phone: '+91 98765 43210',
-        email: 'contact@sharonteastall.com',
+        email: 'contact@sharonteaandcoffee.com',
         whatsappNumber: '919876543210',
         whatsapp_number: '919876543210',
         address: 'Chennai, Tamil Nadu',
@@ -24,6 +24,8 @@ export class BusinessSettingService {
         announcement_text: null,
         announcementActive: false,
         announcement_active: false,
+        isCartEnabled: true,
+        is_cart_enabled: true,
       };
     }
 
@@ -51,6 +53,8 @@ export class BusinessSettingService {
       announcement_text: settings.announcement_active ? settings.announcement_text : null,
       announcementActive: settings.announcement_active,
       announcement_active: settings.announcement_active,
+      isCartEnabled: settings.is_cart_enabled !== false,
+      is_cart_enabled: settings.is_cart_enabled !== false,
     };
   }
 
@@ -75,6 +79,8 @@ export class BusinessSettingService {
       },
       announcementText: s.announcement_text,
       announcementActive: s.announcement_active,
+      isCartEnabled: s.is_cart_enabled !== false,
+      is_cart_enabled: s.is_cart_enabled !== false,
       logoUrl: s.logo_url || '/Sharon_logo.jpg',
       faviconUrl: s.favicon_url || '/favicon.ico',
     };
@@ -94,6 +100,7 @@ export class BusinessSettingService {
       social_links: data.social_links ?? data.socialLinks,
       announcement_text: data.announcement_text ?? data.announcement?.text ?? data.announcementText,
       announcement_active: data.announcement_active ?? data.announcement?.isActive ?? data.announcementActive,
+      is_cart_enabled: data.is_cart_enabled ?? data.isCartEnabled,
     };
     const s = await businessSettingRepository.updateSettings(mapped);
     return {
@@ -114,6 +121,8 @@ export class BusinessSettingService {
       },
       announcementText: s.announcement_text,
       announcementActive: s.announcement_active,
+      isCartEnabled: s.is_cart_enabled !== false,
+      is_cart_enabled: s.is_cart_enabled !== false,
       logoUrl: s.logo_url || '/Sharon_logo.jpg',
       faviconUrl: s.favicon_url || '/favicon.ico',
     };

@@ -66,8 +66,8 @@ const DEFAULT_SLIDES: SlideConfig[] = [
     id: 'slide-3',
     title: 'Warm Gatherings, Timeless Memories.',
     subtitle:
-      'Experience bubbling brass kettles, genuine camaraderie, and piping hot cutting chai at your local Sharon stall. Where community thrives.',
-    ctaText: 'Find Your Nearest Stall',
+      'Experience bubbling brass kettles, genuine camaraderie, and piping hot tea & coffee at your local Sharon Tea & Coffee outlet. Where community thrives.',
+    ctaText: 'Find Your Nearest Outlet',
     ctaLink: '/visit-us',
     secondaryCtaText: 'Read Our Story',
     secondaryCtaLink: '/about-us',

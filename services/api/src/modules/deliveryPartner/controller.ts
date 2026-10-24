@@ -23,7 +23,8 @@ export class DeliveryPartnerController {
 
   async getById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const partner = await deliveryPartnerService.getPartnerById(req.params.id as string);
+      const isAdmin = Boolean((req as any).user && ['ADMIN', 'STAFF'].includes((req as any).user.role));
+      const partner = await deliveryPartnerService.getPartnerById(req.params.id as string, isAdmin);
       successResponse(res, partner, 'Delivery partner retrieved');
     } catch (error) {
       next(error);

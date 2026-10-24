@@ -61,7 +61,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
       : [
           {
             productId: 'p-1',
-            productName: 'Sharon Royal Chai Premix (500g)',
+            productName: 'Sharon Royal Tea Premix (500g)',
             totalClicks: 245,
             lastClickDate: dayjs().subtract(1, 'hour').toISOString(),
           },
@@ -265,7 +265,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
                     ) : (
                       <div>
                         <div className="text-xl font-bold font-display text-sharon-forest truncate mt-1">
-                          {mostPopular?.name || 'Sharon Royal Chai'}
+                          {mostPopular?.name || 'Sharon Royal Tea'}
                         </div>
                         <Tag color="green" className="mt-1 font-medium">
                           <AnimatedCount value={mostPopular?.clicks || 0} suffix=" clicks" />

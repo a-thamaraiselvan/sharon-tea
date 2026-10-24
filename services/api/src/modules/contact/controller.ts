@@ -6,7 +6,15 @@ export class ContactController {
   async submit(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const enquiry = await contactService.submitEnquiry(req.body);
-      successResponse(res, enquiry, 'Thank you! Your message has been received.', 201);
+      successResponse(
+        res,
+        {
+          id: enquiry.id,
+          businessId: enquiry.business_id,
+        },
+        'Thank you! Your message has been received.',
+        201
+      );
     } catch (error) {
       next(error);
     }

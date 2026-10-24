@@ -61,7 +61,7 @@ export const Footer: React.FC = () => {
                   href={`https://wa.me/${whatsappNumber}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#25D366] flex items-center justify-center text-white transition-all hover:scale-110 shadow-xs"
+                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#119243] flex items-center justify-center text-white transition-all hover:scale-110 shadow-xs"
                   aria-label="Sharon on WhatsApp"
                 >
                   <WhatsAppIcon className="w-5 h-5 fill-current" />
@@ -162,7 +162,7 @@ export const Footer: React.FC = () => {
                 Order Sharon Online to Your Doorstep
               </h4>
               <p className="text-xs text-white/70 mt-1 max-w-md">
-                Craving our freshly brewed cutting chai or filter coffee? Order directly from our verified delivery partners.
+                Craving our freshly brewed tea or filter coffee? Order directly from our verified delivery partners.
               </p>
             </div>
 

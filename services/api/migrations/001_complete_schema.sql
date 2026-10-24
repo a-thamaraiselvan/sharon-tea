@@ -279,6 +279,7 @@ CREATE TABLE IF NOT EXISTS business_settings (
     social_links JSONB DEFAULT '{}'::jsonb,
     announcement_text TEXT,
     announcement_active BOOLEAN NOT NULL DEFAULT false,
+    is_cart_enabled BOOLEAN NOT NULL DEFAULT true,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
