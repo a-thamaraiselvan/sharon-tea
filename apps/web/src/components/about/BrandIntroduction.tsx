@@ -91,20 +91,12 @@ export const BrandIntroduction: React.FC = () => {
             />
           </div>
 
-          <div className="prose prose-lg text-neutral-600 space-y-6 leading-relaxed font-normal">
-            <p className="reveal-left text-reveal">
-              In 2007, Sharon Tea Stall launched its first store in Bangalore. We were never built just to serve tea — we were built to give authentic taste to the people who move India forward.
+          <div className="max-w-3xl mx-auto text-center space-y-5 reveal-up">
+            <p className="text-lg sm:text-xl text-brand-black font-medium leading-relaxed">
+              Launched in Bangalore in 2007, Sharon was never built just to serve tea — we were built to give authentic taste to the people who move India forward.
             </p>
-            <p className="reveal-right text-reveal">
-              Over nearly two decades, our journey has seen highs, lows, and difficult losses. Every challenge taught us something invaluable, giving us resilience, humility, and the strength to keep going. We remained uncompromising on quality: whole CTC tea leaves from prime estates, fresh milk, and whole spices pounded by hand.
-            </p>
-            <blockquote
-              className="border-l-4 border-brand-burgundy pl-5 italic text-brand-black font-display text-xl sm:text-2xl my-6 bg-brand-cream/60 py-4 rounded-r-xl shadow-xs reveal-scale"
-            >
-              "We were never built just to serve tea. We were built to give authentic taste to people who move India forward."
-            </blockquote>
-            <p className="reveal-left text-reveal">
-              Today, nearly 20 years later, we continue to improve our shops and serve our customers with the same passion that started it all. With our cafe model outlet, our slogan <span className="font-semibold text-brand-black">"Taste and see the Lord is good"</span>, and six shops across Bengaluru, our story is still growing. The next chapter is brewing.
+            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+              Nearly 20 years and six shops later, our journey continues with the same passion: whole estate CTC leaves, fresh milk, and whole spices pounded by hand. Today, with our modern cafe model and the motto <span className="font-semibold text-brand-black">"Taste and see the Lord is good"</span>, our story is still growing. The next chapter is brewing.
             </p>
           </div>
         </div>

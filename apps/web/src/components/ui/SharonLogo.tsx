@@ -53,7 +53,7 @@ export const SharonLogo: React.FC<SharonLogoProps> = ({
         </span>
         <span
           className={cn(
-            'font-semibold uppercase tracking-[0.25em] text-brand-burgundy',
+            'font-bold uppercase tracking-[0.25em] text-[#FC9C34]',
             size === 'sm' && 'text-[9px]',
             size === 'md' && 'text-[10px] sm:text-[11px]',
             size === 'lg' && 'text-[12px] sm:text-[13px]',
@@ -100,8 +100,7 @@ export const SharonLogo: React.FC<SharonLogoProps> = ({
         </span>
         <span
           className={cn(
-            'font-semibold uppercase tracking-[0.25em]',
-            variant === 'light' ? 'text-brand-amber' : 'text-brand-burgundy',
+            'font-bold uppercase tracking-[0.25em] text-[#FC9C34]',
             size === 'sm' && 'text-[9px]',
             size === 'md' && 'text-[10px] sm:text-[11px]',
             size === 'lg' && 'text-[12px] sm:text-[13px]',
