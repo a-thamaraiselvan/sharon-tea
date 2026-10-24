@@ -79,7 +79,7 @@ export const SettingsPage: React.FC = () => {
       fssaiLicense: '12421008000412',
       socialLinks: {
         facebook: 'https://facebook.com/sharonteastall',
-        instagram: 'https://instagram.com/sharonteastall',
+        instagram: 'https://www.instagram.com/sharon_tea__official?rpxt=MWMweHplZWZjMmV0aQ%3D%3D&utm_source=qr',
         youtube: 'https://youtube.com/@sharonteastall',
         twitter: 'https://twitter.com/sharontea',
       },

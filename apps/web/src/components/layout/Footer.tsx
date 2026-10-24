@@ -14,13 +14,19 @@ import {
   Bike,
 } from 'lucide-react';
 import { useDeliveryPartners } from '@/hooks/useDeliveryPartners';
+import { useBusinessSettings } from '@/hooks/useBusinessSettings';
 import { FALLBACK_DELIVERY_PARTNERS, resolvePartnerUrl } from '@/services/deliveryPartnerService';
 import { resolveImageUrl } from '@/utils/imageUrl';
 
 export const Footer: React.FC = () => {
   const whatsappNumber = getWhatsAppNumber();
   const { data: partnersData } = useDeliveryPartners();
+  const { data: settings } = useBusinessSettings();
   const partners = partnersData && partnersData.length > 0 ? partnersData : FALLBACK_DELIVERY_PARTNERS;
+  const instagramUrl =
+    settings?.socialLinks?.instagram ||
+    (settings as any)?.social_links?.instagram ||
+    'https://www.instagram.com/sharon_tea__official?rpxt=MWMweHplZWZjMmV0aQ%3D%3D&utm_source=qr';
 
   return (
     <footer className="bg-brand-black text-white border-t border-brand-grey/20">
@@ -49,7 +55,7 @@ export const Footer: React.FC = () => {
               </p>
               <div className="flex items-center space-x-3">
                 <a
-                  href="https://instagram.com"
+                  href={instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#E4405F] flex items-center justify-center text-white transition-all hover:scale-110 shadow-xs"

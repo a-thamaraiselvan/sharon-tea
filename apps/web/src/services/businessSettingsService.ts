@@ -11,7 +11,7 @@ export const FALLBACK_BUSINESS_SETTINGS: BusinessSettings = {
   cupsServedCount: 8000,
   outletsCount: 6,
   socialLinks: {
-    instagram: 'https://instagram.com/sharonteastall',
+    instagram: 'https://www.instagram.com/sharon_tea__official?rpxt=MWMweHplZWZjMmV0aQ%3D%3D&utm_source=qr',
     facebook: 'https://facebook.com/sharonteastall',
     youtube: 'https://youtube.com/@sharonteastall',
     twitter: 'https://twitter.com/sharonteastall',

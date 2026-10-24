@@ -198,7 +198,7 @@ export const seedDatabase = async (): Promise<void> => {
           '6:00 AM - 11:00 PM Everyday',
           '12423008000123',
           JSON.stringify({
-            instagram: 'https://instagram.com/sharonteaandcoffee',
+            instagram: 'https://www.instagram.com/sharon_tea__official?rpxt=MWMweHplZWZjMmV0aQ%3D%3D&utm_source=qr',
             facebook: 'https://facebook.com/sharonteaandcoffee',
             twitter: 'https://twitter.com/sharonteaandcoffee',
           }),
