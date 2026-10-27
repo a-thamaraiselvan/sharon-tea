@@ -46,7 +46,7 @@ export const createApp = (): Express => {
         // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
         if (!origin) return callback(null, true);
 
-        // Check against env.corsOriginsList with wildcard support (*, *.novacodex.in, etc.)
+        // Check against env.corsOriginsList with wildcard support (*, *.cloudfront.net, etc.)
         const isAllowed = env.corsOriginsList.some((allowed) => {
           if (allowed === '*' || allowed === origin) return true;
           if (allowed.includes('*')) {

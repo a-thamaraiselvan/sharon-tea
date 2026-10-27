@@ -145,38 +145,22 @@ export const seedDatabase = async (): Promise<void> => {
   try {
     console.log('Checking database seed status...');
 
-    // 1. Seed Default Admin Users
-    // A. admin@novacodex.in (Novacodex@123)
-    const novacodexPassHash = await argon2.hash('Novacodex@123');
-    const novaCheck = await client.query('SELECT id FROM users WHERE email = $1', ['admin@novacodex.in']);
-    if (novaCheck.rowCount === 0) {
-      await client.query(
-        `INSERT INTO users (business_id, email, password_hash, name, role, is_active)
-         VALUES ($1, $2, $3, $4, $5, $6)`,
-        ['SH-ADMIN-NOVA', 'admin@novacodex.in', novacodexPassHash, 'Novacodex Admin', 'ADMIN', true]
-      );
-      console.log('Seeded admin user: admin@novacodex.in');
-    } else {
-      // Ensure password is kept in sync with Novacodex@123
-      await client.query(
-        `UPDATE users SET password_hash = $1, is_active = true, role = 'ADMIN' WHERE email = $2`,
-        [novacodexPassHash, 'admin@novacodex.in']
-      );
-      console.log('Synchronized admin user: admin@novacodex.in (Novacodex@123)');
-    }
-
-    // B. admin@sharon.com (Sharon@2024)
+    // 1. Seed Default Admin User: admin@sharon.com (Sharon@2024)
+    const adminPassHash = await argon2.hash('Sharon@2024');
     const adminCheck = await client.query('SELECT id FROM users WHERE email = $1', ['admin@sharon.com']);
     if (adminCheck.rowCount === 0) {
-      const passwordHash = await argon2.hash('Sharon@2024');
       await client.query(
         `INSERT INTO users (business_id, email, password_hash, name, role, is_active)
          VALUES ($1, $2, $3, $4, $5, $6)`,
-        ['SH-ADMIN-001', 'admin@sharon.com', passwordHash, 'Admin', 'ADMIN', true]
+        ['SH-ADMIN-001', 'admin@sharon.com', adminPassHash, 'Sharon Admin', 'ADMIN', true]
       );
       console.log('Seeded default admin user: admin@sharon.com');
     } else {
-      console.log('Default admin admin@sharon.com exists.');
+      await client.query(
+        `UPDATE users SET password_hash = $1, is_active = true, role = 'ADMIN' WHERE email = $2`,
+        [adminPassHash, 'admin@sharon.com']
+      );
+      console.log('Synchronized admin user: admin@sharon.com (Sharon@2024)');
     }
 
     // 2. Seed Business Settings

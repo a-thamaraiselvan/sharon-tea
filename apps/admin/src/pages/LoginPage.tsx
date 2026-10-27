@@ -169,17 +169,6 @@ export const LoginPage: React.FC = () => {
 
           <div className="mt-6 text-center text-xs text-gray-400 border-t border-gray-100 pt-4 space-y-1">
             <div>Authorized personnel only • Sharon Tea and Coffee Pvt Ltd</div>
-            <div>
-              Design &amp; Developed by{' '}
-              <a
-                href="https://novacodex.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sharon-burgundy hover:underline font-semibold"
-              >
-                Novacodex
-              </a>
-            </div>
           </div>
         </Card>
       </div>

@@ -31,15 +31,7 @@ export const AdminLayout: React.FC = () => {
           </Suspense>
         </Content>
         <Footer className="text-center text-xs text-neutral-500 py-3 bg-transparent shrink-0">
-          <span>Sharon Tea and Coffee Admin • Design &amp; Developed by </span>
-          <a
-            href="https://novacodex.in/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sharon-burgundy hover:underline font-semibold"
-          >
-            Novacodex
-          </a>
+          <span>Sharon Tea and Coffee Admin • All rights reserved</span>
         </Footer>
       </Layout>
     </Layout>

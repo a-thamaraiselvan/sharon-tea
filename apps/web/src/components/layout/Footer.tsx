@@ -227,17 +227,6 @@ export const Footer: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between text-xs text-white/70 gap-3 text-center md:text-left">
           <p>© {new Date().getFullYear()} Sharon Tea and Coffee. All rights reserved.</p>
           <p className="flex items-center gap-1.5 justify-center">
-            <span>Design &amp; Developed by</span>
-            <a
-              href="https://novacodex.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brand-amber hover:text-white font-semibold underline underline-offset-2 transition-colors"
-            >
-              Novacodex
-            </a>
-          </p>
-          <p className="flex items-center gap-1.5 justify-center">
             <span>Made with</span>
             <Heart className="w-3.5 h-3.5 text-brand-leaf-green fill-brand-leaf-green" />
             <span>for Tea Lovers</span>

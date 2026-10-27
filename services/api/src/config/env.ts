@@ -20,7 +20,7 @@ const envSchema = z.object({
   JWT_REFRESH_SECRET: z.string().default('sharon_refresh_secret_super_secure_key_change_in_production_2026'),
   JWT_ACCESS_EXPIRES_IN: z.string().default('24h'),
   JWT_REFRESH_EXPIRES_IN: z.string().default('7d'),
-  CORS_ORIGINS: z.string().default('http://localhost:5173,http://localhost:5174,https://sharon.novacodex.in,https://sharonadmin.novacodex.in,https://novacodex.in'),
+  CORS_ORIGINS: z.string().default('http://localhost:5173,http://localhost:5174,https://d2nf0d1apz0f2x.cloudfront.net,https://d2zs2311g1rhtd.cloudfront.net'),
   UPLOAD_MODE: z.enum(['local', 's3']).default('local'),
   UPLOAD_DIR: z.string().default('public/uploads'),
   MAX_FILE_SIZE: z.string().transform((val) => parseInt(val, 10)).default('5242880'),
