@@ -36,7 +36,7 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
   const [isOrdered, setIsOrdered] = useState(false);
   const [selectedImg, setSelectedImg] = useState<string>('');
   const { addToCart } = useCart();
-  const { isCartEnabled: uiCartEnabled, setCartDrawerOpen } = useUiStore();
+  const { isCartEnabled: uiCartEnabled } = useUiStore();
   const { data: settings } = useBusinessSettings();
   const isCartEnabled =
     (settings as any)?.isCartEnabled ??
@@ -47,7 +47,6 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
     if (!product) return;
     addToCart(product, quantity);
     onClose();
-    setCartDrawerOpen(true);
   };
 
   // Reset quantity and selected image when product changes or drawer opens

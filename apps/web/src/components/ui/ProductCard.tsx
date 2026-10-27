@@ -85,7 +85,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const { items, addToCart, updateQuantity } = useCart();
-  const { isCartEnabled: uiCartEnabled, setCartDrawerOpen } = useUiStore();
+  const { isCartEnabled: uiCartEnabled } = useUiStore();
   const { data: settings } = useBusinessSettings();
   const isCartEnabled =
     (settings as any)?.isCartEnabled ??
@@ -267,7 +267,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 onClick={(e) => {
                   e.stopPropagation();
                   addToCart(product, 1);
-                  setCartDrawerOpen(true);
                 }}
                 className="flex-1 h-8 sm:h-9 rounded-lg border border-neutral-300 hover:border-brand-black bg-white hover:bg-brand-black text-brand-black hover:text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all duration-200 active:scale-95 cursor-pointer shadow-xs"
                 aria-label={`Add ${product.name} to cart`}
