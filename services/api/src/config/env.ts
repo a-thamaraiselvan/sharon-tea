@@ -25,7 +25,7 @@ const envSchema = z.object({
   UPLOAD_DIR: z.string().default('public/uploads'),
   MAX_FILE_SIZE: z.string().transform((val) => parseInt(val, 10)).default('5242880'),
   AWS_REGION: z.string().default('ap-south-1'),
-  AWS_S3_BUCKET: z.string().default('sharon-tea-stall-assets'),
+  AWS_S3_BUCKET: z.string().default('sharon-tea-media'),
   AWS_ACCESS_KEY_ID: z.string().optional().default(''),
   AWS_SECRET_ACCESS_KEY: z.string().optional().default(''),
 });
