@@ -11,9 +11,16 @@
     "build:admin": "turbo build --filter=@sharon/admin",
     "build:api": "turbo build --filter=@sharon/api",
     "lint": "turbo lint",
-    "clean": "turbo clean"
+    "clean": "turbo clean",
+    "test:e2e": "playwright test",
+    "test:e2e:web": "playwright test --project=web",
+    "test:e2e:admin": "playwright test --project=admin",
+    "test:e2e:api": "playwright test --project=api",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "turbo": "^2.4.0"
   },
   "packageManager": "pnpm@9.15.0"
