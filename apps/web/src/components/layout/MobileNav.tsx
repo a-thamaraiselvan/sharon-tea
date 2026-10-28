@@ -122,7 +122,7 @@ export const MobileNav: React.FC = () => {
           </BrandButton>
 
           <a
-            href={generateGeneralInquiryLink()}
+            href={generateGeneralInquiryLink(undefined, settings?.whatsappNumber || (settings as any)?.whatsapp_number)}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full border border-brand-green/30 text-brand-green hover:bg-brand-green/5 text-sm font-medium transition-colors"
@@ -134,11 +134,11 @@ export const MobileNav: React.FC = () => {
           <div className="pt-2 text-xs text-neutral-500 space-y-1 text-center">
             <p className="flex items-center justify-center gap-1">
               <Phone className="w-3 h-3 text-brand-green" />
-              <span>+91 98765 43210</span>
+              <span>{settings?.phone || '+91 99169 99209'}</span>
             </p>
             <p className="flex items-center justify-center gap-1">
               <MapPin className="w-3 h-3 text-brand-rust" />
-              <span>Cathedral Road, Chennai</span>
+              <span>{settings?.address || '#34, 2nd Main Road, 1st Stage, Indiranagar, Bangalore - 560038'}</span>
             </p>
           </div>
         </div>

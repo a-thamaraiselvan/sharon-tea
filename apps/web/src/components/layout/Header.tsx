@@ -35,7 +35,7 @@ export const Header: React.FC = () => {
     (settings as any)?.announcement_text ||
     'Welcome to Sharon Tea and Coffee • Authenticity Steeped in Tradition • Over 8,000+ Cups Served Daily • Handcrafted with Royal Spices and Fresh Milk';
 
-  const phone = settings?.phone || '+91 98765 43210';
+  const phone = settings?.phone || '+91 99169 99209';
   const cleanPhone = phone.replace(/[^0-9+]/g, '');
 
   useEffect(() => {

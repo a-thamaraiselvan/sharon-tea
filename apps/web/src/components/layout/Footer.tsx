@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SharonLogo } from '@/components/ui/SharonLogo';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
-import { getWhatsAppNumber } from '@/utils/whatsappLink';
+import { formatWhatsAppDigits } from '@/utils/whatsappLink';
 import {
   MapPin,
   Phone,
@@ -19,9 +19,12 @@ import { FALLBACK_DELIVERY_PARTNERS, resolvePartnerUrl } from '@/services/delive
 import { resolveImageUrl } from '@/utils/imageUrl';
 
 export const Footer: React.FC = () => {
-  const whatsappNumber = getWhatsAppNumber();
   const { data: partnersData } = useDeliveryPartners();
   const { data: settings } = useBusinessSettings();
+  const rawWhatsApp = settings?.whatsappNumber || (settings as any)?.whatsapp_number;
+  const whatsappNumber = formatWhatsAppDigits(rawWhatsApp);
+  const phone = settings?.phone || '+91 99169 99209';
+  const cleanPhone = phone.replace(/[^0-9+]/g, '');
   const partners = partnersData && partnersData.length > 0 ? partnersData : FALLBACK_DELIVERY_PARTNERS;
   const instagramUrl =
     settings?.socialLinks?.instagram ||
@@ -139,8 +142,8 @@ export const Footer: React.FC = () => {
 
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-brand-amber flex-shrink-0" />
-                <a href="tel:+919876543210" className="hover:text-brand-amber transition-colors">
-                  +91 98765 43210
+                <a href={`tel:${cleanPhone}`} className="hover:text-brand-amber transition-colors">
+                  {phone}
                 </a>
               </div>
               <div className="flex items-center gap-2.5">

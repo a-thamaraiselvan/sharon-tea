@@ -103,12 +103,13 @@ export const ProductSlideDrawer: React.FC<ProductSlideDrawerProps> = ({
     setIsOrdered(true);
     setTimeout(() => setIsOrdered(false), 2000);
 
+    const activeWhatsApp = settings?.whatsappNumber || (settings as any)?.whatsapp_number;
     const link = generateProductOrderLink({
       name: product.name,
       quantity,
       price: product.price,
       weight: product.weight,
-    });
+    }, activeWhatsApp);
 
     window.open(link, '_blank', 'noopener,noreferrer');
   };

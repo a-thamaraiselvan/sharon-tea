@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { generateGeneralInquiryLink } from '@/utils/whatsappLink';
+import { useBusinessSettings } from '@/hooks/useBusinessSettings';
 import { WhatsAppIcon } from '@/components/ui/WhatsAppIcon';
 import { X } from 'lucide-react';
 
 export const WhatsAppFAB: React.FC = () => {
   const [showTooltip, setShowTooltip] = useState(true);
+  const { data: settings } = useBusinessSettings();
 
+  const activeWhatsApp = settings?.whatsappNumber || (settings as any)?.whatsapp_number;
   const whatsappUrl = generateGeneralInquiryLink(
-    'Hello Sharon Tea and Coffee! 👋 I have an enquiry about your tea blends and franchise opportunities.'
+    'Hello Sharon Tea and Coffee! 👋 I have an enquiry about your tea blends and franchise opportunities.',
+    activeWhatsApp
   );
 
   return (

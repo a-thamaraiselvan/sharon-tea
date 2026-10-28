@@ -129,12 +129,13 @@ export const ProductDetailCard: React.FC<ProductDetailCardProps> = ({
       source: 'product_card_whatsapp_order',
     });
 
+    const activeWhatsApp = settings?.whatsappNumber || (settings as any)?.whatsapp_number;
     const link = generateProductOrderLink({
       name: product.name,
       quantity: orderQty,
       price: product.price,
       weight: product.weight || product.packSize,
-    });
+    }, activeWhatsApp);
     window.open(link, '_blank', 'noopener,noreferrer');
   };
 

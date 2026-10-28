@@ -397,7 +397,7 @@ export const OutletsPage: React.FC = () => {
                 render={({ field }) => (
                   <Input
                     {...field}
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 99169 99209"
                     status={errors.phone ? 'error' : ''}
                   />
                 )}

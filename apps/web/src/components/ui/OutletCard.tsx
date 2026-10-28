@@ -3,6 +3,7 @@ import type { Outlet } from '@/types';
 import { MapPin, Clock, Phone, Navigation } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { resolveImageUrl } from '@/utils/imageUrl';
+import { getWhatsAppNumber } from '@/utils/whatsappLink';
 
 interface OutletCardProps {
   outlet: Outlet;
@@ -103,7 +104,7 @@ export const OutletCard: React.FC<OutletCardProps> = ({ outlet, className }) => 
           </a>
 
           <a
-            href={`https://wa.me/919876543210?text=${encodeURIComponent(
+            href={`https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(
               `Hello! I would like to visit Sharon Tea and Coffee (${outlet.name}).`
             )}`}
             target="_blank"

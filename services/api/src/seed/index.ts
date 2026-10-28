@@ -175,9 +175,9 @@ export const seedDatabase = async (): Promise<void> => {
           'Sharon Tea and Coffee',
           'Authentic Tea & Coffee Moments',
           'Serving authentic South Indian tea, traditional filter coffee, and delicious snacks crafted with rich ingredients and genuine passion.',
-          '+91 98765 43210',
+          '+91 99169 99209',
           'contact@sharonteaandcoffee.com',
-          '919876543210',
+          '919916999209',
           '#34, 2nd Main Road, 1st Stage, Indiranagar, Bangalore - 560038',
           '6:00 AM - 11:00 PM Everyday',
           '12423008000123',
@@ -437,7 +437,7 @@ export const seedDatabase = async (): Promise<void> => {
       {
         name: 'Sharon Tea and Coffee - Indiranagar (Head Branch)',
         address: '#34, 2nd Main Road, 1st Stage, Indiranagar, Bangalore - 560038',
-        phone: '+91 98765 43210',
+        phone: '+91 99169 99209',
         operating_hours: 'Open Daily: 5:30 AM – 11:00 PM',
         image_url: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80',
         maps_url: 'https://maps.google.com/?q=%2334,+2nd+Main+Road,+1st+Stage,+Indiranagar,+Bangalore+-+560038',
@@ -445,7 +445,7 @@ export const seedDatabase = async (): Promise<void> => {
       {
         name: 'Sharon Tea and Coffee - New Thippasandra',
         address: 'No. 111, New Thippasandra Main Road, Sree Veerajaneya Swamy Seva Samathi, Bangalore - 560075',
-        phone: '+91 98765 43211',
+        phone: '+91 99169 99209',
         operating_hours: 'Open Daily: 4:30 AM – 10:00 PM',
         image_url: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80',
         maps_url: 'https://maps.google.com/?q=No.+111,+New+Thippasandra+Main+Road,+Bangalore+-+560075',
@@ -453,7 +453,7 @@ export const seedDatabase = async (): Promise<void> => {
       {
         name: 'Sharon Tea and Coffee - Kaggadasapura',
         address: '2nd Floor, Railway Crossing, 40, near MRP, Nagappareddy Layout, Kaggadasapura, Bengaluru, Karnataka - 560093',
-        phone: '+91 98765 43212',
+        phone: '+91 99169 99209',
         operating_hours: 'Open Daily: 6:00 AM – 11:00 PM',
         image_url: 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=800&q=80',
         maps_url: 'https://maps.google.com/?q=40,+Railway+Crossing,+Nagappareddy+Layout,+Kaggadasapura,+Bengaluru+-+560093',

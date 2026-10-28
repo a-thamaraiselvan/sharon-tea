@@ -3,8 +3,10 @@ import { Helmet } from 'react-helmet-async';
 import { ProductGrid } from '@/components/products/ProductGrid';
 import { LiveTeaSearch } from '@/components/search/LiveTeaSearch';
 import { useProducts } from '@/hooks/useProducts';
+import { useBusinessSettings } from '@/hooks/useBusinessSettings';
 import { FALLBACK_PRODUCTS } from '@/services/productService';
 import { useUiStore } from '@/stores/useUiStore';
+import { generateGeneralInquiryLink } from '@/utils/whatsappLink';
 import type { Product } from '@/types';
 import {
   Sparkles,
@@ -28,6 +30,7 @@ const FLAVOR_BUBBLES = [
 
 export const ProductsPage: React.FC = () => {
   const { data: rawProducts, isLoading } = useProducts();
+  const { data: settings } = useBusinessSettings();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedFlavor, setSelectedFlavor] = useState<string | null>(null);
   const [searchFilter, setSearchFilter] = useState<string>('');
@@ -172,7 +175,7 @@ export const ProductsPage: React.FC = () => {
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <a
-                  href="https://wa.me/919940866657?text=Hi%20Sharon%20Tea%2C%20I%20would%20like%20to%20order%20packaged%20tea%20blends"
+                  href={generateGeneralInquiryLink('Hi Sharon Tea and Coffee! 👋 I would like to order packaged tea blends.', settings?.whatsappNumber || (settings as any)?.whatsapp_number)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold border border-white/20 transition-all backdrop-blur-xs cursor-pointer"

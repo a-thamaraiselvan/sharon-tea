@@ -1,8 +1,14 @@
 import React from 'react';
 import { BrandButton } from '@/components/ui/BrandButton';
 import { Sparkles, ArrowDown } from 'lucide-react';
+import { generateFranchiseInquiryLink } from '@/utils/whatsappLink';
+import { useBusinessSettings } from '@/hooks/useBusinessSettings';
 
 export const FranchiseHero: React.FC = () => {
+  const { data: settings } = useBusinessSettings();
+  const activeWhatsApp = settings?.whatsappNumber || (settings as any)?.whatsapp_number;
+  const whatsappUrl = generateFranchiseInquiryLink(undefined, activeWhatsApp);
+
   const scrollToForm = () => {
     const formElement = document.getElementById('franchise-form-section');
     if (formElement) {
@@ -29,9 +35,9 @@ export const FranchiseHero: React.FC = () => {
           supported by streamlined operations and beloved recipes.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto reveal-up" style={{ '--reveal-delay': '80ms' } as React.CSSProperties}>
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
           <BrandButton
-            variant="amber"
+            variant="primary"
             size="lg"
             onClick={scrollToForm}
             icon={<ArrowDown className="w-4 h-4" />}
@@ -41,7 +47,7 @@ export const FranchiseHero: React.FC = () => {
           </BrandButton>
 
           <BrandButton
-            href="https://wa.me/919876543210?text=Hello%20Sharon%20Tea%20Stall!%20I%20am%20interested%20in%20franchise%20details."
+            href={whatsappUrl}
             isExternal
             variant="outline"
             size="lg"

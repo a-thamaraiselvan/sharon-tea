@@ -4,6 +4,7 @@ import { MapEmbed } from './MapEmbed';
 import { MinimalLoader } from '@/components/ui/MinimalLoader';
 import { MapPin, Clock, Phone, Navigation, LocateFixed, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 import { cn } from '@/utils/cn';
+import { getWhatsAppNumber } from '@/utils/whatsappLink';
 
 interface OutletListProps {
   outlets?: Outlet[];
@@ -271,7 +272,7 @@ export const OutletList: React.FC<OutletListProps> = ({ outlets = [], isLoading 
               </a>
 
               <a
-                href={`https://wa.me/919876543210?text=${encodeURIComponent(
+                href={`https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(
                   `Hello Sharon Tea and Coffee! I want directions to ${currentSelection.name}.`
                 )}`}
                 target="_blank"
