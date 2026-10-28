@@ -29,7 +29,7 @@ export default defineConfig({
       testMatch: /web\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: process.env.BASE_URL_WEB || 'https://d2nf0d1apz0f2x.cloudfront.net',
+        baseURL: process.env.BASE_URL_WEB || 'https://www.sharonteastall.com',
       },
     },
     {
@@ -37,14 +37,14 @@ export default defineConfig({
       testMatch: /admin\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: process.env.BASE_URL_ADMIN || 'https://d2zs2311g1rhtd.cloudfront.net',
+        baseURL: process.env.BASE_URL_ADMIN || 'https://admin.sharonteastall.com',
       },
     },
     {
       name: 'api',
       testMatch: /api\.spec\.ts/,
       use: {
-        baseURL: process.env.BASE_URL_API || 'https://d2zs2311g1rhtd.cloudfront.net',
+        baseURL: process.env.BASE_URL_API || 'https://admin.sharonteastall.com',
       },
     },
   ],
