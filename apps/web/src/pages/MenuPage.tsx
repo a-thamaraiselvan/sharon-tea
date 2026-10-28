@@ -36,42 +36,87 @@ const getItemSortWeight = (item: MenuItem): number => {
     }
   }
 
-  // Other hot teas
-  if (item.categoryId === 'hot-teas' || (item.category === 'Tea' && !name.includes('green') && !name.includes('herbal'))) {
+  // Teas
+  if (
+    item.categorySlug === 'teas' ||
+    item.categoryId === 'teas' ||
+    item.categoryId === 'hot-teas' ||
+    (item.category === 'Tea' && !name.includes('green') && !name.includes('herbal') && !name.includes('black'))
+  ) {
     return 50;
   }
 
-  // 2. Filter Coffees (South Indian Filter Coffee, Sukku Coffee, etc.)
+  // Black Teas
   if (
+    item.categorySlug === 'black-teas' ||
+    item.categoryId === 'black-teas' ||
+    name.includes('black tea') ||
+    name.includes('lemon tea')
+  ) {
+    return 70;
+  }
+
+  // Milk
+  if (
+    item.categorySlug === 'milk' ||
+    item.categoryId === 'milk' ||
+    name.includes('horlicks') ||
+    name.includes('boost')
+  ) {
+    return 90;
+  }
+
+  // Filter Coffees
+  if (
+    item.categorySlug === 'coffee' ||
+    item.categoryId === 'coffee' ||
     item.categoryId === 'coffees' ||
     (item.category === 'Coffee' && !name.includes('cold')) ||
     (name.includes('coffee') && !name.includes('cold'))
   ) {
-    return 100;
+    return 110;
   }
 
-  // 3. Herbal & Green Teas
+  // Cold Menu
   if (
-    item.categoryId === 'herbal-special' ||
-    item.category === 'Herbal Tea' ||
-    name.includes('green') ||
-    name.includes('herbal')
-  ) {
-    return 200;
-  }
-
-  // 4. Cold Beverages & Milk Coolers (Rose Milk, Badam Milk, etc.)
-  if (
+    item.categorySlug === 'cold-menu' ||
+    item.categoryId === 'cold-menu' ||
     item.categoryId === 'cold-beverages' ||
     item.category === 'Cold Beverage' ||
     name.includes('cold') ||
     name.includes('rose milk') ||
-    name.includes('badam') ||
-    name.includes('shake') ||
-    name.includes('ice tea') ||
-    name.includes('cooler')
+    name.includes('ice lemon') ||
+    name.includes('shake')
   ) {
-    return 300;
+    return 130;
+  }
+
+  // Herbal & Green Teas
+  if (
+    item.categorySlug === 'herbal-tea' ||
+    item.categoryId === 'herbal-tea' ||
+    item.categoryId === 'herbal-special' ||
+    item.category === 'Herbal Tea' ||
+    name.includes('green') ||
+    name.includes('herbal') ||
+    name.includes('gastric') ||
+    name.includes('purple') ||
+    name.includes('hibiscus') ||
+    name.includes('butterfly')
+  ) {
+    return 150;
+  }
+
+  // Add-ons & Customisations
+  if (
+    item.categorySlug === 'add-ons-customisations' ||
+    item.categoryId === 'add-ons-customisations' ||
+    name.includes('honey') ||
+    name.includes('lemon') ||
+    name.includes('jaggery') ||
+    name.includes('customisation')
+  ) {
+    return 170;
   }
 
   return 400;
@@ -173,8 +218,10 @@ export const MenuPage: React.FC = () => {
       // Direct ID, slug, or name match (covers dynamic API categories seamlessly)
       if (
         i.categoryId === activeCategory ||
+        i.categorySlug === activeCategory ||
         i.category === activeCategory ||
         i.categoryName === activeCategory ||
+        (i.categorySlug && i.categorySlug.toLowerCase() === activeCategory.toLowerCase()) ||
         (i.category && i.category.toLowerCase() === activeCategory.toLowerCase()) ||
         (i.categoryName && i.categoryName.toLowerCase() === activeCategory.toLowerCase())
       ) {
@@ -182,48 +229,99 @@ export const MenuPage: React.FC = () => {
       }
 
       const name = i.name.toLowerCase();
-      if (activeCategory === 'hot-teas') {
+      if (activeCategory === 'teas' || activeCategory === 'hot-teas') {
         return (
+          i.categoryId === 'teas' ||
+          i.categorySlug === 'teas' ||
           i.categoryId === 'hot-teas' ||
           i.category === 'Tea' ||
-          name.includes('tea')
+          i.category === 'Teas' ||
+          i.categoryName === 'Teas' ||
+          (name.includes('tea') && !name.includes('green') && !name.includes('herbal') && !name.includes('black'))
         );
       }
-      if (activeCategory === 'coffees') {
+      if (activeCategory === 'black-teas') {
         return (
+          i.categoryId === 'black-teas' ||
+          i.categorySlug === 'black-teas' ||
+          i.category === 'Black Teas' ||
+          i.categoryName === 'Black Teas' ||
+          name.includes('black tea') ||
+          name.includes('black ginger') ||
+          name.includes('black elaichi') ||
+          name.includes('lemon tea')
+        );
+      }
+      if (activeCategory === 'milk') {
+        return (
+          i.categoryId === 'milk' ||
+          i.categorySlug === 'milk' ||
+          i.category === 'Milk' ||
+          i.categoryName === 'Milk' ||
+          name === 'milk' ||
+          name.includes('ginger milk') ||
+          name.includes('badam milk') ||
+          name.includes('horlicks') ||
+          name.includes('boost')
+        );
+      }
+      if (activeCategory === 'coffee' || activeCategory === 'coffees') {
+        return (
+          i.categoryId === 'coffee' ||
+          i.categorySlug === 'coffee' ||
           i.categoryId === 'coffees' ||
           i.category === 'Coffee' ||
+          i.categoryName === 'Coffee' ||
           (name.includes('coffee') && !name.includes('cold'))
         );
       }
-      if (activeCategory === 'herbal-special') {
+      if (activeCategory === 'cold-menu' || activeCategory === 'cold-beverages') {
         return (
-          i.categoryId === 'herbal-special' ||
-          i.category === 'Herbal Tea' ||
-          i.id === 'item-tulsi-tea' ||
-          name.includes('tulsi') ||
-          name.includes('green') ||
-          name.includes('herbal')
-        );
-      }
-      if (activeCategory === 'cold-beverages') {
-        return (
+          i.categoryId === 'cold-menu' ||
+          i.categorySlug === 'cold-menu' ||
           i.categoryId === 'cold-beverages' ||
+          i.category === 'Cold Menu' ||
           i.category === 'Cold Beverage' ||
+          i.categoryName === 'Cold Menu' ||
           name.includes('cold') ||
           name.includes('rose milk') ||
-          name.includes('badam') ||
-          name.includes('shake') ||
-          name.includes('milk') ||
-          name.includes('cooler') ||
-          name.includes('ice tea')
+          name.includes('ice lemon') ||
+          name.includes('shake')
+        );
+      }
+      if (activeCategory === 'herbal-tea' || activeCategory === 'herbal-special') {
+        return (
+          i.categoryId === 'herbal-tea' ||
+          i.categorySlug === 'herbal-tea' ||
+          i.categoryId === 'herbal-special' ||
+          i.category === 'Herbal Tea' ||
+          i.categoryName === 'Herbal Tea' ||
+          name.includes('green') ||
+          name.includes('herbal') ||
+          name.includes('gastric') ||
+          name.includes('purple') ||
+          name.includes('hibiscus') ||
+          name.includes('butterfly')
+        );
+      }
+      if (activeCategory === 'add-ons-customisations' || activeCategory === 'add-ons') {
+        return (
+          i.categoryId === 'add-ons-customisations' ||
+          i.categorySlug === 'add-ons-customisations' ||
+          i.category === 'Add-ons & Customisations' ||
+          i.categoryName === 'Add-ons & Customisations' ||
+          name.includes('honey') ||
+          name.includes('lemon') ||
+          name.includes('jaggery') ||
+          name.includes('customisation')
         );
       }
       return false;
     });
   }, [sortedAllItems, activeCategory, searchFilter]);
 
-  const activeCategoryName = menuCategories.find((c) => c.id === activeCategory)?.name || 'Beverages';
+  const activeCategoryName =
+    menuCategories.find((c) => c.id === activeCategory || c.slug === activeCategory)?.name || 'Beverages';
 
   return (
     <>

@@ -19,12 +19,15 @@ export const MenuCategoryNav: React.FC<MenuCategoryNavProps> = ({
     <div className={cn('w-full overflow-x-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-2', className)}>
       <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-3 min-w-max px-2">
         {categories.map((category) => {
-          const isActive = activeCategory === category.id;
+          const isActive =
+            activeCategory === category.id ||
+            activeCategory === category.slug ||
+            (category.slug && activeCategory.toLowerCase() === category.slug.toLowerCase());
           return (
             <button
               key={category.id}
               type="button"
-              onClick={() => onSelectCategory(category.id)}
+              onClick={() => onSelectCategory(category.slug || category.id)}
               className={cn(
                 'px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 border whitespace-nowrap shadow-sm',
                 isActive

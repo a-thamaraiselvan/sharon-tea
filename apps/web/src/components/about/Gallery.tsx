@@ -8,15 +8,17 @@ import { cn } from '@/utils/cn';
 import { resolveImageUrl } from '@/utils/imageUrl';
 
 const TABS = [
-  { id: 'all', label: 'All Photos' },
-  { id: 'store', label: 'Outlets' },
-  { id: 'brewing', label: 'The Brew Art' },
-  { id: 'products', label: 'Tea Blends' },
-  { id: 'moments', label: 'Sharon Moments' },
+  { id: 'all', label: 'All Outlets' },
+  { id: 'indiranagar', label: 'Indiranagar (Head Branch)' },
+  { id: 'new-thippasandra', label: 'New Thippasandra' },
+  { id: 'kaggadasapura', label: 'Kaggadasapura' },
 ];
 
 const CATEGORY_LABELS: Record<string, string> = {
-  all: 'All',
+  all: 'All Outlets',
+  indiranagar: 'Indiranagar (Head Branch)',
+  'new-thippasandra': 'New Thippasandra',
+  kaggadasapura: 'Kaggadasapura',
   store: 'Outlets',
   brewing: 'The Brew Art',
   products: 'Tea Blends',

@@ -256,6 +256,9 @@ export type UpdateOutletInput = Partial<CreateOutletInput>;
 
 // Gallery
 export type GalleryCategory =
+  | 'indiranagar'
+  | 'new-thippasandra'
+  | 'kaggadasapura'
   | 'tea-preparation'
   | 'beverages'
   | 'store-interior'

@@ -13,9 +13,9 @@ export class MenuItemRepository {
         AND (c.id IS NULL OR (c.is_active = true AND c.is_deleted = false))
     `;
 
-    if (categoryId) {
+    if (categoryId && categoryId !== 'all') {
       values.push(categoryId);
-      sql += ` AND m.category_id = $${values.length}`;
+      sql += ` AND (m.category_id::text = $${values.length} OR c.slug = $${values.length} OR c.name ILIKE $${values.length})`;
     }
 
     sql += ' ORDER BY c.sort_order ASC, m.sort_order ASC, m.name ASC';
@@ -39,9 +39,10 @@ export class MenuItemRepository {
     const values: any[] = [];
     let idx = 1;
 
-    if (options.categoryId) {
-      conditions.push(`m.category_id = $${idx++}`);
+    if (options.categoryId && options.categoryId !== 'all') {
+      conditions.push(`(m.category_id::text = $${idx} OR EXISTS (SELECT 1 FROM menu_categories c2 WHERE c2.id = m.category_id AND (c2.slug = $${idx} OR c2.name ILIKE $${idx})))`);
       values.push(options.categoryId);
+      idx++;
     }
 
     if (options.isAvailable !== undefined) {

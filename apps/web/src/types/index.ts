@@ -11,6 +11,7 @@ export interface MenuItem {
   shortDescription?: string;
   short_description?: string;
   categoryId: string;
+  categorySlug?: string;
   categoryName?: string;
   category?: string;
   price: number;
@@ -91,7 +92,7 @@ export interface HeroSlide {
 export interface GalleryItem {
   id: string;
   title: string;
-  category: 'store' | 'brewing' | 'products' | 'moments';
+  category: 'indiranagar' | 'new-thippasandra' | 'kaggadasapura' | 'store' | 'brewing' | 'products' | 'moments' | string;
   imageUrl: string;
   caption?: string;
   youtubeUrl?: string;

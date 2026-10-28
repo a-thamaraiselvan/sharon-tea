@@ -34,6 +34,9 @@ import { resolveImageUrl } from '../utils/imageUrl';
 const { Option } = Select;
 
 const galleryCategories: { label: string; value: GalleryCategory }[] = [
+  { label: 'Indiranagar (Head Branch)', value: 'indiranagar' },
+  { label: 'New Thippasandra Branch', value: 'new-thippasandra' },
+  { label: 'Kaggadasapura Branch', value: 'kaggadasapura' },
   { label: 'Tea Preparation', value: 'tea-preparation' },
   { label: 'Beverages', value: 'beverages' },
   { label: 'Store Interior', value: 'store-interior' },
@@ -45,6 +48,9 @@ const galleryCategories: { label: string; value: GalleryCategory }[] = [
 const gallerySchema = z.object({
   caption: z.string().min(2, 'Caption must be at least 2 characters'),
   category: z.enum([
+    'indiranagar',
+    'new-thippasandra',
+    'kaggadasapura',
     'tea-preparation',
     'beverages',
     'store-interior',

@@ -220,29 +220,34 @@ export const seedDatabase = async (): Promise<void> => {
       }
     }
 
-    // 4. Seed Menu Items (55 total)
-    const itemsCountCheck = await client.query('SELECT COUNT(*) as count FROM menu_items WHERE is_deleted = false');
-    if (parseInt(itemsCountCheck.rows[0].count, 10) === 0) {
-      console.log('Seeding 55 menu items...');
-      let sortOrder = 1;
-      for (const item of MENU_ITEMS) {
-        const catId = categoryMap.get(item.categorySlug);
-        if (!catId) {
-          console.warn(`Category slug not found for item: ${item.name}`);
-          continue;
-        }
+    // 4. Seed Menu Items (55 total) - Upsert logic to ensure latest prices & categories
+    console.log('Synchronizing 55 menu items and prices...');
+    let sortOrder = 1;
+    for (const item of MENU_ITEMS) {
+      const catId = categoryMap.get(item.categorySlug);
+      if (!catId) {
+        console.warn(`Category slug not found for item: ${item.name}`);
+        continue;
+      }
 
-        const itemSlug = `${item.categorySlug}-${slugify(item.name)}`;
+      const itemSlug = `${item.categorySlug}-${slugify(item.name)}`;
+      const existing = await client.query('SELECT id FROM menu_items WHERE slug = $1 OR (name = $2 AND category_id = $3)', [itemSlug, item.name, catId]);
+      if (existing.rowCount === 0) {
         await client.query(
           `INSERT INTO menu_items (category_id, name, slug, short_description, price, is_available, sort_order)
            VALUES ($1, $2, $3, $4, $5, true, $6)`,
           [catId, item.name, itemSlug, item.short_description, item.price, sortOrder++]
         );
+      } else {
+        await client.query(
+          `UPDATE menu_items
+           SET category_id = $1, price = $2, short_description = $3, is_available = true, is_deleted = false, sort_order = $4
+           WHERE id = $5`,
+          [catId, item.price, item.short_description, sortOrder++, existing.rows[0].id]
+        );
       }
-      console.log(`Successfully seeded ${MENU_ITEMS.length} menu items.`);
-    } else {
-      console.log(`Menu items already present (${itemsCountCheck.rows[0].count} items).`);
     }
+    console.log(`Successfully synchronized ${MENU_ITEMS.length} menu items.`);
 
     // Update image_url for the 8 exact signature beverages
     const beverageImages: Record<string, string> = {
@@ -508,26 +513,21 @@ export const seedDatabase = async (): Promise<void> => {
     const galleryCheck = await client.query('SELECT COUNT(*) as count FROM gallery_images');
     if (parseInt(galleryCheck.rows[0].count, 10) === 0) {
       const permanentGallery: [string, string, string, number][] = [
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3264.webp", "Iconic Sharon Tea Stall outlet with heritage branding since 2007.", "store", 1],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3265.webp", "Sharon Masala Tea and Regular Tea retail packs sealed for freshness.", "products", 2],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3266.webp", "Finest whole-leaf CTC tea crafted with traditional South Indian spices.", "products", 3],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3267.webp", "The proud Sharon Tea Stall seal representing quality brewing since 2007.", "store", 4],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3268.webp", "Fast-paced, friendly service serving hundreds of warm cups every morning.", "store", 5],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3269.webp", "Welcoming glowing facade guiding tea lovers across Bengaluru.", "store", 6],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3270.webp", "Locals and professionals gathering for their daily energizing tea ritual.", "moments", 7],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3271.webp", "The heartbeat of Bengaluru: catching up over steaming cutting chai.", "moments", 8],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3274.webp", "Shared laughter, daily news discussions, and fresh chai moments.", "moments", 9],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3275.webp", "Deeply rooted in Karnataka with authentic regional hospitality.", "store", 10],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3276.webp", "A cup of tea under Bengaluru tree canopy shade.", "store", 11],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3278.webp", "Freshly strained, piping hot tea in classic transparent cutting glasses.", "brewing", 12],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3279.webp", "Handcrafted decoction, fresh milk, and aromatic spices blended to perfection.", "brewing", 13],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3285.webp", "Real moments of refreshment that keep Bengaluru moving forward.", "moments", 14],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3286.webp", "Rich golden chai held with care on a breezy Bangalore morning.", "moments", 15],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3287.webp", "Continuous steaming boilers maintaining pure water and decoction temperature.", "brewing", 16],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3288.webp", "Expanded Sharon cafe model with complete beverage and snack counters.", "store", 17],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3289.webp", "Wide variety of teas, coffees, herbal blends, and malt specials.", "products", 18],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3291.webp", "Crisp snacks, baked goods, and cozy seating to enjoy your brew.", "store", 19],
-        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/IMG_3292.webp", "Unwinding after a busy day with a comforting cup of Sharon tea.", "moments", 20],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/indiranagar_IMG_3241.webp", "Steaming hot chai and signature filter coffee prepared fresh at Sharon Indiranagar.", "indiranagar", 1],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/indiranagar_IMG_3243.webp", "The bustling morning counter with patrons enjoying hot brews at Indiranagar.", "indiranagar", 2],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/indiranagar_IMG_3244.webp", "Traditional brewing mastery and authentic South Indian tea pouring in Indiranagar.", "indiranagar", 3],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/indiranagar_IMG_3247.webp", "Warm and welcoming storefront facade of Sharon Tea & Coffee Indiranagar branch.", "indiranagar", 4],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/indiranagar_IMG_3252.webp", "Fresh tea leaves, snacks, and morning hospitality at our Indiranagar outlet.", "indiranagar", 5],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/indiranagar_IMG_3255.webp", "Satisfied patrons and lively community conversations at Sharon Indiranagar.", "indiranagar", 6],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/new_thippasandra_IMG_3263.webp", "Vibrant streetfront presence of Sharon Tea Stall New Thippasandra branch.", "new-thippasandra", 7],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/new_thippasandra_IMG_3265.webp", "Authentic retail packaged tea blends on display at New Thippasandra.", "new-thippasandra", 8],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/new_thippasandra_IMG_3266.webp", "Finest whole-leaf CTC tea with aromatic natural spices at New Thippasandra.", "new-thippasandra", 9],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/new_thippasandra_IMG_3270.webp", "Daily morning ritual: professionals and locals gathering at New Thippasandra.", "new-thippasandra", 10],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/new_thippasandra_IMG_3274.webp", "Shared laughter and warm cutting chai moments at New Thippasandra outlet.", "new-thippasandra", 11],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/new_thippasandra_IMG_3286.webp", "Golden aromatic cup of tea served hot at Sharon New Thippasandra.", "new-thippasandra", 12],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/kaggadasapura_IMG_3288.webp", "Spacious and modern Sharon cafe outlet model at Kaggadasapura.", "kaggadasapura", 13],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/kaggadasapura_IMG_3291.webp", "Cozy seating, baked savouries, and premium coffee counter at Kaggadasapura.", "kaggadasapura", 14],
+        ["https://sharon-tea-media.s3.ap-south-1.amazonaws.com/gallery/kaggadasapura_IMG_3292.webp", "Relaxing evening moments with comforting brews at Sharon Kaggadasapura.", "kaggadasapura", 15],
       ];
 
       for (const [url, caption, category, sortOrder] of permanentGallery) {

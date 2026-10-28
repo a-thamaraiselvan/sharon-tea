@@ -49,7 +49,7 @@ export const formatAdminMenuItem = (m: any) => ({
 export class MenuItemController {
   async getPublic(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const categoryId = req.query.categoryId as string | undefined;
+      const categoryId = (req.query.categoryId || req.query.category) as string | undefined;
       const items = await menuItemService.getPublicItems(categoryId);
       const sanitized = items.map(formatPublicMenuItem);
       successResponse(res, sanitized, 'Menu items retrieved');
