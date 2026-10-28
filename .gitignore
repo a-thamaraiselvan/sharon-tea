@@ -28,6 +28,7 @@ tmp/
 temp/
 *.zip
 *.cjs
+*.csv
 deploy-api/
 
 # Logs
