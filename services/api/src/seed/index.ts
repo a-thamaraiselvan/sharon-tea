@@ -145,8 +145,8 @@ export const seedDatabase = async (): Promise<void> => {
   try {
     console.log('Checking database seed status...');
 
-    // 1. Seed Default Admin User: admin@sharon.com (Sharon@2024)
-    const adminPassHash = await argon2.hash('Sharon@2024');
+    // 1. Seed Default Admin User: admin@sharon.com (Sharon@2007)
+    const adminPassHash = await argon2.hash('Sharon@2007');
     const adminCheck = await client.query('SELECT id FROM users WHERE email = $1', ['admin@sharon.com']);
     if (adminCheck.rowCount === 0) {
       await client.query(
@@ -160,7 +160,7 @@ export const seedDatabase = async (): Promise<void> => {
         `UPDATE users SET password_hash = $1, is_active = true, role = 'ADMIN' WHERE email = $2`,
         [adminPassHash, 'admin@sharon.com']
       );
-      console.log('Synchronized admin user: admin@sharon.com (Sharon@2024)');
+      console.log('Synchronized admin user: admin@sharon.com (Sharon@2007)');
     }
 
     // 2. Seed Business Settings
