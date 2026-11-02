@@ -293,21 +293,13 @@ export const seedDatabase = async (): Promise<void> => {
     }
     console.log(`Successfully synchronized ${MENU_ITEMS.length} menu items.`);
 
-    // Update image_url for the 8 exact signature beverages
-    const beverageImages: Record<string, string> = {
-      'Sharon Classic': '/images/beverages/sharon-classic.png',
-      'Masala Tea': '/images/beverages/masala-tea.png',
-      'Ginger Tea': '/images/beverages/ginger-tea.png',
-      'Elaichi Tea': '/images/beverages/elaichi-tea.png',
-      'Pepper Tea': '/images/beverages/pepper-tea.png',
-      'Cinnamon Tea': '/images/beverages/cinnamon-tea.png',
-      'Tulsi Tea': '/images/beverages/tulsi-tea.png',
-      'Jaggery Tea': '/images/beverages/jaggery-tea.png',
-    };
-    for (const [name, img] of Object.entries(beverageImages)) {
-      await client.query('UPDATE menu_items SET image_url = $1 WHERE name = $2', [img, name]);
-    }
-    console.log('Updated 8 signature beverage image URLs in database.');
+    // Update image_url for all 55 official menu items to point to permanent S3 media storage
+    await client.query(
+      `UPDATE menu_items
+       SET image_url = 'https://sharon-tea-media.s3.ap-south-1.amazonaws.com/images/menu-items/' || slug || '.jpg'
+       WHERE is_deleted = false`
+    );
+    console.log('Updated all 55 beverage menu items with permanent S3 image URLs.');
 
     // 5. Seed Retail Products (Only 3 official products as requested)
     const productsData = [
