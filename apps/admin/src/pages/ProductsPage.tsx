@@ -362,7 +362,14 @@ export const ProductsPage: React.FC = () => {
         return (
           <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center border border-gray-200">
             {imageSrc ? (
-              <Image src={resolveImageUrl(imageSrc)} alt="Product" width={48} height={48} className="object-cover" />
+              <Image
+                src={resolveImageUrl(imageSrc)}
+                alt={record.name || 'Product'}
+                width={48}
+                height={48}
+                className="object-cover rounded-md"
+                fallback="/Sharon_logo.jpg"
+              />
             ) : (
               <ShoppingOutlined className="text-gray-400 text-lg" />
             )}

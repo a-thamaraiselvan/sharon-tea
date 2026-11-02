@@ -21,11 +21,8 @@ import { cn } from '@/utils/cn';
 
 const FLAVOR_BUBBLES = [
   { name: 'Masala Tea', image: '/images/flavors/masala.png', query: 'masala' },
-  { name: 'Ginger Tea', image: '/images/flavors/ginger.png', query: 'ginger' },
   { name: 'Elaichi Tea', image: '/images/flavors/elachi.png', query: 'elachi' },
-  { name: 'Mint Tea', image: '/images/flavors/mint.png', query: 'mint' },
-  { name: 'Cinnamon Tea', image: '/images/flavors/cinnamon.png', query: 'cinnamon' },
-  { name: 'Chocolate Tea', image: '/images/flavors/chocolate.png', query: 'chocolate' },
+  { name: 'Regular Tea', image: '/images/products/img_3687.jpg', query: 'regular' },
 ];
 
 export const ProductsPage: React.FC = () => {

@@ -70,22 +70,12 @@ export const DashboardPage: React.FC = () => {
 
   // Chart data: product clicks (memoized to prevent Recharts rerenders on unrelated state)
   const displayChartData = React.useMemo(() => {
-    const raw = (whatsappData?.products || [])
+    return (whatsappData?.products || [])
       .slice(0, 7)
       .map((item) => ({
         name: item.productName.length > 15 ? `${item.productName.slice(0, 15)}...` : item.productName,
         clicks: item.totalClicks,
       }));
-
-    if (raw.length > 0) return raw;
-
-    return [
-      { name: 'Sharon Special Tea', clicks: 124 },
-      { name: 'Cardamom Premix', clicks: 88 },
-      { name: 'Masala Tea Blend', clicks: 64 },
-      { name: 'Ginger Tea Powder', clicks: 42 },
-      { name: 'Kulhad Cups Set', clicks: 35 },
-    ];
   }, [whatsappData?.products]);
 
   const recentFranchiseColumns = [
@@ -334,6 +324,12 @@ export const DashboardPage: React.FC = () => {
               {analyticsLoading ? (
                 <div className="h-64 flex items-center justify-center">
                   <Skeleton active paragraph={{ rows: 5 }} />
+                </div>
+              ) : displayChartData.length === 0 ? (
+                <div className="h-72 w-full flex flex-col items-center justify-center text-gray-400">
+                  <WhatsAppOutlined className="text-3xl mb-2 text-gray-300" />
+                  <p className="text-sm font-medium">No WhatsApp order clicks recorded yet</p>
+                  <p className="text-xs text-gray-400">Clicks will populate automatically as customers order via WhatsApp</p>
                 </div>
               ) : (
                 <div className="h-72 w-full pt-4">

@@ -3,130 +3,16 @@ import type { Product, ApiResponse } from '@/types';
 
 export const FALLBACK_PRODUCTS: Product[] = [
   {
-    id: 'prod-chocolate',
-    name: 'Chocolate Tea',
-    slug: 'chocolate-tea',
-    price: 210,
-    originalPrice: 220,
-    category: 'Black Tea',
-    flavor: 'Chocolate Tea',
-    badge: 'New',
-    imageUrl: '/images/products/chocolate-pouch.png',
-    images: ['/images/products/chocolate-pouch.png', '/images/products/img_3701.jpg'],
-    weight: '250g Pouch',
-    shortDescription: 'Rich chocolate flavour with a refreshing tea taste.',
-    description: 'A decadent blend of toasted cocoa nibs, dark chocolate notes, and full-bodied tea for tea and chocolate lovers alike.',
-    ingredients: ['Assam Tea Leaves', 'Pure Cocoa Extract', 'Vanilla Pod Essence'],
-    brewingInstructions: 'Best prepared with whole milk. Simmer gently and garnish with cocoa powder.',
-    inStock: true,
-    isFeatured: true,
-  },
-  {
-    id: 'prod-cinnamon',
-    name: 'Cinnamon Tea',
-    slug: 'cinnamon-tea',
-    price: 190,
-    originalPrice: 200,
-    category: 'Herbal Tea',
-    flavor: 'Cinnamon Tea',
-    badge: 'New',
-    imageUrl: '/images/products/cinnamon-pouch.png',
-    images: ['/images/products/cinnamon-pouch.png'],
-    weight: '250g Pouch',
-    shortDescription: 'Aromatic cinnamon blend for a warm and refreshing cup.',
-    description: 'Ceylon cinnamon quills blended with rich black tea for a delicate, naturally sweet and woody spiced cup.',
-    ingredients: ['Assam Black Tea', 'Pure Ceylon Cinnamon Quills'],
-    brewingInstructions: 'Boil for 3 minutes in water or milk. Enjoy black with honey or with fresh milk.',
-    inStock: true,
-    isFeatured: true,
-  },
-  {
-    id: 'prod-elaichi',
-    name: 'Elaichi Tea',
-    slug: 'elaichi-tea',
-    price: 190,
-    originalPrice: 200,
-    category: 'Herbal Tea',
-    flavor: 'Elaichi Tea',
-    badge: 'New',
-    imageUrl: '/images/products/elachi-pouch.png',
-    images: ['/images/products/elachi-pouch.png', '/images/products/img_3686.jpg'],
-    weight: '250g Pouch',
-    shortDescription: 'The perfect blend of tea and elaichi for a delightful taste.',
-    description: 'Finest CTC tea leaves enriched with freshly crushed green cardamoms sourced directly from Idukki estates.',
-    ingredients: ['CTC Black Tea Leaves', 'Crushed Natural Green Cardamom Pods'],
-    brewingInstructions: 'Add 1 teaspoon of Sharon Elaichi Tea to boiling milk and water mixture. Simmer for 3 minutes. Strain and enjoy.',
-    inStock: true,
-    isFeatured: true,
-  },
-  {
-    id: 'prod-ginger-elaichi',
-    name: 'Ginger Elaichi Tea',
-    slug: 'ginger-elaichi-tea',
-    price: 240,
-    originalPrice: 250,
-    category: 'Masala Tea',
-    flavor: 'Ginger Tea',
-    badge: 'New',
-    imageUrl: '/images/products/ginger-pouch.png',
-    images: ['/images/products/ginger-pouch.png'],
-    weight: '250g Pouch',
-    shortDescription: 'A perfect mix of ginger and elaichi for a strong and refreshing tea.',
-    description: 'The golden duo of crushed sun-dried ginger and fragrant cardamom paired with robust CTC tea.',
-    ingredients: ['Assam CTC Tea', 'Sun-Dried Ginger', 'Cardamom Pods'],
-    brewingInstructions: 'Brew with boiling milk and water for 3 to 4 minutes.',
-    inStock: true,
-    isFeatured: true,
-  },
-  {
-    id: 'prod-ginger-mint',
-    name: 'Ginger Mint Tea',
-    slug: 'ginger-mint-tea',
-    price: 230,
-    originalPrice: 240,
-    category: 'Green Tea',
-    flavor: 'Mint Tea',
-    badge: 'New',
-    imageUrl: '/images/products/img_3688.jpg',
-    images: ['/images/products/img_3688.jpg'],
-    weight: '250g Pouch',
-    shortDescription: 'Cooling garden mint paired with zesty ginger root.',
-    description: 'Revitalizing combination of dried spearmint leaves, sun-dried ginger flakes, and clean green tea.',
-    ingredients: ['Green Tea Leaves', 'Sun-Dried Ginger Flakes', 'Spearmint Leaves'],
-    brewingInstructions: 'Steep in hot water for 3 minutes. Strain and serve refreshing hot or iced.',
-    inStock: true,
-    isFeatured: false,
-  },
-  {
-    id: 'prod-ginger',
-    name: 'Ginger Tea',
-    slug: 'ginger-tea',
-    price: 220,
-    originalPrice: 230,
-    category: 'Herbal Tea',
-    flavor: 'Ginger Tea',
-    badge: 'New',
-    imageUrl: '/images/products/ginger-pouch.png',
-    images: ['/images/products/ginger-pouch.png'],
-    weight: '250g Pouch',
-    shortDescription: 'Bold sun-dried ginger warmth for an invigorating cup.',
-    description: 'High-grade dry ginger crushed with premium granular tea to clear the throat and warm the soul.',
-    ingredients: ['Assam CTC Tea', 'Crushed Dry Ginger Root'],
-    brewingInstructions: 'Boil in equal parts milk and water for 4 minutes. Sweeten with jaggery or sugar.',
-    inStock: true,
-    isFeatured: false,
-  },
-  {
     id: 'prod-masala',
-    name: 'Masala Tea',
-    slug: 'masala-tea',
+    name: 'Masala Tea Pack',
+    slug: 'masala-tea-pack',
     price: 180,
     originalPrice: 220,
     category: 'Masala Tea',
     flavor: 'Masala Tea',
     badge: 'Bestseller',
-    imageUrl: '/images/products/img_3689.jpg',
-    images: ['/images/products/img_3689.jpg', '/images/products/masala-pouch.png'],
+    imageUrl: '/images/products/masala-pouch.png',
+    images: ['/images/products/masala-pouch.png', '/images/products/img_3689.jpg'],
     weight: '250g Pouch',
     shortDescription: 'Signature handcrafted masala tea blend with authentic aromatic spices.',
     description: 'Our signature blend of selected high-grown Assam CTC black tea expertly combined with crushed cardamom, dried ginger, cinnamon, and cloves.',
@@ -136,15 +22,34 @@ export const FALLBACK_PRODUCTS: Product[] = [
     isFeatured: true,
   },
   {
+    id: 'prod-elaichi',
+    name: 'Elaichi Tea Pack',
+    slug: 'elaichi-tea-pack',
+    price: 190,
+    originalPrice: 200,
+    category: 'Elaichi Tea',
+    flavor: 'Elaichi Tea',
+    badge: 'Popular',
+    imageUrl: '/images/products/elachi-pouch.png',
+    images: ['/images/products/elachi-pouch.png', '/images/products/img_3686.jpg'],
+    weight: '250g Pouch',
+    shortDescription: 'The perfect blend of premium tea and fragrant green cardamom.',
+    description: 'Finest CTC tea leaves enriched with freshly crushed green cardamoms sourced directly from Idukki estates.',
+    ingredients: ['CTC Black Tea Leaves', 'Crushed Natural Green Cardamom Pods'],
+    brewingInstructions: 'Add 1 teaspoon of Sharon Elaichi Tea to boiling milk and water mixture. Simmer for 3 minutes. Strain and enjoy.',
+    inStock: true,
+    isFeatured: true,
+  },
+  {
     id: 'prod-regular',
-    name: 'Regular Classic Tea',
-    slug: 'regular-classic-tea',
+    name: 'Regular Tea Pack',
+    slug: 'regular-tea-pack',
     price: 150,
     originalPrice: 180,
-    category: 'Black Tea',
+    category: 'Regular Tea',
     badge: 'Classic',
     imageUrl: '/images/products/img_3687.jpg',
-    images: ['/images/products/img_3687.jpg', '/images/products/img_3688.jpg'],
+    images: ['/images/products/img_3687.jpg'],
     weight: '250g Pouch',
     shortDescription: 'Authentic daily Sharon tea blend with rich strength and golden color.',
     description: 'The golden blend that powers our busy counters every morning. Strong, brisk, and deeply satisfying with rich color and robust body that cuts perfectly through milk.',
@@ -168,104 +73,46 @@ export function resolveProductImage(
   const cleanName = (name || '').toLowerCase().trim();
   const rawUrl = (rawImageUrl || '').trim();
 
-  // 1. Cinnamon Tea: fix cutting chai glass (img_3693.jpg) -> cinnamon pouch
+  // 1. Masala Tea Pack
   if (
-    cleanSlug === 'cinnamon-tea' ||
-    cleanName.includes('cinnamon') ||
-    rawUrl.includes('img_3693')
-  ) {
-    return {
-      imageUrl: '/images/products/cinnamon-pouch.png',
-      images: ['/images/products/cinnamon-pouch.png'],
-    };
-  }
-
-  // 2. Ginger Elaichi Tea: fix Masala pouch (img_3689.jpg) -> authentic ginger elaichi pouch
-  if (
-    cleanSlug === 'ginger-elaichi-tea' ||
-    (cleanName.includes('ginger') && cleanName.includes('elaichi'))
-  ) {
-    return {
-      imageUrl: '/images/products/ginger-pouch.png',
-      images: ['/images/products/ginger-pouch.png'],
-    };
-  }
-
-  // 3. Ginger Tea: fix chai glasses (img_4746.jpg) -> ginger pouch
-  if (
-    cleanSlug === 'ginger-tea' ||
-    cleanName === 'ginger tea' ||
-    rawUrl.includes('img_4746')
-  ) {
-    return {
-      imageUrl: '/images/products/ginger-pouch.png',
-      images: ['/images/products/ginger-pouch.png'],
-    };
-  }
-
-  // 4. Masala Tea: fix logo badge (img_3704.png) -> authentic Sharon Masala tea pouch (img_3689.jpg)
-  if (
-    cleanSlug === 'masala-tea' ||
+    cleanSlug.includes('masala') ||
     cleanName.includes('masala') ||
-    rawUrl.includes('img_3704')
+    rawUrl.includes('masala')
+  ) {
+    const primary = rawUrl.includes('masala-pouch') ? rawUrl : '/images/products/masala-pouch.png';
+    return {
+      imageUrl: primary,
+      images: [primary, '/images/products/img_3689.jpg'],
+    };
+  }
+
+  // 2. Elaichi Tea Pack
+  if (
+    cleanSlug.includes('elaichi') ||
+    cleanName.includes('elaichi') ||
+    rawUrl.includes('elachi') ||
+    rawUrl.includes('img_3686')
+  ) {
+    const primary = rawUrl.includes('elachi-pouch') ? rawUrl : '/images/products/elachi-pouch.png';
+    return {
+      imageUrl: primary,
+      images: [primary, '/images/products/img_3686.jpg'],
+    };
+  }
+
+  // 3. Regular Tea Pack
+  if (
+    cleanSlug.includes('regular') ||
+    cleanName.includes('regular') ||
+    rawUrl.includes('img_3687')
   ) {
     return {
-      imageUrl: '/images/products/img_3689.jpg',
-      images: ['/images/products/img_3689.jpg', '/images/products/masala-pouch.png'],
+      imageUrl: '/images/products/img_3687.jpg',
+      images: ['/images/products/img_3687.jpg'],
     };
   }
 
-  // 5. Elaichi Tea: ensure authentic pouch image
-  if (cleanSlug === 'elaichi-tea' || cleanName === 'elaichi tea') {
-    const primary =
-      rawUrl &&
-      !rawUrl.includes('img_3704') &&
-      !rawUrl.includes('img_3693') &&
-      !rawUrl.includes('img_4746')
-        ? rawUrl
-        : '/images/products/elachi-pouch.png';
-    return {
-      imageUrl: primary,
-      images: [primary, '/images/products/elachi-pouch.png'],
-    };
-  }
-
-  // 6. Chocolate Tea
-  if (cleanSlug === 'chocolate-tea' || cleanName.includes('chocolate')) {
-    const primary =
-      rawUrl &&
-      !rawUrl.includes('img_3704') &&
-      !rawUrl.includes('img_3693') &&
-      !rawUrl.includes('img_4746')
-        ? rawUrl
-        : '/images/products/chocolate-pouch.png';
-    return {
-      imageUrl: primary,
-      images: [primary, '/images/products/chocolate-pouch.png'],
-    };
-  }
-
-  // Fallback checks for mismatched non-pouch images
-  if (rawUrl.includes('img_3693')) {
-    return {
-      imageUrl: '/images/products/cinnamon-pouch.png',
-      images: ['/images/products/cinnamon-pouch.png'],
-    };
-  }
-  if (rawUrl.includes('img_4746')) {
-    return {
-      imageUrl: '/images/products/ginger-pouch.png',
-      images: ['/images/products/ginger-pouch.png'],
-    };
-  }
-  if (rawUrl.includes('img_3704')) {
-    return {
-      imageUrl: '/images/products/img_3689.jpg',
-      images: ['/images/products/img_3689.jpg'],
-    };
-  }
-
-  const fallback = rawUrl || '/images/products/img_3687.jpg';
+  const fallback = rawUrl || '/images/products/masala-pouch.png';
   return {
     imageUrl: fallback,
     images: [fallback],

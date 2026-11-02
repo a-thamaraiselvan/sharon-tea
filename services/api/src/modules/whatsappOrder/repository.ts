@@ -14,6 +14,25 @@ export interface WhatsappAnalytics {
     date: string;
     count: number;
   }>;
+  // Extended shapes for Admin Panel & Dashboard compatibility
+  summary: {
+    totalClicks: number;
+    uniqueProducts: number;
+    mostPopularProduct: {
+      name: string;
+      clicks: number;
+    } | null;
+  };
+  products: Array<{
+    productId: string;
+    productName: string;
+    totalClicks: number;
+    lastClickDate: string;
+  }>;
+  dailyClicks: Array<{
+    date: string;
+    clicks: number;
+  }>;
 }
 
 export class WhatsappOrderRepository {
@@ -82,18 +101,50 @@ export class WhatsappOrderRepository {
        LIMIT 20`
     );
 
+    const totalClicksNum = parseInt(totalRes.rows[0]?.total_clicks || '0', 10);
+    const totalQuantityNum = parseInt(totalRes.rows[0]?.total_quantity || '0', 10);
+    const byProductList = byProductRes.rows.map((r) => ({
+      product_name: r.product_name,
+      click_count: parseInt(r.click_count, 10),
+      total_quantity: parseInt(r.total_quantity, 10),
+    }));
+    const dailyTrendsList = trendsRes.rows.map((r) => ({
+      date: r.date,
+      count: parseInt(r.count, 10),
+    }));
+
+    // Find latest click date for each product from recentClicks
+    const lastClickMap: Record<string, string> = {};
+    for (const click of recentRes.rows) {
+      if (!lastClickMap[click.product_name]) {
+        lastClickMap[click.product_name] = click.created_at ? new Date(click.created_at).toISOString() : new Date().toISOString();
+      }
+    }
+
+    const mostPopular = byProductList.length > 0
+      ? { name: byProductList[0].product_name, clicks: byProductList[0].click_count }
+      : null;
+
     return {
-      totalClicks: parseInt(totalRes.rows[0]?.total_clicks || '0', 10),
-      totalQuantity: parseInt(totalRes.rows[0]?.total_quantity || '0', 10),
-      byProduct: byProductRes.rows.map((r) => ({
-        product_name: r.product_name,
-        click_count: parseInt(r.click_count, 10),
-        total_quantity: parseInt(r.total_quantity, 10),
-      })),
+      totalClicks: totalClicksNum,
+      totalQuantity: totalQuantityNum,
+      byProduct: byProductList,
       recentClicks: recentRes.rows,
-      dailyTrends: trendsRes.rows.map((r) => ({
-        date: r.date,
-        count: parseInt(r.count, 10),
+      dailyTrends: dailyTrendsList,
+      summary: {
+        totalClicks: totalClicksNum,
+        uniqueProducts: byProductList.length,
+        mostPopularProduct: mostPopular,
+      },
+      products: byProductList.map((p, idx) => ({
+        productId: `p-${idx + 1}`,
+        productName: p.product_name,
+        totalClicks: p.click_count,
+        lastClickDate: lastClickMap[p.product_name] || new Date().toISOString(),
+      })),
+      dailyClicks: dailyTrendsList.map((d) => ({
+        date: d.date,
+        clicks: d.count,
       })),
     };
   }

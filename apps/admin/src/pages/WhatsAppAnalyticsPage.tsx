@@ -55,41 +55,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
       }),
   });
 
-  const productsList: ProductClickStat[] =
-    data?.products && data.products.length > 0
-      ? data.products
-      : [
-          {
-            productId: 'p-1',
-            productName: 'Sharon Royal Tea Premix (500g)',
-            totalClicks: 245,
-            lastClickDate: dayjs().subtract(1, 'hour').toISOString(),
-          },
-          {
-            productId: 'p-2',
-            productName: 'Cardamom Infused Leaf Blend (250g)',
-            totalClicks: 178,
-            lastClickDate: dayjs().subtract(4, 'hour').toISOString(),
-          },
-          {
-            productId: 'p-3',
-            productName: 'Irani Spiced CTC Gold (1kg)',
-            totalClicks: 132,
-            lastClickDate: dayjs().subtract(1, 'day').toISOString(),
-          },
-          {
-            productId: 'p-4',
-            productName: 'Sharon Artisanal Clay Kulhads (Set of 6)',
-            totalClicks: 94,
-            lastClickDate: dayjs().subtract(2, 'day').toISOString(),
-          },
-          {
-            productId: 'p-5',
-            productName: 'Ginger Zest Immunity Tea (200g)',
-            totalClicks: 62,
-            lastClickDate: dayjs().subtract(3, 'day').toISOString(),
-          },
-        ];
+  const productsList: ProductClickStat[] = data?.products || [];
 
   const totalClicks =
     data?.summary?.totalClicks ?? productsList.reduce((acc, curr) => acc + curr.totalClicks, 0);
@@ -265,7 +231,7 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
                     ) : (
                       <div>
                         <div className="text-xl font-bold font-display text-sharon-forest truncate mt-1">
-                          {mostPopular?.name || 'Sharon Royal Tea'}
+                          {mostPopular?.name || 'None'}
                         </div>
                         <Tag color="green" className="mt-1 font-medium">
                           <AnimatedCount value={mostPopular?.clicks || 0} suffix=" clicks" />
@@ -296,43 +262,50 @@ export const WhatsAppAnalyticsPage: React.FC = () => {
           }
           className="border border-neutral-200/80 bg-white shadow-sm mb-8 chart-enter"
         >
-          <div className="h-80 w-full pt-4">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={chartData}
-                margin={{ top: 20, right: 30, left: 0, bottom: 40 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#D4D4D4" strokeOpacity={0.6} />
-                <XAxis
-                  dataKey="name"
-                  angle={-15}
-                  textAnchor="end"
-                  height={50}
-                  tick={{ fill: '#4B5563', fontSize: 12 }}
-                />
-                <YAxis tick={{ fill: '#4B5563', fontSize: 12 }} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: '#241C24',
-                    color: '#FFFFFF',
-                    borderRadius: '8px',
-                    border: 'none',
-                  }}
-                  itemStyle={{ color: '#FFFFFF' }}
-                  formatter={(val: number) => [`${val} Customer Clicks`, 'Order Intent']}
-                />
-                <Bar
-                  dataKey="clicks"
-                  fill="#1C4C34"
-                  radius={[6, 6, 0, 0]}
-                  barSize={42}
-                  isAnimationActive={true}
-                  animationDuration={1000}
-                  animationEasing="ease-out"
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          {chartData.length === 0 ? (
+            <div className="h-80 w-full flex flex-col items-center justify-center text-gray-400">
+              <WhatsAppOutlined className="text-4xl mb-2 text-gray-300" />
+              <p className="text-sm font-medium">No order clicks recorded in this period</p>
+            </div>
+          ) : (
+            <div className="h-80 w-full pt-4">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={chartData}
+                  margin={{ top: 20, right: 30, left: 0, bottom: 40 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#D4D4D4" strokeOpacity={0.6} />
+                  <XAxis
+                    dataKey="name"
+                    angle={-15}
+                    textAnchor="end"
+                    height={50}
+                    tick={{ fill: '#4B5563', fontSize: 12 }}
+                  />
+                  <YAxis tick={{ fill: '#4B5563', fontSize: 12 }} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#241C24',
+                      color: '#FFFFFF',
+                      borderRadius: '8px',
+                      border: 'none',
+                    }}
+                    itemStyle={{ color: '#FFFFFF' }}
+                    formatter={(val: number) => [`${val} Customer Clicks`, 'Order Intent']}
+                  />
+                  <Bar
+                    dataKey="clicks"
+                    fill="#1C4C34"
+                    radius={[6, 6, 0, 0]}
+                    barSize={42}
+                    isAnimationActive={true}
+                    animationDuration={1000}
+                    animationEasing="ease-out"
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          )}
         </Card>
       </div>
 

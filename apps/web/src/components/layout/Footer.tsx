@@ -115,6 +115,11 @@ export const Footer: React.FC = () => {
                   Find Nearest Outlet
                 </Link>
               </li>
+              <li>
+                <Link to="/visit-us#contact-form-section" className="hover:text-brand-amber transition-colors">
+                  Contact & Support
+                </Link>
+              </li>
             </ul>
           </div>
 

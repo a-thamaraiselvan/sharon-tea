@@ -29,7 +29,14 @@ export class ContactController {
         page: page ? parseInt(page as string, 10) : 1,
         limit: limit ? parseInt(limit as string, 10) : 20,
       });
-      paginatedResponse(res, result.items, result.total, result.page, result.limit);
+      const formatted = result.items.map((e: any) => ({
+        ...e,
+        businessId: e.business_id,
+        adminNotes: e.admin_notes,
+        createdAt: e.created_at,
+        updatedAt: e.updated_at,
+      }));
+      paginatedResponse(res, formatted, result.total, result.page, result.limit);
     } catch (error) {
       next(error);
     }

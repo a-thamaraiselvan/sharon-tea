@@ -18,6 +18,8 @@ export const franchiseService = {
         fullName: item.fullName || item.full_name || '',
         investmentBudget: item.investmentBudget || item.investment_budget || '',
         adminNotes: item.adminNotes || item.admin_notes || '',
+        createdAt: item.createdAt || item.created_at || '',
+        updatedAt: item.updatedAt || item.updated_at || '',
       }));
     }
     return [];

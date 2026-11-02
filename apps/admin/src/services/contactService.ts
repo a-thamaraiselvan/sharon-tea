@@ -10,7 +10,17 @@ export const contactService = {
     const response = await apiClient.get<ApiResponse<ContactEnquiry[]>>('/ContactEnquiry/GetContactEnquiries', {
       params,
     });
-    return response.data.data;
+    const items = response.data?.data;
+    if (Array.isArray(items)) {
+      return items.map((item: any) => ({
+        ...item,
+        businessId: item.businessId || item.business_id || '',
+        createdAt: item.createdAt || item.created_at || '',
+        updatedAt: item.updatedAt || item.updated_at || '',
+        adminNotes: item.adminNotes || item.admin_notes || '',
+      }));
+    }
+    return [];
   },
 
   async getById(id: string): Promise<ContactEnquiry> {

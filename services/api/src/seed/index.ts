@@ -60,6 +60,27 @@ const CATEGORIES: CategorySeed[] = [
   },
 ];
 
+const PRODUCT_CATEGORIES: CategorySeed[] = [
+  {
+    name: 'Masala Tea',
+    slug: 'masala-tea',
+    description: 'Signature handcrafted spiced tea blends and traditional Masala Chai packs.',
+    sort_order: 1,
+  },
+  {
+    name: 'Elaichi Tea',
+    slug: 'elaichi-tea',
+    description: 'Fragrant green cardamom crushed tea blends and premium packs.',
+    sort_order: 2,
+  },
+  {
+    name: 'Regular Tea',
+    slug: 'regular-tea',
+    description: 'Everyday classic strong Assam tea blend packs with rich aroma.',
+    sort_order: 3,
+  },
+];
+
 const MENU_ITEMS: MenuItemSeed[] = [
   // 1. Teas (17 items)
   { name: 'Sharon Classic', categorySlug: 'teas', price: 20, short_description: 'Our signature everyday rich spiced milk tea' },
@@ -220,6 +241,29 @@ export const seedDatabase = async (): Promise<void> => {
       }
     }
 
+    // 3b. Seed Product Categories for Retail Packaged Teas
+    for (const prodCat of PRODUCT_CATEGORIES) {
+      const pCheck = await client.query<{ id: string }>(
+        'SELECT id FROM menu_categories WHERE slug = $1',
+        [prodCat.slug]
+      );
+      if (pCheck.rowCount === 0) {
+        await client.query(
+          `INSERT INTO menu_categories (name, slug, description, sort_order, is_active, is_deleted, type)
+           VALUES ($1, $2, $3, $4, true, false, 'product')`,
+          [prodCat.name, prodCat.slug, prodCat.description, prodCat.sort_order]
+        );
+        console.log(`Seeded product category: ${prodCat.name}`);
+      } else {
+        await client.query(
+          `UPDATE menu_categories
+           SET name = $1, description = $2, sort_order = $3, is_active = true, is_deleted = false, type = 'product'
+           WHERE id = $4`,
+          [prodCat.name, prodCat.description, prodCat.sort_order, pCheck.rows[0].id]
+        );
+      }
+    }
+
     // 4. Seed Menu Items (55 total) - Upsert logic to ensure latest prices & categories
     console.log('Synchronizing 55 menu items and prices...');
     let sortOrder = 1;
@@ -265,101 +309,11 @@ export const seedDatabase = async (): Promise<void> => {
     }
     console.log('Updated 8 signature beverage image URLs in database.');
 
-    // 5. Seed Retail Products (8 products)
+    // 5. Seed Retail Products (Only 3 official products as requested)
     const productsData = [
       {
-        name: 'Chocolate Tea',
-        slug: 'chocolate-tea',
-        category: 'Black Tea',
-        badge: 'New',
-        is_featured: false,
-        short_description: 'Velvety dark chocolate aroma blended with rich tea leaves.',
-        description: 'A decadent blend of toasted cocoa nibs, dark chocolate notes, and full-bodied tea for tea and chocolate lovers alike.',
-        price: 210.0,
-        original_price: 220.0,
-        pack_size: '250g Pouch',
-        ingredients: 'Assam Tea Leaves, Pure Cocoa Extract, Vanilla Pod Essence',
-        preparation_instructions: 'Best prepared with whole milk. Simmer gently and garnish with cocoa powder.',
-        image_url: '/images/products/img_3701.jpg',
-      },
-      {
-        name: 'Cinnamon Tea',
-        slug: 'cinnamon-tea',
-        category: 'Herbal Tea',
-        badge: 'New',
-        is_featured: false,
-        short_description: 'Naturally sweet and warming Ceylon cinnamon infusion.',
-        description: 'Ceylon cinnamon quills blended with rich black tea for a delicate, naturally sweet and woody spiced cup.',
-        price: 190.0,
-        original_price: 200.0,
-        pack_size: '250g Pouch',
-        ingredients: 'Assam Black Tea, Pure Ceylon Cinnamon Quills',
-        preparation_instructions: 'Boil for 3 minutes in water or milk. Enjoy black with honey or with fresh milk.',
-        image_url: '/images/products/img_3693.jpg',
-      },
-      {
-        name: 'Elaichi Tea',
-        slug: 'elaichi-tea',
-        category: 'Masala Tea',
-        badge: 'New',
-        is_featured: true,
-        short_description: 'Fragrant crushed green cardamom infused with rich Assam tea.',
-        description: 'Finest CTC tea leaves enriched with freshly crushed green cardamoms sourced directly from Idukki estates.',
-        price: 190.0,
-        original_price: 200.0,
-        pack_size: '250g Pouch',
-        ingredients: 'CTC Black Tea Leaves, Crushed Natural Green Cardamom Pods',
-        preparation_instructions: 'Add 1 teaspoon of Sharon Elaichi Tea to boiling milk and water mixture. Simmer for 3 minutes. Strain and enjoy.',
-        image_url: '/images/products/img_3686.jpg',
-      },
-      {
-        name: 'Ginger Elaichi Tea',
-        slug: 'ginger-elaichi-tea',
-        category: 'Masala Tea',
-        badge: 'New',
-        is_featured: false,
-        short_description: 'Spicy ginger bite meets royal green cardamom sweetness.',
-        description: 'The golden duo of crushed sun-dried ginger and fragrant cardamom paired with robust CTC tea.',
-        price: 240.0,
-        original_price: 250.0,
-        pack_size: '250g Pouch',
-        ingredients: 'Assam CTC Tea, Sun-Dried Ginger, Cardamom Pods',
-        preparation_instructions: 'Brew with boiling milk and water for 3 to 4 minutes.',
-        image_url: '/images/products/img_3689.jpg',
-      },
-      {
-        name: 'Ginger Mint Tea',
-        slug: 'ginger-mint-tea',
-        category: 'Green Tea',
-        badge: 'New',
-        is_featured: false,
-        short_description: 'Cooling garden mint paired with zesty ginger root.',
-        description: 'Revitalizing combination of dried spearmint leaves, sun-dried ginger flakes, and clean green tea.',
-        price: 230.0,
-        original_price: 240.0,
-        pack_size: '250g Pouch',
-        ingredients: 'Green Tea Leaves, Sun-Dried Ginger Flakes, Spearmint Leaves',
-        preparation_instructions: 'Steep in hot water for 3 minutes. Strain and serve refreshing hot or iced.',
-        image_url: '/images/products/img_3688.jpg',
-      },
-      {
-        name: 'Ginger Tea',
-        slug: 'ginger-tea',
-        category: 'Herbal Tea',
-        badge: 'New',
-        is_featured: false,
-        short_description: 'Bold sun-dried ginger warmth for an invigorating cup.',
-        description: 'High-grade dry ginger crushed with premium granular tea to clear the throat and warm the soul.',
-        price: 220.0,
-        original_price: 230.0,
-        pack_size: '250g Pouch',
-        ingredients: 'Assam CTC Tea, Crushed Dry Ginger Root',
-        preparation_instructions: 'Boil in equal parts milk and water for 4 minutes. Sweeten with jaggery or sugar.',
-        image_url: '/images/products/img_4746.jpg',
-      },
-      {
-        name: 'Masala Tea',
-        slug: 'masala-tea',
+        name: 'Masala Tea Pack',
+        slug: 'masala-tea-pack',
         category: 'Masala Tea',
         badge: 'Bestseller',
         is_featured: true,
@@ -370,12 +324,27 @@ export const seedDatabase = async (): Promise<void> => {
         pack_size: '250g Pouch',
         ingredients: 'Assam Black CTC Tea, Cardamom, Ginger, Cinnamon, Black Pepper, Cloves',
         preparation_instructions: 'Boil 1 cup of water and 1 cup of milk. Add 1.5 teaspoons of Sharon Masala Tea. Simmer for 3-4 minutes.',
-        image_url: '/images/products/img_3704.png',
+        image_url: '/images/products/masala-pouch.png',
       },
       {
-        name: 'Regular Classic Tea',
-        slug: 'regular-classic-tea',
-        category: 'Black Tea',
+        name: 'Elaichi Tea Pack',
+        slug: 'elaichi-tea-pack',
+        category: 'Elaichi Tea',
+        badge: 'Popular',
+        is_featured: true,
+        short_description: 'The perfect blend of premium tea and fragrant green cardamom.',
+        description: 'Finest CTC tea leaves enriched with freshly crushed green cardamoms sourced directly from Idukki estates.',
+        price: 190.0,
+        original_price: 200.0,
+        pack_size: '250g Pouch',
+        ingredients: 'CTC Black Tea Leaves, Crushed Natural Green Cardamom Pods',
+        preparation_instructions: 'Add 1 teaspoon of Sharon Elaichi Tea to boiling milk and water mixture. Simmer for 3 minutes. Strain and enjoy.',
+        image_url: '/images/products/elachi-pouch.png',
+      },
+      {
+        name: 'Regular Tea Pack',
+        slug: 'regular-tea-pack',
+        category: 'Regular Tea',
         badge: 'Classic',
         is_featured: true,
         short_description: 'Authentic daily Sharon tea blend with rich strength and golden color.',
@@ -389,11 +358,11 @@ export const seedDatabase = async (): Promise<void> => {
       },
     ];
 
-    // Remove obsolete legacy mock slugs if they exist
+    // Soft-delete any other legacy products
     await client.query(`
-      DELETE FROM products 
-      WHERE slug IN ('masala-tea-pack-250g', 'elaichi-tea-pack-250g', 'regular-tea-pack-250g')
-        AND id NOT IN (SELECT product_id FROM whatsapp_order_clicks WHERE product_id IS NOT NULL)
+      UPDATE products
+      SET is_deleted = true, is_available = false
+      WHERE slug NOT IN ('masala-tea-pack', 'elaichi-tea-pack', 'regular-tea-pack')
     `);
 
     for (const prod of productsData) {
@@ -435,7 +404,7 @@ export const seedDatabase = async (): Promise<void> => {
         ]
       );
     }
-    console.log('Successfully synchronized all 8 retail tea products.');
+    console.log('Successfully synchronized exactly 3 retail tea products.');
 
     // 6. Synchronize Outlets
     const outletsData = [

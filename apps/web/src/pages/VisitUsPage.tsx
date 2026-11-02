@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { SectionContainer } from '@/components/ui/SectionContainer';
 import { OutletList } from '@/components/visit/OutletList';
+import { ContactForm } from '@/components/contact/ContactForm';
 import { useOutlets } from '@/hooks/useOutlets';
 import { FALLBACK_OUTLETS } from '@/services/outletService';
 import { MapPin } from 'lucide-react';
@@ -42,6 +43,9 @@ export const VisitUsPage: React.FC = () => {
       <SectionContainer background="cream" className="py-16 md:py-24">
         <OutletList outlets={outlets} isLoading={isLoading} />
       </SectionContainer>
+
+      {/* Contact Form Section */}
+      <ContactForm />
     </>
   );
 };
