@@ -15,111 +15,65 @@ import { useDeliveryPartners } from '@/hooks/useDeliveryPartners';
 import { FALLBACK_DELIVERY_PARTNERS, resolvePartnerUrl } from '@/services/deliveryPartnerService';
 import { resolveImageUrl } from '@/utils/imageUrl';
 
-const SIGNATURE_TEA_NAMES = [
-  'sharon classic',
-  'masala tea',
-  'ginger tea',
-  'elaichi tea',
-  'pepper tea',
-  'cinnamon tea',
-  'tulsi tea',
-  'jaggery tea',
-];
+const CATEGORY_SORT_WEIGHT: Record<string, number> = {
+  'teas': 100,
+  'black-teas': 200,
+  'milk': 300,
+  'coffee': 400,
+  'cold-menu': 500,
+  'herbal-tea': 600,
+  'add-ons-customisations': 700,
+};
+
+const OFFICIAL_CATEGORY_ITEMS: Record<string, string[]> = {
+  'teas': [
+    'sharon classic', 'masala tea', 'ginger tea', 'elaichi tea', 'pepper tea',
+    'cinnamon tea', 'tulsi tea', 'jaggery tea', 'irani tea', 'cinnamon elaichi tea',
+    'ginger elaichi tea', 'tulsi elaichi tea', 'ginger pepper tea', 'ginger cinnamon tea',
+    'tulsi ginger tea', 'chocolate tea', 'saffron tea'
+  ],
+  'black-teas': [
+    'black tea', 'lemon tea', 'black ginger tea', 'black elaichi tea',
+    'pepper lemon tea', 'ginger lemon tea', 'honey lemon tea', 'honey ginger lemon tea'
+  ],
+  'milk': [
+    'milk', 'ginger milk', 'badam milk', 'horlicks', 'boost'
+  ],
+  'coffee': [
+    'black coffee', 'filter coffee', 'ginger coffee', 'pepper coffee',
+    'chukku coffee - milk', 'chukku coffee milk', 'chukku coffee - black', 'chukku coffee black'
+  ],
+  'cold-menu': [
+    'ice lemon', 'cold badam milk', 'badam milk', 'cold coffee', 'cold boost', 'rose milk'
+  ],
+  'herbal-tea': [
+    'green tea', 'tulsi herbal tea', 'tulsi tea', 'green lemon tea', 'green ginger tea',
+    'tulsi lemon tea', 'tulsi ginger herbal tea', 'tulsi ginger tea', 'gastric herbal tea', 'gastric tea',
+    'purple tea', 'hibiscus tea', 'butterfly pea tea'
+  ],
+  'add-ons-customisations': [
+    'honey', 'lemon', 'jaggery', 'any customisation'
+  ]
+};
 
 const getItemSortWeight = (item: MenuItem): number => {
-  const name = item.name.toLowerCase();
+  const catSlug = (
+    item.categorySlug ||
+    (item.categoryId === 'teas' || item.categoryId === 'hot-teas' ? 'teas' :
+     item.categoryId === 'black-teas' ? 'black-teas' :
+     item.categoryId === 'milk' ? 'milk' :
+     item.categoryId === 'coffee' || item.categoryId === 'coffees' ? 'coffee' :
+     item.categoryId === 'cold-menu' || item.categoryId === 'cold-beverages' ? 'cold-menu' :
+     item.categoryId === 'herbal-tea' || item.categoryId === 'herbal-special' ? 'herbal-tea' :
+     item.categoryId === 'add-ons-customisations' || item.categoryId === 'add-ons' ? 'add-ons-customisations' : '')
+  ).toLowerCase().trim();
 
-  // 1. Signature Spiced Teas (Sharon Classic, Masala, Ginger, Elaichi, Pepper, Cinnamon, Tulsi, Jaggery)
-  for (let i = 0; i < SIGNATURE_TEA_NAMES.length; i++) {
-    if (name.includes(SIGNATURE_TEA_NAMES[i])) {
-      return 10 + i;
-    }
-  }
+  const baseWeight = CATEGORY_SORT_WEIGHT[catSlug] ?? 800;
+  const name = item.name.toLowerCase().trim();
+  const orderList = OFFICIAL_CATEGORY_ITEMS[catSlug] || [];
+  const itemIndex = orderList.findIndex(n => name === n || name.startsWith(n));
 
-  // Teas
-  if (
-    item.categorySlug === 'teas' ||
-    item.categoryId === 'teas' ||
-    item.categoryId === 'hot-teas' ||
-    (item.category === 'Tea' && !name.includes('green') && !name.includes('herbal') && !name.includes('black'))
-  ) {
-    return 50;
-  }
-
-  // Black Teas
-  if (
-    item.categorySlug === 'black-teas' ||
-    item.categoryId === 'black-teas' ||
-    name.includes('black tea') ||
-    name.includes('lemon tea')
-  ) {
-    return 70;
-  }
-
-  // Milk
-  if (
-    item.categorySlug === 'milk' ||
-    item.categoryId === 'milk' ||
-    name.includes('horlicks') ||
-    name.includes('boost')
-  ) {
-    return 90;
-  }
-
-  // Filter Coffees
-  if (
-    item.categorySlug === 'coffee' ||
-    item.categoryId === 'coffee' ||
-    item.categoryId === 'coffees' ||
-    (item.category === 'Coffee' && !name.includes('cold')) ||
-    (name.includes('coffee') && !name.includes('cold'))
-  ) {
-    return 110;
-  }
-
-  // Cold Menu
-  if (
-    item.categorySlug === 'cold-menu' ||
-    item.categoryId === 'cold-menu' ||
-    item.categoryId === 'cold-beverages' ||
-    item.category === 'Cold Beverage' ||
-    name.includes('cold') ||
-    name.includes('rose milk') ||
-    name.includes('ice lemon') ||
-    name.includes('shake')
-  ) {
-    return 130;
-  }
-
-  // Herbal & Green Teas
-  if (
-    item.categorySlug === 'herbal-tea' ||
-    item.categoryId === 'herbal-tea' ||
-    item.categoryId === 'herbal-special' ||
-    item.category === 'Herbal Tea' ||
-    name.includes('green') ||
-    name.includes('herbal') ||
-    name.includes('gastric') ||
-    name.includes('purple') ||
-    name.includes('hibiscus') ||
-    name.includes('butterfly')
-  ) {
-    return 150;
-  }
-
-  // Add-ons & Customisations
-  if (
-    item.categorySlug === 'add-ons-customisations' ||
-    item.categoryId === 'add-ons-customisations' ||
-    name.includes('honey') ||
-    name.includes('lemon') ||
-    name.includes('jaggery') ||
-    name.includes('customisation')
-  ) {
-    return 170;
-  }
-
-  return 400;
+  return baseWeight + (itemIndex >= 0 ? itemIndex : 50);
 };
 
 export const MenuPage: React.FC = () => {
@@ -136,7 +90,13 @@ export const MenuPage: React.FC = () => {
   const deliveryPartners = partnersData && partnersData.length > 0 ? partnersData : FALLBACK_DELIVERY_PARTNERS;
 
   const menuCategories = useMemo(() => {
-    const list = categories && categories.length > 0 ? categories : FALLBACK_MENU_CATEGORIES;
+    const rawList = categories && categories.length > 0 ? categories : FALLBACK_MENU_CATEGORIES;
+    // Strictly filter out any retail product categories
+    const list = rawList.filter(
+      (c) =>
+        (!c.type || c.type === 'menu') &&
+        !['masala-tea', 'elaichi-tea', 'regular-tea'].includes(c.slug || c.id)
+    );
     const hasAll = list.some((c) => c.id === 'all');
     if (hasAll) return list;
     return [{ id: 'all', name: 'All Beverages', slug: 'all', displayOrder: 0, isActive: true }, ...list];
@@ -215,107 +175,36 @@ export const MenuPage: React.FC = () => {
     }
 
     return sortedAllItems.filter((i: MenuItem) => {
-      // Direct ID, slug, or name match (covers dynamic API categories seamlessly)
-      if (
-        i.categoryId === activeCategory ||
-        i.categorySlug === activeCategory ||
-        i.category === activeCategory ||
-        i.categoryName === activeCategory ||
-        (i.categorySlug && i.categorySlug.toLowerCase() === activeCategory.toLowerCase()) ||
-        (i.category && i.category.toLowerCase() === activeCategory.toLowerCase()) ||
-        (i.categoryName && i.categoryName.toLowerCase() === activeCategory.toLowerCase())
-      ) {
+      const active = activeCategory.toLowerCase().trim();
+      const normalizedActive =
+        active === 'hot-teas' ? 'teas' :
+        active === 'coffees' ? 'coffee' :
+        active === 'cold-beverages' ? 'cold-menu' :
+        active === 'herbal-special' ? 'herbal-tea' :
+        active === 'add-ons' ? 'add-ons-customisations' :
+        active;
+
+      // 1. Strict categorySlug match (covers all 55 canonical items with 100% precision)
+      const itemCatSlug = (i.categorySlug || '').toLowerCase().trim();
+      if (itemCatSlug) {
+        return itemCatSlug === normalizedActive;
+      }
+
+      // 2. Strict categoryId match
+      if (i.categoryId && i.categoryId.toLowerCase().trim() === normalizedActive) {
         return true;
       }
 
-      const name = i.name.toLowerCase();
-      if (activeCategory === 'teas' || activeCategory === 'hot-teas') {
-        return (
-          i.categoryId === 'teas' ||
-          i.categorySlug === 'teas' ||
-          i.categoryId === 'hot-teas' ||
-          i.category === 'Tea' ||
-          i.category === 'Teas' ||
-          i.categoryName === 'Teas' ||
-          (name.includes('tea') && !name.includes('green') && !name.includes('herbal') && !name.includes('black'))
-        );
-      }
-      if (activeCategory === 'black-teas') {
-        return (
-          i.categoryId === 'black-teas' ||
-          i.categorySlug === 'black-teas' ||
-          i.category === 'Black Teas' ||
-          i.categoryName === 'Black Teas' ||
-          name.includes('black tea') ||
-          name.includes('black ginger') ||
-          name.includes('black elaichi') ||
-          name.includes('lemon tea')
-        );
-      }
-      if (activeCategory === 'milk') {
-        return (
-          i.categoryId === 'milk' ||
-          i.categorySlug === 'milk' ||
-          i.category === 'Milk' ||
-          i.categoryName === 'Milk' ||
-          name === 'milk' ||
-          name.includes('ginger milk') ||
-          name.includes('badam milk') ||
-          name.includes('horlicks') ||
-          name.includes('boost')
-        );
-      }
-      if (activeCategory === 'coffee' || activeCategory === 'coffees') {
-        return (
-          i.categoryId === 'coffee' ||
-          i.categorySlug === 'coffee' ||
-          i.categoryId === 'coffees' ||
-          i.category === 'Coffee' ||
-          i.categoryName === 'Coffee' ||
-          (name.includes('coffee') && !name.includes('cold'))
-        );
-      }
-      if (activeCategory === 'cold-menu' || activeCategory === 'cold-beverages') {
-        return (
-          i.categoryId === 'cold-menu' ||
-          i.categorySlug === 'cold-menu' ||
-          i.categoryId === 'cold-beverages' ||
-          i.category === 'Cold Menu' ||
-          i.category === 'Cold Beverage' ||
-          i.categoryName === 'Cold Menu' ||
-          name.includes('cold') ||
-          name.includes('rose milk') ||
-          name.includes('ice lemon') ||
-          name.includes('shake')
-        );
-      }
-      if (activeCategory === 'herbal-tea' || activeCategory === 'herbal-special') {
-        return (
-          i.categoryId === 'herbal-tea' ||
-          i.categorySlug === 'herbal-tea' ||
-          i.categoryId === 'herbal-special' ||
-          i.category === 'Herbal Tea' ||
-          i.categoryName === 'Herbal Tea' ||
-          name.includes('green') ||
-          name.includes('herbal') ||
-          name.includes('gastric') ||
-          name.includes('purple') ||
-          name.includes('hibiscus') ||
-          name.includes('butterfly')
-        );
-      }
-      if (activeCategory === 'add-ons-customisations' || activeCategory === 'add-ons') {
-        return (
-          i.categoryId === 'add-ons-customisations' ||
-          i.categorySlug === 'add-ons-customisations' ||
-          i.category === 'Add-ons & Customisations' ||
-          i.categoryName === 'Add-ons & Customisations' ||
-          name.includes('honey') ||
-          name.includes('lemon') ||
-          name.includes('jaggery') ||
-          name.includes('customisation')
-        );
-      }
+      // 3. Fallback category name match
+      const catName = (i.categoryName || i.category || '').toLowerCase().trim();
+      if (normalizedActive === 'teas') return catName === 'teas' || catName === 'tea';
+      if (normalizedActive === 'black-teas') return catName === 'black teas' || catName === 'black tea';
+      if (normalizedActive === 'milk') return catName === 'milk';
+      if (normalizedActive === 'coffee') return catName === 'coffee' || catName === 'coffees';
+      if (normalizedActive === 'cold-menu') return catName === 'cold menu' || catName === 'cold beverage' || catName === 'cold beverages';
+      if (normalizedActive === 'herbal-tea') return catName === 'herbal tea' || catName === 'herbal teas';
+      if (normalizedActive === 'add-ons-customisations') return catName.includes('add-on') || catName.includes('customisation');
+
       return false;
     });
   }, [sortedAllItems, activeCategory, searchFilter]);

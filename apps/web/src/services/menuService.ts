@@ -790,9 +790,11 @@ export function normalizeMenuCategory(cat: any): MenuCategory {
 
 export async function getPublicMenuCategories(): Promise<MenuCategory[]> {
   try {
-    const response = await apiClient.get<ApiResponse<MenuCategory[]>>('/ProductCategory/GetPublicProductCategories');
+    const response = await apiClient.get<ApiResponse<MenuCategory[]>>('/ProductCategory/GetPublicProductCategories?type=menu');
     if (response.data?.data && Array.isArray(response.data.data) && response.data.data.length > 0) {
-      return response.data.data.map(normalizeMenuCategory);
+      return response.data.data
+        .filter((c: any) => (!c.type || c.type === 'menu') && !['masala-tea', 'elaichi-tea', 'regular-tea'].includes(c.slug))
+        .map(normalizeMenuCategory);
     }
   } catch {
     // API error: fall through to default

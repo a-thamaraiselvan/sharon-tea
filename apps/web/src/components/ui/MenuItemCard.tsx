@@ -67,6 +67,11 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
             )}
           </div>
 
+          {item.categoryName && (
+            <span className="text-[9px] font-semibold text-brand-rust uppercase tracking-wider block mb-0.5">
+              {item.categoryName}
+            </span>
+          )}
           <h3 className="font-serif text-xs sm:text-sm md:text-base font-bold text-brand-black group-hover:text-brand-green transition-colors leading-tight line-clamp-1">
             {itemName}
           </h3>
@@ -134,6 +139,13 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
       {/* Content */}
       <div className="flex-1 min-w-0 flex flex-col justify-between">
         <div>
+          {/* Category Pill Tag */}
+          {item.categoryName && (
+            <span className="inline-block text-[9px] sm:text-[10px] font-semibold text-brand-rust uppercase tracking-wider bg-brand-cream border border-brand-amber/30 px-2 py-0.5 rounded-full mb-1.5 self-start">
+              {item.categoryName}
+            </span>
+          )}
+
           {/* Title in bold font-serif */}
           <h3 className="font-serif text-sm sm:text-base font-bold text-brand-black group-hover:text-brand-green transition-colors leading-tight line-clamp-1 mb-1">
             {itemName}

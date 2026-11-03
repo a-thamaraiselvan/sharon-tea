@@ -33,7 +33,8 @@ export const formatAdminMenuCategory = (c: any) => ({
 export class MenuCategoryController {
   async getPublic(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const type = req.query.type as string | undefined;
+      // Default to 'menu' so retail product categories (Masala Tea Pack, etc.) are never mixed into beverage menu tabs
+      const type = (req.query.type as string | undefined) || 'menu';
       const categories = await menuCategoryService.getPublicCategories(type);
       const sanitized = categories.map(formatPublicMenuCategory);
       successResponse(res, sanitized, 'Categories retrieved');
